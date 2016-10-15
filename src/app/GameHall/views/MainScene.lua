@@ -44,31 +44,22 @@ end
 local function wrap2array( param )
 	param = clone(param)
 	local name = table.remove(param, 1)
-	if #param ==1 then
+	if #param ==0 then
 		param = {param}
 	end
 	return name, param
 end
 function MainScene:test( test, param )
-	if param==nil or not test then return end
+	if param==nil then return end
 	test = test or 'area'
-	local handler = {}
-	function handler.area(  )
+	local function handler( ... )
 		local name, array = wrap2array(param)
 		for i, item in ipairs(array) do
 			self:addItem(name, item)
 		end
-		self:showContent(test)
+		return self:showContent(test)
 	end
-	function handler.room(  )
-		local array = param
-		for i, item in ipairs(array) do
-			self:addItem(item[1], item)
-		end
-		self:showContent(test)
-	end
-	handler = handler[test]
-	return handler and handler()
+	return handler()
 end
 
 function MainScene:showContent( name )
@@ -120,18 +111,21 @@ function MainScene:addItem( name, param )
 		view:move(size.width/2, y)
 	end
 	view:addEventListener(self.BUTTON_CLICKED, function ( data )
-		self:onItemClicked(data.target)
+		self:onItemClicked(data.target, data.type)
 	end)
 end
 
-function MainScene:onItemClicked( view )
+function MainScene:onItemClicked( view , type)
 	local param = view:getData()
-	local enter = param.area==nil
-	local name = (enter and 'room') or 'area'
-	self:switchContent(name)
-	if enter then
-		self:test(name, param.rooms)
+	local handler = {}
+	function handler.room( ... )
 	end
+	function handler.area( ... )
+		self:switchContent('room')
+		self:test('room', param.rooms)
+	end
+	handler = handler[type]
+	return handler and handler()
 end
 
 function MainScene:switchContent( name )

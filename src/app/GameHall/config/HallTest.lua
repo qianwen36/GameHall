@@ -21,8 +21,11 @@ local config = {
 	},
 	},
 	rooms = {'RoomView',
-	{
-	}
+		type = 'deposit',
+		name = '测试',
+		condition = 100,
+		online = 15,
+		activity = ''
 	}
 }
 local function init( areas, rooms )
@@ -36,14 +39,24 @@ local function init( areas, rooms )
 			if type(rooms2)=='table' then
 				local t = area.rooms or {}
 				for i,v in ipairs(t) do
-					local room = rooms2[v] or {}
-					v = (next(room) and clone(room)) or room
-					v.area = area
-					table.insert(v, 1, cls)
-					t[i] = v
+					local room = rooms2[v]
+					if rooms2 == nil then
+						t[i] = rooms
+					elseif room~=nil then
+						if type(room)=='table'and next(room) then
+							v = clone(room)
+						else
+							v = {room}
+						end
+						v.area = area
+						t[i] = v
+					end
 				end
-			else
-				area.rooms = {rooms}
+				if rooms2==nil then break end
+				table.insert(t, 1, cls)
+
+			elseif area.rooms and next(area.rooms)~=nil then
+				area.rooms = rooms
 			end
 		end
 	end

@@ -14,6 +14,7 @@ end
 function target:onBtnClicked( )
 	self:dispatchEvent({
 		name = self.BUTTON_CLICKED,
+		type = 'room',
 		target = self })
 end
 
