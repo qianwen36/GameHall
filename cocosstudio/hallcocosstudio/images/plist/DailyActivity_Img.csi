@@ -1,0 +1,14 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="DailyActivity_Img" ID="9f32a508-cba6-435d-8a7e-55e336f83531" Version="2.3.0.1" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="0" AllowRotation="True" AllowAnySize="True" AllowTrim="True" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="hallcocosstudio/images/plist/DailyActivity_Img/Hall_Box_DailyItems.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/DailyActivity_Img/Hall_DailyIconBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/DailyActivity_Img/Hall_DailyIconCheckin.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/DailyActivity_Img/Hall_DailyIconRelief.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/DailyActivity_Img/Hall_DailyIconShare.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/DailyActivity_Img/Hall_TitleDailyActivity.png" />
+    </ImageFiles>
+    <MaxSize Width="1024" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>

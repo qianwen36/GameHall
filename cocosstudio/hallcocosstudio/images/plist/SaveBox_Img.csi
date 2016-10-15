@@ -1,0 +1,12 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="SaveBox_Img" ID="3c5805d7-ae7a-4f60-8eb7-d1c5888a84d3" Version="2.3.0.1" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="0" AllowRotation="False" AllowAnySize="True" AllowTrim="True" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="hallcocosstudio/images/plist/Savebox_Img/bxx_logo_pic.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Savebox_Img/bxx_pic.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Savebox_Img/bxx_wenzi_pic.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Savebox_Img/yx_wenzi_pic.png" />
+    </ImageFiles>
+    <MaxSize Width="260" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>

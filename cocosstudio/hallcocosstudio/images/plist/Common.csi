@@ -1,0 +1,32 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="Common" ID="b38c1f89-bbed-4ba5-a22d-020a3d8f9c9c" Version="2.3.0.1" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="1" AllowRotation="True" AllowAnySize="True" AllowTrim="True" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_ActivityInside.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_BGShade1.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_BGShade2.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_CommonBG1.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_CommonInside.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_EditBox.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_ShopVIPbg.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_UnitBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_CommonInside2.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_TextBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Btn_Back_L.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Btn_Back_N.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Btn_Close.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Dot.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_ItemBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_AnnouncementBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_EditBox2.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_IconAttention.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_IconUpdate.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_IconTitle.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_IconTitleAttention.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_PlayerInfoBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Box_UnitInfoBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Common/Hall_Btn_Back_F.png" />
+    </ImageFiles>
+    <MaxSize Width="1024" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>

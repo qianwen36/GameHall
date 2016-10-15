@@ -1,0 +1,14 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="Ani_CheckInDeposit" ID="a4259b40-9431-444e-afbf-40f55aae95b4" Version="2.3.0.1" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="0" AllowRotation="True" AllowAnySize="True" AllowTrim="True" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="HallCocosStudio/Images/plist/Animation/Ani_CheckInDeposit/Ani_CheckinBox1.png" />
+      <FilePathData Path="HallCocosStudio/Images/plist/Animation/Ani_CheckInDeposit/Ani_CheckinBox2.png" />
+      <FilePathData Path="HallCocosStudio/Images/plist/Animation/Ani_CheckInDeposit/Ani_CheckinBox3.png" />
+      <FilePathData Path="HallCocosStudio/Images/plist/Animation/Ani_CheckInDeposit/Ani_CheckinBox4.png" />
+      <FilePathData Path="HallCocosStudio/Images/plist/Animation/Ani_CheckInDeposit/Ani_CheckinLight.png" />
+      <FilePathData Path="HallCocosStudio/Images/plist/Animation/Ani_CheckInDeposit/Ani_CheckinStar.png" />
+    </ImageFiles>
+    <MaxSize Width="1024" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>

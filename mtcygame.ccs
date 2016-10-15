@@ -1,0 +1,466 @@
+<Solution>
+  <PropertyGroup Name="mtcygame" Version="2.3.0.1" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="hallcocosstudio">
+          <Folder Name="hallcommon">
+            <Project Name="toasttip.csd" Type="Node" />
+            <Project Name="loading.csd" Type="Layer" />
+          </Folder>
+          <Folder Name="checkin">
+            <Project Name="checkinnodebefore.csd" Type="Node" />
+            <Project Name="checkinnodefuture.csd" Type="Node" />
+            <Project Name="checkinnode.csd" Type="Node" />
+            <Project Name="checkinpanel.csd" Type="Layer" />
+            <Project Name="checkinnodetoday.csd" Type="Node" />
+            <Project Name="node_animation_score.csd" Type="Node" />
+          </Folder>
+          <Folder Name="startup">
+            <Project Name="logo.csd" Type="Scene" />
+          </Folder>
+          <Folder Name="dailyactivity">
+            <Project Name="daliyactivity.csd" Type="Layer" />
+          </Folder>
+          <Folder Name="help">
+            <Project Name="help.csd" Type="Scene" />
+            <Project Name="questmsg.csd" Type="Node" />
+            <Project Name="replymsg.csd" Type="Node" />
+          </Folder>
+          <Folder Name="mainpanel">
+            <Project Name="mainpanel.csd" Type="Scene" />
+            <Project Name="roomlist.csd" Type="Layer" />
+            <Project Name="roomnode1.csd" Type="Node" />
+            <Project Name="roomnode2.csd" Type="Node" />
+          </Folder>
+          <Folder Name="personalinfo">
+            <Project Name="personalinfo.csd" Type="Scene" />
+            <Project Name="node_itemunit.csd" Type="Node" />
+          </Folder>
+          <Folder Name="safebox">
+            <Project Name="safebox.csd" Type="Layer" />
+            <Project Name="safeboxpassword.csd" Type="Layer" />
+          </Folder>
+          <Folder Name="settings">
+            <Project Name="settings.csd" Type="Layer" />
+          </Folder>
+          <Folder Name="relief">
+            <Project Name="relief.csd" Type="Layer" />
+          </Folder>
+          <Folder Name="share">
+            <Project Name="share.csd" Type="Layer" />
+          </Folder>
+          <Folder Name="update">
+            <Project Name="updatedialog.csd" Type="Layer" />
+          </Folder>
+          <Folder Name="shop">
+            <Project Name="shop.csd" Type="Scene" />
+            <Project Name="node_items_vip.csd" Type="Node" />
+            <Project Name="node_items_pay.csd" Type="Node" />
+            <Project Name="node_firstcharge.csd" Type="Node" />
+            <Project Name="node_bluemen_detail.csd" Type="Node" />
+            <Project Name="node_shop_exchange.csd" Type="Node" />
+          </Folder>
+          <Folder Name="tips">
+            <Project Name="suredialog.csd" Type="Layer" />
+            <Project Name="exittip.csd" Type="Layer" />
+            <Project Name="choosedialog.csd" Type="Layer" />
+            <Project Name="kickedout.csd" Type="Layer" />
+          </Folder>
+          <Folder Name="images">
+            <Folder Name="plist">
+              <Folder Name="GameContents">
+                <Image Name="Hall_LogoMain.png" />
+                <Image Name="QRCode.png" />
+                <Image Name="Icon_Game.png" />
+              </Folder>
+              <PlistInfo Name="GameContents.csi" Type="Plist" />
+              <Folder Name="Common">
+                <Image Name="Hall_Box_EditBox2.png" />
+                <Image Name="Hall_Box_CommonInside2.png" />
+                <Image Name="Hall_Box_TextBG.png" />
+                <Image Name="Hall_Box_ActivityInside.png" />
+                <Image Name="Hall_Box_BGShade1.png" />
+                <Image Name="Hall_Box_BGShade2.png" />
+                <Image Name="Hall_Box_CommonBG1.png" />
+                <Image Name="Hall_Box_CommonInside.png" />
+                <Image Name="Hall_Box_EditBox.png" />
+                <Image Name="Hall_Box_ShopVIPbg.png" />
+                <Image Name="Hall_Box_UnitBG.png" />
+                <Image Name="Hall_Btn_Back_L.png" />
+                <Image Name="Hall_Btn_Back_N.png" />
+                <Image Name="Hall_Btn_Close.png" />
+                <Image Name="Hall_Dot.png" />
+                <Image Name="Hall_ItemBG.png" />
+                <Image Name="Hall_AnnouncementBG.png" />
+                <Image Name="Hall_IconUpdate.png" />
+                <Image Name="Hall_IconAttention.png" />
+                <Image Name="Hall_IconTitleAttention.png" />
+                <Image Name="Hall_IconTitle.png" />
+                <Image Name="Hall_Box_PlayerInfoBG.png" />
+                <Image Name="Hall_Box_UnitInfoBG.png" />
+                <Image Name="Hall_Btn_Back_F.png" />
+              </Folder>
+              <PlistInfo Name="Common.csi" Type="Plist" />
+              <Folder Name="Hallmain_Img">
+                <Image Name="Hall_BottomBarBG.png" />
+                <Image Name="Hall_RoleIconBG.png" />
+                <Image Name="Hall_Btn_BottomSaveBox.png" />
+                <Image Name="Hall_Btn_TopHelp.png" />
+                <Image Name="Room_Model.png" />
+                <Image Name="Room_MainBG.png" />
+                <Image Name="Room_NameBG.png" />
+                <Image Name="hall_Btn_QuickCharge.png" />
+                <Image Name="Tag_ActivityText.png" />
+                <Image Name="Hall_Btn_BottomActivity.png" />
+                <Image Name="Hall_Btn_QuickStart.png" />
+                <Image Name="Hall_TitleBG.png" />
+                <Image Name="Hall_Btn_TopCheckIn.png" />
+                <Image Name="Tag_HotBG.png" />
+                <Image Name="Tag_ActivityBG.png" />
+                <Image Name="Tag_HotText.png" />
+                <Image Name="Hall_Btn_BottomMission.png" />
+                <Image Name="Hall_Btn_BottomShop.png" />
+                <Image Name="Hall_Btn_TopSetting.png" />
+                <Image Name="Hall_IconSetting.png" />
+                <Image Name="Hall_IconNumPlayer.png" />
+                <Image Name="Hall_Btn_TopHome.png" />
+                <Image Name="Hall_DotVerify.png" />
+                <Image Name="Hall_Btn_FirstChargeText.png" />
+                <Image Name="Hall_Btn_FirstCharge.png" />
+                <Image Name="Hall_Btn_BottomRank.png" />
+                <Image Name="Hall_Btn_BottomLottory.png" />
+                <Image Name="Hall_Btn_BottomStoreBox.png" />
+                <Image Name="Hall_Btn_BottomCheckin.png" />
+                <Image Name="Hall_Btn_BottomRelief.png" />
+                <Image Name="Hall_Btn_BottomShare.png" />
+                <Image Name="Hall_RoleIconMask.png" />
+                <Image Name="RoleIcon_default.png" />
+                <Image Name="text_login_animation.png" />
+                <Image Name="Room_MainBG_L.png" />
+                <Image Name="Room_Model_L.png" />
+              </Folder>
+              <PlistInfo Name="Hallmain_Img.csi" Type="Plist" />
+              <Folder Name="Animation">
+                <Folder Name="Ani_BtnQuickLight">
+                  <Image Name="guang2_pic.png" />
+                  <Image Name="guang_pic.png" />
+                  <Image Name="shanguang_pic.png" />
+                </Folder>
+                <PlistInfo Name="Ani_BtnQuikckLight.csi" Type="Plist" />
+                <PlistInfo Name="Ani_CheckInDeposit.csi" Type="Plist" />
+                <Folder Name="Ani_CheckInDeposit">
+                  <Image Name="Ani_CheckinStar.png" />
+                  <Image Name="Ani_CheckinBox1.png" />
+                  <Image Name="Ani_CheckinBox2.png" />
+                  <Image Name="Ani_CheckinBox3.png" />
+                  <Image Name="Ani_CheckinBox4.png" />
+                  <Image Name="Ani_CheckinLight.png" />
+                </Folder>
+              </Folder>
+              <Folder Name="Help_Img">
+                <Image Name="Btn_Clear.png" />
+                <Image Name="Hall_Box_ChatPapo.png" />
+                <Image Name="Hall_Box_ChatPapoArrow_L.png" />
+                <Image Name="Hall_Box_ChatPapoArrow_R.png" />
+                <Image Name="Hall_Btn_Send.png" />
+              </Folder>
+              <PlistInfo Name="Help_Img.csi" Type="Plist" />
+              <Folder Name="PersonalInfo_Img">
+                <Image Name="PersonalInfo_Btn_Add.png" />
+                <Image Name="PersonalInfo_Btn_Binding.png" />
+                <Image Name="PersonalInfo_Btn_Password.png" />
+                <Image Name="PersonalInfo_Btn_Edit.png" />
+                <Image Name="PersonalInfo_MainBG.png" />
+                <Image Name="PersonalInfo_RoleIconBG.png" />
+                <Image Name="PersonalInfo_InfoBG.png" />
+                <Image Name="PersonalInfo_TouchCover.png" />
+                <Image Name="PersonalInfo_Btn_GoShop.png" />
+                <Image Name="PersonalInfo_TagVerify.png" />
+                <Image Name="PersonalInfo_AttentionBG.png" />
+                <Image Name="PersonalInfo_ChangePhotoBG.png" />
+                <Image Name="PersonalInfo_RoleIconMask.png" />
+              </Folder>
+              <Folder Name="Savebox_Img">
+                <Image Name="bxx_logo_pic.png" />
+                <Image Name="bxx_pic.png" />
+                <Image Name="bxx_wenzi_pic.png" />
+                <Image Name="yx_wenzi_pic.png" />
+              </Folder>
+              <PlistInfo Name="SaveBox_Img.csi" Type="Plist" />
+              <PlistInfo Name="PersonalInfo_Img.csi" Type="Plist" />
+              <Folder Name="Setting_Img">
+                <Image Name="Setting_Box_AccountSwitchBG.png" />
+                <Image Name="Setting_Btn_Sound1.png" />
+                <Image Name="Setting_Btn_Sound2.png" />
+                <Image Name="Setting_TitleIcon.png" />
+                <Image Name="Setting_BtnLine1.png.png" />
+                <Image Name="Setting_BtnLine2.png.png" />
+              </Folder>
+              <Folder Name="Shop_Img">
+                <Image Name="Shop_Btn_Exchange.png" />
+                <Image Name="Shop_Btn_Item1.png" />
+                <Image Name="Shop_Btn_Item1_L.png" />
+                <Image Name="Shop_Btn_Item1Gold.png" />
+                <Image Name="Shop_Btn_Item2.png" />
+                <Image Name="Shop_Btn_Item2_L.png" />
+                <Image Name="Shop_Btn_OneCard.png" />
+                <Image Name="Shop_ConnerFirstcharge.png" />
+                <Image Name="Shop_ConnerHot.png" />
+                <Image Name="Shop_ConnerWeigh.png" />
+                <Image Name="Shop_MarkGift.png" />
+                <Image Name="Shop_VIPInfoBG.png" />
+                <Image Name="Shop_VIPDetailBG.png" />
+                <Image Name="Shop_VIPTitle.png" />
+                <Image Name="Shop_IconMonth.png" />
+                <Image Name="Shop_IconSeason.png" />
+                <Image Name="Shop_IconWeek.png" />
+                <Image Name="Shop_IconYear.png" />
+                <Image Name="Shop_Arrow_Exchange.png" />
+                <Image Name="Shop_Line_Exchange.png" />
+                <Image Name="Shop_AttentionBG.png" />
+              </Folder>
+              <Folder Name="FirstCharge_Img">
+                <Image Name="FirstCharge_Btn_Reward.png" />
+                <Image Name="Firstcharge_Box_Inside.png" />
+                <Image Name="Firstcharge_ItemsBG1.png" />
+                <Image Name="Firstcharge_ItemsBG2.png" />
+                <Image Name="Firstcharge_ItemRewardBG1.png" />
+                <Image Name="Firstcharge_ItemRewardBG2.png" />
+                <Image Name="FirstCharge_Item1.png" />
+                <Image Name="FirstCharge_Item2.png" />
+                <Image Name="FirstCharge_IconAdd.png" />
+                <Image Name="FirstCharge_AttentionDot.png" />
+                <Image Name="FirstCharge_Tag.png" />
+                <Image Name="FirstCharge_Title.png" />
+                <Image Name="Firstcharge_BGLight.png" />
+              </Folder>
+              <PlistInfo Name="Shop_Img.csi" Type="Plist" />
+              <PlistInfo Name="Setting_Img.csi" Type="Plist" />
+              <PlistInfo Name="FirstCharge_Img.csi" Type="Plist" />
+              <Folder Name="CommonBtn">
+                <Image Name="Hall_CommonBtn_Aquamarine.png" />
+                <Image Name="Hall_CommonBtn_Blue.png" />
+                <Image Name="Hall_CommonBtn_Green.png" />
+                <Image Name="Hall_CommonBtn_Purple.png" />
+                <Image Name="Hall_CommonBtn_Red.png" />
+                <Image Name="Hall_CommonBtn_Aquamarine_S.png" />
+                <Image Name="Hall_CommonBtn_Blue_S.png" />
+                <Image Name="Hall_CommonBtn_Green_S.png" />
+                <Image Name="Hall_CommonBtn_Purple_S.png" />
+                <Image Name="Hall_CommonBtn_Red_S.png" />
+              </Folder>
+              <PlistInfo Name="CommonBtn.csi" Type="Plist" />
+              <Folder Name="DailyActivity_Img">
+                <Image Name="Hall_Box_DailyItems.png" />
+                <Image Name="Hall_DailyIconBG.png" />
+                <Image Name="Hall_DailyIconCheckin.png" />
+                <Image Name="Hall_DailyIconRelief.png" />
+                <Image Name="Hall_DailyIconShare.png" />
+                <Image Name="Hall_TitleDailyActivity.png" />
+              </Folder>
+              <PlistInfo Name="DailyActivity_Img.csi" Type="Plist" />
+              <Folder Name="CheckIn_Img">
+                <Image Name="CheckInAttention_2.png" />
+                <Image Name="CheckinDayBG_L.png" />
+                <Image Name="CheckinDayBG_N.png" />
+                <Image Name="CheckInUnitBG_F.png" />
+                <Image Name="CheckInUnitBG_L.png" />
+                <Image Name="CheckInUnitBG_N.png" />
+                <Image Name="CheckInUnitLight.png" />
+                <Image Name="Hall_IconCheckin.png" />
+              </Folder>
+              <Folder Name="CheckIn_IconScore">
+                <Image Name="CheckIn_Score1_F.png" />
+                <Image Name="CheckIn_Score1_L.png" />
+                <Image Name="CheckIn_Score2_F.png" />
+                <Image Name="CheckIn_Score2_L.png" />
+                <Image Name="CheckIn_Score3_F.png" />
+                <Image Name="CheckIn_Score3_L.png" />
+                <Image Name="CheckIn_Score4_F.png" />
+                <Image Name="CheckIn_Score4_L.png" />
+                <Image Name="CheckIn_Score5_F.png" />
+                <Image Name="CheckIn_Score5_L.png" />
+              </Folder>
+              <Folder Name="CheckIn_IconDeposit">
+                <Image Name="CheckIn_Deposit1_F.png" />
+                <Image Name="CheckIn_Deposit1_L.png" />
+                <Image Name="CheckIn_Deposit2_F.png" />
+                <Image Name="CheckIn_Deposit2_L.png" />
+                <Image Name="CheckIn_Deposit3_F.png" />
+                <Image Name="CheckIn_Deposit3_L.png" />
+                <Image Name="CheckIn_Deposit4_F.png" />
+                <Image Name="CheckIn_Deposit4_L.png" />
+                <Image Name="CheckIn_Deposit5_F.png" />
+                <Image Name="CheckIn_Deposit5_L.png" />
+              </Folder>
+              <PlistInfo Name="CheckIn_IconScore.csi" Type="Plist" />
+              <PlistInfo Name="CheckIn_IconDeposit.csi" Type="Plist" />
+              <PlistInfo Name="CheckIn_Img.csi" Type="Plist" />
+            </Folder>
+            <Folder Name="font">
+              <Image Name="Font_Num1.png" />
+              <Image Name="Font_Num2.png" />
+              <Image Name="Font_Num3.png" />
+              <Fnt Name="shop_price.fnt" />
+              <Fnt Name="shop_firstcharge.fnt" />
+              <Fnt Name="shop_price_white.fnt" />
+              <Fnt Name="shop_firstcharge_detail.fnt" />
+              <Fnt Name="personality_gamescore.fnt" />
+              <Fnt Name="charterroom_num.fnt" />
+            </Folder>
+            <Folder Name="png">
+              <Image Name="Hall_Loading.png" />
+              <Folder Name="Icon_Common">
+                <Image Name="Hall_IconScore.png" />
+                <Image Name="Hall_IconScore_S.png" />
+                <Image Name="Hall_IconDeposit.png" />
+                <Image Name="Hall_IconDeposit_S.png" />
+                <Image Name="Hall_IconTB.png" />
+                <Image Name="Hall_IconVIP_F.png" />
+                <Image Name="Hall_IconVIP_N.png" />
+                <Image Name="Hall_ItemVIP.png" />
+              </Folder>
+              <Image Name="Hall_Box_CommonBG2.png" />
+              <Image Name="Hall_TitleActivity.png" />
+              <Folder Name="CheckBox">
+                <Image Name="Hall_Check_Setting_L.png" />
+                <Image Name="Hall_Check_Setting_N.png" />
+                <Image Name="Hall_Check_Setting_Tick.png" />
+                <Image Name="Hall_Radio_Setting_N.png" />
+                <Image Name="Hall_Radio_Setting_L.png" />
+              </Folder>
+              <Folder Name="Slider_Progress">
+                <Image Name="Setting_SliderBG.png" />
+                <Image Name="Setting_SliderMain.png" />
+                <Image Name="Setting_SliderBtn.png" />
+                <Image Name="Setting_SliderBtn_F.png" />
+                <Image Name="Update_ProgressMain.png" />
+                <Image Name="Update_ProgressBG.png" />
+              </Folder>
+              <Image Name="FirstCharge_BG.png" />
+              <Image Name="Hall_LogoSlogan.png" />
+              <Folder Name="tab">
+                <Image Name="hall_tab_charge_L.png" />
+                <Image Name="hall_tab_charge_N.png" />
+                <Image Name="hall_tab_N.png" />
+                <Image Name="hall_tab_Vip_L.png" />
+                <Image Name="hall_tab_Vip_N.png" />
+                <Image Name="hall_tab_AboutUs_L.png" />
+                <Image Name="hall_tab_AboutUs_N.png" />
+                <Image Name="hall_tab_CommonQuestion_L.png" />
+                <Image Name="hall_tab_CommonQuestion_N.png" />
+                <Image Name="hall_tab_FAQ_L.png" />
+                <Image Name="hall_tab_FAQ_N.png" />
+                <Image Name="hall_tab_myitems_L.png" />
+                <Image Name="hall_tab_myitems_N.png" />
+                <Image Name="hall_tab_PersonalInfo_L.png" />
+                <Image Name="hall_tab_PersonalInfo_N.png" />
+                <Image Name="hall_tab_Rules_L.png" />
+                <Image Name="hall_tab_Rules_N.png" />
+                <Image Name="hall_tab_Score_L.png" />
+                <Image Name="hall_tab_Score_N.png" />
+                <Image Name="hall_tab_yinzi_L.png" />
+                <Image Name="hall_tab_yinzi_N.png" />
+                <Image Name="hall_tab_MoreGame_N.png" />
+                <Image Name="hall_tab_MoreGame_L -.png" />
+              </Folder>
+              <Image Name="Hall_UpdateBG.png" />
+              <Image Name="Hall_PopupBG.png" />
+              <Folder Name="charteredroom">
+                <Image Name="Friend_Btn_Change.png" />
+                <Image Name="Friend_Btn_ChangeText.png" />
+                <Image Name="Friend_Btn_Create.png" />
+                <Image Name="Friend_Btn_CreateText.png" />
+                <Image Name="Friend_RoomArrowdown.png" />
+                <Image Name="Friend_Btn_Detail.png" />
+                <Image Name="Friend_Btn_RoomBack.png" />
+                <Image Name="Friend_IconBG.png" />
+                <Image Name="Friend_IconFriend_L.png" />
+                <Image Name="Friend_IconFriend_S.png" />
+                <Image Name="Friend_IconMask.png" />
+                <Image Name="Friend_RoomInfoBG.png" />
+                <Image Name="Friend_RoomBGMask.png" />
+                <Image Name="Friend_RoomHostBG.png" />
+                <Image Name="FriendBox_Info.png" />
+                <Image Name="Friend_NoRoom.png" />
+                <Image Name="Friend_Title.png" />
+                <Image Name="Friend_RoomBG.png" />
+                <Image Name="Friend_TextLoadinAttention.png" />
+                <Image Name="Friend_Title2.png" />
+                <Image Name="Friend_Box_Tips.png" />
+                <Image Name="Friend_NoRoomAttention.png" />
+                <Image Name="Friend_Btn_RefreshText.png" />
+                <Image Name="Friend_Arrow.png" />
+                <Image Name="Friend_BoxInside.png" />
+                <Image Name="Friend_BoxInside2.png" />
+                <Image Name="Friend_BoxMain.png" />
+                <Image Name="Friend_Btn_Apply.png" />
+                <Image Name="Friend_Btn_Back.png" />
+                <Image Name="Friend_Btn_CheckDetai.png" />
+                <Image Name="Friend_HolderTitle.png" />
+                <Image Name="Friend_IconFriendIn.png" />
+                <Image Name="Friend_InfoBG.png" />
+                <Image Name="Friend_PlayerInfoBG.png" />
+                <Image Name="Friend_LoadingBG.png" />
+                <Image Name="Friend_TextReseting.png" />
+                <Image Name="Game_BtnAccept.png" />
+                <Image Name="Game_BtnDismiss.png" />
+                <Image Name="Game_CheckboxBG_1.png" />
+                <Image Name="Game_CheckboxTick_1.png" />
+                <Image Name="Game_TipsBG.png" />
+              </Folder>
+            </Folder>
+            <Folder Name="jpg">
+              <Image Name="Hall_CommonBG.jpg" />
+            </Folder>
+          </Folder>
+          <Folder Name="webactivity">
+            <Project Name="webactivity.csd" Type="Scene" />
+          </Folder>
+          <Folder Name="gamefriend">
+            <Project Name="node_arrow.csd" Type="Node" />
+            <Project Name="node_roomtips.csd" Type="Node" />
+            <Project Name="node_tip.csd" Type="Node" />
+            <Project Name="playerunit.csd" Type="Node" />
+            <Project Name="socialroom.csd" Type="Layer" />
+            <Project Name="socialroomunit.csd" Type="Node" />
+            <Project Name="node_reseting.csd" Type="Node" />
+          </Folder>
+        </Folder>
+        <Folder Name="hall">
+          <Folder Name="hallpic">
+            <Folder Name="missionicon">
+              <Image Name="icon_missiondefault.png" />
+            </Folder>
+            <Folder Name="activityicon">
+              <Image Name="icon_activitydefault.png" />
+            </Folder>
+            <Folder Name="shopicon">
+              <Image Name="icon_shopdepositdefault.png" />
+              <Image Name="icon_shopscoredefault.png" />
+            </Folder>
+            <Folder Name="roleicon">
+              <Image Name="roleicon_boy.png" />
+              <Image Name="roleicon_girl.png" />
+              <Image Name="help_roleicon_service.png" />
+              <Image Name="role_boybody.png" />
+              <Image Name="role_girlbody.png" />
+              <Image Name="help_roleicon_boy.png" />
+              <Image Name="help_roleicon_girl.png" />
+            </Folder>
+            <Folder Name="roompic">
+              <Image Name="Hall_RoomBG1.png" />
+              <Image Name="Hall_RoomBG2.png" />
+              <Image Name="Hall_RoomBG3.png" />
+              <Image Name="Hall_RoomName1.png" />
+              <Image Name="Hall_RoomName2.png" />
+              <Image Name="Hall_RoomName3.png" />
+              <Image Name="Hall_RoomName4.png" />
+            </Folder>
+          </Folder>
+        </Folder>
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>

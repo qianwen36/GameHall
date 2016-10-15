@@ -1,0 +1,13 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="Help_Img" ID="5fed9142-6eeb-47ed-82a0-1d867faba54f" Version="2.3.0.1" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="0" AllowRotation="True" AllowAnySize="True" AllowTrim="True" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="hallcocosstudio/images/plist/Help_Img/Btn_Clear.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Help_Img/Hall_Box_ChatPapo.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Help_Img/Hall_Box_ChatPapoArrow_L.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Help_Img/Hall_Box_ChatPapoArrow_R.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Help_Img/Hall_Btn_Send.png" />
+    </ImageFiles>
+    <MaxSize Width="1024" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>

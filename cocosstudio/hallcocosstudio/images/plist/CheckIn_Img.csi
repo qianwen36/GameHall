@@ -1,0 +1,16 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="CheckIn_Img" ID="c1c62ead-e254-4d5e-bb60-8d58809bdb72" Version="2.3.0.1" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="0" AllowRotation="True" AllowAnySize="True" AllowTrim="True" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="hallcocosstudio/images/plist/CheckIn_Img/CheckInAttention_2.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CheckIn_Img/CheckinDayBG_L.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CheckIn_Img/CheckinDayBG_N.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CheckIn_Img/CheckInUnitBG_F.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CheckIn_Img/CheckInUnitBG_L.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CheckIn_Img/CheckInUnitBG_N.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CheckIn_Img/CheckInUnitLight.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CheckIn_Img/Hall_IconCheckin.png" />
+    </ImageFiles>
+    <MaxSize Width="1024" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>

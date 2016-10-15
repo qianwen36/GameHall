@@ -1,0 +1,44 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="Hallmain_Img" ID="0e7738fe-2fcc-4b44-8fca-83689210633e" Version="2.3.0.1" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="5" AllowRotation="True" AllowAnySize="True" AllowTrim="True" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Room_MainBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Room_NameBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_BottomBarBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/hall_Btn_QuickCharge.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_QuickStart.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_TopCheckIn.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_TopHelp.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_TopHome.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_TopSetting.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_IconNumPlayer.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_IconSetting.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_RoleIconBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_TitleBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Room_Model.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Tag_ActivityBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Tag_ActivityText.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Tag_HotBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Tag_HotText.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_BottomActivity.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_BottomMission.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_BottomSaveBox.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_BottomShop.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_FirstCharge.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_FirstChargeText.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_DotVerify.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_BottomRank.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_BottomLottory.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_BottomCheckin.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_BottomRelief.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_BottomShare.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_Btn_BottomStoreBox.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Hall_RoleIconMask.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/RoleIcon_default.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/text_login_animation.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Room_MainBG_L.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Hallmain_Img/Room_Model_L.png" />
+    </ImageFiles>
+    <MaxSize Width="920" Height="1100" />
+  </Content>
+</PlistInfoProjectFile>

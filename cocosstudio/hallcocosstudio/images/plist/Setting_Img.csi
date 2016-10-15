@@ -1,0 +1,14 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="Setting_Img" ID="7766650b-56e2-45f0-b7c0-f5b55d943689" Version="2.3.0.1" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="1" AllowRotation="False" AllowAnySize="True" AllowTrim="True" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="hallcocosstudio/images/plist/Setting_Img/Setting_Box_AccountSwitchBG.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Setting_Img/Setting_Btn_Sound1.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Setting_Img/Setting_Btn_Sound2.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Setting_Img/Setting_TitleIcon.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Setting_Img/Setting_BtnLine1.png.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/Setting_Img/Setting_BtnLine2.png.png" />
+    </ImageFiles>
+    <MaxSize Width="250" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>

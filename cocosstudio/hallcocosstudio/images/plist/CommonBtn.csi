@@ -1,0 +1,18 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="CommonBtn" ID="2a2662c4-84d4-4a59-8dc3-06b6836ea1aa" Version="2.3.0.1" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="0" AllowRotation="False" AllowAnySize="True" AllowTrim="False" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="hallcocosstudio/images/plist/CommonBtn/Hall_CommonBtn_Aquamarine.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CommonBtn/Hall_CommonBtn_Aquamarine_S.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CommonBtn/Hall_CommonBtn_Blue.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CommonBtn/Hall_CommonBtn_Blue_S.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CommonBtn/Hall_CommonBtn_Green.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CommonBtn/Hall_CommonBtn_Green_S.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CommonBtn/Hall_CommonBtn_Purple.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CommonBtn/Hall_CommonBtn_Purple_S.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CommonBtn/Hall_CommonBtn_Red.png" />
+      <FilePathData Path="hallcocosstudio/images/plist/CommonBtn/Hall_CommonBtn_Red_S.png" />
+    </ImageFiles>
+    <MaxSize Width="1200" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>
