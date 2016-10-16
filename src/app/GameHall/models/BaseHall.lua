@@ -3,10 +3,9 @@ local mc = require('src.app.GameHall.comm.HallDef')
 local target = {}
 local Director = cc.Director:getInstance()
 local Scheduler = Director:getScheduler()
-local event = cc.load('event'):create()
-event:bind(target)
 
-target.on = target.addEventListener
+target.on = cc.bind(target,	'event').addEventListener
+
 target.TAG = 'Hall'
 target.handler = {
 	CONNECTION = 'CONNECTION',

@@ -6,7 +6,7 @@ function target:onCreate(param)
 	local name = param.name or 'test'
 	self:setName(name)
 
-	cc.load('event'):create():bind(self)
+	cc.bind(self, 'event')
 
 	local button = self:onClicked('Area_Button', self.onBtnClicked)
 	self:indexResource(button, {
