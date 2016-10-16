@@ -25,10 +25,10 @@ function target:onCreate(param)
 		yuxianglou = self:nodeFromPath('yuxianglou_nameimage', button),
 	}
 	self.wOnline = self.txOnline:getString()
-	self:setCondition(param.condition)
-	self:setOnline(param.online)
-	self:setBackground(param.background)
-	self:setTitle(param.title)
+	self:setCondition(param.conditio or '')
+	self:setOnline(param.online or '')
+	self:setBackground(param.background or 'gelou')
+	self:setTitle(param.title or 'baiyinggu')
 end
 
 function target:onBtnClicked( )

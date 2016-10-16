@@ -8,6 +8,9 @@ function target:build( MainScene )
 	    local param = self:getApp():getConfig('hall')
 	    self.param_ = param
 	    self:test('area', param.offline.areas)
+	    local model = self:getApp():model('BaseHall')
+	    model:on(model.handler.GET_AREAS, handler(target.onGetAreas, target))
+	    model:on(model.handler.GET_ROOMS, handler(target.onGetRooms, target))
 	end
 
 	function MainScene:getContentView( name, param )
@@ -38,28 +41,59 @@ function target:build( MainScene )
 		return name, param
 	end
 
+	function MainScene:layoutAreas(  )
+		local container = self.areasContainer
+		local c = container:getChildrenCount()
+		if c <= 4 then
+			local size = container:getContentSize()
+			local x = 0
+			local y = size.height/2
+			local d = size.width/(c+1)
+			for i=1, c do
+				x = x + d
+				container:getChildByTag(i):move(x, y)
+			end
+		end
+		return container
+	end
+	function MainScene:layoutRooms(  )
+		local container = self.roomsContainer
+		local c = container:getChildrenCount()
+		local size = container:getContentSize()
+		if c == 1 then
+			container:getChildByTag(1):move(size.width/2, size.height/2)
+		else
+			local x = size.width/4
+			local y = size.height/2
+			local item = container:getChildByTag(i)
+			for i=1, c do
+				if (i > 4) then
+					local p = {x=0,y=0}
+					if (i % 2 ~= 0) then
+						p.x = x + size.width/2
+					else
+						p.x = size.width/4
+					end
+					local d = math.floor(i/2)
+					p.y = y + d * (size.height/2)
+					item:move(x, y)
+					x, y = p.x, p.y
+				else
+					item:hide()		
+				end
+			end
+		end
+	end
 	function MainScene:showContent( name )
 		local handler = {}
 		local function alignChildren( container )
-			local c = container:getChildrenCount()
-			if c <= 4 then
-				local size = container:getContentSize()
-				local x = 0
-				local y = size.height/2
-				local d = size.width/(c+1)
-				for i=1, c do
-					x = x + d
-					container:getChildByTag(i):move(x, y)
-				end
-			end
-			return container
 		end
 		function handler.area()
-			alignChildren(self.areasContainer):show()
+			self:layoutAreas():show()
 			return self
 		end
 		function handler.room(  )
-			alignChildren(self.roomsContainer):show()
+			self:layoutRooms():show()
 			return self
 		end
 		handler = handler[name]
@@ -134,5 +168,68 @@ function target:goBack(...)
     self.target:switchContent('area')
 end
 
+local function body_resolve( body )
+		local res = {}
+		local data = body.result
+		local c = data[1]
+		local array = data[2]
+		for i=1, c do
+			res[i] = array[i-1]
+		end
+		return res
+end
+function target:body_resolve( name, body )
+	local handler = {}
+	function handler.failed( ... )
+		self.target:showToast(body.msg)
+	end
+	function handler.succeed( ... )
+		self[name] = body_resolve(body)
+	end
+	handler = handler[body.event]
+	return handler and handler()
+end
+function target:onGetAreas( event )
+	self:body_resolve('areas_', event.body)
+end
+function target:onGetRooms( event )
+	self:body_resolve('rooms_', event.body)
+end
+
+function target:getArea( index )
+	local array = self.areas_ or {}
+	return array[index]	
+end
+function target:getAreaById( id )
+	return self:resolveInfo(id, 'areas_', 'nAreaID')
+end
+
+function target:getRoom( index )
+	local array = self.rooms_ or {}
+	return array[index]	
+end
+function target:getRoomById( id )
+	return self:resolveInfo(id, 'rooms_', 'nRoomID')
+end
+
+function target:resolveInfo( value, name, field )
+	local array = self[name] or {}
+	for i,info in ipairs(array) do
+		if info[field] == value then
+			return info
+		end
+	end
+end
+
+function target:showContent( container )
+	local MainScene = self.target
+	MainScene:cleanContainer(container)
+	local array = self.areas_ or {}
+	for i,info in ipairs(array) do
+		local param = {}
+		MainScene:addItem('AreaView', param)
+		MainScene:showContent()
+	end
+end
 
 return target

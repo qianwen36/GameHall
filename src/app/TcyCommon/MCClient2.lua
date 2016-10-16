@@ -171,7 +171,7 @@ function target:build(client, tag, onConnection)
 		local timer = timeout and
 		Scheduler:scheduleScriptFunc(function ()
 			Scheduler:unscheduleScriptEntry(session[sessionid].timer)
-			onDataNotify(self, -1, mType.MSG_RESPONSE, sessionid, mc.UR_RESPONSE_TIMEOUT, "time out")
+			onDataNotify(self, -1, mType.MSG_RESPONSE, sessionid, mc.UR_RESPONSE_TIMEOUT)
 		end, timeout, false)
 		session[sessionid] = 
 		{

@@ -26,6 +26,14 @@ function MainScene:onCreate()
     self.btnHead  = btnHead
 
     self:getApp():model('RoomSpace'):build(self)
+    local model = self:getApp():model('BaseHall')
+    model:on(model.handler.HALL_READY, handler(self.onHallReady, self))
+end
+
+function MainScene:onHallReady( ... )
+    -- show content, and start login
+    self:getApp():model('RoomSpace'):showContent(self.areasContainer)
+    self:getApp():model('BaseHall'):login()
 end
 
 function MainScene:goBack( ... )
@@ -33,7 +41,7 @@ function MainScene:goBack( ... )
 end
 
 function MainScene:onQuickStart( ... )
-	self:showTost('MainScene:onQuickStart( ... ).TEST')
+	self:showToast('MainScene:onQuickStart( ... ).TEST')
 end
 
 function MainScene:onPlayerheadButton()

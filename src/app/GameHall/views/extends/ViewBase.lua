@@ -88,7 +88,7 @@ function ViewBase:onClicked(node, handler)
 	return node
 end
 
-function ViewBase:showTost( text, delay )
+function ViewBase:showToast( text, delay )
 	delay = delay or 1
 	local name = '__toastTip'
 	local scene = display.getRunningScene()
