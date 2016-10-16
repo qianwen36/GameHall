@@ -1,7 +1,6 @@
 local target = class("AreaView", cc.load("mvc").ViewBase)
 target.RESOURCE_FILENAME = "res/hallcocosstudio/Room/Area.csb"
 
-local Director = cc.Director:getInstance()
 
 function target:onCreate(param)
 	local name = param.name or 'test'

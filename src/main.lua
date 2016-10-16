@@ -1,5 +1,7 @@
+USING_MCRuntime = false
+
 cc.FileUtils:getInstance():setPopupNotify(false)
-if not USING_TCY then
+if not USING_MCRuntime then
 cc.FileUtils:getInstance():addSearchPath("src/")
 cc.FileUtils:getInstance():addSearchPath("res/")
 end

@@ -1,5 +1,4 @@
 local ViewBase = cc.load("mvc").ViewBase
-local Director = cc.Director:getInstance()
 
 ViewBase.handler = {
 BUTTON_CLICKED = 'clicked'
@@ -47,10 +46,9 @@ function ViewBase:indexResource(parent, map)
 end
 
 function ViewBase:initLayout( )
-	local size = Director:getVisibleSize()
 	local node = self:getResourceNode()
 	node:align(cc.p(0,0), 0,0)
-		:setContentSize(size)
+		:setContentSize(display.size)
     ccui.Helper:doLayout(node)
 end
 

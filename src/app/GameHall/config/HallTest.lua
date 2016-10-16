@@ -1,4 +1,10 @@
 local config = {
+	server = '192.168.1.222:31626',
+	target = 'AND',
+	version = '2.1.20130822',
+	gameid = 584,
+	agentGroup = 6,
+	
 	areas = {'AreaView',
 	{
 		condition = '100两以上',

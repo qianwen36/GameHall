@@ -19,7 +19,10 @@ function MyApp:onCreate()
 	end
 	self.plugins_ = plugins
 	self.models_ = {}
-	self:model('BaseHall'):start()
+	if USING_MCRuntime then
+		self:model('BaseHall')
+			:start(self:getConfig('hall').config)
+	end
 end
 
 function MyApp:getConfig( name )

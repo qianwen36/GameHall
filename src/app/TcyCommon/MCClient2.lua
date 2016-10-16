@@ -372,7 +372,13 @@ function utils_fill( ct, des )
 	for k,v in pairs(des) do
 		local ct2 = ct[k]
 		if ct2 ~= nil then
-			utils_assign(ct2, v)
+			local t = type(v)
+			if t == 'string'
+			or t == 'table' then
+				utils_assign(ct2, v)
+			else
+				ct[k] = v
+			end
 		else
 			print('utils_fill()#'..tostring(ct)..'.'..k..' key not exist')
 		end
@@ -381,7 +387,8 @@ function utils_fill( ct, des )
 end
 function utils.ct_generate( ctype, des )
 	local ct = ffi.new(ctype)
-	return ffi.string( utils_assign(ct, des), ffi.sizeof(ctype) )
+	local data = ffi.string( utils_assign(ct, des), ffi.sizeof(ctype) )
+	return data, ct
 end
 
 function utils.vls_generate( chead, ctype, des )

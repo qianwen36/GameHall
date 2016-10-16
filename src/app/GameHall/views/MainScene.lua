@@ -1,8 +1,6 @@
 local MainScene = class("MainScene", require('src.app.GameHall.views.extends.ViewBase'))
 MainScene.RESOURCE_FILENAME = "res/hallcocosstudio/mainpanel/mainpanel.csb"
 
-local Director = cc.Director:getInstance()
--------------------------------------------------------------
 
 function MainScene:onCreate()
 	self:initLayout()

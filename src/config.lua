@@ -29,14 +29,14 @@ CC_DESIGN_RESOLUTION = {
     end
 }
 
-USING_TCY = false
 
 Controller = {
-	viewsRoot = {'src.app.GameHall.views'},
+	viewsRoot = {'src.app.GameHall.views.extends', 'src.app.GameHall.views'},
 	modelsRoot = {'src.app.GameHall.models'},
 --	defaultSceneName = "LogoScene",
 	hall = {'src.app.GameHall.views.content',
 		offline = require('src.app.GameHall.config.HallTest'),
+		config = require('src.app.GameHall.config.HallTest')
 	},
 	plugins = {
 		root = 'src.app.GameHall.views.plugins',
