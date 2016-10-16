@@ -1,7 +1,8 @@
-
 cc.FileUtils:getInstance():setPopupNotify(false)
+if not USING_TCY then
 cc.FileUtils:getInstance():addSearchPath("src/")
 cc.FileUtils:getInstance():addSearchPath("res/")
+end
 
 require "config"
 require "cocos.init"

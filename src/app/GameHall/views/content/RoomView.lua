@@ -9,13 +9,71 @@ function target:onCreate(param)
 
 	cc.load('event'):create():bind(self)
 	local button = self:onClicked('Room_Button', self.onBtnClicked)
+    self:indexResource(button, {
+        txTitle = 'Text_Room_Name',
+        txOnline = 'Text_Online'
+    })
+    local btnDeposit = self:nodeFromPath('Text_Condition_Liang', button)
+    local btnScore = self:nodeFromPath('Text_Condition_Feng', button)
+    self.btnConditions = {
+    	deposit	= btnDeposit,
+    	score	= btnScore,
+    }
+	self.btnCorners = {
+		self:nodeFromPath('Image_1', button),
+		self:nodeFromPath('Image_1_1', button),
+	}
+    self.words = {
+    	online = self.txOnline:getString(),
+    	deposit	= btnDeposit:getString(),
+    	score	= btnScore:getString(),
+	}
+	self:setTitle(param.name)
+	self:setCondition(param.type, param.condition)
+	self:setOnline(param.online)
+	self:setCorner(param.activity)
 end
 
 function target:onBtnClicked( )
 	self:dispatchEvent({
-		name = self.BUTTON_CLICKED,
+		name = self.handler.BUTTON_CLICKED,
 		type = 'room',
 		target = self })
+end
+
+function target:setTitle( text )
+	self.txTitle:setString(text)
+end
+
+function target:setCorner( id )
+	local array = self.btnCorners
+	for i,button in ipairs(array) do
+		if i == id then
+			button:show()
+		else
+			button:hide()
+		end
+	end
+end
+
+function target:setOnline( text )
+	self.txOnline:setString(text..self.words.online)
+end
+
+function target:setCondition( type, condition )
+	local map = self.btnConditions
+	local button = map[type]
+	if button then
+		local text = condition..self.words[type]
+		button:setString(text)
+	end
+	for k,button in pairs(map) do
+		if k == type then
+			button:show()
+		else
+			button:hide()
+		end
+	end
 end
 
 return target

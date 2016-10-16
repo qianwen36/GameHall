@@ -1,5 +1,5 @@
-<GameFile>
-  <PropertyGroup Name="WebActivity" Type="Scene" ID="3ec0242a-10e4-45c1-8e92-a3ef2e31d1ab" Version="3.10.0.0" />
+<GameProjectFile>
+  <PropertyGroup Type="Scene" Name="WebActivity" ID="3ec0242a-10e4-45c1-8e92-a3ef2e31d1ab" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -26,10 +26,10 @@
             <PreSize X="1.0000" Y="0.9236" />
             <FileData Type="Normal" Path="HallCocosStudio/images/box3_bg_pic.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Panel_2" ActionTag="-1557977542" Tag="2662" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="TopEdge" TopMargin="1.0001" BottomMargin="618.9999" TouchEnable="True" StretchWidthEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="Panel_2" ActionTag="-1557977542" Tag="2662" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="TopEdge" TopMargin="1.0001" BottomMargin="618.9999" TouchEnable="True" StretchWidthEnable="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="100.0000" />
             <Children>
-              <AbstractNodeData Name="Button_1" ActionTag="-585852237" Tag="2663" IconVisible="False" HorizontalEdge="LeftEdge" LeftMargin="8.5001" RightMargin="1186.4999" TopMargin="8.0010" BottomMargin="7.9990" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="85" Scale9Height="84" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_1" ActionTag="-585852237" Tag="2663" IconVisible="False" HorizontalEdge="LeftEdge" LeftMargin="8.5001" RightMargin="1186.4999" TopMargin="8.0010" BottomMargin="7.9990" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="85" Scale9Height="84" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="85.0000" Y="84.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="51.0001" Y="49.9990" />
@@ -54,17 +54,17 @@
                 <PreSize X="0.0820" Y="0.5300" />
                 <FileData Type="Normal" Path="HallCocosStudio/images/huodong_logo_pic.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="ScrollView_1" ActionTag="-403967569" VisibleForFrame="False" Tag="2665" IconVisible="False" TopMargin="120.5076" BottomMargin="-620.5076" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" IsBounceEnabled="True" ScrollDirectionType="Vertical" ctype="ScrollViewObjectData">
+              <AbstractNodeData Name="ScrollView_1" ActionTag="-403967569" Tag="2665" VisibleForFrame="False" IconVisible="False" TopMargin="120.5076" BottomMargin="-620.5076" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" IsBounceEnabled="True" ScrollDirectionType="Vertical" ctype="ScrollViewObjectData">
                 <Size X="1280.0000" Y="600.0000" />
                 <Children>
-                  <AbstractNodeData Name="ProjectNode_1" ActionTag="-1583436065" Tag="2666" IconVisible="True" LeftMargin="58.0000" RightMargin="1222.0000" TopMargin="184.0000" BottomMargin="416.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
-                    <Size X="0.0000" Y="0.0000" />
+                  <AbstractNodeData Name="ProjectNode_1" ActionTag="-1583436065" Tag="2666" IconVisible="True" LeftMargin="58.0000" RightMargin="1222.0000" TopMargin="184.0000" BottomMargin="416.0000" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
+                    <Size />
                     <AnchorPoint />
                     <Position X="58.0000" Y="416.0000" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.0453" Y="0.6933" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <FileData Type="Normal" Path="HallCocosStudio/HallCommon/hdt.csd" Plist="" />
                   </AbstractNodeData>
                 </Children>
@@ -96,4 +96,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameFile>
+</GameProjectFile>

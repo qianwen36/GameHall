@@ -1,7 +1,9 @@
 local ViewBase = cc.load("mvc").ViewBase
 local Director = cc.Director:getInstance()
 
-ViewBase.BUTTON_CLICKED = 'clicked'
+ViewBase.handler = {
+BUTTON_CLICKED = 'clicked'
+}
 
 function ViewBase:ctor(app, name, param)
     self:enableNodeEvents()

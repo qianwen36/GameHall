@@ -1,10 +1,10 @@
-<GameFile>
-  <PropertyGroup Name="TaskNode" Type="Node" ID="81f59ad1-4884-479a-ad3d-49726b80f8f3" Version="3.10.0.0" />
+<GameProjectFile>
+  <PropertyGroup Type="Node" Name="TaskNode" ID="81f59ad1-4884-479a-ad3d-49726b80f8f3" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
       <ObjectData Name="Node" Tag="618" ctype="GameNodeObjectData">
-        <Size X="0.0000" Y="0.0000" />
+        <Size />
         <Children>
           <AbstractNodeData Name="Image_2" ActionTag="261227537" Tag="619" IconVisible="False" RightMargin="-1160.0000" TopMargin="-170.0000" Scale9Enable="True" LeftEage="80" RightEage="80" TopEage="80" BottomEage="80" Scale9OriginX="80" Scale9OriginY="80" Scale9Width="25" Scale9Height="5" ctype="ImageViewObjectData">
             <Size X="1160.0000" Y="170.0000" />
@@ -29,36 +29,36 @@
                 <PreSize X="0.0966" Y="0.5882" />
                 <FileData Type="Normal" Path="HallCocosStudio/images/rw_pic.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_1" ActionTag="-392634304" Tag="622" IconVisible="False" LeftMargin="225.9462" RightMargin="814.0538" TopMargin="50.4472" BottomMargin="89.5528" FontSize="30" LabelText="任务名称" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_1" ActionTag="-392634304" Tag="622" IconVisible="False" LeftMargin="225.9462" RightMargin="814.0538" TopMargin="50.4472" BottomMargin="89.5528" FontSize="30" LabelText="任务名称" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="120.0000" Y="30.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="285.9462" Y="104.5528" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.2465" Y="0.6150" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_1" ActionTag="-1592212793" Tag="623" IconVisible="False" LeftMargin="900.8868" RightMargin="50.1133" TopMargin="47.2360" BottomMargin="45.7640" TouchEnable="True" FontSize="28" ButtonText="查看详情" Scale9Enable="True" Scale9Width="142" Scale9Height="54" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_1" ActionTag="-1592212793" Tag="623" IconVisible="False" LeftMargin="900.8868" RightMargin="50.1133" TopMargin="47.2360" BottomMargin="45.7640" TouchEnable="True" FontSize="28" ButtonText="查看详情" Scale9Enable="True" Scale9Width="142" Scale9Height="54" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="209.0000" Y="77.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="1005.3868" Y="84.2640" />
                 <Scale ScaleX="0.9000" ScaleY="0.9000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.8667" Y="0.4957" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <TextColor A="255" R="255" G="255" B="255" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/lanse_btn.png" Plist="" />
                 <NormalFileData Type="Normal" Path="HallCocosStudio/images/lanse_btn.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_2" ActionTag="615551316" Tag="625" IconVisible="False" LeftMargin="227.9462" RightMargin="872.0538" TopMargin="106.8912" BottomMargin="39.1088" FontSize="24" LabelText="进度:" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_2" ActionTag="615551316" Tag="625" IconVisible="False" LeftMargin="227.9462" RightMargin="872.0538" TopMargin="106.8912" BottomMargin="39.1088" FontSize="24" LabelText="进度:" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="60.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="257.9462" Y="51.1088" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="249" B="179" />
                 <PrePosition X="0.2224" Y="0.3006" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
               </AbstractNodeData>
               <AbstractNodeData Name="Image_2_0" ActionTag="1087638184" Tag="627" IconVisible="False" LeftMargin="295.5303" RightMargin="608.4697" TopMargin="103.5354" BottomMargin="31.4646" Scale9Width="255" Scale9Height="35" ctype="ImageViewObjectData">
                 <Size X="256.0000" Y="35.0000" />
@@ -92,16 +92,16 @@
                 <PreSize X="0.2207" Y="0.2059" />
                 <FileData Type="Normal" Path="HallCocosStudio/images/jindu_bg_pic.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_2_0" ActionTag="1889941033" Tag="628" IconVisible="False" LeftMargin="561.9461" RightMargin="562.0539" TopMargin="107.8912" BottomMargin="38.1088" FontSize="24" LabelText="1/3" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_2_0" ActionTag="1889941033" Tag="628" IconVisible="False" LeftMargin="561.9461" RightMargin="562.0539" TopMargin="107.8912" BottomMargin="38.1088" FontSize="24" LabelText="1/3" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="36.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="579.9461" Y="50.1088" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5000" Y="0.2948" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_2_1" ActionTag="-12272133" Tag="651" IconVisible="False" LeftMargin="673.3722" RightMargin="294.6278" TopMargin="58.7805" BottomMargin="87.2195" FontSize="24" LabelText="奖励银子：1000两" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_2_1" ActionTag="-12272133" Tag="651" IconVisible="False" LeftMargin="673.3722" RightMargin="294.6278" TopMargin="58.7805" BottomMargin="87.2195" FontSize="24" LabelText="奖励银子：1000两" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="192.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="769.3722" Y="99.2195" />
@@ -117,7 +117,7 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5562" Y="0.5928" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <FileData Type="Normal" Path="HallCocosStudio/images/yinzi2_pic.png" Plist="" />
               </AbstractNodeData>
               <AbstractNodeData Name="Image_2_1" ActionTag="-2071856391" Tag="1132" IconVisible="False" LeftMargin="155.0000" RightMargin="983.0000" TopMargin="37.0000" BottomMargin="111.0000" Scale9Width="22" Scale9Height="22" ctype="ImageViewObjectData">
@@ -136,11 +136,11 @@
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/images/box12_pic.png" Plist="" />
           </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>
   </Content>
-</GameFile>
+</GameProjectFile>

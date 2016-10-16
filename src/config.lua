@@ -29,6 +29,7 @@ CC_DESIGN_RESOLUTION = {
     end
 }
 
+USING_TCY = false
 
 Controller = {
 	viewsRoot = {'src.app.GameHall.views'},

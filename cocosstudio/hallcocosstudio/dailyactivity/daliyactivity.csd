@@ -1,5 +1,5 @@
-<GameFile>
-  <PropertyGroup Name="DaliyActivity" Type="Layer" ID="8b851792-e607-4e91-8861-a053a3d348db" Version="3.10.0.0" />
+<GameProjectFile>
+  <PropertyGroup Type="Layer" Name="DaliyActivity" ID="8b851792-e607-4e91-8861-a053a3d348db" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -32,7 +32,7 @@
                     <PreSize X="0.1404" Y="0.8839" />
                     <FileData Type="Normal" Path="HallCocosStudio/images/qd_mrhd_pic.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_1" ActionTag="-399582649" Tag="106" IconVisible="False" LeftMargin="119.9985" RightMargin="212.0015" TopMargin="61.3494" BottomMargin="30.6506" FontSize="20" LabelText="打完一局游戏即可领取签到奖励！" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_1" ActionTag="-399582649" Tag="106" IconVisible="False" LeftMargin="119.9985" RightMargin="212.0015" TopMargin="61.3494" BottomMargin="30.6506" FontSize="20" LabelText="打完一局游戏即可领取签到奖励！" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="300.0000" Y="20.0000" />
                     <AnchorPoint ScaleY="0.5000" />
                     <Position X="119.9985" Y="40.6506" />
@@ -41,16 +41,16 @@
                     <PrePosition X="0.1685" Y="0.3630" />
                     <PreSize X="0.5337" Y="0.1786" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_1_0" ActionTag="-1829738246" Tag="133" IconVisible="False" LeftMargin="119.9985" RightMargin="480.0015" TopMargin="24.3494" BottomMargin="59.6506" FontSize="28" LabelText="每日签到" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_1_0" ActionTag="-1829738246" Tag="133" IconVisible="False" LeftMargin="119.9985" RightMargin="480.0015" TopMargin="24.3494" BottomMargin="59.6506" FontSize="28" LabelText="每日签到" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="112.0000" Y="28.0000" />
                     <AnchorPoint ScaleY="0.4773" />
                     <Position X="119.9985" Y="73.0157" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.1685" Y="0.6519" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Button_3_0" ActionTag="-228211849" VisibleForFrame="False" Tag="135" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" FontSize="24" ButtonText="开始游戏" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="Button_3_0" ActionTag="-228211849" Tag="135" VisibleForFrame="False" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" FontSize="24" ButtonText="开始游戏" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                     <Size X="146.0000" Y="62.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="613.2034" Y="53.8780" />
@@ -63,7 +63,7 @@
                     <PressedFileData Type="Normal" Path="HallCocosStudio/images/ksyx_btn.png" Plist="" />
                     <NormalFileData Type="Normal" Path="HallCocosStudio/images/ksyx_btn.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Button_3" ActionTag="1158432454" Tag="134" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" TouchEnable="True" FontSize="24" ButtonText="点击签到" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="Button_3" ActionTag="1158432454" Tag="134" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" TouchEnable="True" FontSize="24" ButtonText="点击签到" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                     <Size X="146.0000" Y="62.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="613.2034" Y="53.8780" />
@@ -108,7 +108,7 @@
                     <PreSize X="0.1404" Y="0.8839" />
                     <FileData Type="Normal" Path="HallCocosStudio/images/db_mrhd_pic.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_13" ActionTag="1828695659" Tag="146" IconVisible="False" LeftMargin="119.9985" RightMargin="212.0015" TopMargin="61.3494" BottomMargin="30.6506" FontSize="20" LabelText="您破产时给你雪中送碳！" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_13" ActionTag="1828695659" Tag="146" IconVisible="False" LeftMargin="119.9985" RightMargin="212.0015" TopMargin="61.3494" BottomMargin="30.6506" FontSize="20" LabelText="您破产时给你雪中送碳！" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="220.0000" Y="20.0000" />
                     <AnchorPoint ScaleY="0.5000" />
                     <Position X="119.9985" Y="40.6506" />
@@ -117,16 +117,16 @@
                     <PrePosition X="0.1685" Y="0.3630" />
                     <PreSize X="0.5337" Y="0.1786" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_14" ActionTag="1153790194" Tag="147" IconVisible="False" LeftMargin="119.9985" RightMargin="480.0015" TopMargin="24.3494" BottomMargin="59.6506" FontSize="28" LabelText="低保救济" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_14" ActionTag="1153790194" Tag="147" IconVisible="False" LeftMargin="119.9985" RightMargin="480.0015" TopMargin="24.3494" BottomMargin="59.6506" FontSize="28" LabelText="低保救济" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="112.0000" Y="28.0000" />
                     <AnchorPoint ScaleY="0.5000" />
                     <Position X="119.9985" Y="73.6506" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.1685" Y="0.6576" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Button_6" ActionTag="-1985182405" VisibleForFrame="False" Tag="148" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" FontSize="24" ButtonText="开始游戏" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="Button_6" ActionTag="-1985182405" Tag="148" VisibleForFrame="False" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" FontSize="24" ButtonText="开始游戏" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                     <Size X="146.0000" Y="62.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="613.2034" Y="53.8780" />
@@ -139,7 +139,7 @@
                     <PressedFileData Type="Normal" Path="HallCocosStudio/images/box16_pic.png" Plist="" />
                     <NormalFileData Type="Normal" Path="HallCocosStudio/images/ksyx_btn.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Button_7" ActionTag="1598994759" Tag="149" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" TouchEnable="True" FontSize="24" ButtonText="点击领取" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="Button_7" ActionTag="1598994759" Tag="149" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" TouchEnable="True" FontSize="24" ButtonText="点击领取" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                     <Size X="146.0000" Y="62.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="613.2034" Y="53.8780" />
@@ -184,25 +184,25 @@
                     <PreSize X="0.1404" Y="0.8839" />
                     <FileData Type="Normal" Path="HallCocosStudio/images/hyfx_mrhd_pic.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_15" ActionTag="54541446" Tag="153" IconVisible="False" LeftMargin="119.9985" RightMargin="212.0015" TopMargin="61.3494" BottomMargin="30.6506" FontSize="20" LabelText="与好友们一起分享游戏快乐！" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_15" ActionTag="54541446" Tag="153" IconVisible="False" LeftMargin="119.9985" RightMargin="212.0015" TopMargin="61.3494" BottomMargin="30.6506" FontSize="20" LabelText="与好友们一起分享游戏快乐！" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="260.0000" Y="20.0000" />
                     <AnchorPoint ScaleY="0.5000" />
                     <Position X="119.9985" Y="40.6506" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="249" B="179" />
                     <PrePosition X="0.1685" Y="0.3630" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_16" ActionTag="1148841836" Tag="154" IconVisible="False" LeftMargin="119.9985" RightMargin="480.0015" TopMargin="24.3494" BottomMargin="59.6506" FontSize="28" LabelText="好友分享" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_16" ActionTag="1148841836" Tag="154" IconVisible="False" LeftMargin="119.9985" RightMargin="480.0015" TopMargin="24.3494" BottomMargin="59.6506" FontSize="28" LabelText="好友分享" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="112.0000" Y="28.0000" />
                     <AnchorPoint ScaleY="0.5000" />
                     <Position X="119.9985" Y="73.6506" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.1685" Y="0.6576" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Button_8" ActionTag="1519185077" Tag="155" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" TouchEnable="True" FontSize="24" ButtonText="开始游戏" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="Button_8" ActionTag="1519185077" Tag="155" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" TouchEnable="True" FontSize="24" ButtonText="开始游戏" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                     <Size X="146.0000" Y="62.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="613.2034" Y="53.8780" />
@@ -215,7 +215,7 @@
                     <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
                     <NormalFileData Type="Normal" Path="HallCocosStudio/images/ksyx_btn.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Button_9" ActionTag="1205682953" Tag="156" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" TouchEnable="True" FontSize="24" ButtonText="点击分享" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="Button_9" ActionTag="1205682953" Tag="156" IconVisible="False" LeftMargin="540.2034" RightMargin="25.7966" TopMargin="27.1220" BottomMargin="22.8780" TouchEnable="True" FontSize="24" ButtonText="点击分享" Scale9Enable="True" Scale9Width="146" Scale9Height="62" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                     <Size X="146.0000" Y="62.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="613.2034" Y="53.8780" />
@@ -247,7 +247,7 @@
                 <PreSize X="0.5605" Y="0.2245" />
                 <FileData Type="Normal" Path="HallCocosStudio/images/mrhd_logo_pic.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_2" ActionTag="1128714604" Tag="124" IconVisible="False" LeftMargin="689.8323" RightMargin="-8.8323" TopMargin="-5.6594" BottomMargin="459.6594" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="79" Scale9Height="76" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_2" ActionTag="1128714604" Tag="124" IconVisible="False" LeftMargin="689.8323" RightMargin="-8.8323" TopMargin="-5.6594" BottomMargin="459.6594" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="79" Scale9Height="76" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="79.0000" Y="76.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="729.3323" Y="497.6594" />
@@ -273,4 +273,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameFile>
+</GameProjectFile>

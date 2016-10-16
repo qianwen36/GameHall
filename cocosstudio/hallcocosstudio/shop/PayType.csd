@@ -1,5 +1,5 @@
-<GameFile>
-  <PropertyGroup Name="PayType" Type="Layer" ID="bd04f260-9be1-4bdc-a84b-90e9abdd8ea5" Version="3.10.0.0" />
+<GameProjectFile>
+  <PropertyGroup Type="Layer" Name="PayType" ID="bd04f260-9be1-4bdc-a84b-90e9abdd8ea5" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -9,7 +9,7 @@
           <AbstractNodeData Name="Image_1" ActionTag="1605030" Tag="61" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="248.9760" RightMargin="251.0240" TopMargin="189.6000" BottomMargin="200.4000" Scale9Enable="True" LeftEage="90" RightEage="90" TopEage="80" BottomEage="60" Scale9OriginX="90" Scale9OriginY="80" Scale9Width="68" Scale9Height="108" ctype="ImageViewObjectData">
             <Size X="780.0000" Y="330.0000" />
             <Children>
-              <AbstractNodeData Name="Button_1" ActionTag="726945379" Tag="62" IconVisible="False" LeftMargin="707.8326" RightMargin="-6.8326" TopMargin="-3.9924" BottomMargin="257.9924" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="79" Scale9Height="76" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_1" ActionTag="726945379" Tag="62" IconVisible="False" LeftMargin="707.8326" RightMargin="-6.8326" TopMargin="-3.9924" BottomMargin="257.9924" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="79" Scale9Height="76" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="79.0000" Y="76.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="747.3326" Y="295.9924" />
@@ -22,14 +22,14 @@
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/gb_btn.png" Plist="" />
                 <NormalFileData Type="Normal" Path="HallCocosStudio/images/gb_btn.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_1" ActionTag="-246363247" Tag="63" IconVisible="False" LeftMargin="334.2592" RightMargin="249.7407" TopMargin="27.5010" BottomMargin="274.4990" FontSize="28" LabelText="请选择支付方式" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_1" ActionTag="-246363247" Tag="63" IconVisible="False" LeftMargin="334.2592" RightMargin="249.7407" TopMargin="27.5010" BottomMargin="274.4990" FontSize="28" LabelText="请选择支付方式" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="196.0000" Y="28.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="432.2592" Y="288.4990" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5542" Y="0.8742" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
               </AbstractNodeData>
               <AbstractNodeData Name="Image_1" ActionTag="841449615" Tag="64" IconVisible="False" LeftMargin="252.8300" RightMargin="453.1700" TopMargin="4.5007" BottomMargin="251.4993" Scale9Width="74" Scale9Height="74" ctype="ImageViewObjectData">
                 <Size X="74.0000" Y="74.0000" />
@@ -101,7 +101,7 @@
                 <PreSize X="0.1205" Y="0.1000" />
                 <FileData Type="Normal" Path="HallCocosStudio/images/dx_zhifu_pic.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_5" ActionTag="1830725772" Tag="90" IconVisible="False" LeftMargin="69.0877" RightMargin="565.9122" TopMargin="131.4777" BottomMargin="53.5223" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="145" Scale9Height="145" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_5" ActionTag="1830725772" Tag="90" IconVisible="False" LeftMargin="69.0877" RightMargin="565.9122" TopMargin="131.4777" BottomMargin="53.5223" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="145" Scale9Height="145" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="145.0000" Y="145.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="141.5877" Y="126.0223" />
@@ -114,7 +114,7 @@
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/zfb_btn.png" Plist="" />
                 <NormalFileData Type="Normal" Path="HallCocosStudio/images/zfb_btn.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_5_0" ActionTag="585436737" Tag="91" IconVisible="False" LeftMargin="319.0877" RightMargin="315.9123" TopMargin="131.4777" BottomMargin="53.5223" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="145" Scale9Height="145" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_5_0" ActionTag="585436737" Tag="91" IconVisible="False" LeftMargin="319.0877" RightMargin="315.9123" TopMargin="131.4777" BottomMargin="53.5223" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="145" Scale9Height="145" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="145.0000" Y="145.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="391.5877" Y="126.0223" />
@@ -127,7 +127,7 @@
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/ll_btn.png" Plist="" />
                 <NormalFileData Type="Normal" Path="HallCocosStudio/images/ll_btn.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_5_0_0" ActionTag="489631176" Tag="92" IconVisible="False" LeftMargin="569.0876" RightMargin="65.9124" TopMargin="131.4777" BottomMargin="53.5223" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="145" Scale9Height="145" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_5_0_0" ActionTag="489631176" Tag="92" IconVisible="False" LeftMargin="569.0876" RightMargin="65.9124" TopMargin="131.4777" BottomMargin="53.5223" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="145" Scale9Height="145" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="145.0000" Y="145.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="641.5876" Y="126.0223" />
@@ -153,4 +153,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameFile>
+</GameProjectFile>

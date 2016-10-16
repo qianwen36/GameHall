@@ -25,7 +25,7 @@ local config = {
 		name = '测试',
 		condition = 100,
 		online = 15,
-		activity = ''
+		activity = nil
 	}
 }
 local function init( areas, rooms )

@@ -1,5 +1,5 @@
-<GameFile>
-  <PropertyGroup Name="lqdh" Type="Node" ID="13ffec5f-6a74-40da-83c1-fac6e127b6b1" Version="3.10.0.0" />
+<GameProjectFile>
+  <PropertyGroup Type="Node" Name="lqdh" ID="13ffec5f-6a74-40da-83c1-fac6e127b6b1" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="82" Speed="1.0000" ActivedAnimationName="yinzi">
@@ -255,36 +255,36 @@
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" Tag="62" ctype="GameNodeObjectData">
-        <Size X="0.0000" Y="0.0000" />
+        <Size />
         <Children>
-          <AbstractNodeData Name="Image_7_0" ActionTag="-833297147" Alpha="170" Tag="33" RotationSkewX="-3.3333" RotationSkewY="-3.3333" IconVisible="False" LeftMargin="-250.0000" RightMargin="-250.0000" TopMargin="-250.0001" BottomMargin="-249.9999" Scale9Width="500" Scale9Height="500" Rotation="-3.3333" ctype="ImageViewObjectData">
+          <AbstractNodeData Name="Image_7_0" ActionTag="-833297147" Tag="33" Rotation="-3.3333" RotationSkewX="-3.3333" RotationSkewY="-3.3333" Alpha="170" IconVisible="False" LeftMargin="-250.0000" RightMargin="-250.0000" TopMargin="-250.0001" BottomMargin="-249.9999" Scale9Width="500" Scale9Height="500" ctype="ImageViewObjectData">
             <Size X="500.0000" Y="500.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position Y="0.0001" />
             <Scale ScaleX="0.8670" ScaleY="0.8670" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/images/guangshu.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Image_7" ActionTag="-205684654" Alpha="170" Tag="69" IconVisible="False" LeftMargin="-250.0000" RightMargin="-250.0000" TopMargin="-250.0001" BottomMargin="-249.9999" Scale9Width="500" Scale9Height="500" ctype="ImageViewObjectData">
+          <AbstractNodeData Name="Image_7" ActionTag="-205684654" Tag="69" Alpha="170" IconVisible="False" LeftMargin="-250.0000" RightMargin="-250.0000" TopMargin="-250.0001" BottomMargin="-249.9999" Scale9Width="500" Scale9Height="500" ctype="ImageViewObjectData">
             <Size X="500.0000" Y="500.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position Y="0.0001" />
             <Scale ScaleX="0.8670" ScaleY="0.8670" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/images/guangshu.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Image_1_0_0_0_0" ActionTag="2057826601" Tag="68" RotationSkewX="-8.7794" RotationSkewY="-8.7462" IconVisible="False" LeftMargin="5.0000" RightMargin="-205.0000" TopMargin="-97.5000" BottomMargin="-41.5000" Scale9Width="200" Scale9Height="139" Rotation="-8.7794" ctype="ImageViewObjectData">
+          <AbstractNodeData Name="Image_1_0_0_0_0" ActionTag="2057826601" Tag="68" Rotation="-8.7794" RotationSkewX="-8.7794" RotationSkewY="-8.7462" IconVisible="False" LeftMargin="5.0000" RightMargin="-205.0000" TopMargin="-97.5000" BottomMargin="-41.5000" Scale9Width="200" Scale9Height="139" ctype="ImageViewObjectData">
             <Size X="200.0000" Y="139.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="105.0000" Y="28.0000" />
             <Scale ScaleX="0.0010" ScaleY="0.0010" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/images/yinzi3_pic.png" Plist="" />
           </AbstractNodeData>
           <AbstractNodeData Name="Image_1_0_0_0" ActionTag="913296468" Tag="67" IconVisible="False" LeftMargin="-144.0000" RightMargin="-56.0000" TopMargin="-97.5000" BottomMargin="-41.5000" Scale9Width="200" Scale9Height="139" ctype="ImageViewObjectData">
@@ -294,37 +294,37 @@
             <Scale ScaleX="0.0010" ScaleY="0.0010" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/images/yinzi3_pic.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Image_1" ActionTag="-68875376" Tag="63" RotationSkewX="-11.9178" RotationSkewY="-11.9150" IconVisible="False" LeftMargin="-86.6590" RightMargin="-113.3410" TopMargin="-87.7059" BottomMargin="-51.2941" Scale9Width="200" Scale9Height="139" Rotation="-11.9178" ctype="ImageViewObjectData">
+          <AbstractNodeData Name="Image_1" ActionTag="-68875376" Tag="63" Rotation="-11.9178" RotationSkewX="-11.9178" RotationSkewY="-11.9150" IconVisible="False" LeftMargin="-86.6590" RightMargin="-113.3410" TopMargin="-87.7059" BottomMargin="-51.2941" Scale9Width="200" Scale9Height="139" ctype="ImageViewObjectData">
             <Size X="200.0000" Y="139.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="13.3410" Y="18.2059" />
             <Scale ScaleX="0.6003" ScaleY="0.6003" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/images/yinzi3_pic.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Image_1_0_1" ActionTag="653834674" Tag="33" RotationSkewX="-7.7533" RotationSkewY="-7.7530" IconVisible="False" LeftMargin="-61.5000" RightMargin="-97.5000" TopMargin="-143.5000" BottomMargin="-39.5000" Scale9Width="159" Scale9Height="183" Rotation="-7.7533" ctype="ImageViewObjectData">
+          <AbstractNodeData Name="Image_1_0_1" ActionTag="653834674" Tag="33" Rotation="-7.7533" RotationSkewX="-7.7533" RotationSkewY="-7.7530" IconVisible="False" LeftMargin="-61.5000" RightMargin="-97.5000" TopMargin="-143.5000" BottomMargin="-39.5000" Scale9Width="159" Scale9Height="183" ctype="ImageViewObjectData">
             <Size X="159.0000" Y="183.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="18.0000" Y="52.0000" />
             <Scale ScaleX="0.0010" ScaleY="0.0010" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/images/fudai.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Image_1_1" ActionTag="-44233475" Tag="66" RotationSkewX="-17.1461" RotationSkewY="-17.0691" IconVisible="False" LeftMargin="40.0000" RightMargin="-240.0000" TopMargin="-61.5000" BottomMargin="-77.5000" Scale9Width="200" Scale9Height="139" Rotation="-17.1461" ctype="ImageViewObjectData">
+          <AbstractNodeData Name="Image_1_1" ActionTag="-44233475" Tag="66" Rotation="-17.1461" RotationSkewX="-17.1461" RotationSkewY="-17.0691" IconVisible="False" LeftMargin="40.0000" RightMargin="-240.0000" TopMargin="-61.5000" BottomMargin="-77.5000" Scale9Width="200" Scale9Height="139" ctype="ImageViewObjectData">
             <Size X="200.0000" Y="139.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="140.0000" Y="-8.0000" />
             <Scale ScaleX="0.3279" ScaleY="0.3279" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/images/yinzi3_pic.png" Plist="" />
           </AbstractNodeData>
           <AbstractNodeData Name="Image_1_0_0" ActionTag="-1508346642" Tag="65" IconVisible="False" LeftMargin="-170.0000" RightMargin="-30.0000" TopMargin="-49.5000" BottomMargin="-89.5000" Scale9Width="200" Scale9Height="139" ctype="ImageViewObjectData">
@@ -334,17 +334,17 @@
             <Scale ScaleX="0.0010" ScaleY="0.0010" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/images/yinzi3_pic.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Image_1_0" ActionTag="-111070043" Tag="64" RotationSkewX="-14.5933" RotationSkewY="-14.5658" IconVisible="False" LeftMargin="-45.0000" RightMargin="-155.0000" TopMargin="-39.5000" BottomMargin="-99.5000" Scale9Width="200" Scale9Height="139" Rotation="-14.5933" ctype="ImageViewObjectData">
+          <AbstractNodeData Name="Image_1_0" ActionTag="-111070043" Tag="64" Rotation="-14.5933" RotationSkewX="-14.5933" RotationSkewY="-14.5658" IconVisible="False" LeftMargin="-45.0000" RightMargin="-155.0000" TopMargin="-39.5000" BottomMargin="-99.5000" Scale9Width="200" Scale9Height="139" ctype="ImageViewObjectData">
             <Size X="200.0000" Y="139.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="55.0000" Y="-30.0000" />
             <Scale ScaleX="0.0010" ScaleY="0.0010" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/images/yinzi3_pic.png" Plist="" />
           </AbstractNodeData>
           <AbstractNodeData Name="Image_2_0_0" ActionTag="971845503" Tag="75" RotationSkewY="-0.0091" IconVisible="False" LeftMargin="-113.6038" RightMargin="49.6038" TopMargin="-25.9977" BottomMargin="-39.0023" Scale9Width="63" Scale9Height="63" ctype="ImageViewObjectData">
@@ -401,4 +401,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameFile>
+</GameProjectFile>

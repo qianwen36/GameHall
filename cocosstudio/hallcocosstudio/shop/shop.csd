@@ -1,12 +1,12 @@
-<GameFile>
-  <PropertyGroup Name="Shop" Type="Scene" ID="beb74e42-1935-4c31-baa2-4110775a11d1" Version="3.10.0.0" />
+<GameProjectFile>
+  <PropertyGroup Type="Scene" Name="Shop" ID="beb74e42-1935-4c31-baa2-4110775a11d1" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
       <ObjectData Name="Scene" Tag="256" ctype="GameNodeObjectData">
         <Size X="1280.0000" Y="720.0000" />
         <Children>
-          <AbstractNodeData Name="Panel_bk" ActionTag="1924170387" Tag="257" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" TouchEnable="True" StretchWidthEnable="True" StretchHeightEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1280" Scale9Height="960" ctype="PanelObjectData">
+          <AbstractNodeData Name="Panel_bk" ActionTag="1924170387" Tag="257" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" TouchEnable="True" StretchWidthEnable="True" StretchHeightEnable="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1280" Scale9Height="960" ctype="PanelObjectData">
             <Size X="1280.0000" Y="720.0000" />
             <AnchorPoint />
             <Position />
@@ -33,28 +33,28 @@
           <AbstractNodeData Name="Pay_List" ActionTag="403083337" Tag="306" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="-1.7062" RightMargin="1.7062" TopMargin="121.0009" BottomMargin="-1.0009" TouchEnable="True" StretchWidthEnable="True" StretchHeightEnable="True" ClipAble="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" IsBounceEnabled="True" ScrollDirectionType="Vertical" ctype="ScrollViewObjectData">
             <Size X="1280.0000" Y="600.0000" />
             <Children>
-              <AbstractNodeData Name="1" ActionTag="1425500307" VisibleForFrame="False" Tag="230" IconVisible="False" LeftMargin="78.5000" RightMargin="878.5000" TopMargin="48.0000" BottomMargin="988.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="1" ActionTag="1425500307" Tag="230" VisibleForFrame="False" IconVisible="False" LeftMargin="78.5000" RightMargin="878.5000" TopMargin="48.0000" BottomMargin="988.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="323.0000" Y="244.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_T" ActionTag="-1310769453" Tag="231" IconVisible="False" LeftMargin="100.0013" RightMargin="102.9987" TopMargin="18.0021" BottomMargin="201.9979" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_T" ActionTag="-1310769453" Tag="231" IconVisible="False" LeftMargin="100.0013" RightMargin="102.9987" TopMargin="18.0021" BottomMargin="201.9979" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="120.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="160.0013" Y="213.9979" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="135" G="20" B="20" />
                     <PrePosition X="0.4954" Y="0.8770" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_RMB" ActionTag="1641099900" Tag="232" IconVisible="False" LeftMargin="149.0531" RightMargin="149.9469" TopMargin="191.4997" BottomMargin="28.5003" FontSize="24" LabelText="元" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_RMB" ActionTag="1641099900" Tag="232" IconVisible="False" LeftMargin="149.0531" RightMargin="149.9469" TopMargin="191.4997" BottomMargin="28.5003" FontSize="24" LabelText="元" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="24.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="161.0531" Y="40.5003" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="249" B="179" />
                     <PrePosition X="0.4986" Y="0.1660" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
@@ -65,7 +65,7 @@
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.4927" Y="0.5298" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <FileData Type="Normal" Path="HallCocosStudio/images/tongbao1.png" Plist="" />
                   </AbstractNodeData>
                 </Children>
@@ -74,7 +74,7 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.1875" Y="0.8672" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/scbg_btn.png" Plist="" />
@@ -82,28 +82,28 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="2" ActionTag="-527440282" VisibleForFrame="False" Tag="271" IconVisible="False" LeftMargin="478.5000" RightMargin="478.5000" TopMargin="48.0000" BottomMargin="988.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="2" ActionTag="-527440282" Tag="271" VisibleForFrame="False" IconVisible="False" LeftMargin="478.5000" RightMargin="478.5000" TopMargin="48.0000" BottomMargin="988.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="323.0000" Y="244.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_T" ActionTag="271601759" Tag="272" IconVisible="False" LeftMargin="100.0013" RightMargin="102.9987" TopMargin="18.0021" BottomMargin="201.9979" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_T" ActionTag="271601759" Tag="272" IconVisible="False" LeftMargin="100.0013" RightMargin="102.9987" TopMargin="18.0021" BottomMargin="201.9979" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="120.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="160.0013" Y="213.9979" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="135" G="20" B="20" />
                     <PrePosition X="0.4954" Y="0.8770" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_RMB" ActionTag="-660199132" Tag="273" IconVisible="False" LeftMargin="149.0531" RightMargin="149.9469" TopMargin="191.4997" BottomMargin="28.5003" FontSize="24" LabelText="元" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_RMB" ActionTag="-660199132" Tag="273" IconVisible="False" LeftMargin="149.0531" RightMargin="149.9469" TopMargin="191.4997" BottomMargin="28.5003" FontSize="24" LabelText="元" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="24.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="161.0531" Y="40.5003" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="249" B="179" />
                     <PrePosition X="0.4986" Y="0.1660" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
@@ -114,7 +114,7 @@
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.4927" Y="0.5298" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <FileData Type="Normal" Path="HallCocosStudio/images/tongbao1.png" Plist="" />
                   </AbstractNodeData>
                 </Children>
@@ -123,7 +123,7 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5000" Y="0.8672" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/scbg_btn.png" Plist="" />
@@ -131,28 +131,28 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="3" ActionTag="1255411817" VisibleForFrame="False" Tag="312" IconVisible="False" LeftMargin="878.5000" RightMargin="78.5000" TopMargin="48.0000" BottomMargin="988.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="3" ActionTag="1255411817" Tag="312" VisibleForFrame="False" IconVisible="False" LeftMargin="878.5000" RightMargin="78.5000" TopMargin="48.0000" BottomMargin="988.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="323.0000" Y="244.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_T" ActionTag="-1271863732" Tag="313" IconVisible="False" LeftMargin="98.0005" RightMargin="104.9995" TopMargin="16.0018" BottomMargin="203.9982" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_T" ActionTag="-1271863732" Tag="313" IconVisible="False" LeftMargin="98.0005" RightMargin="104.9995" TopMargin="16.0018" BottomMargin="203.9982" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="120.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="158.0005" Y="215.9982" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="135" G="20" B="20" />
                     <PrePosition X="0.4892" Y="0.8852" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_RMB" ActionTag="-468597993" Tag="314" IconVisible="False" LeftMargin="150.0531" RightMargin="148.9469" TopMargin="191.4997" BottomMargin="28.5003" FontSize="24" LabelText="元" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_RMB" ActionTag="-468597993" Tag="314" IconVisible="False" LeftMargin="150.0531" RightMargin="148.9469" TopMargin="191.4997" BottomMargin="28.5003" FontSize="24" LabelText="元" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="24.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="162.0531" Y="40.5003" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="249" B="179" />
                     <PrePosition X="0.5017" Y="0.1660" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
@@ -163,7 +163,7 @@
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.4927" Y="0.5339" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <FileData Type="Normal" Path="HallCocosStudio/images/tongbao3.png" Plist="" />
                   </AbstractNodeData>
                 </Children>
@@ -172,7 +172,7 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.8125" Y="0.8672" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/scbg_btn.png" Plist="" />
@@ -180,28 +180,28 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="4" ActionTag="662103114" VisibleForFrame="False" Tag="353" IconVisible="False" LeftMargin="78.5000" RightMargin="878.5000" TopMargin="338.0000" BottomMargin="698.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="4" ActionTag="662103114" Tag="353" VisibleForFrame="False" IconVisible="False" LeftMargin="78.5000" RightMargin="878.5000" TopMargin="338.0000" BottomMargin="698.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="323.0000" Y="244.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_T" ActionTag="-316547965" Tag="354" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_T" ActionTag="-316547965" Tag="354" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="120.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="164.0009" Y="211.9981" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="135" G="20" B="20" />
                     <PrePosition X="0.5077" Y="0.8688" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_RMB" ActionTag="-296472985" Tag="355" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="188.4997" BottomMargin="25.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_RMB" ActionTag="-296472985" Tag="355" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="188.4997" BottomMargin="25.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="30.0000" Y="30.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="161.0531" Y="40.5003" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="249" B="179" />
                     <PrePosition X="0.4986" Y="0.1660" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
@@ -212,7 +212,7 @@
                     <Scale ScaleX="3.9565" ScaleY="2.8261" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.4896" Y="0.5257" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <FileData Type="Normal" Path="HallCocosStudio/images/tongbao4.png" Plist="" />
                   </AbstractNodeData>
                 </Children>
@@ -221,7 +221,7 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.1875" Y="0.6406" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/scbg_btn.png" Plist="" />
@@ -229,28 +229,28 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="5" ActionTag="-1910422574" VisibleForFrame="False" Tag="394" IconVisible="False" LeftMargin="478.5000" RightMargin="478.5000" TopMargin="338.0000" BottomMargin="698.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="5" ActionTag="-1910422574" Tag="394" VisibleForFrame="False" IconVisible="False" LeftMargin="478.5000" RightMargin="478.5000" TopMargin="338.0000" BottomMargin="698.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="323.0000" Y="244.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_T" ActionTag="1866898249" Tag="395" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_T" ActionTag="1866898249" Tag="395" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="120.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="164.0009" Y="211.9981" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="135" G="20" B="20" />
                     <PrePosition X="0.5077" Y="0.8688" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_RMB" ActionTag="2102838295" Tag="396" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="189.4997" BottomMargin="24.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_RMB" ActionTag="2102838295" Tag="396" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="189.4997" BottomMargin="24.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="30.0000" Y="30.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="161.0531" Y="39.5003" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="249" B="179" />
                     <PrePosition X="0.4986" Y="0.1619" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
@@ -261,7 +261,7 @@
                     <Scale ScaleX="3.9565" ScaleY="2.8454" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.4927" Y="0.5298" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <FileData Type="Normal" Path="HallCocosStudio/images/tongbao5.png" Plist="" />
                   </AbstractNodeData>
                 </Children>
@@ -270,7 +270,7 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5000" Y="0.6406" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/scbg_btn.png" Plist="" />
@@ -278,28 +278,28 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="6" ActionTag="-1078006168" VisibleForFrame="False" Tag="435" IconVisible="False" LeftMargin="878.5000" RightMargin="78.5000" TopMargin="338.0000" BottomMargin="698.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="6" ActionTag="-1078006168" Tag="435" VisibleForFrame="False" IconVisible="False" LeftMargin="878.5000" RightMargin="78.5000" TopMargin="338.0000" BottomMargin="698.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="323.0000" Y="244.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_T" ActionTag="843547970" Tag="436" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_T" ActionTag="843547970" Tag="436" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="120.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="164.0009" Y="211.9981" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="135" G="20" B="20" />
                     <PrePosition X="0.5077" Y="0.8688" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_RMB" ActionTag="1033650304" Tag="437" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="188.4997" BottomMargin="25.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_RMB" ActionTag="1033650304" Tag="437" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="188.4997" BottomMargin="25.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="30.0000" Y="30.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="161.0531" Y="40.5003" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="249" B="179" />
                     <PrePosition X="0.4986" Y="0.1660" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
@@ -310,7 +310,7 @@
                     <Scale ScaleX="4.3389" ScaleY="3.0748" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.4958" Y="0.5380" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <FileData Type="Normal" Path="HallCocosStudio/images/tongbao6.png" Plist="" />
                   </AbstractNodeData>
                 </Children>
@@ -319,7 +319,7 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.8125" Y="0.6406" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/scbg_btn.png" Plist="" />
@@ -327,28 +327,28 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="7" ActionTag="-812949766" VisibleForFrame="False" Tag="476" IconVisible="False" LeftMargin="78.5000" RightMargin="878.5000" TopMargin="628.0000" BottomMargin="408.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="7" ActionTag="-812949766" Tag="476" VisibleForFrame="False" IconVisible="False" LeftMargin="78.5000" RightMargin="878.5000" TopMargin="628.0000" BottomMargin="408.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="323.0000" Y="244.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_T" ActionTag="587497659" Tag="477" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_T" ActionTag="587497659" Tag="477" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="120.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="164.0009" Y="211.9981" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="135" G="20" B="20" />
                     <PrePosition X="0.5077" Y="0.8688" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_RMB" ActionTag="1213187794" Tag="478" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="188.4997" BottomMargin="25.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_RMB" ActionTag="1213187794" Tag="478" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="188.4997" BottomMargin="25.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="30.0000" Y="30.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="161.0531" Y="40.5003" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="249" B="179" />
                     <PrePosition X="0.4986" Y="0.1660" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
@@ -376,28 +376,28 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="8" ActionTag="1358184506" VisibleForFrame="False" Tag="517" IconVisible="False" LeftMargin="478.5000" RightMargin="478.5000" TopMargin="628.0000" BottomMargin="408.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="8" ActionTag="1358184506" Tag="517" VisibleForFrame="False" IconVisible="False" LeftMargin="478.5000" RightMargin="478.5000" TopMargin="628.0000" BottomMargin="408.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="323.0000" Y="244.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_T" ActionTag="1665054127" Tag="518" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_T" ActionTag="1665054127" Tag="518" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="120.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="164.0009" Y="211.9981" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="135" G="20" B="20" />
                     <PrePosition X="0.5077" Y="0.8688" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_RMB" ActionTag="-1956138173" Tag="519" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="188.4997" BottomMargin="25.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_RMB" ActionTag="-1956138173" Tag="519" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="188.4997" BottomMargin="25.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="30.0000" Y="30.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="161.0531" Y="40.5003" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="249" B="179" />
                     <PrePosition X="0.4986" Y="0.1660" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
@@ -417,7 +417,7 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5000" Y="0.4141" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/scbg_btn.png" Plist="" />
@@ -425,28 +425,28 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="9" ActionTag="453249643" VisibleForFrame="False" Tag="558" IconVisible="False" LeftMargin="878.5000" RightMargin="78.5000" TopMargin="628.0000" BottomMargin="408.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="9" ActionTag="453249643" Tag="558" VisibleForFrame="False" IconVisible="False" LeftMargin="878.5000" RightMargin="78.5000" TopMargin="628.0000" BottomMargin="408.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="309" Scale9Height="243" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="323.0000" Y="244.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_T" ActionTag="1450050461" Tag="559" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_T" ActionTag="1450050461" Tag="559" IconVisible="False" LeftMargin="104.0009" RightMargin="98.9991" TopMargin="20.0019" BottomMargin="199.9981" FontSize="24" LabelText="Text Label" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="120.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="164.0009" Y="211.9981" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="135" G="20" B="20" />
                     <PrePosition X="0.5077" Y="0.8688" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_RMB" ActionTag="-905617799" Tag="560" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="188.4997" BottomMargin="25.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_RMB" ActionTag="-905617799" Tag="560" IconVisible="False" LeftMargin="146.0531" RightMargin="146.9469" TopMargin="188.4997" BottomMargin="25.5003" FontSize="30" LabelText="元" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="30.0000" Y="30.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="161.0531" Y="40.5003" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="249" B="179" />
                     <PrePosition X="0.4986" Y="0.1660" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
@@ -466,7 +466,7 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.8125" Y="0.4141" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                 <PressedFileData Type="Normal" Path="HallCocosStudio/images/scbg_btn.png" Plist="" />
@@ -474,37 +474,37 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="VipNode1" ActionTag="1194407225" Tag="1380" IconVisible="True" LeftMargin="383.6600" RightMargin="896.3400" TopMargin="167.1613" BottomMargin="1112.8387" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="VipNode1" ActionTag="1194407225" Tag="1380" IconVisible="True" LeftMargin="383.6600" RightMargin="896.3400" TopMargin="167.1613" BottomMargin="1112.8387" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
+                <Size />
                 <AnchorPoint />
                 <Position X="383.6600" Y="1112.8387" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.2997" Y="0.8694" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <FileData Type="Normal" Path="HallCocosStudio/Shop/VipPay30.csd" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="VipNode2" ActionTag="-488101738" Tag="1385" IconVisible="True" LeftMargin="647.1735" RightMargin="632.8265" TopMargin="410.6600" BottomMargin="869.3400" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="VipNode2" ActionTag="-488101738" Tag="1385" IconVisible="True" LeftMargin="647.1735" RightMargin="632.8265" TopMargin="410.6600" BottomMargin="869.3400" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
+                <Size />
                 <AnchorPoint />
                 <Position X="647.1735" Y="869.3400" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5056" Y="0.6792" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <FileData Type="Normal" Path="HallCocosStudio/Shop/VipPay90.csd" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="VipNode3" ActionTag="-563482269" Tag="1390" IconVisible="True" LeftMargin="904.9900" RightMargin="375.0100" TopMargin="167.1602" BottomMargin="1112.8398" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="VipNode3" ActionTag="-563482269" Tag="1390" IconVisible="True" LeftMargin="904.9900" RightMargin="375.0100" TopMargin="167.1602" BottomMargin="1112.8398" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
+                <Size />
                 <AnchorPoint />
                 <Position X="904.9900" Y="1112.8398" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.7070" Y="0.8694" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <FileData Type="Normal" Path="HallCocosStudio/Shop/VipPay360.csd" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_4" ActionTag="-1991624214" Tag="577" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BottomEdge" LeftMargin="488.1371" RightMargin="494.8629" TopMargin="380.8395" BottomMargin="787.1605" TouchEnable="True" FontSize="36" ButtonText="查看会员特权" Scale9Enable="True" Scale9Width="297" Scale9Height="112" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_4" ActionTag="-1991624214" Tag="577" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BottomEdge" LeftMargin="488.1371" RightMargin="494.8629" TopMargin="380.8395" BottomMargin="787.1605" TouchEnable="True" FontSize="36" ButtonText="查看会员特权" Scale9Enable="True" Scale9Width="297" Scale9Height="112" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="297.0000" Y="112.0000" />
                 <AnchorPoint ScaleX="0.6557" ScaleY="2.0304" />
                 <Position X="682.8800" Y="1014.5653" />
@@ -532,20 +532,20 @@
             <ColorVector ScaleY="1.0000" />
             <InnerNodeSize Width="1280" Height="1280" />
           </AbstractNodeData>
-          <AbstractNodeData Name="ProjectNode_1" ActionTag="-787114506" VisibleForFrame="False" Tag="192" IconVisible="True" LeftMargin="18.9927" RightMargin="1261.0073" TopMargin="720.9996" BottomMargin="-0.9996" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
-            <Size X="0.0000" Y="0.0000" />
+          <AbstractNodeData Name="ProjectNode_1" ActionTag="-787114506" Tag="192" VisibleForFrame="False" IconVisible="True" LeftMargin="18.9927" RightMargin="1261.0073" TopMargin="720.9996" BottomMargin="-0.9996" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
+            <Size />
             <AnchorPoint />
             <Position X="18.9927" Y="-0.9996" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.0148" Y="-0.0014" />
-            <PreSize X="0.0000" Y="0.0000" />
+            <PreSize />
             <FileData Type="Normal" Path="HallCocosStudio/Shop/TongbaoExc.csd" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Panel_1" ActionTag="-866474220" Tag="258" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="TopEdge" TopMargin="1.0001" BottomMargin="618.9999" TouchEnable="True" StretchWidthEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="Panel_1" ActionTag="-866474220" Tag="258" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="TopEdge" TopMargin="1.0001" BottomMargin="618.9999" TouchEnable="True" StretchWidthEnable="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="100.0000" />
             <Children>
-              <AbstractNodeData Name="Image_3" ActionTag="51306632" VisibleForFrame="False" Tag="259" IconVisible="False" LeftMargin="1037.0000" RightMargin="17.0000" TopMargin="6.5000" BottomMargin="-1.5000" Scale9Width="226" Scale9Height="95" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Image_3" ActionTag="51306632" Tag="259" VisibleForFrame="False" IconVisible="False" LeftMargin="1037.0000" RightMargin="17.0000" TopMargin="6.5000" BottomMargin="-1.5000" Scale9Width="226" Scale9Height="95" ctype="ImageViewObjectData">
                 <Size X="226.0000" Y="95.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="1150.0000" Y="46.0000" />
@@ -555,7 +555,7 @@
                 <PreSize X="1.0000" Y="1.0000" />
                 <FileData Type="Normal" Path="HallCocosStudio/images/bq_BG_btn.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Image_2" ActionTag="-1510937495" VisibleForFrame="False" Tag="260" IconVisible="False" LeftMargin="811.0001" RightMargin="242.9999" TopMargin="6.5000" BottomMargin="-1.5000" Scale9Width="226" Scale9Height="95" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Image_2" ActionTag="-1510937495" Tag="260" VisibleForFrame="False" IconVisible="False" LeftMargin="811.0001" RightMargin="242.9999" TopMargin="6.5000" BottomMargin="-1.5000" Scale9Width="226" Scale9Height="95" ctype="ImageViewObjectData">
                 <Size X="226.0000" Y="95.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="924.0001" Y="46.0000" />
@@ -565,7 +565,7 @@
                 <PreSize X="0.1766" Y="0.9500" />
                 <FileData Type="Normal" Path="HallCocosStudio/images/bq_BG_btn.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Image_1" ActionTag="1103415509" VisibleForFrame="False" Tag="261" IconVisible="False" LeftMargin="587.0000" RightMargin="467.0000" TopMargin="6.5000" BottomMargin="-1.5000" Scale9Width="226" Scale9Height="95" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Image_1" ActionTag="1103415509" Tag="261" VisibleForFrame="False" IconVisible="False" LeftMargin="587.0000" RightMargin="467.0000" TopMargin="6.5000" BottomMargin="-1.5000" Scale9Width="226" Scale9Height="95" ctype="ImageViewObjectData">
                 <Size X="226.0000" Y="95.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="700.0000" Y="46.0000" />
@@ -575,7 +575,7 @@
                 <PreSize X="0.1766" Y="0.9500" />
                 <FileData Type="Normal" Path="HallCocosStudio/images/bq_BG_btn.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_1" ActionTag="-1968965539" Tag="263" IconVisible="False" LeftMargin="8.5001" RightMargin="1186.4999" TopMargin="8.0010" BottomMargin="7.9990" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="85" Scale9Height="84" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_1" ActionTag="-1968965539" Tag="263" IconVisible="False" LeftMargin="8.5001" RightMargin="1186.4999" TopMargin="8.0010" BottomMargin="7.9990" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="85" Scale9Height="84" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="85.0000" Y="84.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="51.0001" Y="49.9990" />
@@ -635,14 +635,14 @@
               <AbstractNodeData Name="Image_9" ActionTag="-1619429827" Tag="850" IconVisible="False" LeftMargin="105.9998" RightMargin="914.0002" TopMargin="60.5020" BottomMargin="0.4980" Scale9Enable="True" LeftEage="20" RightEage="20" TopEage="20" BottomEage="20" Scale9OriginX="20" Scale9OriginY="19" Scale9Width="3" Scale9Height="1" ctype="ImageViewObjectData">
                 <Size X="260.0000" Y="39.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_2" ActionTag="350141909" Tag="851" IconVisible="False" LeftMargin="11.0002" RightMargin="8.9998" TopMargin="8.0010" BottomMargin="6.9990" FontSize="24" LabelText="100通宝＝10000两银子" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_2" ActionTag="350141909" Tag="851" IconVisible="False" LeftMargin="11.0002" RightMargin="8.9998" TopMargin="8.0010" BottomMargin="6.9990" FontSize="24" LabelText="100通宝＝10000两银子" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="240.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="131.0002" Y="18.9990" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.5038" Y="0.4872" />
-                    <PreSize X="0.0000" Y="0.0000" />
+                    <PreSize />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
@@ -671,4 +671,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameFile>
+</GameProjectFile>

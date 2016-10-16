@@ -19,6 +19,7 @@ function MyApp:onCreate()
 	end
 	self.plugins_ = plugins
 	self.models_ = {}
+	self:model('BaseHall'):start()
 end
 
 function MyApp:getConfig( name )

@@ -34,7 +34,7 @@ end
 
 function target:onBtnClicked( )
 	self:dispatchEvent({
-		name = self.BUTTON_CLICKED,
+		name = self.handler.BUTTON_CLICKED,
 		type = 'area',
 		target = self })
 end

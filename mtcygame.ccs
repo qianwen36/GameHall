@@ -1,18 +1,254 @@
 <Solution>
-  <PropertyGroup Name="mTcyGame" Version="3.10.0.0" Type="CocosStudio" />
+  <PropertyGroup Name="mTcyGame" Version="2.3.0.1" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
         <Folder Name="HallCocosStudio">
-          <Folder Name="BindAccount">
-            <Project Name="BindAccount.csd" Type="Scene" />
+          <Folder Name="HallCommon">
+            <Project Name="hdt.csd" Type="Node" />
+            <Project Name="ToastTip.csd" Type="Node" />
+            <Project Name="lqdh.csd" Type="Node" />
+            <Project Name="Forbidden.csd" Type="Layer" />
+          </Folder>
+          <Folder Name="images">
+            <Image Name="antai_pic.png" />
+            <Image Name="bg.head_pic.png" />
+            <Image Name="BG.jpg" />
+            <Image Name="boy.head_pic.png" />
+            <Image Name="bxx_btn.png" />
+            <Image Name="byg_pic.png" />
+            <Image Name="ddt_pic.png" />
+            <Image Name="fjk_btn.png" />
+            <Image Name="fjm_pic.png" />
+            <Image Name="fjtp_pic.png" />
+            <Image Name="gdm_pic.png" />
+            <Image Name="gir.head_pic.png" />
+            <Image Name="hd_btn.png" />
+            <Image Name="hongdian_pic.png" />
+            <Image Name="jq_btn.png" />
+            <Image Name="ksks_btn.png" />
+            <Image Name="lanzuan_pic.png" />
+            <Image Name="LOGO_bg_pic.png" />
+            <Image Name="logo_pic.png" />
+            <Image Name="rw_btn.png" />
+            <Image Name="sc_btn.png" />
+            <Image Name="shuzi_pic.png" />
+            <Image Name="yinzi_bg_pic.png" />
+            <Image Name="yinzi_pic.png" />
+            <Image Name="yxl_pic.png" />
+            <Image Name="zaixian_pic.png" />
+            <Image Name="bz_btn.png" />
+            <Image Name="qd_btn.png" />
+            <Image Name="sz_btn.png" />
+            <Image Name="box1_pic.png" />
+            <Image Name="box2_bg_pic.png" />
+            <Image Name="dyl_pic.png" />
+            <Image Name="fxk_wxz_btn.png" />
+            <Image Name="fxk_xz_btn.png" />
+            <Image Name="hdkz_btn.png" />
+            <Image Name="hd_bg_pic.png" />
+            <Image Name="hd_ls_pic.png" />
+            <Image Name="jy_pic.png" />
+            <Image Name="lanse_btn.png" />
+            <Image Name="hdkz_jy_btn.png" />
+            <Image Name="gb_btn.png" />
+            <Image Name="box2_pic.png" />
+            <Image Name="box3_bg_pic.png" />
+            <Image Name="bq_BG_btn.png" />
+            <Image Name="cjwt_bai_pic.png" />
+            <Image Name="cjwt_huang_pic.png" />
+            <Image Name="gytcy_bai_pic.png" />
+            <Image Name="gytcy_huang_pic.png" />
+            <Image Name="gzsm_bai_pic.png" />
+            <Image Name="gzsm_huang_pic.png" />
+            <Image Name="wtfk_bai_pic.png" />
+            <Image Name="wtfk_huang_pic.png" />
+            <Image Name="box4_bg_pic.png" />
+            <Image Name="fh_btn.png" />
+            <Image Name="box5_shuru_pic.png" />
+            <Image Name="fasong_btn.png" />
+            <Image Name="qingchu_btn.png" />
+            <Image Name="box6_liaotian_pic.png" />
+            <Image Name="jiantou_you_pic.png" />
+            <Image Name="jiantou_zuo_pic.png" />
+            <Image Name="kefu.head_pic.png" />
+            <Image Name="yonghu.head_pic.png" />
+            <Image Name="txsz_pic.png" />
+            <Image Name="shezhi_logo_pic.png" />
+            <Image Name="box6_mrhd_pic.png" />
+            <Image Name="dangtian_ts_pic.png" />
+            <Image Name="db_logo_pic.png" />
+            <Image Name="db_mrhd_pic.png" />
+            <Image Name="djlq__db_btn.png" />
+            <Image Name="dt_bg_pic.png" />
+            <Image Name="fenxiang1_btn.png" />
+            <Image Name="fenxiang2_btn.png" />
+            <Image Name="fenxiang3_btn.png" />
+            <Image Name="hyfx_logo_pic.png" />
+            <Image Name="hyfx_mrhd_pic.png" />
+            <Image Name="lingqu_btn.png" />
+            <Image Name="mrhd_bg_pic.png" />
+            <Image Name="mrhd_logo_pic.png" />
+            <Image Name="qd_mrhd_pic.png" />
+            <Image Name="qiandao_logo_pic.png" />
+            <Image Name="qita_ts_pic.png" />
+            <Image Name="rwm_bg_pic.png" />
+            <Image Name="shuzi2_pic.png" />
+            <Image Name="wks_bg_pic.png" />
+            <Image Name="wks_zi_pic.png" />
+            <Image Name="ylq_bg_pic.png" />
+            <Image Name="ylq_zi_pic.png" />
+            <Image Name="ksyx_btn.png" />
+            <Image Name="box7_pic.png" />
+            <Image Name="bq_bg_pic.png" />
+            <Image Name="ckhytq_btn.png" />
+            <Image Name="ji_lz_pic.png" />
+            <Image Name="nian_lz_pic.png" />
+            <Image Name="s200_bq_pic.png" />
+            <Image Name="s300_bq_pic.png" />
+            <Image Name="s500_bq_pic.png" />
+            <Image Name="scbg_btn.png" />
+            <Image Name="tongbao_pic.png" />
+            <Image Name="yinzi2_pic.png" />
+            <Image Name="yue_lz_pic.png" />
+            <Image Name="cz_bai_pic.png" />
+            <Image Name="cz_huang_pic.png" />
+            <Image Name="hy_bai_pic.png" />
+            <Image Name="hy_huang_pic.png" />
+            <Image Name="tbdh_bai_pic.png" />
+            <Image Name="tbdh_huang_pic.png" />
+            <Image Name="box8_pic.png" />
+            <Image Name="bg2.head_pic.png" />
+            <Image Name="box10_pic.png" />
+            <Image Name="box9_pic.png" />
+            <Image Name="boy2.head_pic.png" />
+            <Image Name="gir2.head_pic.png" />
+            <Image Name="wdwp_bai_pic.png" />
+            <Image Name="wdwp_huang_pic.png" />
+            <Image Name="wdzl_bai_pic.png" />
+            <Image Name="wdzl_huang_pic.png" />
+            <Image Name="box11_pic.png" />
+            <Image Name="box12_pic.png" />
+            <Image Name="box13_pic.png" />
+            <Image Name="wp_bg_pic.png" />
+            <Image Name="zuanshi_wp_pic.png" />
+            <Image Name="box14_pic.png" />
+            <Image Name="box15_pic.png" />
+            <Image Name="bxx_logo_pic.png" />
+            <Image Name="bxx_pic.png" />
+            <Image Name="hong_btn.png" />
+            <Image Name="suo_pic.png" />
+            <Image Name="yxtb_pic.png" />
+            <Image Name="bxx_wenzi_pic.png" />
+            <Image Name="yx_wenzi_pic.png" />
+            <Image Name="dx_btn.png" />
+            <Image Name="dx_zhifu_pic.png" />
+            <Image Name="ll_btn.png" />
+            <Image Name="yl_zhifu_pic.png" />
+            <Image Name="zfb_btn.png" />
+            <Image Name="zfb_zhifu_pic.png" />
+            <Image Name="zffs_logo_pic.png" />
+            <Image Name="tishi_bg_pic.png" />
+            <Image Name="yz1d_bg_pic.png" />
+            <Image Name="yz1_bg_pic.png" />
+            <Image Name="yz2d_bg_pic.png" />
+            <Image Name="yz2_bg_pic.png" />
+            <Image Name="yz3d_bg_pic.png" />
+            <Image Name="yz3_bg_pic.png" />
+            <Image Name="yz4d_bg_pic.png" />
+            <Image Name="yz4_bg_pic.png" />
+            <Image Name="yz5d_bg_pic.png" />
+            <Image Name="yz5_bg_pic.png" />
+            <Image Name="tishi_logo_pic.png" />
+            <Image Name="jindu_bg_pic.png" />
+            <Image Name="jindu_se_pic.png" />
+            <Image Name="renwu_logo_pic.png" />
+            <Image Name="rw_pic.png" />
+            <Image Name="huodong_logo_pic.png" />
+            <Image Name="hd_pic.png" />
+            <Image Name="fjk2_btn.png" />
+            <Image Name="qizi_h_pic.png" />
+            <Image Name="qizi_l_pic.png" />
+            <Image Name="guang_pic.png" />
+            <Image Name="guang2_pic.png" />
+            <Image Name="fjtp2_pic.png" />
+            <Image Name="fjtp3_pic.png" />
+            <Image Name="shanguang_pic.png" />
+            <Image Name="song_pic.png" />
+            <Image Name="shuzi3_pic.png" />
+            <Image Name="guang3_pic.png" />
+            <Image Name="box16_pic.png" />
+            <Image Name="suo2_pic.png" />
+            <Image Name="tongbao1.png" />
+            <Image Name="tongbao2.png" />
+            <Image Name="tongbao3.png" />
+            <Image Name="tongbao4.png" />
+            <Image Name="tongbao5.png" />
+            <Image Name="tongbao6.png" />
+            <Image Name="tongbao7.png" />
+            <Image Name="tongbao8.png" />
+            <Image Name="upate_back.png" />
+            <Image Name="process.png" />
+            <Image Name="process_back.png" />
+            <Image Name="40_blackBG_pic.png" />
+            <Image Name="xz_bg1_pic.png" />
+            <Image Name="xz_bg2_pic.png" />
+            <Image Name="bbgx_logo_pic.png" />
+            <Image Name="update_waitting.png" />
+            <Image Name="xz2_bg1_pic.png" />
+            <Image Name="xz2_bg2_pic.png" />
+            <Image Name="jth_pic.png" />
+            <Image Name="fudai.png" />
+            <Image Name="guangshu.png" />
+            <Image Name="yinzi3_pic.png" />
+            <Image Name="sl_001.png" />
+            <Image Name="sl_002.png" />
+            <Image Name="sl_003.png" />
+            <Image Name="sl_004.png" />
+            <Image Name="sl_005.png" />
+            <Image Name="sl_006.png" />
+            <Image Name="sl_007.png" />
+            <Image Name="sl_008.png" />
+            <Image Name="sl_009.png" />
+            <Image Name="tcylogo_pic.jpg" />
+            <Image Name="kj_logo.jpg" />
+            <Image Name="rm_pic.png" />
+            <Image Name="hdwz_pic.png" />
+            <Image Name="BG2.jpg" />
+            <Image Name="AccountBinding_Title.png" />
+            <Folder Name="Effect">
+              <Image Name="SignIn_ItemsLight.png" />
+              <Image Name="SignIn_ItemsLight2.png" />
+              <Image Name="SignIn_ItemsLight3.png" />
+              <Image Name="SignIn_Light.png" />
+            </Folder>
+            <Image Name="rwm.png" />
+          </Folder>
+          <Folder Name="particle">
+            <PlistParticleFile Name="huaban.plist" />
           </Folder>
           <Folder Name="Checkin">
-            <Project Name="CheckinNode.csd" Type="Node" />
             <Project Name="CheckinNodeBefore.csd" Type="Node" />
             <Project Name="CheckinNodeFuture.csd" Type="Node" />
-            <Project Name="CheckinNodeToday.csd" Type="Node" />
+            <Project Name="CheckinNode.csd" Type="Node" />
             <Project Name="CheckinPanel.csd" Type="Layer" />
+            <Project Name="CheckinNodeToday.csd" Type="Node" />
+          </Folder>
+          <Folder Name="Room">
+            <Project Name="Area.csd" Type="Node" />
+            <Project Name="Room.csd" Type="Node" />
+          </Folder>
+          <Folder Name="Shop">
+            <Project Name="PayType.csd" Type="Layer" />
+            <Project Name="VipPay30.csd" Type="Node" />
+            <Project Name="VipPay90.csd" Type="Node" />
+            <Project Name="VipPay360.csd" Type="Node" />
+            <Project Name="TongbaoExc.csd" Type="Node" />
+            <Project Name="Shop.csd" Type="Scene" />
+            <Project Name="VipInfo.csd" Type="Layer" />
+          </Folder>
+          <Folder Name="StartUp">
+            <Project Name="logo.csd" Type="Scene" />
           </Folder>
           <Folder Name="ChooseDialog">
             <Project Name="ChooseDialog.csd" Type="Layer" />
@@ -23,230 +259,10 @@
           <Folder Name="ExitTip">
             <Project Name="ExitTip.csd" Type="Layer" />
           </Folder>
-          <Folder Name="HallCommon">
-            <Project Name="Forbidden.csd" Type="Layer" />
-            <Project Name="hdt.csd" Type="Node" />
-            <Project Name="lqdh.csd" Type="Node" />
-            <Project Name="ToastTip.csd" Type="Node" />
-          </Folder>
           <Folder Name="Help">
             <Project Name="Help.csd" Type="Scene" />
             <Project Name="QuestMsg.csd" Type="Node" />
             <Project Name="ReplyMsg.csd" Type="Node" />
-          </Folder>
-          <Folder Name="images">
-            <Folder Name="Effect">
-              <Image Name="SignIn_ItemsLight.png" />
-              <Image Name="SignIn_ItemsLight2.png" />
-              <Image Name="SignIn_ItemsLight3.png" />
-              <Image Name="SignIn_Light.png" />
-            </Folder>
-            <Image Name="40_blackBG_pic.png" />
-            <Image Name="AccountBinding_Title.png" />
-            <Image Name="antai_pic.png" />
-            <Image Name="bbgx_logo_pic.png" />
-            <Image Name="bg.head_pic.png" />
-            <Image Name="BG.jpg" />
-            <Image Name="bg2.head_pic.png" />
-            <Image Name="BG2.jpg" />
-            <Image Name="box1_pic.png" />
-            <Image Name="box10_pic.png" />
-            <Image Name="box11_pic.png" />
-            <Image Name="box12_pic.png" />
-            <Image Name="box13_pic.png" />
-            <Image Name="box14_pic.png" />
-            <Image Name="box15_pic.png" />
-            <Image Name="box16_pic.png" />
-            <Image Name="box2_bg_pic.png" />
-            <Image Name="box2_pic.png" />
-            <Image Name="box3_bg_pic.png" />
-            <Image Name="box4_bg_pic.png" />
-            <Image Name="box5_shuru_pic.png" />
-            <Image Name="box6_liaotian_pic.png" />
-            <Image Name="box6_mrhd_pic.png" />
-            <Image Name="box7_pic.png" />
-            <Image Name="box8_pic.png" />
-            <Image Name="box9_pic.png" />
-            <Image Name="boy.head_pic.png" />
-            <Image Name="boy2.head_pic.png" />
-            <Image Name="bq_BG_btn.png" />
-            <Image Name="bq_bg_pic.png" />
-            <Image Name="bxx_btn.png" />
-            <Image Name="bxx_logo_pic.png" />
-            <Image Name="bxx_pic.png" />
-            <Image Name="bxx_wenzi_pic.png" />
-            <Image Name="byg_pic.png" />
-            <Image Name="bz_btn.png" />
-            <Image Name="cjwt_bai_pic.png" />
-            <Image Name="cjwt_huang_pic.png" />
-            <Image Name="ckhytq_btn.png" />
-            <Image Name="cz_bai_pic.png" />
-            <Image Name="cz_huang_pic.png" />
-            <Image Name="dangtian_ts_pic.png" />
-            <Image Name="db_logo_pic.png" />
-            <Image Name="db_mrhd_pic.png" />
-            <Image Name="ddt_pic.png" />
-            <Image Name="djlq__db_btn.png" />
-            <Image Name="dt_bg_pic.png" />
-            <Image Name="dx_btn.png" />
-            <Image Name="dx_zhifu_pic.png" />
-            <Image Name="dyl_pic.png" />
-            <Image Name="fasong_btn.png" />
-            <Image Name="fenxiang1_btn.png" />
-            <Image Name="fenxiang2_btn.png" />
-            <Image Name="fenxiang3_btn.png" />
-            <Image Name="fh_btn.png" />
-            <Image Name="fjk_btn.png" />
-            <Image Name="fjk2_btn.png" />
-            <Image Name="fjm_pic.png" />
-            <Image Name="fjtp_pic.png" />
-            <Image Name="fjtp2_pic.png" />
-            <Image Name="fjtp3_pic.png" />
-            <Image Name="fudai.png" />
-            <Image Name="fxk_wxz_btn.png" />
-            <Image Name="fxk_xz_btn.png" />
-            <Image Name="gb_btn.png" />
-            <Image Name="gdm_pic.png" />
-            <Image Name="gir.head_pic.png" />
-            <Image Name="gir2.head_pic.png" />
-            <Image Name="guang_pic.png" />
-            <Image Name="guang2_pic.png" />
-            <Image Name="guang3_pic.png" />
-            <Image Name="guangshu.png" />
-            <Image Name="gytcy_bai_pic.png" />
-            <Image Name="gytcy_huang_pic.png" />
-            <Image Name="gzsm_bai_pic.png" />
-            <Image Name="gzsm_huang_pic.png" />
-            <Image Name="hd_bg_pic.png" />
-            <Image Name="hd_btn.png" />
-            <Image Name="hd_ls_pic.png" />
-            <Image Name="hd_pic.png" />
-            <Image Name="hdkz_btn.png" />
-            <Image Name="hdkz_jy_btn.png" />
-            <Image Name="hdwz_pic.png" />
-            <Image Name="hong_btn.png" />
-            <Image Name="hongdian_pic.png" />
-            <Image Name="huodong_logo_pic.png" />
-            <Image Name="hy_bai_pic.png" />
-            <Image Name="hy_huang_pic.png" />
-            <Image Name="hyfx_logo_pic.png" />
-            <Image Name="hyfx_mrhd_pic.png" />
-            <Image Name="ji_lz_pic.png" />
-            <Image Name="jiantou_you_pic.png" />
-            <Image Name="jiantou_zuo_pic.png" />
-            <Image Name="jindu_bg_pic.png" />
-            <Image Name="jindu_se_pic.png" />
-            <Image Name="jq_btn.png" />
-            <Image Name="jth_pic.png" />
-            <Image Name="jy_pic.png" />
-            <Image Name="kefu.head_pic.png" />
-            <Image Name="kj_logo.jpg" />
-            <Image Name="ksks_btn.png" />
-            <Image Name="ksyx_btn.png" />
-            <Image Name="lanse_btn.png" />
-            <Image Name="lanzuan_pic.png" />
-            <Image Name="lingqu_btn.png" />
-            <Image Name="ll_btn.png" />
-            <Image Name="LOGO_bg_pic.png" />
-            <Image Name="logo_pic.png" />
-            <Image Name="mrhd_bg_pic.png" />
-            <Image Name="mrhd_logo_pic.png" />
-            <Image Name="nian_lz_pic.png" />
-            <Image Name="process.png" />
-            <Image Name="process_back.png" />
-            <Image Name="qd_btn.png" />
-            <Image Name="qd_mrhd_pic.png" />
-            <Image Name="qiandao_logo_pic.png" />
-            <Image Name="qingchu_btn.png" />
-            <Image Name="qita_ts_pic.png" />
-            <Image Name="qizi_h_pic.png" />
-            <Image Name="qizi_l_pic.png" />
-            <Image Name="renwu_logo_pic.png" />
-            <Image Name="rm_pic.png" />
-            <Image Name="rw_btn.png" />
-            <Image Name="rw_pic.png" />
-            <Image Name="rwm.png" />
-            <Image Name="rwm_bg_pic.png" />
-            <Image Name="s200_bq_pic.png" />
-            <Image Name="s300_bq_pic.png" />
-            <Image Name="s500_bq_pic.png" />
-            <Image Name="sc_btn.png" />
-            <Image Name="scbg_btn.png" />
-            <Image Name="shanguang_pic.png" />
-            <Image Name="shezhi_logo_pic.png" />
-            <Image Name="shuzi_pic.png" />
-            <Image Name="shuzi2_pic.png" />
-            <Image Name="shuzi3_pic.png" />
-            <Image Name="sl_001.png" />
-            <Image Name="sl_002.png" />
-            <Image Name="sl_003.png" />
-            <Image Name="sl_004.png" />
-            <Image Name="sl_005.png" />
-            <Image Name="sl_006.png" />
-            <Image Name="sl_007.png" />
-            <Image Name="sl_008.png" />
-            <Image Name="sl_009.png" />
-            <Image Name="song_pic.png" />
-            <Image Name="suo_pic.png" />
-            <Image Name="suo2_pic.png" />
-            <Image Name="sz_btn.png" />
-            <Image Name="tbdh_bai_pic.png" />
-            <Image Name="tbdh_huang_pic.png" />
-            <Image Name="tcylogo_pic.jpg" />
-            <Image Name="tishi_bg_pic.png" />
-            <Image Name="tishi_logo_pic.png" />
-            <Image Name="tongbao_pic.png" />
-            <Image Name="tongbao1.png" />
-            <Image Name="tongbao2.png" />
-            <Image Name="tongbao3.png" />
-            <Image Name="tongbao4.png" />
-            <Image Name="tongbao5.png" />
-            <Image Name="tongbao6.png" />
-            <Image Name="tongbao7.png" />
-            <Image Name="tongbao8.png" />
-            <Image Name="txsz_pic.png" />
-            <Image Name="upate_back.png" />
-            <Image Name="update_waitting.png" />
-            <Image Name="wdwp_bai_pic.png" />
-            <Image Name="wdwp_huang_pic.png" />
-            <Image Name="wdzl_bai_pic.png" />
-            <Image Name="wdzl_huang_pic.png" />
-            <Image Name="wks_bg_pic.png" />
-            <Image Name="wks_zi_pic.png" />
-            <Image Name="wp_bg_pic.png" />
-            <Image Name="wtfk_bai_pic.png" />
-            <Image Name="wtfk_huang_pic.png" />
-            <Image Name="xz_bg1_pic.png" />
-            <Image Name="xz_bg2_pic.png" />
-            <Image Name="xz2_bg1_pic.png" />
-            <Image Name="xz2_bg2_pic.png" />
-            <Image Name="yinzi_bg_pic.png" />
-            <Image Name="yinzi_pic.png" />
-            <Image Name="yinzi2_pic.png" />
-            <Image Name="yinzi3_pic.png" />
-            <Image Name="yl_zhifu_pic.png" />
-            <Image Name="ylq_bg_pic.png" />
-            <Image Name="ylq_zi_pic.png" />
-            <Image Name="yonghu.head_pic.png" />
-            <Image Name="yue_lz_pic.png" />
-            <Image Name="yx_wenzi_pic.png" />
-            <Image Name="yxl_pic.png" />
-            <Image Name="yxtb_pic.png" />
-            <Image Name="yz1_bg_pic.png" />
-            <Image Name="yz1d_bg_pic.png" />
-            <Image Name="yz2_bg_pic.png" />
-            <Image Name="yz2d_bg_pic.png" />
-            <Image Name="yz3_bg_pic.png" />
-            <Image Name="yz3d_bg_pic.png" />
-            <Image Name="yz4_bg_pic.png" />
-            <Image Name="yz4d_bg_pic.png" />
-            <Image Name="yz5_bg_pic.png" />
-            <Image Name="yz5d_bg_pic.png" />
-            <Image Name="zaixian_pic.png" />
-            <Image Name="zfb_btn.png" />
-            <Image Name="zfb_zhifu_pic.png" />
-            <Image Name="zffs_logo_pic.png" />
-            <Image Name="zuanshi_wp_pic.png" />
           </Folder>
           <Folder Name="KickedOut">
             <Project Name="KickedOut.csd" Type="Node" />
@@ -254,22 +270,9 @@
           <Folder Name="MainPanel">
             <Project Name="MainPanel.csd" Type="Scene" />
           </Folder>
-          <Folder Name="OfflineTip">
-            <Project Name="TipDialog.csd" Type="Layer" />
-          </Folder>
-          <Folder Name="particle">
-            <PlistParticleFile Name="huaban.plist" />
-          </Folder>
           <Folder Name="PersonalInfo">
             <Project Name="PersonalInfo.csd" Type="Scene" />
             <Project Name="VipInfoNode.csd" Type="Node" />
-          </Folder>
-          <Folder Name="Relief">
-            <Project Name="Relief.csd" Type="Layer" />
-          </Folder>
-          <Folder Name="Room">
-            <Project Name="Area.csd" Type="Node" />
-            <Project Name="Room.csd" Type="Node" />
           </Folder>
           <Folder Name="SafeBox">
             <Project Name="SafeBox.csd" Type="Layer" />
@@ -280,34 +283,31 @@
           <Folder Name="Settings">
             <Project Name="Settings.csd" Type="Layer" />
           </Folder>
+          <Folder Name="Relief">
+            <Project Name="Relief.csd" Type="Layer" />
+          </Folder>
           <Folder Name="Share">
             <Project Name="Share.csd" Type="Layer" />
           </Folder>
-          <Folder Name="Shop">
-            <Project Name="PayType.csd" Type="Layer" />
-            <Project Name="Shop.csd" Type="Scene" />
-            <Project Name="TongbaoExc.csd" Type="Node" />
-            <Project Name="VipInfo.csd" Type="Layer" />
-            <Project Name="VipPay30.csd" Type="Node" />
-            <Project Name="VipPay360.csd" Type="Node" />
-            <Project Name="VipPay90.csd" Type="Node" />
+          <Folder Name="OfflineTip">
+            <Project Name="TipDialog.csd" Type="Layer" />
           </Folder>
-          <Folder Name="StartUp">
-            <Project Name="logo.csd" Type="Scene" />
+          <Folder Name="WebActivity">
+            <Project Name="WebActivity.csd" Type="Scene" />
           </Folder>
-          <Folder Name="SureDialog">
-            <Project Name="SureDialog.csd" Type="Layer" />
+          <Folder Name="Update">
+            <Project Name="UpdateScene.csd" Type="Scene" />
+            <Project Name="UpdateDialog.csd" Type="Layer" />
           </Folder>
           <Folder Name="Task">
             <Project Name="Task.csd" Type="Scene" />
             <Project Name="TaskNode.csd" Type="Node" />
           </Folder>
-          <Folder Name="Update">
-            <Project Name="UpdateDialog.csd" Type="Layer" />
-            <Project Name="UpdateScene.csd" Type="Scene" />
+          <Folder Name="SureDialog">
+            <Project Name="SureDialog.csd" Type="Layer" />
           </Folder>
-          <Folder Name="WebActivity">
-            <Project Name="WebActivity.csd" Type="Scene" />
+          <Folder Name="BindAccount">
+            <Project Name="BindAccount.csd" Type="Scene" />
           </Folder>
         </Folder>
       </RootFolder>

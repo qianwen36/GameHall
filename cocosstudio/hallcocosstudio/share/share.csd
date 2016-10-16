@@ -1,5 +1,5 @@
-<GameFile>
-  <PropertyGroup Name="Share" Type="Layer" ID="2319d69b-8082-40d1-9715-e421dab44146" Version="3.10.0.0" />
+<GameProjectFile>
+  <PropertyGroup Type="Layer" Name="Share" ID="2319d69b-8082-40d1-9715-e421dab44146" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -9,7 +9,7 @@
           <AbstractNodeData Name="Image_1" ActionTag="316109810" Tag="286" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="328.9984" RightMargin="331.0016" TopMargin="134.6187" BottomMargin="145.3813" Scale9Enable="True" LeftEage="90" RightEage="90" TopEage="80" BottomEage="60" Scale9OriginX="90" Scale9OriginY="80" Scale9Width="68" Scale9Height="108" ctype="ImageViewObjectData">
             <Size X="620.0000" Y="440.0000" />
             <Children>
-              <AbstractNodeData Name="Button_1" ActionTag="-1232246895" Tag="287" IconVisible="False" LeftMargin="552.6895" RightMargin="-11.6895" TopMargin="-7.0888" BottomMargin="371.0888" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="79" Scale9Height="76" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_1" ActionTag="-1232246895" Tag="287" IconVisible="False" LeftMargin="552.6895" RightMargin="-11.6895" TopMargin="-7.0888" BottomMargin="371.0888" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="79" Scale9Height="76" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="79.0000" Y="76.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="592.1895" Y="409.0888" />
@@ -34,18 +34,18 @@
                 <PreSize X="0.1194" Y="0.1682" />
                 <FileData Type="Normal" Path="HallCocosStudio/images/hyfx_logo_pic.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_1" ActionTag="-758142491" Tag="289" IconVisible="False" LeftMargin="293.4953" RightMargin="214.5047" TopMargin="28.9280" BottomMargin="383.0720" FontSize="28" LabelText="好友分享" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_1" ActionTag="-758142491" Tag="289" IconVisible="False" LeftMargin="293.4953" RightMargin="214.5047" TopMargin="28.9280" BottomMargin="383.0720" FontSize="28" LabelText="好友分享" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="112.0000" Y="28.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="349.4953" Y="397.0720" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5637" Y="0.9024" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PreSize />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_2" ActionTag="1357253333" Tag="290" IconVisible="False" LeftMargin="44.7791" RightMargin="35.2209" TopMargin="92.0083" BottomMargin="275.9917" FontSize="24" LabelText="最近我正在玩同城游二人麻将，快和我一起玩吧！" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_2" ActionTag="1357253333" Tag="290" IconVisible="False" LeftMargin="44.7791" RightMargin="35.2209" TopMargin="92.0083" BottomMargin="275.9917" FontSize="24" LabelText="最近我正在玩同城游二人麻将，快和我一起玩吧！" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="528.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="314.7791" Y="311.9917" />
@@ -56,7 +56,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_2" ActionTag="271766266" VisibleForFrame="False" Tag="294" IconVisible="False" LeftMargin="368.6722" RightMargin="39.3278" TopMargin="168.1689" BottomMargin="197.8311" TouchEnable="True" FontSize="24" ButtonText="分享到微博" Scale9Enable="True" Scale9Width="209" Scale9Height="77" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_2" ActionTag="271766266" Tag="294" VisibleForFrame="False" IconVisible="False" LeftMargin="368.6722" RightMargin="39.3278" TopMargin="168.1689" BottomMargin="197.8311" TouchEnable="True" FontSize="24" ButtonText="分享到微博" Scale9Enable="True" Scale9Width="209" Scale9Height="77" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="212.0000" Y="74.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="474.6722" Y="234.8311" />
@@ -71,7 +71,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_2_0" ActionTag="-1549734632" Tag="295" IconVisible="False" LeftMargin="368.6722" RightMargin="39.3278" TopMargin="206.1683" BottomMargin="159.8317" TouchEnable="True" FontSize="24" ButtonText="分享到微信" Scale9Enable="True" Scale9Width="209" Scale9Height="77" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_2_0" ActionTag="-1549734632" Tag="295" IconVisible="False" LeftMargin="368.6722" RightMargin="39.3278" TopMargin="206.1683" BottomMargin="159.8317" TouchEnable="True" FontSize="24" ButtonText="分享到微信" Scale9Enable="True" Scale9Width="209" Scale9Height="77" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="212.0000" Y="74.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="474.6722" Y="196.8317" />
@@ -86,7 +86,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_2_0_0" ActionTag="-188378308" Tag="296" IconVisible="False" LeftMargin="368.6722" RightMargin="39.3278" TopMargin="301.1679" BottomMargin="64.8321" TouchEnable="True" FontSize="24" ButtonText="分享到朋友圈" Scale9Enable="True" Scale9Width="209" Scale9Height="77" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_2_0_0" ActionTag="-188378308" Tag="296" IconVisible="False" LeftMargin="368.6722" RightMargin="39.3278" TopMargin="301.1679" BottomMargin="64.8321" TouchEnable="True" FontSize="24" ButtonText="分享到朋友圈" Scale9Enable="True" Scale9Width="209" Scale9Height="77" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="212.0000" Y="74.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="474.6722" Y="101.8321" />
@@ -134,4 +134,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameFile>
+</GameProjectFile>
