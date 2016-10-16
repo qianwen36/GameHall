@@ -55,56 +55,182 @@ function target:restart( config )
 	end)
 end
 
-function target:initHall(config)
-	local REQ = {}
-	function REQ.resolve( resp )
-		local events = {'succeed', 'failed'}
-		local result = MCClient:accept(resp)
-		local msg = MCClient:describe(resp)
-		local event = (result and events[1]) or events[2]
-		return event, msg, result
+local REQ = {}
+function REQ.resolve( resp )
+	local events = {'succeed', 'failed'}
+	local result = MCClient:accept(resp)
+	local msg = MCClient:describe(resp)
+	if string.len(msg)==0 then
+		msg = 'notification from server'
 	end
 
-	function REQ.checkVersion()
-		local major, min, buildno = unpack(string.split(config.ver, '.'))
-		return ffi2.ct_generate('VERSION_MB', {
-			nMajorVer = tonumber(major),
-			nMinorVer = tonumber(min),
-			nBuildNO = tonumber(buildno),
+	local event = (result and events[1]) or events[2]
+	return event, msg, result
+end
+
+function REQ.checkVersion()
+	local major, min, buildno = unpack(string.split(config.ver, '.'))
+	return ffi2.ct_generate('VERSION_MB', {
+		nMajorVer = tonumber(major),
+		nMinorVer = tonumber(min),
+		nBuildNO = tonumber(buildno),
+		nGameID = config.gameid,
+		szExeName = config.target
+		})
+end
+local FlagGET = 0x00000800 -- for mobile
+function REQ.GetServers(des)
+	local TYPE_Hall = 1
+	local FLAG_nofity = 0x00000001
+	local flags = FlagGET
+	des = des or {}
+	local notify = des.notify or false
+	if notify then
+		bit.bor(flags, FLAG_nofity)
+	end
+	local nGameID, nServerType, nAgentGroupID
+	if type(des) == 'table' then
+		nGameID = des.nGameID or config.gameid
+		nServerType = des.nServerType or TYPE_Hall
+		nAgentGroupID = des.nAgentGroupID or config.agentGroup
+	end
+
+	return ffi2.ct_generate('GET_SERVERS', {
+			nGameID = nGameID,
+			nServerType = nServerType,
+			nAgentGroupID = nAgentGroupID,
+			dwGetFlags = flags
+		})
+end
+function REQ.GetAreas()
+	return ffi2.ct_generate('GET_AREAS', {
 			nGameID = config.gameid,
-			szExeName = config.target
-			})
+			nAgentGroupID = config.agentGroup,
+			dwGetFlags = FlagGET
+		})
+end
+function REQ.GetRooms(areaid)
+	return ffi2.ct_generate('GET_ROOMS', {
+			nAreaID = areaid,
+			nGameID = config.gameid,
+			nAgentGroupID = config.agentGroup,
+			dwGetFlags = FlagGET
+		})
+end
+function target:reqServers( data, callack, notify )
+	if type(data) ~= 'string' then
+		data = REQ.GetServers(data, {notify = notify})
 	end
-	local FlagGET = 0x00000800
-	function REQ.GetServers()
-		local TYPE_Hall = 1
-		local FLAG_nofity = 0x00000001
-		local flags = FlagGET
-		if DEBUG~=0 then
-			bit.bor(flags, FLAG_nofity)
+	MCClient:on(mc.GET_SERVERS_OK, callack)
+	local client = self.client
+	client:send(mc.GET_SERVERS, data)
+end
+
+function target:initHall(config)
+	function self.initHall2( _, resp, data )
+		local function proc( client )
+			local result, event, msg
+			if (MCClient.accept(resp)) then
+				_, resp, data = client:syncSend(mc.GET_SERVERS, data)
+			else
+				MCClient:off(mc.GET_SERVERS_OK)
+			end
+			event, msg, result = REQ.resolve(resp)
+			if result then
+				local ct, body = ffi2.vls_resolve('SERVERS', data)
+				local c = ct.nServerCount
+				local array = ffi2.vla_resolve('SERVER', c, body)
+			    print('SERVER['..c..']')
+				print('-------------------------------------')
+			    for i=0, c-1 do
+	                local item = array[i]
+			    	print('nServerID = '..item.nServerID)
+			    	print('nServerType = '.. item.nServerType)
+			    	print('szServerName = '.. ffi.string(item.szServerName, 32))
+			    	print('szServerIP = '.. ffi.string(item.szServerIP, 32))
+			    	print('szWWW = '.. ffi.string(item.szWWW,  64))
+			    	print('szWWW2 = '.. ffi.string(item.szWWW2,64))
+			    	print('nUsersOnline = '..item.nUsersOnline)
+			    	print('-------------------------------------')
+			    end
+			    result = {c, array}
+			else
+			    return print(self.TAG..".TEST:"..msg)
+			end
+			result = result or nil
+			self:dispatchEvent({
+				name = 'GET_SERVERS',
+				body = {event = event, msg = msg, result = result}
+				})
+			-- 获取大区列表
+			_, resp, data = client:syncSend(mc.GET_AREAS, REQ.GetAreas())
+			event, msg, result = REQ.resolve(resp)
+			if result then
+				local ct, body = ffi2.vls_resolve('AREAS', data)
+				local c = ct.nCount
+				local array = ffi2.vla_resolve('AREA', c, body)
+				print('AREA['..c..']#')
+				print('-------------------------------------')
+				for i=0, c-1 do
+				    local a = array[i]
+				    print('nAreaID = '..a.nAreaID)
+				    print('nAreaType = '..a.nAreaType)
+				    print('nSubType = '..a.nSubType)
+				    print('nGifID = '..a.nGifID)
+				    print('nServerID = '..a.nServerID)
+				    print('szAreaName = '.. ffi.string(a.szAreaName))
+				    print('-------------------------------------')
+				end
+			    result = {c, array}
+			else
+			    return print(self.TAG..".TEST:"..msg)
+			end
+			result = result or nil
+			self:dispatchEvent({
+				name = 'GET_AREAS',
+				body = {event = event, msg = msg, result = result}
+				})
+			local ar = result or {}
+			local count = ar[1] or 0
+			for i=0, count-1 do
+				local info = ar[2][i]
+			    _, resp, data = client:syncSend(mc.GET_ROOMS, REQ.GetRooms(info.nAreaID))
+				event, msg, result = REQ.resolve(resp)
+				if result then
+					local ct, body = ffi2.vls_resolve('ROOMS', data)
+					local c = ct.nRoomCount
+					local array = ffi2.vla_resolve('ROOM', c, body)
+					print('ROOM['..c..']# link('..ct.nLinkCount..')@area.'..info.nAreaID)
+					print('-------------------------------------')
+					for i=0, c-1 do
+					    local a = array[i]
+					    print('nRoomID = '..a.nRoomID)
+					    print('nRoomType = '..a.nRoomType)
+					    print('nTableCount = '..a.nTableCount)
+					    print('nUsersOnline = '..a.nUsersOnline)
+					    print('nPort = '..a.nPort)
+					    print('nGamePort = '..a.nGamePort)
+					    print('szRoomName = '..ffi.string(a.szRoomName))
+					    print('szGameIP = '..ffi.string(a.szGameIP))
+					    print('szPassword = '..ffi.string(a.szPassword))
+					    print('szWWW = '.. ffi.string(a.szWWW))
+					    print('-------------------------------------')
+					end
+				    result = {c, array}
+				else
+				    return print(self.TAG..".TEST:"..msg)
+				end
+				result = result or nil
+				self:dispatchEvent({
+					name = 'GET_ROOMS',
+					body = {event = event, msg = msg, result = result}
+					})
+			end
+			self:dispatchEvent({
+				name = 'READY',
+				})
 		end
-	
-		return ffi2.ct_generate('GET_SERVERS', {
-				nGameID = config.gameid,
-				nServerType = TYPE_Hall,
-				nAgentGroupID = config.agentGroup,
-				dwGetFlags = flags
-			})
-	end
-	function REQ.GetAreas()
-		return ffi2.ct_generate('GET_AREAS', {
-				nGameID = config.gameid,
-				nAgentGroupID = config.agentGroup,
-				dwGetFlags = FlagGET
-			})
-	end
-	function REQ.GetRooms(areaid)
-		return ffi2.ct_generate('GET_ROOMS', {
-				nAreaID = areaid,
-				nGameID = config.gameid,
-				nAgentGroupID = config.agentGroup,
-				dwGetFlags = FlagGET
-			})
+		MCClient:rpcall(self.TAG, proc)
 	end
 	local function proc( client )
 		local _, resp, data, result, event, msg
@@ -131,101 +257,12 @@ function target:initHall(config)
 			body = {event = event, msg = msg, result = result}
 			})
 		-- 获取大厅服务器
-		_, resp, data = client:syncSend(mc.GET_SERVERS, REQ.GetServers())
-		event, msg, result = REQ.resolve(resp)
-		if result then
-			local ct, body = ffi2.vls_resolve('SERVERS', data)
-			local c = ct.nServerCount
-			local array = ffi2.vla_resolve('SERVER', c, body)
-		    print('SERVER['..c..']')
-			print('-------------------------------------')
-		    for i=0, c-1 do
-                local item = array[i]
-		    	print('nServerID = '..item.nServerID)
-		    	print('nServerType = '.. item.nServerType)
-		    	print('szServerName = '.. ffi.string(item.szServerName, 32))
-		    	print('szServerIP = '.. ffi.string(item.szServerIP, 32))
-		    	print('szWWW = '.. ffi.string(item.szWWW,  64))
-		    	print('szWWW2 = '.. ffi.string(item.szWWW2,64))
-		    	print('nUsersOnline = '..item.nUsersOnline)
-		    	print('-------------------------------------')
-		    end
-		    result = {c, array}
-		else
-		    return print(self.TAG..".TEST:"..msg)
+		local data= REQ.GetServers({notify = DEBUG~=0})
+		if notify then
+			self:reqServers(data, self.initHall2, notify)
+			return
 		end
-		result = result or nil
-		self:dispatchEvent({
-			name = 'GET_SERVERS',
-			body = {event = event, msg = msg, result = result}
-			})
-		-- 获取大区列表
-		_, resp, data = client:syncSend(mc.GET_AREAS, REQ.GetAreas())
-		event, msg, result = REQ.resolve(resp)
-		if result then
-			local ct, body = ffi2.vls_resolve('AREAS', data)
-			local c = ct.nCount
-			local array = ffi2.vla_resolve('AREA', c, body)
-			print('AREA['..c..']#')
-			print('-------------------------------------')
-			for i=0, c-1 do
-			    local a = array[i]
-			    print('nAreaID = '..a.nAreaID)
-			    print('nAreaType = '..a.nAreaType)
-			    print('nSubType = '..a.nSubType)
-			    print('nGifID = '..a.nGifID)
-			    print('nServerID = '..a.nServerID)
-			    print('szAreaName = '.. ffi.string(a.szAreaName))
-			    print('-------------------------------------')
-			end
-		    result = {c, array}
-		else
-		    return print(self.TAG..".TEST:"..msg)
-		end
-		result = result or nil
-		self:dispatchEvent({
-			name = 'GET_AREAS',
-			body = {event = event, msg = msg, result = result}
-			})
-		local ar = result or {}
-		local count = ar[1] or 0
-		for i=0, count-1 do
-			local info = ar[2][i]
-		    _, resp, data = client:syncSend(mc.GET_ROOMS, REQ.GetRooms(info.nAreaID))
-			event, msg, result = REQ.resolve(resp)
-			if result then
-				local ct, body = ffi2.vls_resolve('ROOMS', data)
-				local c = ct.nRoomCount
-				local array = ffi2.vla_resolve('ROOM', c, body)
-				print('ROOM['..c..']# link('..ct.nLinkCount..')@area.'..info.nAreaID)
-				print('-------------------------------------')
-				for i=0, c-1 do
-				    local a = array[i]
-				    print('nRoomID = '..a.nRoomID)
-				    print('nRoomType = '..a.nRoomType)
-				    print('nTableCount = '..a.nTableCount)
-				    print('nUsersOnline = '..a.nUsersOnline)
-				    print('nPort = '..a.nPort)
-				    print('nGamePort = '..a.nGamePort)
-				    print('szRoomName = '..ffi.string(a.szRoomName))
-				    print('szGameIP = '..ffi.string(a.szGameIP))
-				    print('szPassword = '..ffi.string(a.szPassword))
-				    print('szWWW = '.. ffi.string(a.szWWW))
-				    print('-------------------------------------')
-				end
-			    result = {c, array}
-			else
-			    return print(self.TAG..".TEST:"..msg)
-			end
-			result = result or nil
-			self:dispatchEvent({
-				name = 'GET_ROOMS',
-				body = {event = event, msg = msg, result = result}
-				})
-		end
-		self:dispatchEvent({
-			name = 'READY',
-			})
+		self.initHall2(_, resp, data) -- inner rpcall
 	end
 	MCClient:rpcall(self.TAG, proc)
 end
