@@ -59,4 +59,8 @@ local target = {
   GET_FINISHED			=(MOBILE_REQ_BASE + 530) ;-- 结束
 }
 
+function target.key( id )
+  return table.keyof(target, id) or id..'.id not find'
+end
+
 return target

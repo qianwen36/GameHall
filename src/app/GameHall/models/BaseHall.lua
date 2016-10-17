@@ -32,6 +32,8 @@ function target:login( ... )
 end
 
 function target:restart( config )
+	if config == nil then return MCClient:reconnection(self.TAG) end
+	
 	config = config or self.config_
 	local host, port = unpack(string.split(config.server, ':'))
 
