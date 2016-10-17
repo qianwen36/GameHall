@@ -20,6 +20,7 @@ if not USING_MCRuntime then return target end
 local MCClient = require('src.app.TcyCommon.MCClient2')
 local ffi = require('ffi')
 local ffi2 = MCClient.utils
+local MCCharset = MCCharset:getInstance()
 
 function target:start( config )
 	self.config_ = config
@@ -55,6 +56,7 @@ function target:restart( config )
 	end)
 end
 
+local function getREQ( config )
 local REQ = {}
 function REQ.resolve( resp )
 	local events = {'succeed', 'failed'}
@@ -117,6 +119,9 @@ function REQ.GetRooms(areaid)
 			dwGetFlags = FlagGET
 		})
 end
+return REQ
+end-- getREQ(config)
+
 function target:reqServers( data, callack, notify )
 	if type(data) ~= 'string' then
 		data = REQ.GetServers(data, {notify = notify})
@@ -126,14 +131,19 @@ function target:reqServers( data, callack, notify )
 	client:send(mc.GET_SERVERS, data)
 end
 
+local function GB2utf8string( str )
+    local len = string.len(str)
+	return (len > 0 and MCCharset:gb2Utf8String(str, len) ) or str
+end
 function target:initHall(config)
+	local REQ = getREQ(config) -- for generate request data
 	function self.initHall2( _, resp, data )
 		local function proc( client )
-			local result, event, msg
+			local result, event, msg, utfstr
 			if (MCClient.accept(resp)) then
 				_, resp, data = client:syncSend(mc.GET_SERVERS, data)
-			else
-				MCClient:off(mc.GET_SERVERS_OK)
+			elseif resp == mc.GET_SERVERS_OK then
+				client:off(mc.GET_SERVERS_OK)
 			end
 			event, msg, result = REQ.resolve(resp)
 			if result then
@@ -146,10 +156,10 @@ function target:initHall(config)
 	                local item = array[i]
 			    	print('nServerID = '..item.nServerID)
 			    	print('nServerType = '.. item.nServerType)
-			    	print('szServerName = '.. ffi.string(item.szServerName, 32))
-			    	print('szServerIP = '.. ffi.string(item.szServerIP, 32))
-			    	print('szWWW = '.. ffi.string(item.szWWW,  64))
-			    	print('szWWW2 = '.. ffi.string(item.szWWW2,64))
+			    	print('szServerName = '..GB2utf8string(ffi.string(item.szServerName)) )
+			    	print('szServerIP = '..GB2utf8string(ffi.string(item.szServerIP)) )
+			    	print('szWWW = ' ..GB2utf8string(ffi.string(item.szWWW)) )
+			    	print('szWWW2 = '..GB2utf8string(ffi.string(item.szWWW2)))
 			    	print('nUsersOnline = '..item.nUsersOnline)
 			    	print('-------------------------------------')
 			    end
@@ -178,7 +188,7 @@ function target:initHall(config)
 				    print('nSubType = '..a.nSubType)
 				    print('nGifID = '..a.nGifID)
 				    print('nServerID = '..a.nServerID)
-				    print('szAreaName = '.. ffi.string(a.szAreaName))
+				    print('szAreaName = '.. GB2utf8string(ffi.string(a.szAreaName)) )
 				    print('-------------------------------------')
 				end
 			    result = {c, array}
@@ -210,10 +220,10 @@ function target:initHall(config)
 					    print('nUsersOnline = '..a.nUsersOnline)
 					    print('nPort = '..a.nPort)
 					    print('nGamePort = '..a.nGamePort)
-					    print('szRoomName = '..ffi.string(a.szRoomName))
-					    print('szGameIP = '..ffi.string(a.szGameIP))
-					    print('szPassword = '..ffi.string(a.szPassword))
-					    print('szWWW = '.. ffi.string(a.szWWW))
+					    print('szRoomName = '..GB2utf8string(ffi.string(a.szRoomName)) )
+					    print('szGameIP = '..GB2utf8string(ffi.string(a.szGameIP)) )
+					    print('szPassword = '..GB2utf8string(ffi.string(a.szPassword)) )
+					    print('szWWW = '.. GB2utf8string(ffi.string(a.szWWW)) )
 					    print('-------------------------------------')
 					end
 				    result = {c, array}
@@ -244,8 +254,8 @@ function target:initHall(config)
 			print('nMinorVer ='..t.nMinorVer)
 			print('nBuildNO ='..t.nBuildNO)
 			print('nCheckReturn ='..t.nCheckReturn)
-			print('szDLFile ='..ffi.string(t.szDLFile))
-			print('szUpdateWWW ='..ffi.string(t.szUpdateWWW))
+			print('szDLFile ='..GB2utf8string(ffi.string(t.szDLFile)) )
+			print('szUpdateWWW ='..GB2utf8string(ffi.string(t.szUpdateWWW)) )
 			print('dwClientIP ='..t.dwClientIP)
 			result = t
 		else

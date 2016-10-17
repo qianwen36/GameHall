@@ -1,4 +1,4 @@
-USING_MCRuntime = false
+USING_MCRuntime = true
 
 cc.FileUtils:getInstance():setPopupNotify(false)
 if not USING_MCRuntime then

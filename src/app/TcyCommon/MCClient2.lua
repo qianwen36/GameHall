@@ -269,6 +269,19 @@ function target:destroy(tag)
 end
 
 -- RPC on server, so that we can write synchronizing script for interaction
+function target:coroutine( coro, index )
+	local array = self.corots_ or {}
+	index = index or 1
+	if index == -1 then
+		array[index] = nil -- remove
+	else
+		table.insert(array, index, coro)
+	end
+	if (self.corots_ == nil) then
+		self.corots_ = array
+	end
+	return #array
+end
 function target:rpcall( tag, proc )	--[[function proc( client )	end]]
 	local client = self:client(tag)
 	if client == nil then
@@ -276,15 +289,18 @@ function target:rpcall( tag, proc )	--[[function proc( client )	end]]
 		print('Please do target:connect(host, port, callback) before')
 		return self
 	end
-	local context = {fun = proc}
-    context.coro = coroutine.create( function()
+    local coro = coroutine.create( function()
         local status, msg = xpcall(proc
         , __G__TRACKBACK__, client)
         if not status then print(msg) end
-        client.syncSend = nil --remove
-	    print('coroutine['..tostring(context.coro)..'].end')
+		if self:coroutine(coro, -1)==0 then -- support nesting usage
+        	client.syncSend = nil --remove
+        end
+	    print('coroutine['..tostring(coro)..'].end')
 	    return msg
     end )
+	local context = {fun = proc, coro = coro}
+	self:coroutine(coro)
 
 	function context:callback (...)
 		local params = self.params

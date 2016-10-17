@@ -27,7 +27,7 @@ function MainScene:onCreate()
 
     self:getApp():model('RoomSpace'):build(self)
     local model = self:getApp():model('BaseHall')
-    model:on(model.handler.HALL_READY, handler(self.onHallReady, self))
+    model:on(model.handler.HALL_READY, handler(self, self.onHallReady))
 end
 
 function MainScene:onHallReady( ... )

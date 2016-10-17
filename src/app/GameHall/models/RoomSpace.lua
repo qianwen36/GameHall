@@ -9,8 +9,8 @@ function target:build( MainScene )
 	    self.param_ = param
 	    self:test('area', param.offline.areas)
 	    local model = self:getApp():model('BaseHall')
-	    model:on(model.handler.GET_AREAS, handler(target.onGetAreas, target))
-	    model:on(model.handler.GET_ROOMS, handler(target.onGetRooms, target))
+	    model:on(model.handler.GET_AREAS, handler(target, target.onGetAreas))
+	    model:on(model.handler.GET_ROOMS, handler(target, target.onGetRooms))
 	end
 
 	function MainScene:getContentView( name, param )
@@ -83,6 +83,7 @@ function target:build( MainScene )
 				end
 			end
 		end
+		return container
 	end
 	function MainScene:showContent( name )
 		local handler = {}
@@ -120,12 +121,11 @@ function target:build( MainScene )
 		else
 			view:move(size.width/2, y)
 		end
-		view:addEventListener(self.handler.BUTTON_CLICKED, function ( data )
-			self:onItemClicked(data.target, data.type)
-		end)
+		view:addEventListener(self.handler.BUTTON_CLICKED, handler(self, self.onItemClicked))
 	end
 
-	function MainScene:onItemClicked( view , type)
+	function MainScene:onItemClicked( event )
+		local view , type = event.target, event.type
 		local param = view:getData()
 		local handler = {}
 		function handler.room( ... )
