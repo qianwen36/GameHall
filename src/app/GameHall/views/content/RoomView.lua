@@ -7,7 +7,7 @@ function target:onCreate(param)
 	self:setName(name)
 
 	cc.bind(self, 'event')
-	local button = self:onClicked('Room_Button', self.onBtnClicked)
+	local button = self:nodeFromPath('Room_Button')
     self:indexResource(button, {
         txTitle = 'Text_Room_Name',
         txOnline = 'Text_Online'
@@ -31,13 +31,11 @@ function target:onCreate(param)
 	self:setCondition(param.type, param.condition)
 	self:setOnline(param.online)
 	self:setCorner(param.activity)
+	self.button = button
 end
 
-function target:onBtnClicked( )
-	self:dispatchEvent({
-		name = self.handler.BUTTON_CLICKED,
-		type = 'room',
-		target = self })
+function target:getButton()
+	return self.button
 end
 
 function target:setTitle( text )

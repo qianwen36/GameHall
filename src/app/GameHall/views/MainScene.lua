@@ -33,7 +33,8 @@ end
 function MainScene:onHallReady( ... )
     -- show content, and start login
     self:getApp():model('RoomSpace'):showContent(self.areasContainer)
-    self:getApp():model('BaseHall'):login()
+    self:getApp():model('PlayerModel')
+    	:login(self:getApp():model('BaseHall'))
 end
 
 function MainScene:goBack( ... )

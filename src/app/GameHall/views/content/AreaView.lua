@@ -8,7 +8,7 @@ function target:onCreate(param)
 
 	cc.bind(self, 'event')
 
-	local button = self:onClicked('Area_Button', self.onBtnClicked)
+	local button = self:nodeFromPath('Area_Button')
 	self:indexResource(button, {
 		txCondition = 'Text_Condition',
 		txOnline = 'Text_Online'
@@ -25,17 +25,15 @@ function target:onCreate(param)
 		yuxianglou = self:nodeFromPath('yuxianglou_nameimage', button),
 	}
 	self.wOnline = self.txOnline:getString()
-	self:setCondition(param.conditio or '')
+	self:setCondition(param.condition or '')
 	self:setOnline(param.online or '')
 	self:setBackground(param.background or 'gelou')
 	self:setTitle(param.title or 'baiyinggu')
+	self.button = button
 end
 
-function target:onBtnClicked( )
-	self:dispatchEvent({
-		name = self.handler.BUTTON_CLICKED,
-		type = 'area',
-		target = self })
+function target:getButton()
+	return self.button
 end
 
 function target:setCondition( param )

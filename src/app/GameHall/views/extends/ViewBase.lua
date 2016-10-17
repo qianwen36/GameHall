@@ -60,29 +60,30 @@ function ViewBase:onClicked(node, handler)
 		if node.onTouch ~= nil then
 			node:onTouch(function ( event )
 				print('ViewBase:onClicked(node):onTouch('..event.name..')')
-				if (event.name == 'ended') then
-					handler(self, event)
+				local handler_ = {}
+				function handler_.ended( event)
+					return handler(self, event)
 				end
+				handler_ = handler_[event.name]
+				return handler_ and handler_(event)
 			end)
 		else
---			local listener = cc.EventListenerTouchOneByOne:create()
---            local t = {
---            [cc.Handler.EVENT_TOUCH_BEGAN] = {
---                function (touch,event)
---                return true
---                end,
---                cc.Handler.EVENT_TOUCH_BEGAN },
---            [cc.Handler.EVENT_TOUCHES_ENDED] = {
---                function (touch,event)
---                handler(self)
---                return true
---                end,
---                cc.Handler.EVENT_TOUCHES_ENDED }
---            }
---			listener:registerScriptHandler(unpack(t[cc.Handler.EVENT_TOUCH_BEGAN]))
---			listener:registerScriptHandler(unpack(t[cc.Handler.EVENT_TOUCHES_ENDED]))
---			node:getEventDispatcher()
---				:addEventListenerWithSceneGraphPriority(listener, node)
+			local listener = cc.EventListenerTouchOneByOne:create()
+			local function onTouch( touch, event )
+				local handler_ = {}
+				function handler_.began( ... )
+					return true
+				end
+				function handler_.ended( ... )
+                    return handler(self, event)
+				end
+				handler_ = handler_[event.name]
+				return handler_ and handler_(event)
+			end
+			listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_BEGAN)
+			listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCHES_ENDED)
+			node:getEventDispatcher()
+				:addEventListenerWithSceneGraphPriority(listener, node):setEnabled(true)
 		end
 	end
 	return node
@@ -141,7 +142,7 @@ function ViewBase:showPlugin( name )
 	function handler.shade()
 		local layer = self:blockLayer(view)
 		layer:addChild(view)
-		self:closeButton(layer, param)
+		view:closeButton(layer:getChildByName('Image_1'), param)
 		return self
 	end
 	function handler.block()

@@ -43,25 +43,48 @@ function target:build( MainScene )
 
 	function MainScene:layoutAreas(  )
 		local container = self.areasContainer
-		local c = container:getChildrenCount()
-		if c <= 4 then
-			local size = container:getContentSize()
-			local x = 0
-			local y = size.height/2
-			local d = size.width/(c+1)
+		local x, y, c
+		if c == 0 then return container end
+
+		local item = container:getChildByTag(1)
+		local size = container:getContentSize()
+		c = container:getChildrenCount()
+		x = 0
+		y = size.height/2
+		local function layout( d, dw )
+			dw = dw or 0
 			for i=1, c do
-				x = x + d
+				x = x + d + dw
+				if i == 1 then
+					dw = dw * 2
+					x = x - dw * 2
+				end
 				container:getChildByTag(i):move(x, y)
 			end
+			local width = x + (item:getContentSize().width+dw)/2
+			return cc.size(width, size.height)
 		end
+		if c <= 4 then
+			size = layout(size.width/(c+1))
+		else
+			local c = 4
+			local width = item:getContentSize().width
+			local d = size.width/(c+1)
+			local dw = (d - (width/2))/c
+			size = layout(d , dw)
+		end
+		container:getInnerContainer()
+			:setContentSize(size)
 		return container
 	end
 	function MainScene:layoutRooms(  )
 		local container = self.roomsContainer
 		local c = container:getChildrenCount()
 		local size = container:getContentSize()
+		if c == 0 then return container end
+		local item = container:getChildByTag(1)
 		if c == 1 then
-			container:getChildByTag(1):move(size.width/2, size.height/2)
+			item:move(size.width/2, size.height/2)
 		else
 			local x = size.width/4
 			local y = size.height/2
@@ -87,14 +110,17 @@ function target:build( MainScene )
 	end
 	function MainScene:showContent( name )
 		local handler = {}
-		local function alignChildren( container )
+		local function vertialCenter( container )
+			local size = container:getParent():getContentSize()
+			container:align(cc.p(0, 0.5), 0, size.height/2)
+			return container:show()
 		end
 		function handler.area()
-			self:layoutAreas():show()
+			vertialCenter(self:layoutAreas())
 			return self
 		end
 		function handler.room(  )
-			self:layoutRooms():show()
+			vertialCenter(self:layoutRooms())
 			return self
 		end
 		handler = handler[name]
@@ -110,23 +136,33 @@ function target:build( MainScene )
 		local count = container:getChildrenCount()
 		name = name or 'AreaView'
 		local view = self:getContentView(name, param)
-			:setTag(count+1)
+		local button = view:getButton()
+			:removeSelf()
 			:addTo(container)
+			:setTag(count+1)
+
 		local y = container:getContentSize().height/2
-		local size = view:getContentSize()
+		local size = button:getContentSize()
 		if count >0 then
 			local node = container:getChildByTag(count)
 			local pos = cc.p(node:getPositionX(), node:getPositionY() + size.width/2)
-			view:move(pos.x, y)
+			button:move(pos.x, y)
 		else
-			view:move(size.width/2, y)
+			button:move(size.width/2, y)
 		end
-		view:addEventListener(self.handler.BUTTON_CLICKED, handler(self, self.onItemClicked))
+		button:onTouch(function ( event )
+			local handler = {}
+			function handler.ended()
+				local type = {AreaView = 'area', RoomView = 'room'}
+				type = type[name]
+				return type and self:onItemClicked(view, type, param)
+			end
+			handler = handler[event.name]
+			return handler and handler()
+		end)
 	end
 
-	function MainScene:onItemClicked( event )
-		local view , type = event.target, event.type
-		local param = view:getData()
+	function MainScene:onItemClicked( view , type, param )
 		local handler = {}
 		function handler.room( ... )
 		end
@@ -158,8 +194,9 @@ function target:build( MainScene )
 	end
 
 	function MainScene.cleanContainer(container)
-	    for i = 1, container:getChildrenCount() do
-	        container:removeChildByTag(i)
+        local c = container:getChildrenCount()
+	    for i = 1, c do
+	        container:getChildByTag(i):hide():removeSelf()
 	    end
 	end
 end
@@ -223,13 +260,13 @@ end
 
 function target:showContent( container )
 	local MainScene = self.target
-	MainScene:cleanContainer(container)
+	MainScene.cleanContainer(container)
 	local array = self.areas_ or {}
 	for i,info in ipairs(array) do
 		local param = {}
 		MainScene:addItem('AreaView', param)
-		MainScene:showContent()
 	end
+	MainScene:showContent('area')
 end
 
 return target
