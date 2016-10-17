@@ -1,4 +1,4 @@
-local target = {}
+local target = cc.load('form').build('RoomSpace', import('.interface.RoomSpace'))
 
 function target:build( MainScene )
 	self.target = MainScene

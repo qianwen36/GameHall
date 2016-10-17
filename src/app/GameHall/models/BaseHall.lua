@@ -1,6 +1,6 @@
 import('..comm.HallDataDef')
 local mc = import('..comm.HallDef')
-local target = {}
+local target = cc.load('form').build('BaseHall', import('.interface.BaseHall'))
 local Director = cc.Director:getInstance()
 local Scheduler = Director:getScheduler()
 

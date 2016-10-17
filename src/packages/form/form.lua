@@ -26,6 +26,30 @@ end
 
 function form.spec(target)
 	target.tag = target.tag or form.tag
+	function target:super()-- example. target:super().method(...)
+		local name = 'super_'
+		local super = self:spec(name)
+		if super == nil then
+			super = self._super
+			super = super and form.on(self, super)
+			self:spec(name, super)
+		end
+		return super or {}
+	end
+	function target:interface( name )
+		local name_ = name..'_'
+		local interface = self:spec(name_)
+		if interface == nil then
+			interface = self:spec(name)
+			interface = interface and form.on(self, interface)
+			self:spec(name_, interface)
+		end
+		return interface or {}
+	end
+	function target:message( method, option )
+		local tx = option or option..', not implemented'
+		print(self:tag()..method..' '..tx)
+	end
 	function target:on(target)
 		local tar = {}
 		local spec = self
@@ -38,7 +62,7 @@ function form.spec(target)
 	            tar[k] = v
 	        end
 	    end
-	    print(target:tag()..'['..spec._tag..'] target binding form produced')
+	    print(self:tag()..'['..spec._tag..'] target binding form produced')
 	    -- no such key binding to the target
 	    tar.on = nil
 	    tar.spec = nil
