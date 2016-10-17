@@ -61,7 +61,12 @@ function target:build( MainScene )
 				end
 				container:getChildByTag(i):move(x, y)
 			end
-			local width = x + (item:getContentSize().width+dw)/2
+			local size = item:getContentSize()
+			local width = x + (size.width+dw)/2
+--			if c < 4 then
+--				local x = item:getPositionX()-size.width/2
+--				width = width - x
+--			end
 			return cc.size(width, size.height)
 		end
 		if c <= 4 then

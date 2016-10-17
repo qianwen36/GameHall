@@ -1,5 +1,5 @@
-require('src.app.GameHall.comm.HallDataDef')
-local mc = require('src.app.GameHall.comm.HallDef')
+import('..comm.HallDataDef')
+local mc = import('..comm.HallDef')
 local target = {}
 local Director = cc.Director:getInstance()
 local Scheduler = Director:getScheduler()
