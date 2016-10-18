@@ -1,1 +1,3 @@
-return import('.form')
+local form = import('.form')
+
+return form
