@@ -1,6 +1,6 @@
 local target = cc.load('form').build('BaseHall.interface')
 
-target.on = cc.bind(target,	'event').addEventListener
+cc.bind(target,	'event')
 
 target.handler = {
 	CONNECTION = 'CONNECTION',
@@ -11,6 +11,10 @@ target.handler = {
 	HALL_READY	= 'READY',
 	UPDATE_ROOMUSERSCOUNT = 'UPDATE_ROOMUSERSCOUNT'
 }
+
+function target:on(eventName, listener, tag)
+	return self:addEventListener(eventName, listener, tag)
+end
 
 function target:isConnected()
 	self:message(':isConnected()')

@@ -131,7 +131,7 @@ function REQ.RoomsUserCount(param)
 		nRoomID = param
 		})
 end
-print(target.TAG..'getREQ(config).done')
+print(target.TAG..'#getREQ(config).done')
 return REQ
 end
 
@@ -146,7 +146,7 @@ function target:reqServers( data, callack, notify )
 	client:send(mc.GET_SERVERS, data)
 end
 function target:reqRoomsUserCount( param )-- param:room ids
-	MCClient:rpcall(function ( client )
+	MCClient:rpcall(self.TAG, function ( client )
 		local _, resp, data = client:syncSend(mc.GET_SERVERS, self.REQ.RoomsUserCount(param))
 	end)
 end
@@ -299,7 +299,7 @@ function target:initHall(config)
 		self.initHall2(_, resp, data) -- inner rpcall
 	end
 	MCClient:rpcall(self.TAG, proc)
-	print(self.TAG..'initHall(config).done')
+	print(self.TAG..':initHall(config).done')
 end
 
 return target
