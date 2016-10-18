@@ -1,9 +1,10 @@
 local MOBILE_REQ_BASE = 30000	 
+local GAME_REQ_BASE = 50000
 local target = {
-  SEND_PULSE			=(MOBILE_REQ_BASE + 1)   ;-- 心跳
+  SEND_PULSE		=(MOBILE_REQ_BASE + 1)   ;-- 心跳
   CHECK_VERSION		=(MOBILE_REQ_BASE + 2)   ;-- 此请求号必须固定值,应对版本升级
 
-  GET_SERVERS			=(MOBILE_REQ_BASE + 10)  ;-- 此请求号必须固定,应对版本升级
+  GET_SERVERS		=(MOBILE_REQ_BASE + 10)  ;-- 此请求号必须固定,应对版本升级
   GET_AREAS			=(MOBILE_REQ_BASE + 11)  ;-- 获取游戏区 
   GET_ROOMS			=(MOBILE_REQ_BASE + 12)  ;-- 获取房间
   GET_DXXWROOM         =(MOBILE_REQ_BASE + 13)  ;-- 获取断线续玩房间信息=(不等回应)
@@ -11,8 +12,8 @@ local target = {
   GET_GAMELEVEL		=(MOBILE_REQ_BASE + 15)  ;-- 获取游戏等级=(不等回应)
   GET_ASSISTSVR		=(MOBILE_REQ_BASE + 16)	 ;-- 获取AssistSvr
 
-  LOGON_USER  			=(MOBILE_REQ_BASE + 100) ;-- 用户登陆
-  LOGOFF_USER          =(MOBILE_REQ_BASE + 101) ;-- 用户注销
+  LOGON_USER  		=(MOBILE_REQ_BASE + 100) ;-- 用户登陆
+  LOGOFF_USER       =(MOBILE_REQ_BASE + 101) ;-- 用户注销
 
   GET_RNDKEY			=(MOBILE_REQ_BASE + 120) ;-- 获取随机密码
   GET_TEMPWEBSIGN		=(MOBILE_REQ_BASE + 121) ;-- 获取临时票据
@@ -28,13 +29,13 @@ local target = {
   QUERY_SAFE_DEPOSIT	=(MOBILE_REQ_BASE + 161) ;-- 查询保险箱
   QUERY_USER_GAMEINFO	=(MOBILE_REQ_BASE + 162) ;-- 查询游戏信息
   QUERY_SALARY_DEPOSIT	=(MOBILE_REQ_BASE + 163) ;-- 查询游戏工资
-  QUERY_BACKDEPOSIT	=(MOBILE_REQ_BASE + 164) ;-- 查询游戏后备箱
+  QUERY_BACKDEPOSIT		=(MOBILE_REQ_BASE + 164) ;-- 查询游戏后备箱
   QUERY_MEMBER			=(MOBILE_REQ_BASE + 165) ;-- 查询会员状态
 
-  MOVE_SAFE_DEPOSIT	=(MOBILE_REQ_BASE + 180) ;-- 划保险箱银子到游戏
+  MOVE_SAFE_DEPOSIT		=(MOBILE_REQ_BASE + 180) ;-- 划保险箱银子到游戏
   TRANSFER_DEPOSIT		=(MOBILE_REQ_BASE + 181) ;-- 游戏银子存入保险箱
   TAKE_SALARY_DEPOSIT	=(MOBILE_REQ_BASE + 182) ;-- 领取游戏工资
-  TAKE_GIFT_DEPOSIT	=(MOBILE_REQ_BASE + 183) ;-- 领取赠送银子
+  TAKE_GIFT_DEPOSIT		=(MOBILE_REQ_BASE + 183) ;-- 领取赠送银子
   TAKE_BACKDEPOSIT		=(MOBILE_REQ_BASE + 184) ;-- 划后备箱银子到游戏
   SAVE_BACKDEPOSIT		=(MOBILE_REQ_BASE + 185) ;-- 游戏银子存入后备箱
   MOVEDEPOSIT_SAFETOBACK =(MOBILE_REQ_BASE + 186);-- 保险箱转入后备箱
@@ -57,6 +58,82 @@ local target = {
   GET_GAMEVERISON		=(MOBILE_REQ_BASE + 523) ;-- 获取游戏版本信息
 
   GET_FINISHED			=(MOBILE_REQ_BASE + 530) ;-- 结束
+  ----------------------------------------------------------
+  -- 系统通知
+
+	GET_SERVERS_OK		=(GAME_REQ_BASE + 30691)		;-- 获取服务器成功
+	GET_GROUPUSERS_OK	=(GAME_REQ_BASE + 30699)		;-- 在线人数
+	GET_GAMEUSERS_OK	=(GAME_REQ_BASE + 30701)		;-- 游戏在线人数通知
+    GET_ROOMUSERS_OK	=(GAME_REQ_BASE + 30702)		;-- 房间在线人数通知  
+    GET_GAMELEVEL_OK	=(GAME_REQ_BASE + 30703)		;-- 游戏级别通知
+    GET_DXXWROOM_OK		=(GAME_REQ_BASE + 30704)		;-- 断线房间信息通知
+	GET_FRIENDSONLINE_OK	=(GAME_REQ_BASE + 30705)		;-- 在线好友通知
+    GET_GAMEWWW_OK        =(GAME_REQ_BASE + 30706)		;--  
+    GET_SERVICESTATUS_OK  =(GAME_REQ_BASE + 30707)		;--  
+    GET_ICONFILE_OK		 =(GAME_REQ_BASE + 30708)		;--  
+    GET_WEBSIGN_OK		 =(GAME_REQ_BASE + 30709)		;--  
+	BASE_DATA			 =(GAME_REQ_BASE + 30710)		;-- 系统信息刷新通知
+    GET_SERVICESTATUSEX_OK  =(GAME_REQ_BASE + 30711)		;-- 
+	CLIENT_FORBID		 =(GAME_REQ_BASE + 30720)		;-- 客户端禁用
+	SYSTEM_MESSAGE		 =(GAME_REQ_BASE + 30800)		;-- 系统通知
+    MATCH_NOTREADY      	 =(GAME_REQ_BASE + 30900)		;-- 比赛系统通知
+	PUSH_NOTIFY			 =(GAME_REQ_BASE + 31000)		;-- 推送通知到客户端
+
+--系统内部通知请求
+	NTF_PLAYERLOGON		 =(GAME_REQ_BASE + 31001)		;-- 玩家登录
+	NTF_PLAYERLOGOFF		 =(GAME_REQ_BASE + 31002)		;-- 玩家注销
+	RSS_PLAYERLOGONOFF	 =(GAME_REQ_BASE + 31003)		;-- 订阅玩家登录、注销通知
+	QUERY_PLAYERLOGON	 =(GAME_REQ_BASE + 31004)		;-- 查询玩家登录信息
+}
+
+target.Flags = {
+USER_TYPE_HANDPHONE =   	  0x00000800;	--手机用户
+
+SERVER_OPT_SUPPORTMOBILE =    0x00000800;      --手机可见
+AREA_OPT_SUPPORTMOBILE =      0x00000800;      --手机可见
+ROOM_OPT_SUPPORTMOBILE =      0x00000800;      --手机可见
+ROOM_CFG_SUPPORTMOBILE =      0x00000800;  	--支持手机玩
+
+
+FLAG_GETAREAS_INCLUDE_HIDE =    0x00000001;  --获取area时包括隐藏的area,link
+FLAG_LOGON_HANDPHONE =    	0x00000800;  	--手机进入 
+FLAG_LOGON_INTER =	    	0x00001000;		--多开模拟器
+FLAG_GETAREAS_MOBILE =  	0x00000800;  	--手机获取
+FLAG_GETROOMS_MOBILE =    0x00000800;      --手机获取
+FLAG_GETSERVERS_MOBILE =  0x00000800;  	--手机获取
+FLAG_GETGIFTDEPOSIT_MOBILE = 0x00000800;
+FLAG_QUICKREG_HANDPHONE =	 0x00000800;    -- 手机发送 
+
+FLAG_ENTERROOM_HANDPHONE =	 0x00000800;      --手机进入 
+FLAG_ENTERROOM_EXEBUILDNO =	 0x00004000;      -- 进房间需要检查游戏buildno
+FLAG_GETWEBSIGN_HANDPHONE =  0x00000800;      --手机发送 
+FLAG_QUERYUSERGAMEINFO_HANDPHONE = 0x00000800;      --手机发送 
+FLAG_GETRNDKEY_MOBILE =  	       0x00000800;    --移动端获取
+
+FLAG_CLIENTINFO_ANDPHONE =   0x00000010;  -- 安卓手机
+FLAG_CLIENTINFO_IOSPHONE =   0x00000020;  -- 苹果手机
+FLAG_CLIENTINFO_IOSPAD =     0x00000040;  -- 苹果平板
+FLAG_GETSERVERS_NOTIFY =        0x00000001;  --获取server时用通知形式返回
+FLAG_GETROOMS_INCLUDE_ONLINES = 0x00000002;  --获取在线人数
+FLAG_REGUSER_QUICK =        0x00000010;  --一键注册
+ROOM_OPT_NEEDDEPOSIT =	    0x00000004;
+FLAG_SUPPORT_KEEPDEPOSIT =	0x00000001;	--客户端存银子请求如果带上这个标记，表示客户端支持了GR_KEEPDEPOSIT_LIMIT
+FLAG_ENTERROOMOK_CLOAKING = 0x00000008;  -- 隐身
+FLAG_UPDATE_CLOTHING =		0x00000001;
+FLAG_UPDATE_MEMBER =		0x00000002;
+USER_TYPE_MEMBER =			0x00000001;	--会员
+
+FLAG_REGUSER_SIMULATOR =	0x00000020;  --从模拟器注册
+FLAG_LOGON_SIMULATOR =	    0x00000020;  --从模拟器登录
+
+ROOM_CFG_RANDOM =           0x00000002; --随机
+ROOM_CFG_CLOAKING = 		0x00000008; --隐身房
+}--target.Flags
+
+target.ext = {
+SERVER_TYPE_HALL =	  1;	--大厅服务器
+SERVER_TYPE_CHECK =	  2;	--帐户服务器
+SERVER_TYPE_DOWN =   	3;	--下载服务器 (此定义必须固定值,应对版本升级)
 }
 
 function target.key( id )
