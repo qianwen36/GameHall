@@ -1,4 +1,4 @@
-local target = cc.load('form').build('RoomSpace')
+local target = cc.load('form').build('RoomSpace.interface')
 
 function target:build( MainScene )
 	self:message(':build( MainScene )', 'required')

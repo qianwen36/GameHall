@@ -26,6 +26,7 @@ end
 
 function form.spec(target)
 	target.tag = target.tag or form.tag
+	if target.super == nil then
 	function target:super()-- example. target:super().method(...)
 		local name = 'super_'
 		local super = self:spec(name)
@@ -36,6 +37,8 @@ function form.spec(target)
 		end
 		return super or {}
 	end
+	end
+	if target.interface == nil then
 	function target:interface( name )
 		local name_ = name..'_'
 		local interface = self:spec(name_)
@@ -46,10 +49,15 @@ function form.spec(target)
 		end
 		return interface or {}
 	end
+	end
+	if target.message == nil then
 	function target:message( method, option )
-		local tx = option or option..', not implemented'
+		option = option or ''
+		local tx = option..', not implemented'
 		print(self:tag()..method..' '..tx)
 	end
+	end
+	if target.on == nil then
 	function target:on(target)
 		local tar = {}
 		local spec = self
@@ -68,6 +76,8 @@ function form.spec(target)
 	    tar.spec = nil
 	    return tar
 	end
+	end
+	if target.spec == nil then
 	function target:spec(prop, target)
 		if  self._interface == nil then
 			self._interface = {}
@@ -100,6 +110,8 @@ function form.spec(target)
 	    handler = handler[type(prop)]
 	    return handler and handler(self, prop, target)
 	end
+	end
+
 	return target
 end
 

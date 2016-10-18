@@ -399,6 +399,9 @@ function utils_fill( ct, des )
 			print('utils_fill()#'..tostring(ct)..'.'..k..' key not exist')
 		end
 	end
+	for i,v in ipairs(des) do
+		ct[i-1] = v
+	end
 	return ct
 end
 function utils.ct_generate( ctype, des )

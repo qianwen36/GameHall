@@ -29,13 +29,15 @@ function MainScene:onCreate()
     self:getApp():model('RoomSpace'):build(self)
     local model = self:getApp():model('BaseHall')
     model:on(model.handler.HALL_READY, handler(self, self.onHallReady))
+    self.hall = model
+    print(self:getName()..':onCreate().done')
 end
 
 function MainScene:onHallReady( ... )
     -- show content, and start login
+    print(self:getName()..':onHallReady()')
     self:getApp():model('RoomSpace'):showContent(self.areasContainer)
-    self:getApp():model('PlayerModel')
-    	:login(self:getApp():model('BaseHall'))
+    self:getApp():model('PlayerModel'):login(self.hall)
 end
 
 function MainScene:goBack( ... )

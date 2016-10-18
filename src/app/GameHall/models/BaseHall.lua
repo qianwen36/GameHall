@@ -4,17 +4,7 @@ local target = cc.load('form').build('BaseHall', import('.interface.BaseHall'))
 local Director = cc.Director:getInstance()
 local Scheduler = Director:getScheduler()
 
-target.on = cc.bind(target,	'event').addEventListener
-
 target.TAG = 'Hall'
-target.handler = {
-	CONNECTION = 'CONNECTION',
-	CHECK_VERSION = 'VERSION_MB',
-	GET_SERVERS = 'GET_SERVERS',
-	GET_AREAS = 'GET_AREAS',
-	GET_ROOMS = 'GET_ROOMS',
-	HALL_READY = 'READY'
-}
 if not USING_MCRuntime then return target end
 
 local MCClient = require('src.app.TcyCommon.MCClient2')
@@ -27,8 +17,8 @@ function target:start( config )
 	self:restart(config)
 end
 
-function target:login( ... )
-	-- body
+function target:isConnected()
+	return self.connected or false
 end
 
 function target:restart( config )
@@ -46,7 +36,7 @@ function target:restart( config )
 		event = (self.connected and event[1]) or event[2]
 		self:dispatchEvent({
 			name = self.handler.CONNECTION,
-			body = {event = event, msg = des}
+			body = {event = event, msg = des, result = self.TAG}
 			})
 		if self.connected then
 			self.timer = Scheduler:scheduleScriptFunc(function ( t )
@@ -71,6 +61,22 @@ function REQ.resolve( resp )
 	local event = (result and events[1]) or events[2]
 	return event, msg, result
 end
+local function body_resolve( body )
+	local res = {}
+	local data = body.result
+	local c = data[1]
+	local array = data[2]
+	for i=1, c do
+		res[i] = array[i-1]
+	end
+	return res
+end
+function REQ.body_resolve( body )
+	local event = body.event
+	if event == 'succeed' then
+		return body_resolve(body)
+	end
+end
 
 function REQ.checkVersion()
 	local major, min, buildno = unpack(string.split(config.ver, '.'))
@@ -82,20 +88,18 @@ function REQ.checkVersion()
 		szExeName = config.target
 		})
 end
-local FlagGET = 0x00000800 -- for mobile
+
 function REQ.GetServers(des)
-	local TYPE_Hall = 1
-	local FLAG_nofity = 0x00000001
-	local flags = FlagGET
+	local flags = mc.Flags.USER_TYPE_HANDPHONE
 	des = des or {}
 	local notify = des.notify or false
 	if notify then
-		bit.bor(flags, FLAG_nofity)
+		bit.bor(flags, mc.Flags.FLAG_GETSERVERS_NOTIFY)
 	end
 	local nGameID, nServerType, nAgentGroupID
 	if type(des) == 'table' then
 		nGameID = des.nGameID or config.gameid
-		nServerType = des.nServerType or TYPE_Hall
+		nServerType = des.nServerType or mc.ext.SERVER_TYPE_HALL
 		nAgentGroupID = des.nAgentGroupID or config.agentGroup
 	end
 
@@ -110,7 +114,7 @@ function REQ.GetAreas()
 	return ffi2.ct_generate('GET_AREAS', {
 			nGameID = config.gameid,
 			nAgentGroupID = config.agentGroup,
-			dwGetFlags = FlagGET
+			dwGetFlags = mc.Flags.USER_TYPE_HANDPHONE
 		})
 end
 function REQ.GetRooms(areaid)
@@ -118,19 +122,33 @@ function REQ.GetRooms(areaid)
 			nAreaID = areaid,
 			nGameID = config.gameid,
 			nAgentGroupID = config.agentGroup,
-			dwGetFlags = FlagGET
+			dwGetFlags = mc.Flags.USER_TYPE_HANDPHONE
 		})
 end
+function REQ.RoomsUserCount(param)
+	return ffi2.ct_generate('GET_ROOMUSERS',{
+		nAgentGroupID = config.agentGroup,
+		nRoomID = param
+		})
+end
+print(target.TAG..'getREQ(config).done')
 return REQ
-end-- getREQ(config)
+end
 
 function target:reqServers( data, callack, notify )
 	if type(data) ~= 'string' then
-		data = REQ.GetServers(data, {notify = notify})
+		data = self.REQ.GetServers(data, {notify = notify})
 	end
-	MCClient:on(mc.GET_SERVERS_OK, callack)
+	if notify then
+		MCClient:on(mc.GET_SERVERS_OK, callack)
+	end
 	local client = self.client
 	client:send(mc.GET_SERVERS, data)
+end
+function target:reqRoomsUserCount( param )-- param:room ids
+	MCClient:rpcall(function ( client )
+		local _, resp, data = client:syncSend(mc.GET_SERVERS, self.REQ.RoomsUserCount(param))
+	end)
 end
 
 local function GB2utf8string( str )
@@ -139,6 +157,10 @@ local function GB2utf8string( str )
 end
 function target:initHall(config)
 	local REQ = getREQ(config) -- for generate request data
+	self.REQ = REQ
+	function self:body_resolve( body )
+		return REQ.body_resolve(body)
+	end
 	function self.initHall2( _, resp, data )
 		local function proc( client )
 			local result, event, msg, utfstr
@@ -152,7 +174,7 @@ function target:initHall(config)
 				local ct, body = ffi2.vls_resolve('SERVERS', data)
 				local c = ct.nServerCount
 				local array = ffi2.vla_resolve('SERVER', c, body)
-			    print('SERVER['..c..']')
+--[[			    print('SERVER['..c..']')
 				print('-------------------------------------')
 			    for i=0, c-1 do
 	                local item = array[i]
@@ -164,14 +186,14 @@ function target:initHall(config)
 			    	print('szWWW2 = '..GB2utf8string(ffi.string(item.szWWW2)))
 			    	print('nUsersOnline = '..item.nUsersOnline)
 			    	print('-------------------------------------')
-			    end
+			    end]]
 			    result = {c, array}
 			else
 			    return print(self.TAG..".TEST:"..msg)
 			end
 			result = result or nil
 			self:dispatchEvent({
-				name = 'GET_SERVERS',
+				name = self.handler.GET_SERVERS,
 				body = {event = event, msg = msg, result = result}
 				})
 			-- 获取大区列表
@@ -181,7 +203,7 @@ function target:initHall(config)
 				local ct, body = ffi2.vls_resolve('AREAS', data)
 				local c = ct.nCount
 				local array = ffi2.vla_resolve('AREA', c, body)
-				print('AREA['..c..']#')
+--[[				print('AREA['..c..']#')
 				print('-------------------------------------')
 				for i=0, c-1 do
 				    local a = array[i]
@@ -192,14 +214,14 @@ function target:initHall(config)
 				    print('nServerID = '..a.nServerID)
 				    print('szAreaName = '.. GB2utf8string(ffi.string(a.szAreaName)) )
 				    print('-------------------------------------')
-				end
+				end]]
 			    result = {c, array}
 			else
 			    return print(self.TAG..".TEST:"..msg)
 			end
 			result = result or nil
 			self:dispatchEvent({
-				name = 'GET_AREAS',
+				name = self.handler.GET_AREAS,
 				body = {event = event, msg = msg, result = result}
 				})
 			local ar = result or {}
@@ -212,7 +234,7 @@ function target:initHall(config)
 					local ct, body = ffi2.vls_resolve('ROOMS', data)
 					local c = ct.nRoomCount
 					local array = ffi2.vla_resolve('ROOM', c, body)
-					print('ROOM['..c..']# link('..ct.nLinkCount..')@area.'..info.nAreaID)
+--[[					print('ROOM['..c..']# link('..ct.nLinkCount..')@area.'..info.nAreaID)
 					print('-------------------------------------')
 					for i=0, c-1 do
 					    local a = array[i]
@@ -227,19 +249,19 @@ function target:initHall(config)
 					    print('szPassword = '..GB2utf8string(ffi.string(a.szPassword)) )
 					    print('szWWW = '.. GB2utf8string(ffi.string(a.szWWW)) )
 					    print('-------------------------------------')
-					end
+					end]]
 				    result = {c, array}
 				else
 				    return print(self.TAG..".TEST:"..msg)
 				end
 				result = result or nil
 				self:dispatchEvent({
-					name = 'GET_ROOMS',
+					name = self.handler.GET_ROOMS,
 					body = {event = event, msg = msg, result = result}
 					})
 			end
 			self:dispatchEvent({
-				name = 'READY',
+				name = self.handler.HALL_READY,
 				})
 		end
 		MCClient:rpcall(self.TAG, proc)
@@ -251,21 +273,21 @@ function target:initHall(config)
 		event, msg, result = REQ.resolve(resp)
 		if result then
 			local t = ffi2.ct_resolve('CHECK_VERSION_OK_MB', data)
-			print('[CHECK_VERSION_OK_MB]')
+--[[			print('[CHECK_VERSION_OK_MB]')
 			print('nMajorVer ='..t.nMajorVer)
 			print('nMinorVer ='..t.nMinorVer)
 			print('nBuildNO ='..t.nBuildNO)
 			print('nCheckReturn ='..t.nCheckReturn)
 			print('szDLFile ='..GB2utf8string(ffi.string(t.szDLFile)) )
 			print('szUpdateWWW ='..GB2utf8string(ffi.string(t.szUpdateWWW)) )
-			print('dwClientIP ='..t.dwClientIP)
+			print('dwClientIP ='..t.dwClientIP)]]
 			result = t
 		else
 		    return print(self.TAG..".TEST:"..msg)
 		end
 		result = result or nil
 		self:dispatchEvent({
-			name = 'CHECK_VERSION',
+			name = self.handler.CHECK_VERSION,
 			body = {event = event, msg = msg, result = result}
 			})
 		-- 获取大厅服务器
@@ -277,6 +299,7 @@ function target:initHall(config)
 		self.initHall2(_, resp, data) -- inner rpcall
 	end
 	MCClient:rpcall(self.TAG, proc)
+	print(self.TAG..'initHall(config).done')
 end
 
 return target
