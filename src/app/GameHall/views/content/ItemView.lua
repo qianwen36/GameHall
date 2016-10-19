@@ -30,7 +30,7 @@ function target:onCreate(param)
 
 	self:setCondition(param.condition or '')
 	self.wOnline = self.txOnline:getString()
-	self:setOnline(param.online or '')
+	self:onlineUsers(param.online or '')
 	self:setBackground(param.background or DEFAULT_BACKGROUND)
 	self:setTitle(param.title or DEFAULT_TITLE)
 end
@@ -44,7 +44,7 @@ function target:setCondition( param )
 	return self
 end
 
-function target:setOnline( param )
+function target:onlineUsers( param )
 	self.txOnline:setString(param..self.wOnline)
 end
 

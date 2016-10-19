@@ -167,6 +167,7 @@ function target:build( MainScene )
 			handler = handler[event.name]
 			return handler and handler()
 		end)
+		view:addTo(button)
 		return view
 	end
 
@@ -216,7 +217,6 @@ end
 function target:reset( ... )
 	self.areas_ = {}
 	self.rooms_ = {}
-	self.views_ = {}
 	self.onlineusers_param = nil
 	local timer = self.timer
 	self.timer = timer and self.target:getScheduler():unscheduleScriptEntry(timer)
@@ -271,11 +271,7 @@ function target:onUpdateRoomUsersCount( event )
 		end
 		array = self.areas_
 		for i,info in ipairs(array) do
-			local c = onlineCount(info.rooms)
-			info.online = c
-			local view = self:getAreaView(i)
-			if view then view:setOnline(c) end
-			self:log(':onUpdateRoomUsersCount( event )#area.online='..c..'.'..hall:string(info.data.szRoomName)..c)
+			info:update()
 		end
 	else -- timer
 		local param = self:getOnlineParam()
@@ -294,12 +290,7 @@ function target:getOnlineParam( ... )
 	end
 	return param
 end
-function target:getAreaView( index )
-	return self:views('area')[index]
-end
-function target:getRoomView( index )
-	return self:views('room')[index]
-end
+
 function target:getArea( index )
 	local array = self.areas_ or {}
 	return array[index]	
@@ -336,14 +327,6 @@ function target:getRooms( nAreaID )
 	return res
 end
 
-function target:views( name )
-	local array = self.views_[name] or {}
-	if (self.views_[name] == nil) then
-		self.views_[name] = array
-	end
-	return array
-end
-
 function target:areaParam( info )
 	info = info.data
 	local hall = self.hall
@@ -353,6 +336,7 @@ function target:areaParam( info )
 		background = backgrounds[info.nIconID],
 		title = hall:string(info.szAreaName),
 		rooms = self:getRooms(info.nAreaID),
+		info = info
 	}
 	return param
 end
@@ -360,12 +344,16 @@ function target:showContent( container )
 	local MainScene = self.target
 	MainScene.cleanContainer(container)
 	local array = self.areas_ or {}
-	local views = self:views('area')
 	for i,info in ipairs(array) do
 		local param = self:areaParam(info)
 		param.index = i
-		local v = MainScene:addItem('ItemView', param)
-		table.insert(views, v)
+		local view = MainScene:addItem('ItemView', param)
+		info.view = view
+		function info:update( ... )
+			local c = onlineCount(self.rooms)
+			self.online = c
+			self.view:onlineUsers(c)
+		end
 	end
 	MainScene:showContent('area')
     self:onUpdateRoomUsersCount('start')
