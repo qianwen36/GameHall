@@ -4,7 +4,7 @@ function target:build( MainScene )
 	self:definition(':build( MainScene )', 'required')
 end
 
-function target:showContent( container )
+function target:showContent( level, container )
 	self:definition(':showContent( container )')
 end
 

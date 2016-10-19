@@ -1,19 +1,33 @@
 local target = cc.load('form').build('RoomSpace', import('.interface.RoomSpace'))
+
+local DEFAULT_LEVEL = 2
+function target:getConfig( ... )
+	return self.app:getConfig('hall').config
+end
 function target:build( MainScene )
 	self:reset()
 	self.target = MainScene
 	local MainScene_onEnter = MainScene.onEnter
 	function MainScene:onEnter()
 		MainScene_onEnter(self)
-	    local param = self:getApp():getConfig('hall')
+		local app = self:getApp()
+	    local param = app:getConfig('hall')
+	    local config = param.config
+	    local offline = param.offline
+	    local level = config.display_level or DEFAULT_LEVEL
+	    local array = ((level == 2) and offline.areas) or offline.rooms
 	    self.param_ = param
-	    self:test('area', param.offline.areas)
+	    if (config.display_level == nil) then
+	    	config.display_level = level
+	    end
+	    self:test(level, array)
 	    local model = self:getApp():model('BaseHall')
 	    model:on(model.handler.GET_AREAS, handler(target, target.onGetAreas))
 	    model:on(model.handler.GET_ROOMS, handler(target, target.onGetRooms))
 	    model:on(model.handler.CONNECTION, handler(target, target.onConnection))
 	    model:on(model.handler.UPDATE_ROOMUSERSCOUNT, handler(target,target.onUpdateRoomUsersCount))
 	    target.hall = model
+	    target.app = app
 	end
 
 	function MainScene:getContentView( name, param )
@@ -23,21 +37,25 @@ function target:build( MainScene )
 	end
 
 	local wrap2array
-	function MainScene:test( test, param )
-		if param==nil then return end
-		test = test or 'area'
+	function MainScene:test( level, array )
+		if array==nil then return end
+		local itemView = 'ItemView'
 		local function handler( ... )
-			local name, array = wrap2array(param)
+			local name, array = wrap2array(array)
+			itemView = name or itemView
 			for i, item in ipairs(array) do
-				self:addItem(name, item)
+				self:addItem(level, item, itemView)
 			end
-			return self:showContent(test)
+			return self:showContent(1)
 		end
 		return handler()
 	end
 	function wrap2array( param )
 		param = clone(param)
-		local name = table.remove(param, 1)
+		local name = ''
+		if type(param[1]) ~= 'table' then
+			name = table.remove(param, 1)
+		end
 		if #param ==0 then
 			param = {param}
 		end
@@ -116,34 +134,35 @@ function target:build( MainScene )
 		end
 		return container
 	end
-	function MainScene:showContent( name )
-		local handler = {}
+	function MainScene:showContent( level )
 		local function vertialCenter( container )
 			local size = container:getParent():getContentSize()
 			container:align(cc.p(0, 0.5), 0, size.height/2)
 			return container:show()
 		end
-		function handler.area()
+		local handler = {
+		function ()
 			vertialCenter(self:layoutAreas())
 			return self
-		end
-		function handler.room(  )
+		end,
+		function()
 			vertialCenter(self:layoutRooms())
 			return self
 		end
-		handler = handler[name]
+		}
+		handler = handler[level]
 		return handler and handler()
 	end
 
-	function MainScene:addItem( name, param )
+	function MainScene:addItem(level, param, itemView )
 		local container = {
-			ItemView = self.areasContainer,
-			ItemView2 = self.roomsContainer
+			self.areasContainer,
+			self.roomsContainer
 		}
-		container = container[name]
+		container = container[level]
 		local count = container:getChildrenCount()
-		name = name or 'ItemView'
-		local view = self:getContentView(name, param)
+		itemView = itemView or 'ItemView'
+		local view = self:getContentView(itemView, param)
 		local button = view:getButton()
 			:removeSelf()
 			:addTo(container)
@@ -161,13 +180,13 @@ function target:build( MainScene )
 			local handler = {}
 			function handler.ended()
 				local type = {ItemView = 'area', ItemView2 = 'room'}
-				type = type[name]
+				type = type[itemView]
 				return type and self:onItemClicked(view, type, param)
 			end
-			handler = handler[event.name]
+			handler = handler[event.itemView]
 			return handler and handler()
 		end)
-		view:addTo(button)
+		view:addTo(button).level = level
 		return view
 	end
 
@@ -340,24 +359,37 @@ function target:areaParam( info )
 	}
 	return param
 end
-function target:showContent( container )
+function target:showContent( level, container )
 	local MainScene = self.target
+	local containers = {
+		self.areasContainer,
+		self.roomsContainer
+	}
+	level = level or 1
+	container = container or containers[level]
 	MainScene.cleanContainer(container)
-	local array = self.areas_ or {}
-	for i,info in ipairs(array) do
-		local param = self:areaParam(info)
-		param.index = i
-		local view = MainScene:addItem('ItemView', param)
-		info.view = view
-		function info:update( ... )
-			local c = onlineCount(self.rooms)
-			self.online = c
-			self.view:onlineUsers(c)
+	assert(level>0)
+	local handler = {
+	function ( ... )
+		local array = self.areas_ or {}
+		for i,info in ipairs(array) do
+			local param = self:areaParam(info)
+			param.index = i
+			local view = MainScene:addItem(self:getConfig().display_level, param)
+			info.view = view
+			function info:update( ... )
+				local c = onlineCount(self.rooms)
+				self.online = c
+				self.view:onlineUsers(c)
+			end
 		end
+		MainScene:showContent('area')
+	    self:onUpdateRoomUsersCount('start')
+	    self.timer = MainScene:getScheduler():scheduleScriptFunc(handler(target, target.onUpdateRoomUsersCount), 30, false)
+	end,
+	function ( ... )
 	end
-	MainScene:showContent('area')
-    self:onUpdateRoomUsersCount('start')
-    self.timer = MainScene:getScheduler():scheduleScriptFunc(handler(target, target.onUpdateRoomUsersCount), 30, false)
+	}
 end
 
 return target
