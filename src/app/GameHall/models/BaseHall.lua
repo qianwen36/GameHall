@@ -50,9 +50,9 @@ end
 
 local function getREQ( config )
 local REQ = {}
-function REQ.resolve( resp )
+function REQ.resolve( resp, notify )
 	local events = {'succeed', 'failed'}
-	local result = MCClient:accept(resp)
+	local result = MCClient:accept(resp) or (resp == notify)
 	local msg = MCClient:describe(resp)
 	if string.len(msg)==0 then
 		msg = 'notification from server'
@@ -67,7 +67,7 @@ local function body_resolve( body )
 	local c = data[1]
 	local array = data[2]
 	for i=1, c do
-		res[i] = array[i-1]
+		res[i] = {data = array[i-1]}
 	end
 	return res
 end
@@ -146,14 +146,50 @@ function target:reqServers( data, callack, notify )
 	client:send(mc.GET_SERVERS, data)
 end
 function target:reqRoomsUserCount( param )-- param:room ids
-	MCClient:rpcall(self.TAG, function ( client )
-		local _, resp, data = client:syncSend(mc.GET_SERVERS, self.REQ.RoomsUserCount(param))
-	end)
+	local REQ = self.REQ
+	local function onNotify( _, resp, data )
+		local event, msg, result = REQ.resolve(resp, mc.GET_ROOMUSERS_OK)
+		if result then
+			local ct, body = ffi2.vls_resolve('ITEM_COUNT', data)
+			local c = ct.nServerCount
+			local array = ffi2.vla_resolve('ITEM_USERS', c, body)
+			result = {c, array}
+		end
+		result = result or nil
+		print(self.TAG..':reqRoomsUserCount( param )#onNotify.'..msg)
+		self:dispatchEvent({
+			name = self.handler.UPDATE_ROOMUSERSCOUNT,
+			body = {event = event, msg = msg, result = result}
+			})
+	end
+	local client = self.client
+	if param.start then
+		client:on(mc.GET_ROOMUSERS_OK, onNotify)
+	end
+	local data, ct = REQ.RoomsUserCount(param)
+	client:send(mc.GET_ROOMUSERS, data)
 end
 
 local function GB2utf8string( str )
     local len = string.len(str)
 	return (len > 0 and MCCharset:gb2Utf8String(str, len) ) or str
+end
+local function Utf82Gbstring( str )
+    local len = string.len(str)
+	return (len > 0 and MCCharset:utf82GbString(str, len) ) or str
+end
+function target:string( str, raw )
+	assert(type(raw)=='string' or raw == nil, 'target:string(str, raw) #raw expect string')
+	raw = raw or 'utf8'
+	local handler = {}
+	function handler.utf8( ... )
+		return GB2utf8string(ffi.string(str))
+	end
+	function handler.raw( ... )
+		return Utf82Gbstring(str)
+	end
+	handler = handler[raw]
+	return handler and handler()
 end
 function target:initHall(config)
 	local REQ = getREQ(config) -- for generate request data
@@ -169,7 +205,7 @@ function target:initHall(config)
 			elseif resp == mc.GET_SERVERS_OK then
 				client:off(mc.GET_SERVERS_OK)
 			end
-			event, msg, result = REQ.resolve(resp)
+			event, msg, result = REQ.resolve(resp, mc.GET_SERVERS_OK)
 			if result then
 				local ct, body = ffi2.vls_resolve('SERVERS', data)
 				local c = ct.nServerCount
@@ -180,10 +216,10 @@ function target:initHall(config)
 	                local item = array[i]
 			    	print('nServerID = '..item.nServerID)
 			    	print('nServerType = '.. item.nServerType)
-			    	print('szServerName = '..GB2utf8string(ffi.string(item.szServerName)) )
-			    	print('szServerIP = '..GB2utf8string(ffi.string(item.szServerIP)) )
-			    	print('szWWW = ' ..GB2utf8string(ffi.string(item.szWWW)) )
-			    	print('szWWW2 = '..GB2utf8string(ffi.string(item.szWWW2)))
+			    	print('szServerName = '..self:string(item.szServerName) )
+			    	print('szServerIP = '..self:string(item.szServerIP) )
+			    	print('szWWW = ' ..self:string(item.szWWW) )
+			    	print('szWWW2 = '..self:string(item.szWWW2))
 			    	print('nUsersOnline = '..item.nUsersOnline)
 			    	print('-------------------------------------')
 			    end]]
@@ -212,7 +248,7 @@ function target:initHall(config)
 				    print('nSubType = '..a.nSubType)
 				    print('nGifID = '..a.nGifID)
 				    print('nServerID = '..a.nServerID)
-				    print('szAreaName = '.. GB2utf8string(ffi.string(a.szAreaName)) )
+				    print('szAreaName = '.. self:string(a.szAreaName) )
 				    print('-------------------------------------')
 				end]]
 			    result = {c, array}
@@ -244,10 +280,10 @@ function target:initHall(config)
 					    print('nUsersOnline = '..a.nUsersOnline)
 					    print('nPort = '..a.nPort)
 					    print('nGamePort = '..a.nGamePort)
-					    print('szRoomName = '..GB2utf8string(ffi.string(a.szRoomName)) )
-					    print('szGameIP = '..GB2utf8string(ffi.string(a.szGameIP)) )
-					    print('szPassword = '..GB2utf8string(ffi.string(a.szPassword)) )
-					    print('szWWW = '.. GB2utf8string(ffi.string(a.szWWW)) )
+					    print('szRoomName = '..self:string(a.szRoomName) )
+					    print('szGameIP = '..self:string(a.szGameIP) )
+					    print('szPassword = '..self:string(a.szPassword) )
+					    print('szWWW = '.. self:string(a.szWWW) )
 					    print('-------------------------------------')
 					end]]
 				    result = {c, array}
@@ -278,8 +314,8 @@ function target:initHall(config)
 			print('nMinorVer ='..t.nMinorVer)
 			print('nBuildNO ='..t.nBuildNO)
 			print('nCheckReturn ='..t.nCheckReturn)
-			print('szDLFile ='..GB2utf8string(ffi.string(t.szDLFile)) )
-			print('szUpdateWWW ='..GB2utf8string(ffi.string(t.szUpdateWWW)) )
+			print('szDLFile ='..self:string(t.szDLFile) )
+			print('szUpdateWWW ='..self:string(t.szUpdateWWW) )
 			print('dwClientIP ='..t.dwClientIP)]]
 			result = t
 		else

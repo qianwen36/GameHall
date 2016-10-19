@@ -1,8 +1,7 @@
 local target = cc.load('form').build('RoomSpace', import('.interface.RoomSpace'))
-
 function target:build( MainScene )
-	self.target = MainScene
 	self:reset()
+	self.target = MainScene
 	local MainScene_onEnter = MainScene.onEnter
 	function MainScene:onEnter()
 		MainScene_onEnter(self)
@@ -138,18 +137,17 @@ function target:build( MainScene )
 
 	function MainScene:addItem( name, param )
 		local container = {
-			AreaView = self.areasContainer,
-			RoomView = self.roomsContainer
+			ItemView = self.areasContainer,
+			ItemView2 = self.roomsContainer
 		}
 		container = container[name]
 		local count = container:getChildrenCount()
-		name = name or 'AreaView'
+		name = name or 'ItemView'
 		local view = self:getContentView(name, param)
 		local button = view:getButton()
 			:removeSelf()
 			:addTo(container)
 			:setTag(count+1)
-
 		local y = container:getContentSize().height/2
 		local size = button:getContentSize()
 		if count >0 then
@@ -162,13 +160,14 @@ function target:build( MainScene )
 		button:onTouch(function ( event )
 			local handler = {}
 			function handler.ended()
-				local type = {AreaView = 'area', RoomView = 'room'}
+				local type = {ItemView = 'area', ItemView2 = 'room'}
 				type = type[name]
 				return type and self:onItemClicked(view, type, param)
 			end
 			handler = handler[event.name]
 			return handler and handler()
 		end)
+		return view
 	end
 
 	function MainScene:onItemClicked( view , type, param )
@@ -217,17 +216,26 @@ end
 function target:reset( ... )
 	self.areas_ = {}
 	self.rooms_ = {}
+	self.views_ = {}
 	local timer = self.timer
 	self.timer = timer and self.target:getScheduler():unscheduleScriptEntry(timer)
 end
 
 function target:onGetAreas( event )
 	local array = self.hall:body_resolve(event.body)
+	for i,info in ipairs(array) do
+		info.rooms = {}
+	end
 	self.areas_ = array
 end
 function target:onGetRooms( event )
 	local array = self.hall:body_resolve(event.body)
 	if array ~= nil then
+		for i,info in ipairs(array) do
+			local area = self:getAreaById(info.data.nAreaID)
+			info.area = area
+			table.insert(area.rooms, info)
+		end
 		local rooms = self.rooms_
 		table.insertto(rooms, array, #rooms+1)
 	else -- failed
@@ -241,30 +249,43 @@ function target:onConnection( event )
 end
 
 function target:onUpdateRoomUsersCount( event )
+	local hall = self.hall
 	if type(event) == 'table' then
-		local body = event.body
-		local handler = {}
-		function handler.succeed( ... )
-			local data = body.result
+		local array = hall:body_resolve(body)
+		for i,info in ipairs(array) do
+			local room = self:getRoomById(info.nItemID) or {}
+			room.online = info.nUsers
+			self:log(':onUpdateRoomUsersCount( event )'..hall:string(room.data.szRoomName))
 		end
-		handler = handler[body.event]
-		return handler and handler()
+		array = self.areas_
+		for i,info in ipairs(array) do
+			local c = onlineCount(info.rooms)
+			info.online = c
+			local view = self:getAreaView(i)
+			if view then view:setOnline(c) end
+		end
 	else -- timer
 		local param = {}
 		local array = self.rooms_ or {}
 		for i,info in ipairs(array) do
 			param[i] = info.nRoomID
 		end
-		self.hall:reqRoomsUserCount(param)
+		hall:reqRoomsUserCount(param)
 	end
 end
 
+function target:getAreaView( index )
+	return self.views('area')[index]
+end
+function target:getRoomView( index )
+	return self.views('room')[index]
+end
 function target:getArea( index )
 	local array = self.areas_ or {}
 	return array[index]	
 end
 function target:getAreaById( id )
-	return self:resolveInfo(id, 'areas_', 'nAreaID')
+	return self:resolve_info(id, 'areas_', 'nAreaID')
 end
 
 function target:getRoom( index )
@@ -272,28 +293,59 @@ function target:getRoom( index )
 	return array[index]	
 end
 function target:getRoomById( id )
-	return self:resolveInfo(id, 'rooms_', 'nRoomID')
+	return self:resolve_info(id, 'rooms_', 'nRoomID')
 end
 
-function target:resolveInfo( value, name, field )
+function target:resolve_info( value, name, field )
 	local array = self[name] or {}
 	for i,info in ipairs(array) do
-		if info[field] == value then
+		if info.data[field] == value then
 			return info
 		end
 	end
 end
 
+function target:getRooms( nAreaID )
+	local res = {}
+	local array = self.rooms_ or {}
+	for i,info in ipairs(array) do
+		if info.nAreaID == nAreaID then
+			table.insert(res, info)
+		end
+	end
+	return res
+end
+
+function target:views( name )
+	local array = self.views_[name] or {}
+	return array
+end
+
+function target:areaParam( info )
+	local data = info.data
+	local param = {
+		name = self.hall:string(data.szAreaName),
+		online = 0,
+		background = '',
+		title = '',
+		rooms = self:getRooms(data.nAreaID),
+	}
+	return param
+end
 function target:showContent( container )
 	local MainScene = self.target
 	MainScene.cleanContainer(container)
 	local array = self.areas_ or {}
+	local views = self:views('area')
 	for i,info in ipairs(array) do
-		local param = {}
-		MainScene:addItem('AreaView', param)
+		local param = self:areaParam(info)
+		param.index = i
+		local v = MainScene:addItem('ItemView', param)
+		table.insert(views, v)
 	end
 	MainScene:showContent('area')
-    self.timer = MainScene:getScheduler():scheduleScriptFunc(handler(target, target.onUpdateRoomUsersCount), 5, false)
+    self:onUpdateRoomUsersCount()
+    self.timer = MainScene:getScheduler():scheduleScriptFunc(handler(target, target.onUpdateRoomUsersCount), 30, false)
 end
 
 return target

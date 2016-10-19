@@ -27,6 +27,8 @@ end
 function form.spec(target)
 	local super = target._super or {}
 	target.tag = target.tag or form.tag
+	target.log = target.log or super.log or form.log
+
 	if target.super == nil
 	and super.super == nil then
 	function target:super()-- example. target:super().method(...)
@@ -39,7 +41,7 @@ function form.spec(target)
 		end
 		return super or {}
 	end
-	print(target:tag()..':super() produced')
+	target:log(':super() produced')
 	end
 	if target.interface == nil
 	and super.interface == nil then
@@ -53,16 +55,16 @@ function form.spec(target)
 		end
 		return interface or {}
 	end
-	print(target:tag()..':interface( name ) produced')
+	target:log(':interface( name ) produced')
 	end
-	if target.message == nil
-	and super.message == nil then
-	function target:message( method, option )
+	if target.definition == nil
+	and super.definition == nil then
+	function target:definition( method, option )
 		option = option or ''
-		local tx = option..', not implemented'
-		print(self:tag()..method..' '..tx)
+		local tx = ' '..option..', not implemented'
+		self:log(method, tx)
 	end
-	print(target:tag()..':message( method, option ) produced')
+	target:log(':definition( method, option ) produced')
 	end
 	if target.on == nil
 	and super.on == nil then
@@ -78,7 +80,7 @@ function form.spec(target)
 	            tar[k] = v
 	        end
 	    end
-	    print(self:tag()..'['..spec._tag..'] target binding form produced')
+	    self:log('['..spec._tag..'] target binding form produced')
 	    -- no such key binding to the target
 	    tar.on = nil
 	    tar.spec = nil
@@ -94,7 +96,7 @@ function form.spec(target)
 	    local handler = {}
 	    function handler.string(self, prop, target)
 	        if target ~= nil then
-	            print(self:tag()..'['..prop..'] setter/getter produced')
+	            self:log('['..prop..'] setter/getter produced')
 	            local property = '_'..prop
 	            local function prop_(self, target)
 	                if target ~= nil then
@@ -112,17 +114,21 @@ function form.spec(target)
 	        local target = prop
 	        table.insert(self._interface, target)
 	        if type(target._tag)=='string' then
-	            print(self:tag()..' interface['..target._tag..'] specified')
+	            self:log(' interface['..target._tag..'] specified')
 	        end
 	        return self
 	    end
 	    handler = handler[type(prop)]
 	    return handler and handler(self, prop, target)
 	end
-	print(target:tag()..':spec(prop, target) produced')
+	target:log(':spec(prop, target) produced')
 	end
 
 	return target
+end
+
+function form:log( ... )
+	print(self:tag()..table.concat({...}))
 end
 
 function form:tag()

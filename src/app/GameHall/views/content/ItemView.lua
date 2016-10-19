@@ -1,4 +1,4 @@
-local target = class("AreaView", cc.load("mvc").ViewBase)
+local target = class("ItemView", cc.load("mvc").ViewBase)
 target.RESOURCE_FILENAME = "res/hallcocosstudio/Room/Area.csb"
 
 
@@ -24,8 +24,12 @@ function target:onCreate(param)
 		guandimiao = self:nodeFromPath('guandimiao_nameimage', button),
 		yuxianglou = self:nodeFromPath('yuxianglou_nameimage', button),
 	}
+	if param.rooms then -- area
+		self:setItemName(param.name or '')
+	else
+		self:setCondition(param.condition or '')
+	end
 	self.wOnline = self.txOnline:getString()
-	self:setCondition(param.condition or '')
 	self:setOnline(param.online or '')
 	self:setBackground(param.background or 'gelou')
 	self:setTitle(param.title or 'baiyinggu')
@@ -39,6 +43,9 @@ end
 function target:setCondition( param )
 	self.txCondition:setString(param)
 	return self
+end
+function target:setItemName( name )
+	return self:setCondition(name)
 end
 function target:setOnline( param )
 	self.txOnline:setString(param..self.wOnline)

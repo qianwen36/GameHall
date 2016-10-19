@@ -6,8 +6,9 @@ local config = {
 	gameid = 584,
 	agentGroup = 6,
 	
-	areas = {'AreaView',
+	areas = {'ItemView',
 	{
+		name = '测试区',
 		condition = '100两以上',
 		online = '65',
 		background = 'leitai',
@@ -15,19 +16,21 @@ local config = {
 		rooms = {1}
 	},
 	{
+		name = '测试区2',
 		condition = '100两以上',
 		online = '35',
 		background = 'gelou',
 		title = 'guandimiao'
 	},
 	{
+		name = '测试Offline',
 		condition = '200两以上',
 		online = '20',
 		background = 'two_pandas',
 		title = 'baiyinggu'
 	},
 	},
-	rooms = {'RoomView',
+	rooms = {'ItemView2',
 		type = 'deposit',
 		name = '测试',
 		condition = 100,

@@ -1,4 +1,4 @@
-local target = class("AreaView", cc.load("mvc").ViewBase)
+local target = class("ItemView2", cc.load("mvc").ViewBase)
 target.RESOURCE_FILENAME = "res/hallcocosstudio/Room/Room.csb"
 
 
