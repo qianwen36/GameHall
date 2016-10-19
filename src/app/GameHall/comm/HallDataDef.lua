@@ -192,7 +192,7 @@ typedef struct _tagGET_ROOMUSERS{
 	T_DWORD dwGetFlags;
   	int nReserved[3];
 	int nRoomCount;//该结构发送时变长
-	int nRoomID[MAX_QUERY_ROOMS];
+//	int nRoomID[MAX_QUERY_ROOMS];
 }GET_ROOMUSERS, *LPGET_ROOMUSERS;
 
 typedef struct _tagITEM_COUNT{

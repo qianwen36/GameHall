@@ -126,9 +126,11 @@ function REQ.GetRooms(areaid)
 		})
 end
 function REQ.RoomsUserCount(param)
-	return ffi2.ct_generate('GET_ROOMUSERS',{
+	return ffi2.vls_generate('GET_ROOMUSERS', 'int', {
 		nAgentGroupID = config.agentGroup,
-		nRoomID = param
+		nRoomCount = #param,
+--		dwGetFlags = mc.Flags.USER_TYPE_HANDPHONE,
+		param
 		})
 end
 print(target.TAG..'#getREQ(config).done')
@@ -145,29 +147,37 @@ function target:reqServers( data, callack, notify )
 	local client = self.client
 	client:send(mc.GET_SERVERS, data)
 end
-function target:reqRoomsUserCount( param )-- param:room ids
+function target:reqRoomsUserCount( param, start )-- param:room ids
 	local REQ = self.REQ
 	local function onNotify( _, resp, data )
 		local event, msg, result = REQ.resolve(resp, mc.GET_ROOMUSERS_OK)
 		if result then
 			local ct, body = ffi2.vls_resolve('ITEM_COUNT', data)
-			local c = ct.nServerCount
+			local c = ct.nCount
 			local array = ffi2.vla_resolve('ITEM_USERS', c, body)
 			result = {c, array}
 		end
 		result = result or nil
-		print(self.TAG..':reqRoomsUserCount( param )#onNotify.'..msg)
+		self:log(':reqRoomsUserCount( param )#onNotify.', msg)
 		self:dispatchEvent({
 			name = self.handler.UPDATE_ROOMUSERSCOUNT,
 			body = {event = event, msg = msg, result = result}
 			})
 	end
 	local client = self.client
-	if param.start then
+	if start == 'start' then
 		client:on(mc.GET_ROOMUSERS_OK, onNotify)
 	end
 	local data, ct = REQ.RoomsUserCount(param)
 	client:send(mc.GET_ROOMUSERS, data)
+--[[	local c = ct.head.nRoomCount
+	local array = ct.array
+	print('[GET_ROOMUSERS].'..c)
+	for i=0,c-1 do
+		local item = array[i]
+		print('nRoomID['..i..'].'..item)
+	end
+	print('-----------------------')]]
 end
 
 local function GB2utf8string( str )
@@ -192,6 +202,7 @@ function target:string( str, raw )
 	return handler and handler()
 end
 function target:initHall(config)
+	local REQUEST -- request id
 	local REQ = getREQ(config) -- for generate request data
 	self.REQ = REQ
 	function self:body_resolve( body )
@@ -200,8 +211,9 @@ function target:initHall(config)
 	function self.initHall2( _, resp, data )
 		local function proc( client )
 			local result, event, msg, utfstr
+			REQUEST = mc.GET_SERVERS
 			if (MCClient.accept(resp)) then
-				_, resp, data = client:syncSend(mc.GET_SERVERS, data)
+				_, resp, data = client:syncSend(REQUEST, data)
 			elseif resp == mc.GET_SERVERS_OK then
 				client:off(mc.GET_SERVERS_OK)
 			end
@@ -225,7 +237,7 @@ function target:initHall(config)
 			    end]]
 			    result = {c, array}
 			else
-			    return print(self.TAG..".TEST:"..msg)
+			    return self:log(mc.key(REQUEST), ".message:"..msg)
 			end
 			result = result or nil
 			self:dispatchEvent({
@@ -233,7 +245,8 @@ function target:initHall(config)
 				body = {event = event, msg = msg, result = result}
 				})
 			-- 获取大区列表
-			_, resp, data = client:syncSend(mc.GET_AREAS, REQ.GetAreas())
+			REQUEST = mc.GET_AREAS
+			_, resp, data = client:syncSend(REQUEST, REQ.GetAreas())
 			event, msg, result = REQ.resolve(resp)
 			if result then
 				local ct, body = ffi2.vls_resolve('AREAS', data)
@@ -253,7 +266,7 @@ function target:initHall(config)
 				end]]
 			    result = {c, array}
 			else
-			    return print(self.TAG..".TEST:"..msg)
+			    return self:log(mc.key(REQUEST), ".message:"..msg)
 			end
 			result = result or nil
 			self:dispatchEvent({
@@ -264,7 +277,8 @@ function target:initHall(config)
 			local count = ar[1] or 0
 			for i=0, count-1 do
 				local info = ar[2][i]
-			    _, resp, data = client:syncSend(mc.GET_ROOMS, REQ.GetRooms(info.nAreaID))
+				REQUEST = mc.GET_ROOMS
+			    _, resp, data = client:syncSend(REQUEST, REQ.GetRooms(info.nAreaID))
 				event, msg, result = REQ.resolve(resp)
 				if result then
 					local ct, body = ffi2.vls_resolve('ROOMS', data)
@@ -288,7 +302,7 @@ function target:initHall(config)
 					end]]
 				    result = {c, array}
 				else
-				    return print(self.TAG..".TEST:"..msg)
+				    return self:log(mc.key(REQUEST), ".message:"..msg)
 				end
 				result = result or nil
 				self:dispatchEvent({
@@ -305,7 +319,8 @@ function target:initHall(config)
 	local function proc( client )
 		local _, resp, data, result, event, msg
 		-- 获取大厅版本
-		_, resp, data = client:syncSend(mc.CHECK_VERSION, REQ.checkVersion())
+		REQUEST = mc.CHECK_VERSION
+		_, resp, data = client:syncSend(REQUEST, REQ.checkVersion())
 		event, msg, result = REQ.resolve(resp)
 		if result then
 			local t = ffi2.ct_resolve('CHECK_VERSION_OK_MB', data)
@@ -319,7 +334,7 @@ function target:initHall(config)
 			print('dwClientIP ='..t.dwClientIP)]]
 			result = t
 		else
-		    return print(self.TAG..".TEST:"..msg)
+		    return self:log(mc.key(REQUEST), ".message:"..msg)
 		end
 		result = result or nil
 		self:dispatchEvent({

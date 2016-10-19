@@ -17,7 +17,7 @@ function target:on(eventName, listener, tag)
 end
 
 function target:string( str, raw ) -- [raw = 'raw' or nil]
-	self:definition(':utf8string( raw )', 'required')
+	self:definition(':string( str, raw )', 'required')
 	return ''
 end
 

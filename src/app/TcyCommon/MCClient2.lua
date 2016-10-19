@@ -90,6 +90,7 @@ local function onDataNotify(client, clientId, msgType, sessionId, respondId, dat
 			if timer ~= nil then Scheduler:unscheduleScriptEntry(timer) end
 			if callback ~= nil then callback(client, respondId, data) end
 			client:dropSession()
+			print('handlerResponse(session)# request:'..session.request..', response:'..respondId)
 		end
 	end
 	if mc.isResponse(msgType) then
@@ -109,6 +110,7 @@ local function onDataNotify(client, clientId, msgType, sessionId, respondId, dat
 	else
 		local callback = client:response(respondId)
 		if callback ~= nil then callback(client, respondId, data) end
+		print('onDataNotify()# msgType:'..msgType..', id:'..respondId..', onCallback('..tostring(callback)..')')
 	end
 	client:next() -- request from queue 
 end
@@ -404,23 +406,55 @@ function utils_fill( ct, des )
 	end
 	return ct
 end
-function utils.ct_generate( ctype, des )
-	local ct = ffi.new(ctype)
-	local data = ffi.string( utils_assign(ct, des), ffi.sizeof(ctype) )
-	return data, ct
+
+local ctypes = {}
+function utils.vstruct_type( htype, itype )
+	local key = htype..'_'..itype
+	local ctype = ctypes[key]
+	if ctype == nil then
+		local des = 'struct{'..htype..' head;'..itype..' array[?];}'
+		ctype = ffi.typeof(des)
+		ctypes[key] = ctype
+	end
+	return ctype
+end
+function utils.type( name )
+	local ctype = ctypes[name]
+	if ctype == nil then
+		ctype = ffi.typeof(name)
+		ctypes[name] = ctype
+	end
+	return ctype
 end
 
-function utils.vls_generate( chead, ctype, des )
+function utils.ct_generate( ctype, des )
+	ctype = utils.type(ctype)
+	local cdata = ctype()
+	local res = ffi.string( utils_assign(cdata, des), ffi.sizeof(ctype) )
+	return res, cdata
+end
+
+function utils.vls_generate( htype, ctype, des )
 	local list = table.remove(des)
 	if type(list) ~= 'table' then return end
-	local head = utils.ct_generate(chead, des)
 	local c = #list
-	local ct = ffi.new(ctype..'[?]', c)
+	local vstruct = utils.vstruct_type(htype, ctype)
+	local cdata = vstruct(c)
+	local head = utils_assign(cdata.head, des)
+	local array = cdata.array
 	for i=1, c do
-		utils_assign(ct[i-1], list[i])
+		local item = list[i]
+		local t = type(item)
+		if t == 'string'
+		or t == 'table' then
+			utils_assign(array[i-1], item)
+		else
+			array[i-1] = item
+		end
 	end
-	local body = ffi.string(ct, ffi.sizeof(ctype, c))
-	return head..body
+	local size = ffi.sizeof(htype)
+    size = size + ffi.sizeof(ctype..'[?]', c)
+	return ffi.string(cdata, size), cdata
 end
 
 target.utils = utils

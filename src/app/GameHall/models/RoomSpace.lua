@@ -217,6 +217,7 @@ function target:reset( ... )
 	self.areas_ = {}
 	self.rooms_ = {}
 	self.views_ = {}
+	self.onlineusers_param = nil
 	local timer = self.timer
 	self.timer = timer and self.target:getScheduler():unscheduleScriptEntry(timer)
 end
@@ -248,14 +249,25 @@ function target:onConnection( event )
 	end
 end
 
+local function onlineCount( array )
+	local c = 0
+	for i,info in ipairs(array) do
+		local online = info.online or 0
+		c = c + online
+	end
+	return c
+end
+
 function target:onUpdateRoomUsersCount( event )
 	local hall = self.hall
 	if type(event) == 'table' then
-		local array = hall:body_resolve(body)
+		local array = hall:body_resolve(event.body)
 		for i,info in ipairs(array) do
+			info = info.data
 			local room = self:getRoomById(info.nItemID) or {}
-			room.online = info.nUsers
-			self:log(':onUpdateRoomUsersCount( event )'..hall:string(room.data.szRoomName))
+			local c = info.nUsers
+			room.online = c
+			self:log(':onUpdateRoomUsersCount( event )room.online='..c..'.'..hall:string(room.data.szRoomName))
 		end
 		array = self.areas_
 		for i,info in ipairs(array) do
@@ -263,22 +275,30 @@ function target:onUpdateRoomUsersCount( event )
 			info.online = c
 			local view = self:getAreaView(i)
 			if view then view:setOnline(c) end
+			self:log(':onUpdateRoomUsersCount( event )#area.online='..c..'.'..hall:string(info.data.szRoomName)..c)
 		end
 	else -- timer
-		local param = {}
-		local array = self.rooms_ or {}
-		for i,info in ipairs(array) do
-			param[i] = info.nRoomID
-		end
-		hall:reqRoomsUserCount(param)
+		local param = self:getOnlineParam()
+		hall:reqRoomsUserCount(param, event)
 	end
 end
 
+function target:getOnlineParam( ... )
+	local param = self.onlineusers_param or {}
+	if self.onlineusers_param == nil then
+		local array = self.rooms_ or {}
+		for i,info in ipairs(array) do
+			info = info.data
+			param[i] = info.nRoomID
+		end
+	end
+	return param
+end
 function target:getAreaView( index )
-	return self.views('area')[index]
+	return self:views('area')[index]
 end
 function target:getRoomView( index )
-	return self.views('room')[index]
+	return self:views('room')[index]
 end
 function target:getArea( index )
 	local array = self.areas_ or {}
@@ -318,17 +338,21 @@ end
 
 function target:views( name )
 	local array = self.views_[name] or {}
+	if (self.views_[name] == nil) then
+		self.views_[name] = array
+	end
 	return array
 end
 
 function target:areaParam( info )
-	local data = info.data
+	info = info.data
+	local hall = self.hall
+	local backgrounds = {'gelou', 'leitai', 'two_pandas'}
 	local param = {
-		name = self.hall:string(data.szAreaName),
 		online = 0,
-		background = '',
-		title = '',
-		rooms = self:getRooms(data.nAreaID),
+		background = backgrounds[info.nIconID],
+		title = hall:string(info.szAreaName),
+		rooms = self:getRooms(info.nAreaID),
 	}
 	return param
 end
@@ -344,7 +368,7 @@ function target:showContent( container )
 		table.insert(views, v)
 	end
 	MainScene:showContent('area')
-    self:onUpdateRoomUsersCount()
+    self:onUpdateRoomUsersCount('start')
     self.timer = MainScene:getScheduler():scheduleScriptFunc(handler(target, target.onUpdateRoomUsersCount), 30, false)
 end
 

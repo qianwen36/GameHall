@@ -1,6 +1,8 @@
 local target = class("ItemView", cc.load("mvc").ViewBase)
 target.RESOURCE_FILENAME = "res/hallcocosstudio/Room/Area.csb"
 
+local DEFAULT_TITLE = 'baiyinggu'
+local DEFAULT_BACKGROUND = 'gelou'
 
 function target:onCreate(param)
 	local name = param.name or 'test'
@@ -9,6 +11,7 @@ function target:onCreate(param)
 	cc.bind(self, 'event')
 
 	local button = self:nodeFromPath('Area_Button')
+	self.button = button
 	self:indexResource(button, {
 		txCondition = 'Text_Condition',
 		txOnline = 'Text_Online'
@@ -24,16 +27,12 @@ function target:onCreate(param)
 		guandimiao = self:nodeFromPath('guandimiao_nameimage', button),
 		yuxianglou = self:nodeFromPath('yuxianglou_nameimage', button),
 	}
-	if param.rooms then -- area
-		self:setItemName(param.name or '')
-	else
-		self:setCondition(param.condition or '')
-	end
+
+	self:setCondition(param.condition or '')
 	self.wOnline = self.txOnline:getString()
 	self:setOnline(param.online or '')
-	self:setBackground(param.background or 'gelou')
-	self:setTitle(param.title or 'baiyinggu')
-	self.button = button
+	self:setBackground(param.background or DEFAULT_BACKGROUND)
+	self:setTitle(param.title or DEFAULT_TITLE)
 end
 
 function target:getButton()
@@ -44,9 +43,7 @@ function target:setCondition( param )
 	self.txCondition:setString(param)
 	return self
 end
-function target:setItemName( name )
-	return self:setCondition(name)
-end
+
 function target:setOnline( param )
 	self.txOnline:setString(param..self.wOnline)
 end
@@ -58,14 +55,33 @@ local function nodeSwitch( map, tag )
 	end
 	local node = map[tag]
 	node = node and node:show()
+	local tx = node==nil
+	if tx then
+		local title = 'title'
+		node = map[title]
+		if node == nil then
+			node = ccui.Text:create()
+			map[title] = node
+		end
+	end
+	return tx, node
 end
 function target:setBackground( tag )
 	nodeSwitch(self.backgrounds_, tag)
 	return self
 end
 
-function target:setTitle( tag )
-	nodeSwitch(self.titles_, tag)
+function target:setTitle( name )
+	local map = self.titles_
+	local set, node = nodeSwitch(map, name)
+	if set then
+		local ref = map[DEFAULT_TITLE]
+		self.button:add(node)
+		node:align(cc.p(0.5,0.5),
+				ref:getPositionX(),
+				ref:getPositionY())
+		node:setString(name)
+	end
 	return self
 end
 
