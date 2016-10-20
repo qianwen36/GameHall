@@ -8,8 +8,6 @@ function target:onCreate(param)
 	local name = param.name or 'test'
 	self:setName(name)
 
-	cc.bind(self, 'event')
-
 	local button = self:nodeFromPath('Area_Button')
 	self.button = button
 	self:indexResource(button, {

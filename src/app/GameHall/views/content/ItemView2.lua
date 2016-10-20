@@ -6,7 +6,6 @@ function target:onCreate(param)
 	local name = param.name or 'test'
 	self:setName(name)
 
-	cc.bind(self, 'event')
 	local button = self:nodeFromPath('Room_Button')
     self:indexResource(button, {
         txTitle = 'Text_Room_Name',
