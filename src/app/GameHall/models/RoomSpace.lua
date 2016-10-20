@@ -66,7 +66,7 @@ function target:build( MainScene )
 		return name, param
 	end
 
-	function MainScene:layoutAreas(  )
+	function MainScene:layoutMainLinear(  )
 		local container = self.areasContainer
 		local x, y, c
 		if c == 0 then return container end
@@ -107,33 +107,55 @@ function target:build( MainScene )
 			:setContentSize(size)
 		return container
 	end
-	function MainScene:layoutRooms(  )
+	local function buildPosGrid4( cSize, iSize )
+		local array = {1, 2, 3, 4}
+		array[1] = {cc.p(cSize.width/2, cSize.height/2)}
+		local ar = {}
+		local width = iSize.width
+		local height = iSize.height
+		local d = (cSize.width/2 - width)/2
+		local orgX = iSize.width/2 + d
+		local x = orgX
+		local y = cSize.height/2
+		for i=1,2 do
+			ar[i] = cc.p(x, y)
+			x = x + width + d*2
+		end
+		array[2] = ar
+		ar = {}
+		local dy = (cSize.height/2 - height)/2
+		y = height/2 + d
+		x = orgX
+		for i=1,2 do
+			ar[i] = cc.p(x, y)
+			x = x + width + d*2
+		end
+		y = y + height + dy*2
+		x = orgX
+		for i=3,4 do
+			ar[i] = ar[i-2]
+			ar[i-2] = cc.p(x, y)
+			x = x + width + d*2
+		end
+		array[3] = ar
+		array[4] = ar
+		return array
+	end
+	function MainScene:layoutRoomGrid(  )
 		local container = self.roomsContainer
 		local c = container:getChildrenCount()
 		local size = container:getContentSize()
 		if c == 0 then return container end
 		local item = container:getChildByTag(1)
-		if c == 1 then
-			item:move(size.width/2, size.height/2)
-		else
-			local x = size.width/4
-			local y = size.height/2
+		local array = buildPosGrid4(size, item:getContentSize())
+		local pos = array[c]
+		for i=1,c do
+			local pos_ = pos[i]
 			local item = container:getChildByTag(i)
-			for i=1, c do
-				if (i > 4) then
-					local p = {x=0,y=0}
-					if (i % 2 ~= 0) then
-						p.x = x + size.width/2
-					else
-						p.x = size.width/4
-					end
-					local d = math.floor(i/2)
-					p.y = y + d * (size.height/2)
-					item:move(x, y)
-					x, y = p.x, p.y
-				else
-					item:hide()		
-				end
+			if i > 4 then
+				item:hide()
+			else
+				item:move(pos_)
 			end
 		end
 		return container
@@ -146,11 +168,11 @@ function target:build( MainScene )
 		end
 		local handler = {
 		function ()
-			vertialCenter(self:layoutAreas())
+			vertialCenter(self:layoutMainLinear())
 			return self
 		end,
 		function()
-			vertialCenter(self:layoutRooms())
+			vertialCenter(self:layoutRoomGrid())
 			return self
 		end
 		}
@@ -200,7 +222,7 @@ function target:build( MainScene )
 		local _, array = wrap2array(param)
 		local level = 2
 		for i,info in ipairs(array) do
-			local param = target:roomParam(info, option)
+			local param = next(info) and target:roomParam(info, option)
 			if param then self:addItem(param, 'ItemView2') end
 		end
 --			self:test(self:getApp():getConfig('hall').offline, 2, 'room')
@@ -269,13 +291,17 @@ function target:onGetAreas( event )
 end
 function target:onGetRooms( event )
 	local array = self.hall:body_resolve(event.body)
-	if array ~= nil then
+	if array and #array >0 then
+		local info = array[1].data
+		local id = info and info.nAreaID
+
+		local area = self:getAreaById(id)
+		local rooms = area.rooms
 		for i,info in ipairs(array) do
-			local area = self:getAreaById(info.data.nAreaID)
 			info.area = area
-			table.insert(area.rooms, info)
+			table.insert(rooms, info)
 		end
-		local rooms = self.rooms_
+		rooms = self.rooms_
 		table.insertto(rooms, array, #rooms+1)
 	else -- failed
 	end
@@ -358,7 +384,7 @@ function target:getRooms( nAreaID )
 	local res = {}
 	local array = self.rooms_ or {}
 	for i,info in ipairs(array) do
-		if info.nAreaID == nAreaID then
+		if info.data.nAreaID == nAreaID then
 			table.insert(res, info)
 		end
 	end
@@ -395,9 +421,10 @@ function target:roomParam( info, option )
 	return handler and handler()
 end
 function target:areaParam( info )
+	local rooms = info.rooms
 	info = info.data
 	local hall = self.hall
-	local rooms = self:getRooms(info.nAreaID)
+--	local rooms = self:getRooms(info.nAreaID)
 	local function onlineCount( array )
 		local res = 0
 		for i,info in ipairs(array) do
