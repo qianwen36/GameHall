@@ -1,4 +1,5 @@
 local config = {
+	test = 'test',
 	--server = '192.168.1.222:31626',
 	server = '122.224.230.90:31626',
 	target = 'AND',
@@ -6,6 +7,7 @@ local config = {
 	gameid = 584,
 	agentGroup = 6,
 	
+	display_level = 2,
 	areas = {'ItemView',
 	{
 		name = '测试区',
@@ -32,7 +34,7 @@ local config = {
 	},
 	rooms = {'ItemView2',
 		type = 'deposit',
-		name = '测试',
+		title = '测试',
 		condition = 100,
 		online = 15,
 		activity = nil

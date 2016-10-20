@@ -36,8 +36,7 @@ end
 function MainScene:onHallReady( ... )
     -- show content, and start login
     print(self:getName()..':onHallReady()')
-    local level = 1
-    self:getApp():model('RoomSpace'):showContent(level, self.areasContainer)
+    self:getApp():model('RoomSpace'):showContent()
     self:getApp():model('PlayerModel'):login(self.hall)
 end
 

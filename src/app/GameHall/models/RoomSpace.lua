@@ -194,20 +194,25 @@ function target:build( MainScene )
 		return view
 	end
 
+	function MainScene:showContent2( param, option )
+		option = option or 'formal'
+        if param == nil then return end
+		local _, array = wrap2array(param)
+		local level = 2
+		for i,info in ipairs(array) do
+			local param = target:roomParam(info, option)
+			if param then self:addItem(param, 'ItemView2') end
+		end
+--			self:test(self:getApp():getConfig('hall').offline, 2, 'room')
+		self:switchPanel('room')
+		self:showContent(level)
+	end
 	function MainScene:onItemClicked( view, param )
 		local handler = {
 		function ( ... )
-            local param = param.rooms
-            if param == nil then return end
-			local _, array = wrap2array(param)
-			local level = 2
-			for i,info in ipairs(array) do
-				local param = target:roomParam(info, 'test')
-				if param then self:addItem(param, 'ItemView2') end
-			end
---			self:test(self:getApp():getConfig('hall').offline, 2, 'room')
-			self:switchPanel('room')
-			self:showContent(level)
+			local app = self:getApp()
+            local option = param.option or app:getConfig('hall').offline.test
+			self:showContent2(param.rooms, option)
 		end,
 		function ( ... )
 			-- body
@@ -360,17 +365,30 @@ function target:getRooms( nAreaID )
 	return res
 end
 
+local background_resovle
 function target:roomParam( info, option )
 	option = option or 'formal'
+	local online = info.online or 0
+	local hall = self.hall
+	local level = self:getConfig().display_level or DEFAULT_LEVEL
 	local handler = {formal = true, test = true}
 	function handler.formal( ... )
-		info = data
-		local param = {name = 'room', level = 2}
+		info = info.data
+		local param = {
+            option = option,
+			name = 'room',
+			level = level,
+			online = online,
+			activity = info.nGifID,
+			background = background_resovle(info.nIconID),
+			title = hall:string(info.szRoomName),
+			info = info
+		}
 		return param
 	end
 	function handler.test( ... )
 		info.name = 'room'
-		info.level = 2
+		info.level = level
 		return info
 	end
 	handler = handler[option]
@@ -379,23 +397,35 @@ end
 function target:areaParam( info )
 	info = info.data
 	local hall = self.hall
-	local backgrounds = {'gelou', 'leitai', 'two_pandas'}
+	local rooms = self:getRooms(info.nAreaID)
+	local function onlineCount( array )
+		local res = 0
+		for i,info in ipairs(array) do
+			res = res + info.data.nUsersOnline
+		end
+		return res
+	end
 	local param = {
-		level = self:getConfig().display_level or DEFAULT_LEVEL,
+        option = 'formal',
+		level = 1,
 		name = 'area',
-		online = 0,
-		background = backgrounds[info.nIconID],
+		online = onlineCount(rooms),
+		background = background_resovle(info.nIconID),
 		title = hall:string(info.szAreaName),
-		rooms = self:getRooms(info.nAreaID),
+		rooms = rooms,
 		info = info
 	}
 	return param
 end
+function background_resovle( iconId )
+	local backgrounds = {'gelou', 'leitai', 'two_pandas'}
+	return backgrounds[iconId]
+end
 function target:showContent( level, container )
 	local MainScene = self.target
 	local containers = {
-		self.areasContainer,
-		self.roomsContainer
+		MainScene.areasContainer,
+		MainScene.roomsContainer
 	}
 	level = level or 1
 	container = container or containers[level]
@@ -403,11 +433,12 @@ function target:showContent( level, container )
 	assert(level>0)
 	local handler = {
 	function ( ... )
+		local itemView = 'ItemView'
 		local array = self.areas_ or {}
 		for i,info in ipairs(array) do
 			local param = self:areaParam(info)
 			param.index = i
-			local view = MainScene:addItem(param, level, 'area')
+			local view = MainScene:addItem(param, itemView)
 			info.view = view
 			function info:update( ... )
 				local c = onlineCount(self.rooms)
@@ -415,13 +446,16 @@ function target:showContent( level, container )
 				self.view:onlineUsers(c)
 			end
 		end
-		MainScene:showContent('area')
+		MainScene:showContent(level)
 	    self:onUpdateRoomUsersCount('start')
 	    self.timer = MainScene:getScheduler():scheduleScriptFunc(handler(target, target.onUpdateRoomUsersCount), 30, false)
 	end,
-	function ( ... )
+	function ( rooms )
+		local itemView = 'ItemView2'
 	end
 	}
+	handler = handler[level]
+	return handler and handler()
 end
 
 return target

@@ -26,9 +26,9 @@ function target:onCreate(param)
     	deposit	= btnDeposit:getString(),
     	score	= btnScore:getString(),
 	}
-	self:setTitle(param.name)
+	self:setTitle(param.title)
 	self:setCondition(param.type, param.condition)
-	self:setOnline(param.online)
+	self:online(param.online or '')
 	self:setCorner(param.activity)
 	self.button = button
 end
@@ -52,7 +52,7 @@ function target:setCorner( id )
 	end
 end
 
-function target:setOnline( text )
+function target:online( text )
 	self.txOnline:setString(text..self.words.online)
 end
 
