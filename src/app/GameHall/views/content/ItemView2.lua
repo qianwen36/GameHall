@@ -28,11 +28,17 @@ function target:onCreate(param)
 	}
 	self:setTitle(param.title)
 	self:setCondition(param.type, param.condition)
-	self:online(param.online or '')
+	self:onlineUsers(param.online or '')
 	self:setCorner(param.activity)
 	self.button = button
 end
 
+function target:onExit( ... )
+	self:log(':onExit( ... )')
+end
+function target:onCleanup( ... )
+	self:log(':onCleanup( ... )')
+end
 function target:getButton()
 	return self.button
 end
@@ -52,7 +58,7 @@ function target:setCorner( id )
 	end
 end
 
-function target:online( text )
+function target:onlineUsers( text )
 	self.txOnline:setString(text..self.words.online)
 end
 

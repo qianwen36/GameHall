@@ -1,6 +1,9 @@
 local target = cc.load('form').build('RoomSpace', import('.interface.RoomSpace'))
+local mc = import('..comm.HallDef')
 
 local DEFAULT_LEVEL = 2
+
+local wrap2array -- funtion(param)
 function target:getConfig( ... )
 	return self.app:getConfig('hall').config
 end
@@ -35,7 +38,6 @@ function target:build( MainScene )
 		return view
 	end
 
-	local wrap2array
 	function MainScene:test( offline, level, name )
 		name = name or 'area'
 		local array = {area = offline.areas, room = offline.rooms}
@@ -50,20 +52,9 @@ function target:build( MainScene )
 				item.level = level
 				self:addItem(item, itemView)
 			end
-			return self:showContent(level)
+			return self:layoutContent(level)
 		end
 		return handler()
-	end
-	function wrap2array( param )
-		param = clone(param)
-		local name = ''
-		if type(param[1]) ~= 'table' then
-			name = table.remove(param, 1)
-		end
-		if #param ==0 then
-			param = {param}
-		end
-		return name, param
 	end
 
 	function MainScene:layoutMainLinear(  )
@@ -150,9 +141,9 @@ function target:build( MainScene )
 		local array = buildPosGrid4(size, item:getContentSize())
 		local pos = array[c]
 		for i=1,c do
-			local pos_ = pos[i]
+			local pos_ = pos or pos[i]
 			local item = container:getChildByTag(i)
-			if i > 4 then
+			if pos_== nil or i > 4 then
 				item:hide()
 			else
 				item:move(pos_)
@@ -160,7 +151,7 @@ function target:build( MainScene )
 		end
 		return container
 	end
-	function MainScene:showContent( level )
+	function MainScene:layoutContent( level )
 		local function vertialCenter( container )
 			local size = container:getParent():getContentSize()
 			container:align(cc.p(0, 0.5), 0, size.height/2)
@@ -216,28 +207,13 @@ function target:build( MainScene )
 		return view
 	end
 
-	function MainScene:showContent2( param, option )
-		option = option or 'formal'
-        if param == nil then return end
-		local _, array = wrap2array(param)
-		local level = 2
-		for i,info in ipairs(array) do
-			local param = next(info) and target:roomParam(info, option)
-			if param then self:addItem(param, 'ItemView2') end
-		end
---			self:test(self:getApp():getConfig('hall').offline, 2, 'room')
-		self:switchPanel('room')
-		self:showContent(level)
-	end
 	function MainScene:onItemClicked( view, param )
 		local handler = {
 		function ( ... )
-			local app = self:getApp()
-            local option = param.option or app:getConfig('hall').offline.test
-			self:showContent2(param.rooms, option)
+			target:showContent(view.level+1, self.roomsContainer, param)
 		end,
 		function ( ... )
-			-- body
+			target:log('MainScene:onItemClicked( view, param )#level='..view.level)
 		end	}
 		handler = handler[view.level]
 		return handler and handler()
@@ -256,7 +232,6 @@ function target:build( MainScene )
 			self.btnBack:hide()
 			self.roomsContainer:hide()
 			self.areasContainer:show()
-	        self.cleanContainer(self.roomsContainer)
 		end
 		handler = handler[name]
 		return handler and handler()
@@ -264,9 +239,12 @@ function target:build( MainScene )
 
 	function MainScene.cleanContainer(container)
         local c = container:getChildrenCount()
-	    for i = 1, c do
-	        container:getChildByTag(i):hide():removeSelf()
-	    end
+        if c > 1 then
+		    for i = 1, c do
+		        container:getChildByTag(i):hide():removeSelf()
+		    end
+		end
+		self:log('.cleanContainer(container)')
 	end
 end
 
@@ -331,7 +309,7 @@ function target:onUpdateRoomUsersCount( event )
 			local room = self:getRoomById(info.nItemID) or {}
 			local c = info.nUsers
 			room.online = c
-			self:log(':onUpdateRoomUsersCount( event )room.online='..c..'.'..hall:string(room.data.szRoomName))
+--			self:log(':onUpdateRoomUsersCount( event )room.online='..c..'.'..hall:string(room.data.szRoomName))
 		end
 		array = self.areas_
 		for i,info in ipairs(array) do
@@ -400,10 +378,16 @@ function target:roomParam( info, option )
 	local handler = {formal = true, test = true}
 	function handler.formal( ... )
 		info = info.data
+		
+		local type = (bit.bor(info.dwOptions, mc.Flags.ROOM_OPT_NEEDDEPOSIT) and 'deposit') or 'score'
+		local condition = {score = info.nMinScore, deposit = info.nMinDeposit}
 		local param = {
             option = option,
+            id = info.nRoomID,
 			name = 'room',
 			level = level,
+			type = type,
+			condition = condition[type] or '',
 			online = online,
 			activity = info.nGifID,
 			background = background_resovle(info.nIconID),
@@ -434,6 +418,7 @@ function target:areaParam( info )
 	end
 	local param = {
         option = 'formal',
+        id = info.nAreaID,
 		level = 1,
 		name = 'area',
 		online = onlineCount(rooms),
@@ -448,7 +433,7 @@ function background_resovle( iconId )
 	local backgrounds = {'gelou', 'leitai', 'two_pandas'}
 	return backgrounds[iconId]
 end
-function target:showContent( level, container )
+function target:showContent( level, container, param )
 	local MainScene = self.target
 	local containers = {
 		MainScene.areasContainer,
@@ -473,16 +458,49 @@ function target:showContent( level, container )
 				self.view:onlineUsers(c)
 			end
 		end
-		MainScene:showContent(level)
+		MainScene:layoutContent(level)
 	    self:onUpdateRoomUsersCount('start')
 	    self.timer = MainScene:getScheduler():scheduleScriptFunc(handler(target, target.onUpdateRoomUsersCount), 30, false)
 	end,
 	function ( rooms )
+        if param == nil then return end
+
 		local itemView = 'ItemView2'
+		local app = MainScene:getApp()
+		local option = param.option or app:getConfig('hall').offline.test
+		local id = param.id
+		local clean = self.current ~= id
+		self:log(':showContent( param, option )#target.current='..id)
+		option = option[3] or 'formal'
+		if clean then
+			self.current = id
+			MainScene.cleanContainer(container)
+			local _, array = wrap2array(param.rooms)
+			for i,info in ipairs(array) do
+				local param = next(info) and self:roomParam(info, option)
+				if param then MainScene:addItem(param, itemView) end
+			end
+--			MainScene:test(app:getConfig('hall').offline, 2, 'room')
+		end
+		self:log(':showContent( param, option )#target.current='..id)
+		MainScene:switchPanel('room')
+		MainScene:layoutContent(level)e
 	end
 	}
 	handler = handler[level]
 	return handler and handler()
+end
+
+function wrap2array( param )
+	param = clone(param)
+	local name = ''
+	if type(param[1]) ~= 'table' then
+		name = table.remove(param, 1)
+	end
+	if #param ==0 then
+		param = {param}
+	end
+	return name, param
 end
 
 return target

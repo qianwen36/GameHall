@@ -22,6 +22,9 @@ function ViewBase:getData()
 	return self.param_ or {}
 end
 
+function ViewBase:log( ... )
+	print(self:getName()..table.concat({...}))
+end
 function ViewBase:nodeFromPath(path, root)
     root = root or self:getResourceNode()
     assert(root, 'need root node')

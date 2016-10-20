@@ -33,6 +33,13 @@ function target:onCreate(param)
 	self:setTitle(param.title or DEFAULT_TITLE)
 end
 
+function target:onExit( ... )
+	self:log(':onExit( ... )')
+end
+function target:onCleanup( ... )
+	self:log(':onCleanup( ... )')
+end
+
 function target:getButton()
 	return self.button
 end
