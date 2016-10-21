@@ -141,7 +141,7 @@ function target:build( MainScene )
 		local array = buildPosGrid4(size, item:getContentSize())
 		local pos = array[c]
 		for i=1,c do
-			local pos_ = pos or pos[i]
+			local pos_ = pos and pos[i]
 			local item = container:getChildByTag(i)
 			if pos_== nil or i > 4 then
 				item:hide()
@@ -462,7 +462,7 @@ function target:showContent( level, container, param )
 	    self:onUpdateRoomUsersCount('start')
 	    self.timer = MainScene:getScheduler():scheduleScriptFunc(handler(target, target.onUpdateRoomUsersCount), 30, false)
 	end,
-	function ( rooms )
+	function ( ... )
         if param == nil then return end
 
 		local itemView = 'ItemView2'
@@ -477,14 +477,14 @@ function target:showContent( level, container, param )
 			MainScene.cleanContainer(container)
 			local _, array = wrap2array(param.rooms)
 			for i,info in ipairs(array) do
-				local param = next(info) and self:roomParam(info, option)
+				local param = info.data and self:roomParam(info, option)
 				if param then MainScene:addItem(param, itemView) end
 			end
+			MainScene:layoutContent(level)
 --			MainScene:test(app:getConfig('hall').offline, 2, 'room')
 		end
 		self:log(':showContent( param, option )#target.current='..id)
 		MainScene:switchPanel('room')
-		MainScene:layoutContent(level)e
 	end
 	}
 	handler = handler[level]
