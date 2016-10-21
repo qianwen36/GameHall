@@ -2,7 +2,7 @@ local target = cc.load('form').build('RoomSpace', import('.interface.RoomSpace')
 local mc = import('..comm.HallDef')
 
 local DEFAULT_LEVEL = 2
-
+local DEFAULT_INTERVAL = 60
 local wrap2array -- funtion(param)
 function target:getConfig( ... )
 	return self.app:getConfig('hall').config
@@ -31,6 +31,9 @@ function target:build( MainScene )
 	    if (config.display_level == nil) then
 	    	config.display_level = level
 	    end
+	    if (target.config == nil) then
+	    	target.config = config
+	    end
 	    self.param_ = param
 	    self:test(param.offline, 1)
 	    local hall = target.hall or self:getApp():model('BaseHall')
@@ -55,6 +58,7 @@ function target:build( MainScene )
 		hall:off(TAG.GET_AREAS)
 		hall:off(TAG.GET_ROOMS)
 		hall:off(TAG.UPDATE_ROOMUSERSCOUNT)
+		target:stopOnlineUsersTimer()
 	end
 
 	function MainScene:getContentView( name, param )
@@ -288,8 +292,7 @@ function target:reset( ... )
 	self.rooms_ = {}
 	self.ready = false
 	self.onlineusers_param = nil
-	local timer = self.timer
-	self.timer = timer and self.target:getScheduler():unscheduleScriptEntry(timer)
+	self:stopOnlineUsersTimer()
 end
 
 function target:onGetAreas( event )
@@ -504,7 +507,9 @@ function target:showContent( level, container, param )
 			end
 		end
 		MainScene:layoutContent(level)
-		self:runOnlineUsersTimer()
+		if (self.timer == nil) then
+			self:startOnlineUsersTimer()
+		end
 		MainScene:switchPanel('area')
 		self.params = level
 	end,
@@ -533,12 +538,19 @@ function target:showContent( level, container, param )
 	return handler and handler()
 end
 
-function target:runOnlineUsersTimer( ... )
+function target:startOnlineUsersTimer( ... )
+	local MainScene = self.target
 	self:onUpdateRoomUsersCount('start')
-	self.timer = self.target
+	self.timer = MainScene
 		:getScheduler()
 		:scheduleScriptFunc(
-			handler(target, target.onUpdateRoomUsersCount), 30, false)
+			handler(target, target.onUpdateRoomUsersCount),
+			self.config.onlineusers_interval or DEFAULT_INTERVAL, false)
+end
+
+function target:stopOnlineUsersTimer( ... )
+	local timer = self.timer
+	self.timer = timer and self.target:getScheduler():unscheduleScriptEntry(timer)
 end
 
 function wrap2array( param )
