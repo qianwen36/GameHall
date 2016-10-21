@@ -149,23 +149,24 @@ function target:reqServers( data, callack, notify )
 end
 function target:reqRoomsUserCount( param, start )-- param:room ids
 	local REQ = self.REQ
-	local function onNotify( _, resp, data )
-		local event, msg, result = REQ.resolve(resp, mc.GET_ROOMUSERS_OK)
-		if result then
-			local ct, body = ffi2.vls_resolve('ITEM_COUNT', data)
-			local c = ct.nCount
-			local array = ffi2.vla_resolve('ITEM_USERS', c, body)
-			result = {c, array}
-		end
-		result = result or nil
-		self:log(':reqRoomsUserCount( param )#onNotify.', msg)
-		self:dispatchEvent({
-			name = self.handler.UPDATE_ROOMUSERSCOUNT,
-			body = {event = event, msg = msg, result = result}
-			})
-	end
 	local client = self.client
 	if start == 'start' then
+		local function onNotify( _, resp, data )
+			local event, msg, result = REQ.resolve(resp, mc.GET_ROOMUSERS_OK)
+			if result then
+				local ct, body = ffi2.vls_resolve('ITEM_COUNT', data)
+				local c = ct.nCount
+				local array = ffi2.vla_resolve('ITEM_USERS', c, body)
+				result = {c, array}
+			end
+			result = result or nil
+			self:log(':reqRoomsUserCount( param )#onNotify.', msg)
+			self:dispatchEvent({
+				name = self.handler.UPDATE_ROOMUSERSCOUNT,
+				body = {event = event, msg = msg, result = result}
+				})
+		end
+
 		client:on(mc.GET_ROOMUSERS_OK, onNotify)
 	end
 	local data, ct = REQ.RoomsUserCount(param)

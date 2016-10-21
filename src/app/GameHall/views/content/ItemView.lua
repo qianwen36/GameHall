@@ -33,11 +33,25 @@ function target:onCreate(param)
 	self:setTitle(param.title or DEFAULT_TITLE)
 end
 
-function target:onExit( ... )
-	self:log(':onExit( ... )')
+function target:onEnter( ... )
+	local model = self:getApp():model('RoomSpace')
+	model:on(model.handler.ONLINE_USERS,
+		handler(self, self.updatelineUsers),
+		tostring(self:getData().id))
 end
-function target:onCleanup( ... )
-	self:log(':onCleanup( ... )')
+function target:onExit( ... )
+	local model = self:getApp():model('RoomSpace')
+	model:off(tostring(self:getData().id))
+end
+
+function target:updatelineUsers( event )
+	local result = event.body.result
+	local name, id, count = unpack(result)
+	local param = self:getData()
+	if name == param.name
+	and id == param.id then
+		self:onlineUsers(count)
+	end
 end
 
 function target:getButton()

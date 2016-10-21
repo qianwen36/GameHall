@@ -222,16 +222,18 @@ function target:build( MainScene )
 	function MainScene:switchPanel( name )
 		local handler = {}
 		function handler.room( ... )
-			self.areasContainer:hide()
-			self.roomsContainer:show()
 			self.btnHead:hide()
 			self.btnBack:show()
+			local c = self.areasContainer:hide():getChildrenCount()
+			local count = self.roomsContainer:show():getChildrenCount()
+			self:log(':switchPanel( '..name..' )#count={room='..count..', area='..c..'}')
 		end
 		function handler.area( ... )
 			self.btnHead:show()
 			self.btnBack:hide()
-			self.roomsContainer:hide()
-			self.areasContainer:show()
+			local c = self.roomsContainer:hide():getChildrenCount()
+			local count = self.areasContainer:show():getChildrenCount()
+			self:log(':switchPanel( '..name..' )#count={area='..count..', room='..c..'}')
 		end
 		handler = handler[name]
 		return handler and handler()
@@ -309,6 +311,10 @@ function target:onUpdateRoomUsersCount( event )
 			local room = self:getRoomById(info.nItemID) or {}
 			local c = info.nUsers
 			room.online = c
+			self:dispatchEvent({
+				name = self.handler.ONLINE_USERS,
+				body = {event = 'update', result = {'room', info.nItemID, c}}
+				})
 --			self:log(':onUpdateRoomUsersCount( event )room.online='..c..'.'..hall:string(room.data.szRoomName))
 		end
 		array = self.areas_
@@ -454,13 +460,16 @@ function target:showContent( level, container, param )
 			info.view = view
 			function info:update( ... )
 				local c = onlineCount(self.rooms)
+				local id = self.data.nAreaID
 				self.online = c
-				self.view:onlineUsers(c)
+				target:dispatchEvent({
+					name = target.handler.ONLINE_USERS,
+					body = {event = 'update', result = {'area', id, c}}
+					})
 			end
 		end
 		MainScene:layoutContent(level)
-	    self:onUpdateRoomUsersCount('start')
-	    self.timer = MainScene:getScheduler():scheduleScriptFunc(handler(target, target.onUpdateRoomUsersCount), 30, false)
+		self:runOnlineUsersTimer()
 	end,
 	function ( ... )
         if param == nil then return end
@@ -470,11 +479,12 @@ function target:showContent( level, container, param )
 		local option = param.option or app:getConfig('hall').offline.test
 		local id = param.id
 		local clean = self.current ~= id
-		self:log(':showContent( param, option )#target.current='..id)
 		option = option[3] or 'formal'
 		if clean then
-			self.current = id
 			MainScene.cleanContainer(container)
+			self.current = id
+		end
+		if container:getChildrenCount()==0 then
 			local _, array = wrap2array(param.rooms)
 			for i,info in ipairs(array) do
 				local param = info.data and self:roomParam(info, option)
@@ -483,12 +493,20 @@ function target:showContent( level, container, param )
 			MainScene:layoutContent(level)
 --			MainScene:test(app:getConfig('hall').offline, 2, 'room')
 		end
-		self:log(':showContent( param, option )#target.current='..id)
+		self:log(':showContent( param, option )#current='..id)
 		MainScene:switchPanel('room')
 	end
 	}
 	handler = handler[level]
 	return handler and handler()
+end
+
+function target:runOnlineUsersTimer( ... )
+	self:onUpdateRoomUsersCount('start')
+	self.timer = self.target
+		:getScheduler()
+		:scheduleScriptFunc(
+			handler(target, target.onUpdateRoomUsersCount), 30, false)
 end
 
 function wrap2array( param )

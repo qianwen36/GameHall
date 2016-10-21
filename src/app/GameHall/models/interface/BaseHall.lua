@@ -1,7 +1,7 @@
 local target = cc.load('form').build('BaseHall.interface')
 
 cc.bind(target,	'event')
-
+-- event{name, body {event, msg, result}}
 target.handler = {
 	CONNECTION = 'CONNECTION',
 	CHECK_VERSION= 'VERSION_MB',
@@ -41,7 +41,7 @@ function target:login()
 	self:definition(':login()')
 end
 
-function target:reqRoomsUserCount( param )-- param:room ids
+function target:reqRoomsUserCount( param, start )-- param:[room, ...], register and init event dispatcher
 	self:definition(':reqRoomsUserCount( param )')
 end
 
