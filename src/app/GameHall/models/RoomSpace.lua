@@ -8,8 +8,17 @@ function target:getConfig( ... )
 	return self.app:getConfig('hall').config
 end
 function target:build( MainScene )
-	self:reset()
 	self.target = MainScene
+	if not self.ready then
+		self:reset()
+	end
+
+	local TAG = {
+		CONNECTION = 'ONCONNECTION',
+		GET_AREAS = 'GET_AREAS',
+		GET_ROOMS = 'GET_ROOMS',
+		UPDATE_ROOMUSERSCOUNT = 'UPDATE_ROOMUSERSCOUNT'
+	}
 	local MainScene_onEnter = MainScene.onEnter
 	function MainScene:onEnter()
 		MainScene_onEnter(self)
@@ -24,12 +33,28 @@ function target:build( MainScene )
 	    end
 	    self.param_ = param
 	    self:test(param.offline, 1)
-	    local model = self:getApp():model('BaseHall')
-	    model:on(model.handler.GET_AREAS, handler(target, target.onGetAreas))
-	    model:on(model.handler.GET_ROOMS, handler(target, target.onGetRooms))
-	    model:on(model.handler.CONNECTION, handler(target, target.onConnection))
-	    model:on(model.handler.UPDATE_ROOMUSERSCOUNT, handler(target,target.onUpdateRoomUsersCount))
-	    target.hall = model
+	    local hall = target.hall or self:getApp():model('BaseHall')
+	    hall:on(hall.handler.GET_AREAS, handler(target, target.onGetAreas), TAG.GET_AREAS)
+	    hall:on(hall.handler.GET_ROOMS, handler(target, target.onGetRooms), TAG.GET_ROOMS)
+	    hall:on(hall.handler.CONNECTION, handler(target, target.onConnection), TAG.CONNECTION)
+	    hall:on(hall.handler.UPDATE_ROOMUSERSCOUNT,
+	    	handler(target,target.onUpdateRoomUsersCount), TAG.UPDATE_ROOMUSERSCOUNT)
+	    if (target.hall==nil) then 
+			target.hall = hall
+		end
+		local params = target.params
+		if params ~= nil then
+			if type(params)~='table' then params = {params} end
+			target:showContent(params[1], nil, params[2])
+		end
+	end
+	local MainScene_onExit = MainScene.onExit
+	function MainScene:onExit()
+		MainScene_onExit(self)
+		local hall = target.hall
+		hall:off(TAG.GET_AREAS)
+		hall:off(TAG.GET_ROOMS)
+		hall:off(TAG.UPDATE_ROOMUSERSCOUNT)
 	end
 
 	function MainScene:getContentView( name, param )
@@ -196,7 +221,7 @@ function target:build( MainScene )
 		button:onTouch(function ( event )
 			local handler = {}
 			function handler.ended()
-				print(self:getName()..':onItemClicked')
+				self:log(':onItemClicked')
 				return view.level and self:onItemClicked(view, param)
 			end
 			handler = handler[event.name]
@@ -251,12 +276,17 @@ function target:build( MainScene )
 end
 
 function target:goBack(...)
-    self.target:switchPanel('area')
+    local params = self.params
+    local t = type(params)
+    local level = ((t=='table') and params[1]-1 ) or params or 1
+    if level == 0 then level = 1 end
+    self:showContent(level)
 end
 
 function target:reset( ... )
 	self.areas_ = {}
 	self.rooms_ = {}
+	self.ready = false
 	self.onlineusers_param = nil
 	local timer = self.timer
 	self.timer = timer and self.target:getScheduler():unscheduleScriptEntry(timer)
@@ -293,6 +323,11 @@ function target:onConnection( event )
 	end
 end
 
+function target:onHallReady()
+	self:showContent()
+	self.ready = true
+end
+
 local function onlineCount( array )
 	local c = 0
 	for i,info in ipairs(array) do
@@ -315,7 +350,7 @@ function target:onUpdateRoomUsersCount( event )
 				name = self.handler.ONLINE_USERS,
 				body = {event = 'update', result = {'room', info.nItemID, c}}
 				})
---			self:log(':onUpdateRoomUsersCount( event )room.online='..c..'.'..hall:string(room.data.szRoomName))
+--			self:log(':onUpdateRoomUsersCount( event )room.online='..c..'.'..self:string(room.data.szRoomName))
 		end
 		array = self.areas_
 		for i,info in ipairs(array) do
@@ -397,7 +432,7 @@ function target:roomParam( info, option )
 			online = online,
 			activity = info.nGifID,
 			background = background_resovle(info.nIconID),
-			title = hall:string(info.szRoomName),
+			title = self:string(info.szRoomName),
 			info = info
 		}
 		return param
@@ -429,7 +464,7 @@ function target:areaParam( info )
 		name = 'area',
 		online = onlineCount(rooms),
 		background = background_resovle(info.nIconID),
-		title = hall:string(info.szAreaName),
+		title = self:string(info.szAreaName),
 		rooms = rooms,
 		info = info
 	}
@@ -446,9 +481,9 @@ function target:showContent( level, container, param )
 		MainScene.roomsContainer
 	}
 	level = level or 1
+	assert(level>0)
 	container = container or containers[level]
 	MainScene.cleanContainer(container)
-	assert(level>0)
 	local handler = {
 	function ( ... )
 		local itemView = 'ItemView'
@@ -470,6 +505,8 @@ function target:showContent( level, container, param )
 		end
 		MainScene:layoutContent(level)
 		self:runOnlineUsersTimer()
+		MainScene:switchPanel('area')
+		self.params = level
 	end,
 	function ( ... )
         if param == nil then return end
@@ -477,24 +514,19 @@ function target:showContent( level, container, param )
 		local itemView = 'ItemView2'
 		local app = MainScene:getApp()
 		local option = param.option or app:getConfig('hall').offline.test
-		local id = param.id
-		local clean = self.current ~= id
+		local id = param.id or 0
+		self.current = id
 		option = option[3] or 'formal'
-		if clean then
-			MainScene.cleanContainer(container)
-			self.current = id
+		local _, array = wrap2array(param.rooms)
+		for i,info in ipairs(array) do
+			local param = info.data and self:roomParam(info, option)
+			if param then MainScene:addItem(param, itemView) end
 		end
-		if container:getChildrenCount()==0 then
-			local _, array = wrap2array(param.rooms)
-			for i,info in ipairs(array) do
-				local param = info.data and self:roomParam(info, option)
-				if param then MainScene:addItem(param, itemView) end
-			end
-			MainScene:layoutContent(level)
---			MainScene:test(app:getConfig('hall').offline, 2, 'room')
-		end
+		MainScene:layoutContent(level)
+--		MainScene:test(app:getConfig('hall').offline, 2, 'room')
 		self:log(':showContent( param, option )#current='..id)
 		MainScene:switchPanel('room')
+		self.params = {level, param}
 	end
 	}
 	handler = handler[level]

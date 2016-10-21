@@ -30,13 +30,13 @@ function MainScene:onCreate()
     local model = self:getApp():model('BaseHall')
     model:on(model.handler.HALL_READY, handler(self, self.onHallReady))
     self.hall = model
-    print(self:getName()..':onCreate().done')
+    self:log(':onCreate().done')
 end
 
 function MainScene:onHallReady( ... )
     -- show content, and start login
-    print(self:getName()..':onHallReady()')
-    self:getApp():model('RoomSpace'):showContent()
+    self:log(':onHallReady()')
+    self:getApp():model('RoomSpace'):onHallReady()
     self:getApp():model('PlayerModel'):login(self.hall)
 end
 

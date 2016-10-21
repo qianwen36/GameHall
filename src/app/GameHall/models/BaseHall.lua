@@ -8,9 +8,7 @@ target.TAG = 'Hall'
 if not USING_MCRuntime then return target end
 
 local MCClient = require('src.app.TcyCommon.MCClient2')
-local ffi = require('ffi')
 local ffi2 = MCClient.utils
-local MCCharset = MCCharset:getInstance()
 
 function target:start( config )
 	self.config_ = config
@@ -181,27 +179,6 @@ function target:reqRoomsUserCount( param, start )-- param:room ids
 	print('-----------------------')]]
 end
 
-local function GB2utf8string( str )
-    local len = string.len(str)
-	return (len > 0 and MCCharset:gb2Utf8String(str, len) ) or str
-end
-local function Utf82Gbstring( str )
-    local len = string.len(str)
-	return (len > 0 and MCCharset:utf82GbString(str, len) ) or str
-end
-function target:string( str, raw )
-	assert(type(raw)=='string' or raw == nil, 'target:string(str, raw) #raw expect string')
-	raw = raw or 'utf8'
-	local handler = {}
-	function handler.utf8( ... )
-		return GB2utf8string(ffi.string(str))
-	end
-	function handler.raw( ... )
-		return Utf82Gbstring(str)
-	end
-	handler = handler[raw]
-	return handler and handler()
-end
 function target:initHall(config)
 	local REQUEST -- request id
 	local REQ = getREQ(config) -- for generate request data
