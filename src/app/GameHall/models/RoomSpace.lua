@@ -1,17 +1,27 @@
-local target = cc.load('form').build('RoomSpace', import('.interface.RoomSpace'))
+local Base = import('.interface.RoomSpace')
+local target = cc.load('form').build('RoomSpace', Base)
 local mc = import('..comm.HallDef')
 
 local DEFAULT_LEVEL = 2
 local DEFAULT_INTERVAL = 60
 local wrap2array -- funtion(param)
-function target:getConfig( ... )
-	return self.app:getConfig('hall').config
+
+
+function target:getConfig( name ) -- method override
+	if name ~= nil then
+--		local config = self:super().getConfig(name)
+		local config = Base.getConfig(self, name)
+		return config
+	else
+		if (self.config == nil) then
+--			self.config = self:super().getConfig('hall').config
+			self.config = Base.getConfig(self, 'hall').config
+		end
+	end
+	return self.config
 end
 function target:build( MainScene )
 	self.target = MainScene
-	if not self.ready then
-		self:reset()
-	end
 
 	local TAG = {
 		CONNECTION = 'ONCONNECTION',
@@ -22,29 +32,22 @@ function target:build( MainScene )
 	local MainScene_onEnter = MainScene.onEnter
 	function MainScene:onEnter()
 		MainScene_onEnter(self)
-		local app = self:getApp()
-	    target.app = app
 
-	    local param = app:getConfig('hall')
+	    local param = target:getConfig('hall')
 	    local config = param.config
 		local level = config.display_level or DEFAULT_LEVEL
 	    if (config.display_level == nil) then
 	    	config.display_level = level
 	    end
-	    if (target.config == nil) then
-	    	target.config = config
-	    end
+
 	    self.param_ = param
 	    self:test(param.offline, 1)
-	    local hall = target.hall or self:getApp():model('BaseHall')
+	    local hall = target.hall
 	    hall:on(hall.handler.GET_AREAS, handler(target, target.onGetAreas), TAG.GET_AREAS)
 	    hall:on(hall.handler.GET_ROOMS, handler(target, target.onGetRooms), TAG.GET_ROOMS)
 	    hall:on(hall.handler.CONNECTION, handler(target, target.onConnection), TAG.CONNECTION)
 	    hall:on(hall.handler.UPDATE_ROOMUSERSCOUNT,
 	    	handler(target,target.onUpdateRoomUsersCount), TAG.UPDATE_ROOMUSERSCOUNT)
-	    if (target.hall==nil) then 
-			target.hall = hall
-		end
 		local params = target.params
 		if params ~= nil then
 			if type(params)~='table' then params = {params} end
@@ -287,10 +290,9 @@ function target:goBack(...)
     self:showContent(level)
 end
 
-function target:reset( ... )
+function target:clear( ... )
 	self.areas_ = {}
 	self.rooms_ = {}
-	self.ready = false
 	self.onlineusers_param = nil
 	self:stopOnlineUsersTimer()
 end
@@ -322,13 +324,12 @@ end
 
 function target:onConnection( event )
 	if not self.hall:isConnected() then
-		self:reset()
+		self:clear()
 	end
 end
 
-function target:onHallReady()
+function target:prepare()
 	self:showContent()
-	self.ready = true
 end
 
 local function onlineCount( array )
@@ -517,8 +518,7 @@ function target:showContent( level, container, param )
         if param == nil then return end
 
 		local itemView = 'ItemView2'
-		local app = MainScene:getApp()
-		local option = param.option or app:getConfig('hall').offline.test
+		local option = param.option or self:getConfig('hall').offline.test
 		local id = param.id or 0
 		self.current = id
 		option = option[3] or 'formal'
@@ -528,7 +528,7 @@ function target:showContent( level, container, param )
 			if param then MainScene:addItem(param, itemView) end
 		end
 		MainScene:layoutContent(level)
---		MainScene:test(app:getConfig('hall').offline, 2, 'room')
+--		MainScene:test(self:getConfig('hall').offline, 2, 'room')
 		self:log(':showContent( param, option )#current='..id)
 		MainScene:switchPanel('room')
 		self.params = {level, param}
@@ -545,7 +545,7 @@ function target:startOnlineUsersTimer( ... )
 		:getScheduler()
 		:scheduleScriptFunc(
 			handler(target, target.onUpdateRoomUsersCount),
-			self.config.onlineusers_interval or DEFAULT_INTERVAL, false)
+			self:getConfig().onlineusers_interval or DEFAULT_INTERVAL, false)
 end
 
 function target:stopOnlineUsersTimer( ... )

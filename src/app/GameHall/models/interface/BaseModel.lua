@@ -14,18 +14,35 @@ function target:off( tag )
 end
 
 function target:string( str, raw )
+	--[[
+		raw = 'raw' make str UTF8 to GBK string
+		raw = 'utf8' or nil make str GBK to UTF8 string
+	--]]
+	assert(type(raw)=='string' or raw == nil, 'target:string(str, raw) #raw expect string')
+
+
 	raw = raw or 'utf8'
 	local handler = {utf8 = true, raw = true}
 	function handler.utf8( ... )
-		raw = ffi.string(str)
-		return MCCharset:gb2Utf8String(raw, string.len(raw))
+		str = ffi.string(str)
+		local len = string.len(str)
+		if len == 0 then return str end
+
+		return MCCharset:gb2Utf8String(str, len)
 	end
 	function handler.raw( ... )
-		return MCCharset:utf82GbString(str, string.len(str))
+		local len = string.len(str)
+		if len == 0 then return str end
+
+		return MCCharset:utf82GbString(str, len)
 	end
 
 	handler = handler[raw]
 	return handler and handler()
+end
+
+function target:getConfig( name )
+	return self.app_:getConfig(name)
 end
 
 function target:getApp()

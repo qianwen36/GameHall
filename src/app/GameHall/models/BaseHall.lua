@@ -31,6 +31,9 @@ function target:restart( config )
 		local des = MCClient:describe(resp)
 		self.connected = MCClient:isConnected(resp)
 
+		if not self.connected then
+			self.ready = false
+		end
 		event = (self.connected and event[1]) or event[2]
 		self:dispatchEvent({
 			name = self.handler.CONNECTION,
@@ -288,6 +291,7 @@ function target:initHall(config)
 					body = {event = event, msg = msg, result = result}
 					})
 			end
+			self.ready = true
 			self:dispatchEvent({
 				name = self.handler.HALL_READY,
 				})

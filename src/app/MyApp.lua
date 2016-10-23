@@ -63,7 +63,7 @@ function MyApp:model(name)
         	elseif(t == "table") then
         		models[name] = model
         		if type(model.init)=='function' then
-        			model:init(self:getConfig(name))
+        			model:init(self)
         		end
         		return model 
         	end

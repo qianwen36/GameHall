@@ -11,6 +11,8 @@ target.handler = {
 	UPDATE_ROOMUSERSCOUNT = 'UPDATE_ROOMUSERSCOUNT'
 }
 
+target.ready = false
+
 function target:isConnected()
 	self:definition(':isConnected()')
 	return false

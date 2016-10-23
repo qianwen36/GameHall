@@ -1,4 +1,4 @@
-local target = cc.load('form').build('RoomSpace.interface', import('.BaseModel'))
+local target = cc.load('form').build('RoomSpace.interface', import('.HallSpread'))
 
 -- event{name, body {event, msg, result}}
 target.handler = {
@@ -7,10 +7,6 @@ target.handler = {
 
 function target:build( MainScene )
 	self:definition(':build( MainScene )', 'required')
-end
-
-function target:onHallReady()
-	self:definition(':onHallReady()')
 end
 
 return target

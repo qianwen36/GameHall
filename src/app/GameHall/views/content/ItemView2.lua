@@ -33,15 +33,17 @@ function target:onCreate(param)
 	self.button = button
 end
 
+function target:tagEvent()
+	return self:getName()..self:getData().id
+end
 function target:onEnter( ... )
 	local model = self:getApp():model('RoomSpace')
 	model:on(model.handler.ONLINE_USERS,
-		handler(self, self.updatelineUsers),
-		tostring(self:getData().id))
+		handler(self, self.updatelineUsers), self:tagEvent())
 end
 function target:onExit( ... )
 	local model = self:getApp():model('RoomSpace')
-	model:off(tostring(self:getData().id))
+	model:off(self:tagEvent())
 end
 
 function target:updatelineUsers( event )

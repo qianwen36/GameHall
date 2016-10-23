@@ -1,30 +1,31 @@
 local form = require('form')
 -- 接口定义
-local spec = {_tag = 'sepc'}
+local spec = form.build('spec')
 function spec:Show(msg)
-	print(self._tag..':Show(msg) not implemented')
+	spec:log(':Show(msg)')
 end
 function spec:Dependence(target)
-	print(self._tag..':Dependence(target) not implemented')
+	spec:log(':Dependence(target)')
 end
 function spec:noImplementation()
-	print(self._tag..':noImplementation() not implemented')
+	spec:log(':noImplementation()')
 end
 -- 接口实现
-local port = form.build('spec', spec)
+local port = form.build('port', spec)
 print('\nport ###test start---------------------------')
 port:Show()
 port:Dependence()
 port:noImplementation()
+
 function port:Show(msg)
-	print('port:Show(msg)...')
+	spec:log(':Show(msg)')
 	print(msg)
 end
 print('\noverwrite port:Show(msg)--------------------')
 port:Show('port:Show using spec.Show')
 
 function port:Dependence(target)
-	print('port:Dependence(target)...')
+	spec:log(':Dependence(target)')
 	target.Show('DI, Dependence Input; implementation binded on '..target._tag..' from port')
 end
 print('\nport ###test over---------------------------')
