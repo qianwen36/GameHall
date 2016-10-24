@@ -1,4 +1,4 @@
-local target = class("ItemView", cc.load("mvc").ViewBase)
+local target = class("ItemView", import('.ItemBase'))
 target.RESOURCE_FILENAME = "res/hallcocosstudio/Room/Area.csb"
 
 local DEFAULT_TITLE = 'baiyinggu'
@@ -31,29 +31,6 @@ function target:onCreate(param)
 	self:onlineUsers(param.online or '')
 	self:setBackground(param.background or DEFAULT_BACKGROUND)
 	self:setTitle(param.title or DEFAULT_TITLE)
-end
-
-function target:tagEvent()
-	return self:getName()..'_'..self:getData().id
-end
-function target:onEnter( ... )
-	local model = self:getApp():model('RoomSpace')
-	model:on(model.handler.ONLINE_USERS,
-		handler(self, self.updatelineUsers), self:tagEvent())
-end
-function target:onExit( ... )
-	local model = self:getApp():model('RoomSpace')
-	model:off(self:tagEvent())
-end
-
-function target:updatelineUsers( event )
-	local result = event.body.result
-	local name, id, count = unpack(result)
-	local param = self:getData()
-	if name == param.name
-	and id == param.id then
-		self:onlineUsers(count)
-	end
 end
 
 function target:getButton()

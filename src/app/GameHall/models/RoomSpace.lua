@@ -298,14 +298,14 @@ function target:clear( ... )
 end
 
 function target:onGetAreas( event )
-	local array = self.hall:body_resolve(event.body)
+	local array = self.resolve(event.body)
 	for i,info in ipairs(array) do
 		info.rooms = {}
 	end
 	self.areas_ = array
 end
 function target:onGetRooms( event )
-	local array = self.hall:body_resolve(event.body)
+	local array = self.resolve(event.body)
 	if array and #array >0 then
 		local info = array[1].data
 		local id = info and info.nAreaID
@@ -329,7 +329,9 @@ function target:onConnection( event )
 end
 
 function target:prepare()
-	self:showContent()
+	if self.hall.ready then
+		self:showContent()
+	end
 end
 
 local function onlineCount( array )
@@ -344,7 +346,7 @@ end
 function target:onUpdateRoomUsersCount( event )
 	local hall = self.hall
 	if type(event) == 'table' then
-		local array = hall:body_resolve(event.body)
+		local array = self.resolve(event.body)
 		for i,info in ipairs(array) do
 			info = info.data
 			local room = self:getRoomById(info.nItemID) or {}

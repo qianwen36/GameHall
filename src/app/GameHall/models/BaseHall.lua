@@ -4,13 +4,22 @@ local target = cc.load('form').build('BaseHall', import('.interface.BaseHall'))
 local Director = cc.Director:getInstance()
 local Scheduler = Director:getScheduler()
 
-target.TAG = 'Hall'
+local TAG = 'Hall'
+target.TAG = TAG
+
 if not USING_MCRuntime then return target end
 
 local MCClient = require('src.app.TcyCommon.MCClient2')
 local ffi2 = MCClient.utils
 
 function target:start( config )
+	function config:getServer()
+		return unpack(string.split(self.server, ':'))
+	end
+	function config:getVersion()
+		local major, min, buildno = unpack(string.split(self.ver, '.'))
+		return tonumber(major), tonumber(min), tonumber(buildno)
+	end
 	self.config_ = config
 	self:restart(config)
 end
@@ -20,12 +29,12 @@ function target:isConnected()
 end
 
 function target:restart( config )
-	if config == nil then return MCClient:reconnection(self.TAG) end
+	if config == nil then return MCClient:reconnection(TAG) end
 	
 	config = config or self.config_
-	local host, port = unpack(string.split(config.server, ':'))
+	local host, port = config:getServer()
 
-	self.client = MCClient:connect(host, port, self.TAG,
+	self.client = MCClient:connect(host, port, TAG,
 	function (client, resp)
 		local event = {'connected', 'error'}
 		local des = MCClient:describe(resp)
@@ -37,7 +46,7 @@ function target:restart( config )
 		event = (self.connected and event[1]) or event[2]
 		self:dispatchEvent({
 			name = self.handler.CONNECTION,
-			body = {event = event, msg = des, result = self.TAG}
+			body = {event = event, msg = des, result = TAG}
 			})
 		if self.connected then
 			self.timer = Scheduler:scheduleScriptFunc(function ( t )
@@ -49,111 +58,30 @@ function target:restart( config )
 	end)
 end
 
-local function getREQ( config )
-local REQ = {}
-function REQ.resolve( resp, notify )
-	local events = {'succeed', 'failed'}
-	local result = MCClient:accept(resp) or (resp == notify)
-	local msg = MCClient:describe(resp)
-	if string.len(msg)==0 then
-		msg = 'notification from server'
-	end
-
-	local event = (result and events[1]) or events[2]
-	return event, msg, result
-end
-local function body_resolve( body )
-	local res = {}
-	local data = body.result
-	local c = data[1]
-	local array = data[2]
-	for i=1, c do
-		res[i] = {data = array[i-1]}
-	end
-	return res
-end
-function REQ.body_resolve( body )
-	local event = body.event
-	if event == 'succeed' then
-		return body_resolve(body)
-	end
-end
-
-function REQ.checkVersion()
-	local major, min, buildno = unpack(string.split(config.ver, '.'))
-	return ffi2.ct_generate('VERSION_MB', {
-		nMajorVer = tonumber(major),
-		nMinorVer = tonumber(min),
-		nBuildNO = tonumber(buildno),
-		nGameID = config.gameid,
-		szExeName = config.target
-		})
-end
-
-function REQ.GetServers(des)
-	local flags = mc.Flags.USER_TYPE_HANDPHONE
-	des = des or {}
-	local notify = des.notify or false
+function target:reqServers( desc, callack, notify )
+	assert(type(desc) == 'table', 'reqServers( desc, callack, notify )#desc table excepted')
+	desc = {
+		handler = self.fillCommonData,
+		nServerType = desc.nServerType or mc.ext.SERVER_TYPE_HALL
+	}
 	if notify then
-		bit.bor(flags, mc.Flags.FLAG_GETSERVERS_NOTIFY)
+		desc.dwGetFlags = mc.Flags.FLAG_GETSERVERS_NOTIFY
 	end
-	local nGameID, nServerType, nAgentGroupID
-	if type(des) == 'table' then
-		nGameID = des.nGameID or config.gameid
-		nServerType = des.nServerType or mc.ext.SERVER_TYPE_HALL
-		nAgentGroupID = des.nAgentGroupID or config.agentGroup
-	end
+	local data = self:requestData('GET_SERVERS', desc)
 
-	return ffi2.ct_generate('GET_SERVERS', {
-			nGameID = nGameID,
-			nServerType = nServerType,
-			nAgentGroupID = nAgentGroupID,
-			dwGetFlags = flags
-		})
-end
-function REQ.GetAreas()
-	return ffi2.ct_generate('GET_AREAS', {
-			nGameID = config.gameid,
-			nAgentGroupID = config.agentGroup,
-			dwGetFlags = mc.Flags.USER_TYPE_HANDPHONE
-		})
-end
-function REQ.GetRooms(areaid)
-	return ffi2.ct_generate('GET_ROOMS', {
-			nAreaID = areaid,
-			nGameID = config.gameid,
-			nAgentGroupID = config.agentGroup,
-			dwGetFlags = mc.Flags.USER_TYPE_HANDPHONE
-		})
-end
-function REQ.RoomsUserCount(param)
-	return ffi2.vls_generate('GET_ROOMUSERS', 'int', {
-		nAgentGroupID = config.agentGroup,
-		nRoomCount = #param,
---		dwGetFlags = mc.Flags.USER_TYPE_HANDPHONE,
-		param
-		})
-end
-print(target.TAG..'#getREQ(config).done')
-return REQ
-end
-
-function target:reqServers( data, callack, notify )
-	if type(data) ~= 'string' then
-		data = self.REQ.GetServers(data, {notify = notify})
-	end
-	if notify then
-		MCClient:on(mc.GET_SERVERS_OK, callack)
-	end
 	local client = self.client
-	client:send(mc.GET_SERVERS, data)
+	if notify then
+		client:on(mc.GET_SERVERS_OK, callack)
+		callack = nil
+	end
+	client:send(mc.GET_SERVERS, data, callack)
 end
+
 function target:reqRoomsUserCount( param, start )-- param:room ids
-	local REQ = self.REQ
 	local client = self.client
 	if start == 'start' then
 		local function onNotify( _, resp, data )
-			local event, msg, result = REQ.resolve(resp, mc.GET_ROOMUSERS_OK)
+			local event, msg, result = self.resolve(resp, mc.GET_ROOMUSERS_OK)
 			if result then
 				local ct, body = ffi2.vls_resolve('ITEM_COUNT', data)
 				local c = ct.nCount
@@ -170,7 +98,13 @@ function target:reqRoomsUserCount( param, start )-- param:room ids
 
 		client:on(mc.GET_ROOMUSERS_OK, onNotify)
 	end
-	local data, ct = REQ.RoomsUserCount(param)
+	local data, ct = self:requestData(
+		'GET_ROOMUSERS', {
+			handler = {self.fillCommonData, 'int'},
+			affect = false,
+			nRoomCount = #param,
+			param
+		} )
 	client:send(mc.GET_ROOMUSERS, data)
 --[[	local c = ct.head.nRoomCount
 	local array = ct.array
@@ -184,11 +118,6 @@ end
 
 function target:initHall(config)
 	local REQUEST -- request id
-	local REQ = getREQ(config) -- for generate request data
-	self.REQ = REQ
-	function self:body_resolve( body )
-		return REQ.body_resolve(body)
-	end
 	function self.initHall2( _, resp, data )
 		local function proc( client )
 			local result, event, msg, utfstr
@@ -198,7 +127,7 @@ function target:initHall(config)
 			elseif resp == mc.GET_SERVERS_OK then
 				client:off(mc.GET_SERVERS_OK)
 			end
-			event, msg, result = REQ.resolve(resp, mc.GET_SERVERS_OK)
+			event, msg, result = self.resolve(resp, mc.GET_SERVERS_OK)
 			if result then
 				local ct, body = ffi2.vls_resolve('SERVERS', data)
 				local c = ct.nServerCount
@@ -227,8 +156,9 @@ function target:initHall(config)
 				})
 			-- 获取大区列表
 			REQUEST = mc.GET_AREAS
-			_, resp, data = client:syncSend(REQUEST, REQ.GetAreas())
-			event, msg, result = REQ.resolve(resp)
+			_, resp, data = client:syncSend(REQUEST
+				, self:requestData('GET_AREAS', {handler = self.fillCommonData}) )
+			event, msg, result = self.resolve(resp)
 			if result then
 				local ct, body = ffi2.vls_resolve('AREAS', data)
 				local c = ct.nCount
@@ -259,8 +189,11 @@ function target:initHall(config)
 			for i=0, count-1 do
 				local info = ar[2][i]
 				REQUEST = mc.GET_ROOMS
-			    _, resp, data = client:syncSend(REQUEST, REQ.GetRooms(info.nAreaID))
-				event, msg, result = REQ.resolve(resp)
+			    _, resp, data = client:syncSend(REQUEST
+			    	, self:requestData('GET_ROOMS'
+			    		, {handler = self.fillCommonData
+			    		, nAreaID = info.nAreaID}) )
+				event, msg, result = self.resolve(resp)
 				if result then
 					local ct, body = ffi2.vls_resolve('ROOMS', data)
 					local c = ct.nRoomCount
@@ -296,14 +229,22 @@ function target:initHall(config)
 				name = self.handler.HALL_READY,
 				})
 		end
-		MCClient:rpcall(self.TAG, proc)
+		MCClient:rpcall(TAG, proc)
 	end
 	local function proc( client )
 		local _, resp, data, result, event, msg
 		-- 获取大厅版本
 		REQUEST = mc.CHECK_VERSION
-		_, resp, data = client:syncSend(REQUEST, REQ.checkVersion())
-		event, msg, result = REQ.resolve(resp)
+		local major, min, buildno = config:getVersion()
+		_, resp, data = client:syncSend(REQUEST
+			, self:requestData('VERSION_MB', {
+				handler = self.fillCommonData,
+				nMajorVer = major,
+				nMinorVer = min,
+				nBuildNO = buildno,
+				szExeName = config.target
+				}) )
+		event, msg, result = self.resolve(resp)
 		if result then
 			local t = ffi2.ct_resolve('CHECK_VERSION_OK_MB', data)
 --[[			print('[CHECK_VERSION_OK_MB]')
@@ -324,15 +265,15 @@ function target:initHall(config)
 			body = {event = event, msg = msg, result = result}
 			})
 		-- 获取大厅服务器
-		local data= REQ.GetServers({notify = DEBUG~=0})
+		local notify = DEBUG~=0
 		if notify then
-			self:reqServers(data, self.initHall2, notify)
+			self:reqServers({nServerType = mc.ext.SERVER_TYPE_HALL}, self.initHall2, notify)
 			return
 		end
 		self.initHall2(_, resp, data) -- inner rpcall
 	end
-	MCClient:rpcall(self.TAG, proc)
-	print(self.TAG..':initHall(config).done')
+	MCClient:rpcall(TAG, proc)
+	self:log(':initHall(config).done')
 end
 
 return target

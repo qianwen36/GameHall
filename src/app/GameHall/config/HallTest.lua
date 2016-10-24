@@ -1,5 +1,6 @@
 local config = {
 	test = 'test',
+	abbr = 'zzmk',
 	--server = '192.168.1.222:31626',
 	server = '122.224.230.90:31626',
 	target = 'AND',

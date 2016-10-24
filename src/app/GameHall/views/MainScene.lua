@@ -36,8 +36,8 @@ end
 function MainScene:onHallReady( ... )
     -- show content, and start login
     self:log(':onHallReady()')
-    self:getApp():model('RoomSpace'):prepare()
     self:getApp():model('PlayerModel'):prepare()
+    self:getApp():model('RoomSpace'):prepare()
 end
 
 function MainScene:goBack( ... )

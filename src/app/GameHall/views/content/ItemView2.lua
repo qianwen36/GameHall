@@ -1,4 +1,4 @@
-local target = class("ItemView2", cc.load("mvc").ViewBase)
+local target = class("ItemView2", import('.ItemBase'))
 target.RESOURCE_FILENAME = "res/hallcocosstudio/Room/Room.csb"
 
 
@@ -31,29 +31,6 @@ function target:onCreate(param)
 	self:onlineUsers(param.online or '')
 	self:setCorner(param.activity)
 	self.button = button
-end
-
-function target:tagEvent()
-	return self:getName()..self:getData().id
-end
-function target:onEnter( ... )
-	local model = self:getApp():model('RoomSpace')
-	model:on(model.handler.ONLINE_USERS,
-		handler(self, self.updatelineUsers), self:tagEvent())
-end
-function target:onExit( ... )
-	local model = self:getApp():model('RoomSpace')
-	model:off(self:tagEvent())
-end
-
-function target:updatelineUsers( event )
-	local result = event.body.result
-	local name, id, count = unpack(result)
-	local param = self:getData()
-	if name == param.name
-	and id == param.id then
-		self:onlineUsers(count)
-	end
 end
 
 function target:getButton()

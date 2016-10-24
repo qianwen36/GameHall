@@ -269,25 +269,25 @@ typedef struct _tagLOGON_USER{
 	int  nGroupType;
  	T_DWORD dwIPAddr;
 	T_DWORD dwSoapFlags;
- 	T_DWORD dwLogonFlags;	
+ 	T_DWORD dwLogonFlags;
  	T_LONG lTokenID;
  	T_UINT nResponse;
-	T_TCHAR szUsername[MAX_USERNAME_LEN];	
+	T_TCHAR szUsername[MAX_USERNAME_LEN];
     T_TCHAR szPassword[MAX_PASSWORD_LEN];
 	T_TCHAR szHardID[MAX_HARDID_LEN];
-	T_TCHAR szVolumeID[MAX_HARDID_LEN];	 
+	T_TCHAR szVolumeID[MAX_HARDID_LEN];
 	T_TCHAR szMachineID[MAX_HARDID_LEN]; 
     T_TCHAR szHashPwd[DEF_HASHPWD_LEN+2];
  	T_TCHAR szRndKey[MAX_RNDKEY_LEN_EX];
-  	T_DWORD dwSysVer;     
+  	T_DWORD dwSysVer; 
  	int  nLogonSvrID; 
 	int  nHallBuildNO;
-  	int  nHallNetDelay;	
+  	int  nHallNetDelay;
 	int  nHallRunCount;
 	int	 nGameID;
 	T_DWORD dwGameVer;
 	int	 nRecommenderID;
-   	int  nReserved[1];
+   	int  nChannelID;
 }LOGON_USER, *LPLOGON_USER;
 
 

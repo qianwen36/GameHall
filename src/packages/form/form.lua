@@ -128,7 +128,7 @@ function form.spec(target)
 
 	if target.super == nil
 	and super.super == nil then
-	function target:super()
+	function target:super()		-- just the final target can use this feature, extend limitation.(T_T)
 		local super = self.__base -- make this property
 		if super == nil then
 			local super_ = self._super
