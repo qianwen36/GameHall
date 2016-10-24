@@ -389,17 +389,16 @@ end
 function utils_fill( ct, des )
 	for k,v in pairs(des) do
 		local ofs = ffi.offsetof(ct, k)
-		if ofs == nil then
-			print('utils_fill()#'..tostring(ct)..'.'..k..'*** no such key')
-			break
+		if ofs ~= nil then
+			local t = type(v)
+			if t == 'string'
+			or t == 'table' then
+				utils_assign(ct[k], v)
+			else
+				ct[k] = v
+			end
 		end
-		local t = type(v)
-		if t == 'string'
-		or t == 'table' then
-			utils_assign(ct2, v)
-		else
-			ct[k] = v
-		end
+		print('utils_fill()#'..tostring(ct)..'.'..k..'*** no such key')
 	end
 	for i,v in ipairs(des) do
 		ct[i-1] = v

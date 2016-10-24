@@ -34,7 +34,7 @@ function target:requestData( ctype, desc )
 	assert(t=='table' or 'function', 'desc.handler[1] must be a target:function or a list function for target')
 	if t == 'table' then
 		for i,fill_ in ipairs(fill) do
-			fill(self, desc)
+			fill_(self, desc)
 		end
 	else
 		fill(self, desc)
