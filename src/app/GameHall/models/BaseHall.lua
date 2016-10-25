@@ -16,8 +16,8 @@ function target:start( config )
 		return unpack(string.split(self.server, ':'))
 	end
 	function config:getVersion()
-		local major, min, buildno = unpack(string.split(self.ver, '.'))
-		return tonumber(major), tonumber(min), tonumber(buildno)
+		local major, minor, buildno = unpack(string.split(self.ver, '.'))
+		return tonumber(major), tonumber(minor), tonumber(buildno)
 	end
 	self.config_ = config
 	self:restart(config)
@@ -78,21 +78,13 @@ end
 
 function target:reqRoomsUserCount( param, start )-- param:room ids
 	local client = self.client
+	local REQUEST = mc.GET_ROOMUSERS
 	if start == 'start' then
 		local function onNotify( _, resp, data )
-			local event, msg, result = self.resolve(resp, mc.GET_ROOMUSERS_OK)
-			if result then
-				local ct, body = ffi2.vls_resolve('ITEM_COUNT', data)
-				local c = ct.nCount
-				local array = ffi2.vla_resolve('ITEM_USERS', c, body)
-				result = {c, array}
-			end
-			result = result or nil
-			self:log(':reqRoomsUserCount( param )#onNotify.', msg)
-			self:dispatchEvent({
-				name = self.handler.UPDATE_ROOMUSERSCOUNT,
-				body = {event = event, msg = msg, result = result}
-				})
+			local result = self:routine(resp, {REQUEST, mc.GET_ROOMUSERS_OK}, function (event, msg, result)
+				return self.handler.UPDATE_ROOMUSERSCOUNT, self.resolve('ITEM_COUNT', {'nCount', 'ITEM_USERS', data})
+			end)
+
 		end
 
 		client:on(mc.GET_ROOMUSERS_OK, onNotify)
@@ -104,7 +96,7 @@ function target:reqRoomsUserCount( param, start )-- param:room ids
 			nRoomCount = #param,
 			param
 		} )
-	client:send(mc.GET_ROOMUSERS, data)
+	client:send(REQUEST, data)
 --[[	local c = ct.head.nRoomCount
 	local array = ct.array
 	print('[GET_ROOMUSERS].'..c)
@@ -119,70 +111,28 @@ function target:initHall(config)
 	local REQUEST -- request id
 	function self.initHall2( _, resp, data )
 		local function proc( client )
-			local result, event, msg, utfstr
+			local result
 			REQUEST = mc.GET_SERVERS
 			if (MCClient.accept(resp)) then
 				_, resp, data = client:syncSend(REQUEST, data)
 			elseif resp == mc.GET_SERVERS_OK then
 				client:off(mc.GET_SERVERS_OK)
 			end
-			event, msg, result = self.resolve(resp, mc.GET_SERVERS_OK)
-			if result then
-				local ct, body = ffi2.vls_resolve('SERVERS', data)
-				local c = ct.nServerCount
-				local array = ffi2.vla_resolve('SERVER', c, body)
---[[			    print('SERVER['..c..']')
-				print('-------------------------------------')
-			    for i=0, c-1 do
-	                local item = array[i]
-			    	print('nServerID = '..item.nServerID)
-			    	print('nServerType = '.. item.nServerType)
-			    	print('szServerName = '..self:string(item.szServerName) )
-			    	print('szServerIP = '..self:string(item.szServerIP) )
-			    	print('szWWW = ' ..self:string(item.szWWW) )
-			    	print('szWWW2 = '..self:string(item.szWWW2))
-			    	print('nUsersOnline = '..item.nUsersOnline)
-			    	print('-------------------------------------')
-			    end]]
-			    result = {c, array}
-			else
-			    return self:log(mc.key(REQUEST), ".message:"..msg)
-			end
-			result = result or nil
-			self:dispatchEvent({
-				name = self.handler.GET_SERVERS,
-				body = {event = event, msg = msg, result = result}
-				})
+			result = self:routine(resp, {REQUEST, mc.GET_SERVERS_OK}, function (event, msg, result)
+				return self.handler.GET_SERVERS, self.resolve('SERVERS', {'nServerCount', 'SERVER', data})
+			end)
+			if result == false then return end
+
 			-- 获取大区列表
 			REQUEST = mc.GET_AREAS
 			_, resp, data = client:syncSend(REQUEST
 				, self:genDataREQ('GET_AREAS', {handler = self.fillCommonData}) )
-			event, msg, result = self.resolve(resp)
-			if result then
-				local ct, body = ffi2.vls_resolve('AREAS', data)
-				local c = ct.nCount
-				local array = ffi2.vla_resolve('AREA', c, body)
---[[				print('AREA['..c..']#')
-				print('-------------------------------------')
-				for i=0, c-1 do
-				    local a = array[i]
-				    print('nAreaID = '..a.nAreaID)
-				    print('nAreaType = '..a.nAreaType)
-				    print('nSubType = '..a.nSubType)
-				    print('nGifID = '..a.nGifID)
-				    print('nServerID = '..a.nServerID)
-				    print('szAreaName = '.. self:string(a.szAreaName) )
-				    print('-------------------------------------')
-				end]]
-			    result = {c, array}
-			else
-			    return self:log(mc.key(REQUEST), ".message:"..msg)
-			end
-			result = result or nil
-			self:dispatchEvent({
-				name = self.handler.GET_AREAS,
-				body = {event = event, msg = msg, result = result}
-				})
+
+			result = self:routine(resp, REQUEST, function (event, msg, result)
+				return self.handler.GET_AREAS, self.resolve('AREAS', {'nCount', 'AREA', data})
+			end)
+			if result == false then return end
+
 			local ar = result or {}
 			local count = ar[1] or 0
 			for i=0, count-1 do
@@ -192,37 +142,13 @@ function target:initHall(config)
 			    	, self:genDataREQ('GET_ROOMS'
 			    		, {handler = self.fillCommonData
 			    		, nAreaID = info.nAreaID}) )
-				event, msg, result = self.resolve(resp)
-				if result then
-					local ct, body = ffi2.vls_resolve('ROOMS', data)
-					local c = ct.nRoomCount
-					local array = ffi2.vla_resolve('ROOM', c, body)
---[[					print('ROOM['..c..']# link('..ct.nLinkCount..')@area.'..info.nAreaID)
-					print('-------------------------------------')
-					for i=0, c-1 do
-					    local a = array[i]
-					    print('nRoomID = '..a.nRoomID)
-					    print('nRoomType = '..a.nRoomType)
-					    print('nTableCount = '..a.nTableCount)
-					    print('nUsersOnline = '..a.nUsersOnline)
-					    print('nPort = '..a.nPort)
-					    print('nGamePort = '..a.nGamePort)
-					    print('szRoomName = '..self:string(a.szRoomName) )
-					    print('szGameIP = '..self:string(a.szGameIP) )
-					    print('szPassword = '..self:string(a.szPassword) )
-					    print('szWWW = '.. self:string(a.szWWW) )
-					    print('-------------------------------------')
-					end]]
-				    result = {c, array}
-				else
-				    return self:log(mc.key(REQUEST), ".message:"..msg)
-				end
-				result = result or nil
-				self:dispatchEvent({
-					name = self.handler.GET_ROOMS,
-					body = {event = event, msg = msg, result = result}
-					})
+
+			    result = self:routine(resp, REQUEST, function (event, msg, result)
+			    	return self.handler.GET_ROOMS, self.resolve('ROOMS', {'nRoomCount', 'ROOM', data})
+			    end)
+				if result == false then break end
 			end
+
 			self.ready = true
 			self:dispatchEvent({
 				name = self.handler.HALL_READY,
@@ -231,38 +157,23 @@ function target:initHall(config)
 		MCClient:rpcall(TAG, proc)
 	end
 	local function proc( client )
-		local _, resp, data, result, event, msg
+		local _, resp, data, result
 		-- 获取大厅版本
 		REQUEST = mc.CHECK_VERSION
-		local major, min, buildno = config:getVersion()
+		local major, minor, buildno = config:getVersion()
 		_, resp, data = client:syncSend(REQUEST
 			, self:genDataREQ('VERSION_MB', {
 				handler = self.fillCommonData,
 				nMajorVer = major,
-				nMinorVer = min,
+				nMinorVer = minor,
 				nBuildNO = buildno,
 				szExeName = config.target
 				}) )
-		event, msg, result = self.resolve(resp)
-		if result then
-			local t = ffi2.ct_resolve('CHECK_VERSION_OK_MB', data)
---[[			print('[CHECK_VERSION_OK_MB]')
-			print('nMajorVer ='..t.nMajorVer)
-			print('nMinorVer ='..t.nMinorVer)
-			print('nBuildNO ='..t.nBuildNO)
-			print('nCheckReturn ='..t.nCheckReturn)
-			print('szDLFile ='..self:string(t.szDLFile) )
-			print('szUpdateWWW ='..self:string(t.szUpdateWWW) )
-			print('dwClientIP ='..t.dwClientIP)]]
-			result = t
-		else
-		    return self:log(mc.key(REQUEST), ".message:"..msg)
-		end
-		result = result or nil
-		self:dispatchEvent({
-			name = self.handler.CHECK_VERSION,
-			body = {event = event, msg = msg, result = result}
-			})
+		result = self:routine(resp, REQUEST, function (event, msg, result)
+			return self.handler.CHECK_VERSION, self.resolve('CHECK_VERSION_OK_MB', data)
+		end)
+		if result == false then return end
+
 		-- 获取大厅服务器
 		local notify = DEBUG~=0
 		if notify then

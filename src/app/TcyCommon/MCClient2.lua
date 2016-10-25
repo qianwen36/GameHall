@@ -397,8 +397,9 @@ function utils_fill( ct, des )
 			else
 				ct[k] = v
 			end
+		else
+		print('utils_fill()#\n'..tostring(ct)..'.'..k..'*** no such key')
 		end
-		print('utils_fill()#'..tostring(ct)..'.'..k..'*** no such key')
 	end
 	for i,v in ipairs(des) do
 		ct[i-1] = v

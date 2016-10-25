@@ -131,9 +131,10 @@ ROOM_CFG_CLOAKING = 		0x00000008; --隐身房
 }--target.Flags
 
 target.ext = {
-SERVER_TYPE_HALL =	  1;	--大厅服务器
-SERVER_TYPE_CHECK =	  2;	--帐户服务器
-SERVER_TYPE_DOWN =   	3;	--下载服务器 (此定义必须固定值,应对版本升级)
+SERVER_TYPE_HALL =	 1;	--大厅服务器
+SERVER_TYPE_CHECK =	 2;	--帐户服务器
+SERVER_TYPE_DOWN =   3;	--下载服务器 (此定义必须固定值,应对版本升级)
+GROUP_TYPE_DEFAULT = 1;
 }
 
 function target.key( id )
