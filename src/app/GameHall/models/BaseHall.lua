@@ -4,8 +4,7 @@ local target = cc.load('form').build('BaseHall', import('.interface.BaseHall'))
 local Director = cc.Director:getInstance()
 local Scheduler = Director:getScheduler()
 
-local TAG = 'Hall'
-target.TAG = TAG
+local TAG = target.TAG
 
 if not USING_MCRuntime then return target end
 
@@ -67,7 +66,7 @@ function target:reqServers( desc, callack, notify )
 	if notify then
 		desc.dwGetFlags = mc.Flags.FLAG_GETSERVERS_NOTIFY
 	end
-	local data = self:requestData('GET_SERVERS', desc)
+	local data = self:genDataREQ('GET_SERVERS', desc)
 
 	local client = self.client
 	if notify then
@@ -98,7 +97,7 @@ function target:reqRoomsUserCount( param, start )-- param:room ids
 
 		client:on(mc.GET_ROOMUSERS_OK, onNotify)
 	end
-	local data, ct = self:requestData(
+	local data, ct = self:genDataREQ(
 		'GET_ROOMUSERS', {
 			handler = {self.fillCommonData, 'int'},
 			affect = false,
@@ -157,7 +156,7 @@ function target:initHall(config)
 			-- 获取大区列表
 			REQUEST = mc.GET_AREAS
 			_, resp, data = client:syncSend(REQUEST
-				, self:requestData('GET_AREAS', {handler = self.fillCommonData}) )
+				, self:genDataREQ('GET_AREAS', {handler = self.fillCommonData}) )
 			event, msg, result = self.resolve(resp)
 			if result then
 				local ct, body = ffi2.vls_resolve('AREAS', data)
@@ -190,7 +189,7 @@ function target:initHall(config)
 				local info = ar[2][i]
 				REQUEST = mc.GET_ROOMS
 			    _, resp, data = client:syncSend(REQUEST
-			    	, self:requestData('GET_ROOMS'
+			    	, self:genDataREQ('GET_ROOMS'
 			    		, {handler = self.fillCommonData
 			    		, nAreaID = info.nAreaID}) )
 				event, msg, result = self.resolve(resp)
@@ -237,7 +236,7 @@ function target:initHall(config)
 		REQUEST = mc.CHECK_VERSION
 		local major, min, buildno = config:getVersion()
 		_, resp, data = client:syncSend(REQUEST
-			, self:requestData('VERSION_MB', {
+			, self:genDataREQ('VERSION_MB', {
 				handler = self.fillCommonData,
 				nMajorVer = major,
 				nMinorVer = min,

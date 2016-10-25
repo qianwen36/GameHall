@@ -19,7 +19,7 @@ function target:off( tag )
 	return self:removeEventListenersByTag(tag)
 end
 
-function target:requestData( ctype, desc )
+function target:genDataREQ( ctype, desc ) -- 生成序列化请求数据
 --[[
 	desc = {handler = {target.fillCommData, 'int'}, affect = false}
 	-- affect field `dwGetFlags`

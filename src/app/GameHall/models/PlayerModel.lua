@@ -11,7 +11,8 @@ local MCClient = require('src.app.TcyCommon.MCClient2')
 local ffi2 = MCClient.utils
 
 function target:prepare()
-	TAG = self.hall.TAG or 'Hall'
+	local hall = self.hall
+	TAG = hall.TAG
 
 	local config = self:getConfig('hall').config
 	local user = config.user
@@ -19,7 +20,7 @@ function target:prepare()
 	local function proc( client )
 		local _, resp, data, result, event, msg
 		_, resp, data = client:syncSend(mc.LOGON_USER
-			, self:requestData('LOGON_USER', {
+			, self:genDataREQ('LOGON_USER', {
 				handler = {self.fillCommonData, self.fillDeviceData},
 				szUsername = self:string(user.name, 'raw'),
 				szPassword = self:string(user.password, 'raw')

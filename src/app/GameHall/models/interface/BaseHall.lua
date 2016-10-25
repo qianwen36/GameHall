@@ -11,6 +11,7 @@ target.handler = {
 	UPDATE_ROOMUSERSCOUNT = 'UPDATE_ROOMUSERSCOUNT'
 }
 
+target.TAG = 'Hall'
 target.ready = false
 
 function target:isConnected()
