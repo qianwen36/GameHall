@@ -117,16 +117,16 @@ local function body_resolve( body )
 	return res
 end
 --[[
-function target.resolve( resp, notify )	-- overload #1:number
+function target.resolve( resp, reference )	-- overload #1:number
 function target.resolve( body )			-- overload #1:table
 function target.resolve( ctype, {cfield, ctype, data} ) -- overload #1:string, #2:table]]
 function target.resolve( ctype, data )	-- overload #1:string, #2:cdata
 	local handler = {string = true, number = true, table = true}
-	local resp, notify = ctype, data
+	local resp, reference = ctype, data
 	local body = ctype
 	function handler.number( ... )
 		local events = {'succeed', 'failed'}
-		local result = MCClient:accept(resp) or (resp == notify)
+		local result = MCClient:accept(resp) or (resp == reference)
 		local msg = MCClient:describe(resp)
 		if string.len(msg)==0 then
 			msg = 'notification from server'
@@ -164,13 +164,13 @@ function target.resolve( ctype, data )	-- overload #1:string, #2:cdata
 end
 
 --[[
-function target:routine( resp, {REQUEST, notification}, func ) -- overload]]
+function target:routine( resp, {REQUEST, reference}, func ) -- overload]]
 function target:routine( resp, REQUEST, func )
-	local notification
+	local reference
 	if type(REQUEST) == 'table' then
-		REQUEST, notification = unpack(REQUEST)
+		REQUEST, reference = unpack(REQUEST)
 	end
-	local event, msg, result = self.resolve(resp, notification)
+	local event, msg, result = self.resolve(resp, reference)
 	if (result) then
 		local name, res = func(event, msg, result)
 		if type(name)=='string' then

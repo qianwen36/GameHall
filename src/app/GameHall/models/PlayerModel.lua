@@ -76,7 +76,7 @@ function target:prepare()
 				szUsername = self:string(user.name, 'raw'),
 				szPassword = self:string(user.password, 'raw')
 				}))
-		result = self:routine(resp, REQUEST, function (event, msg, result)
+		result = self:routine(resp, {REQUEST, mc.LOGON_SUCCEED}, function (event, msg, result)
 			return self.handler.LOGON_SUCCEED, self.resolve('LOGON_SUCCEED', data)
 		end)
 		if result == false then return end
