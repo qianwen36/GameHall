@@ -16,7 +16,7 @@ function target:start( config )
 		return unpack(string.split(self.server, ':'))
 	end
 	function config:getVersion()
-		local major, minor, buildno = unpack(string.split(self.ver, '.'))
+		local major, minor, buildno = unpack(string.split(self.version, '.'))
 		return tonumber(major), tonumber(minor), tonumber(buildno)
 	end
 	self.config_ = config

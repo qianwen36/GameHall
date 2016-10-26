@@ -181,7 +181,7 @@ function target:routine( resp, REQUEST, func )
 		end
 		return res
 	else
-		self:log(mc.key(REQUEST), ".message:"..msg)
+		self:log(mc.key(REQUEST), ">>>FAILED.message:", msg)
 	end
 	return false
 end
