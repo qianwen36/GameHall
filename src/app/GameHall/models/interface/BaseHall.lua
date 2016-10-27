@@ -1,4 +1,4 @@
-local target = cc.load('form').build('BaseHall.interface', import('.BaseModel'))
+local target = cc.load('form').build('BaseHall.interface', import('..BaseModel'))
 
 -- event{name, body {event, msg, result}}
 target.handler = {

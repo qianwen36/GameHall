@@ -19,6 +19,7 @@ function MyApp:onCreate()
 	end
 	self.plugins_ = plugins
 	self.models_ = {}
+	self.presenters_ = {}
 	if USING_MCRuntime then
 		self:model('BaseHall'):start(self:getConfig('hall').config)
 	end
@@ -41,36 +42,44 @@ function MyApp:wrapParam( param, default )
 	return param
 end
 
-function MyApp:model(name)
-	local models = self.models_ 
-	local model = models[name]
-	if model~=nil then return model end
+function MyApp:presenter( name )
+	return self:module('presenter', name)
+end
 
-    for _, root in ipairs(self.configs_.modelsRoot) do
+function MyApp:model( name )
+	return self:module('model', name)
+end
+
+function MyApp:module(mod, name)
+	local mods = self[mod..'s_']
+	local module_ = mods[name]
+	if module_~=nil then return module_ end
+	local roots = self.configs_[mod..'sRoot'] or self.configs_.viewsRoot
+    for _, root in ipairs(roots) do
         local packageName = string.format("%s.%s", root, name)
-        local status, model = xpcall(function()
+        local status, module_ = xpcall(function()
                 return require(packageName)
             end, function(msg)
             if not string.find(msg, string.format("'%s' not found:", packageName)) then
-                print("load model error: ", msg)
+                print("load module_ error: ", msg)
             end
         end)
-        local t = type(model)
+        local t = type(module_)
         if status then
         	if t == "userdata" then
-        		models[name] = model
-	            return model
+        		mods[name] = module_
+	            return module_
         	elseif(t == "table") then
-        		models[name] = model
-        		if type(model.init)=='function' then
-        			model:init(self)
+        		mods[name] = module_
+        		if type(module_.init)=='function' then
+        			module_:init(self)
         		end
-        		return model 
+        		return module_ 
         	end
         end
     end
-    error(string.format("MyApp:model() - not found model \"%s\" in search paths \"%s\"",
-        name, table.concat(self.configs_.modelsRoot, ",")), 0)
+    error(string.format("MyApp:module() - not found module \"%s\" in search paths \"%s\"",
+        name, table.concat(roots, ",")), 0)
 end
 
 return MyApp

@@ -58,8 +58,8 @@ local target = {
 	GET_GAMEVERISON			=(MOBILE_REQ_BASE + 523);-- 获取游戏版本信息
 
 	GET_FINISHED			=(MOBILE_REQ_BASE + 530);-- 结束
-  ----------------------------------------------------------
-  -- 系统通知
+----------------------------------------------------------
+-- 系统通知
 --	GET_FINISHED			=(GAME_REQ_BASE + 165);		-- 结束
 	ADMINMSG_TO_ROOM   	 	=(GAME_REQ_BASE + 803);		-- 发送房间网管消息
 	DEPOSIT_NOTENOUGH	  	=(GAME_REQ_BASE + 10005);		-- 银子不够

@@ -3,6 +3,7 @@
 --[[
 	comm -- 大厅协议内容
 	views-- 
-	models -- 模块封装
+	presenters -- 桥接 view-model
+	models -- 业务模型
 	config -- 配置扩展
 --]]

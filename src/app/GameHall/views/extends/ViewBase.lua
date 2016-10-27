@@ -18,6 +18,10 @@ function ViewBase:ctor(app, name, param)
 	self.param_ = param
 end
 
+function ViewBase:presenter( name )
+	return self:getApp():presenter( name )
+end
+
 function ViewBase:getData()
 	return self.param_ or {}
 end

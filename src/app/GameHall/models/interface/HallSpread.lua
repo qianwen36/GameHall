@@ -1,4 +1,4 @@
-local Base = import('.BaseModel')
+local Base = import('..BaseModel')
 local target = cc.load('form').build('HallSpread', Base)
 
 function target:init( app )

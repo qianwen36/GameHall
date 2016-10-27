@@ -34,7 +34,7 @@ function target:describe(respondId) -- 请求超时
 	[mc.UR_OPERATE_SUCCEED]	= "Operation Success",
 	[mc.UR_OPERATE_FAIL]	= "Operation Failed" 
     }
-    return tostring(text[respondId])
+    return text[respondId]
 end
 
 function target:accept(respondId) -- only should be UR_OPERATE_SUCCEED or XX_SUCCEED
