@@ -5,7 +5,6 @@ function target:init( app )
 --	self:super().init(app) -- 只能应用于final target
 	Base.init(self, app)
 	self.hall = app:model('BaseHall')
-	self:clear()
 end
 
 function target:prepare()
@@ -13,7 +12,7 @@ function target:prepare()
 end
 
 function target:clear()
-	self:definition(':clear()')
+	self:reset()
 end
 
 return target

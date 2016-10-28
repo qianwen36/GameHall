@@ -1,6 +1,14 @@
-local target = cc.load('form').build('BaseModel', require('src.app.ModuleBase'))
+local Base = require('src.app.ModuleBase')
+local target = cc.load('form').build('BaseModel', Base)
 
-cc.bind(target, 'event')
+target.MODEL_READY = 'READY'
+target.EVENT_EXCEPTION_BREAK = 'EXCEPTION_BREAK'
+
+function target:init( app )
+	Base.init(self, app)
+	cc.bind(self, 'event')
+	return self
+end
 
 function target:on(eventName, listener, tag)
 	return self:addEventListener(eventName, listener, tag)
@@ -8,6 +16,19 @@ end
 
 function target:off( tag )
 	return self:removeEventListenersByTag(tag)
+end
+
+function target:done()
+	self:dispatchEvent({
+		name = self.MODEL_READY,
+		})
+end
+function target:exception( body )
+	self:dispatchEvent({
+		name = self.EVENT_EXCEPTION_BREAK,
+		body = body
+		})
+	return self
 end
 
 --[[

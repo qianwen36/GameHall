@@ -10,7 +10,12 @@ end
 
 function target:init( app )
 	self.app_ = app
+	self:reset()
 	return self
+end
+
+function target:reset()
+	self:definition(':reset()')
 end
 
 return target

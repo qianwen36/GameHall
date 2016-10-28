@@ -18,6 +18,11 @@ function ViewBase:ctor(app, name, param)
 	self.param_ = param
 end
 
+function ViewBase:setResourceNode(root)
+    self.resourceNode_ = root
+    return root
+end
+
 function ViewBase:presenter( name )
 	return self:getApp():presenter( name )
 end
@@ -46,10 +51,14 @@ function ViewBase:indexResource(parent, map)
     if type(parent) == 'string' then
     	parent =  self:nodeFromPath(parent)
     end
-    for key, name in pairs(map) do
-        self[key] = self:nodeFromPath(name, parent)
+    local target = {}
+    for i,name in ipairs(map) do
+    	target[i] = self:nodeFromPath(name, parent)
     end
-    return parent
+    for key, name in pairs(map) do
+        target[key] = self:nodeFromPath(name, parent)
+    end
+    return target, parent
 end
 
 function ViewBase:initLayout( )

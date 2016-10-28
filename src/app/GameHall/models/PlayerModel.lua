@@ -11,28 +11,6 @@ local MCClient = require('src.app.TcyCommon.MCClient2')
 local ffi2 = MCClient.utils
 local DeviceUtils = DeviceUtils:getInstance()
 
-target.info ={
-	GAME = nil,	-- cdata<LOGON_SUCCEED>
-	LOGON= nil 	-- cdata<USER_GAMEINFO_MB>
-}
-function target:clear()
-	self.info = {}
-	self:spec('user', {
-		type = true,
-		id = true,		-- userid
-		sex = true,
-		portrait = true,-- 形象
-		clothing = true,
-		uniqueid = true,
-		nick = true,	-- 昵称
-		vip = true,		-- 会员等级
-		deposit = true,	-- 游戏银两
-		score = true,	-- 游戏积分
-		experience = true,
-		level = true,	-- 玩家级别
-		})
-end
-
 function target:update( cdata, ctype )
 	local handler = {
 		LOGON_SUCCEED = true,
@@ -40,14 +18,18 @@ function target:update( cdata, ctype )
 	}
 	local user = self:user() or {}
 	function handler.LOGON_SUCCEED( ... )
+		local sex = {'male', 'female'}
 		user.type = cdata.nUserType
 		user.id = cdata.nUserID
-		user.sex = cdata.nNickSex
+		user.sex = sex[cdata.nNickSex+1]
 		user.vip = cdata.nMemberLevel
 		user.portrait = cdata.nPortrait
 		user.clothing = cdata.nClothingID
 		user.uniqueid = self:string(cdata.szUniqueID)
 		user.nick = self:string(cdata.szNickName)
+		if (user.nick == '') then
+			user.nick = user.name
+		end
 	end
 	function handler.USER_GAMEINFO_MB( ... )
 		user.deposit = cdata.nDeposit
@@ -67,6 +49,7 @@ function target:prepare()
 	local config = self:getConfig('hall').config
 	local user = config.user
 
+	table.merge(self:user(), user)
 	local function proc( client )
 		local _, resp, data, REQUEST, result
 		REQUEST = mc.LOGON_USER
@@ -77,11 +60,13 @@ function target:prepare()
 				szPassword = self:string(user.password, 'raw')
 				}))
 		result = self:routine(resp, {REQUEST, mc.LOGON_SUCCEEDED}, function (event, msg, result)
-			return self.handler.LOGON_SUCCEED, self.resolve('LOGON_SUCCEED', data)
+			result = self.resolve('LOGON_SUCCEED', data)
+			self:update(result, 'LOGON_SUCCEED') -- 更新用户信息
+
+			self.info.LOGON = result
+			return self.handler.LOGON_SUCCEED, result
 		end)
 		if result == false then return end
-		self.info.LOGON = result
-		self:update(result, 'LOGON_SUCCEED') -- 更新用户信息
 		
 		REQUEST = mc.QUERY_USER_GAMEINFO
 		_, resp, data = client:syncSend(REQUEST
@@ -90,11 +75,14 @@ function target:prepare()
 				nUserID = self:user().id
 				}))
 		result = self:routine(resp, REQUEST, function (event, msg, result)
-			return self.handler.USER_GAMEINFO_MB, self.resolve('USER_GAMEINFO_MB', data)
+			result = self.resolve('USER_GAMEINFO_MB', data)
+			self:update(result, 'USER_GAMEINFO_MB') -- 更新用户信息
+
+			self.info.GAME = result
+			return self.handler.QUERY_USER_GAMEINFO, result
 		end)
 		if result == false then return end
-		self.info.GAME = result
-		self:update(result, 'USER_GAMEINFO_MB') -- 更新用户信息
+		self:done()
 	end
 	MCClient:rpcall(TAG, proc)
 	self:log(':prepare().over')

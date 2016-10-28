@@ -33,6 +33,7 @@ CC_DESIGN_RESOLUTION = {
 Controller = {
 	viewsRoot = {'src.app.GameHall.views.extends', 'src.app.GameHall.views'},
 	modelsRoot = {'src.app.GameHall.models'},
+	presentersRoot = {'src.app.GameHall.presenters'},
 --	defaultSceneName = "LogoScene",
 	hall = {'src.app.GameHall.views.content',
 		offline = require('src.app.GameHall.config.HallTest'),

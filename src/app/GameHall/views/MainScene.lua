@@ -1,7 +1,7 @@
 local MainScene = class("MainScene", import('.extends.ViewBase'))
 --local MainScene = class("MainScene", require('src.app.GameHall.views.extends.ViewBase'))
 MainScene.RESOURCE_FILENAME = "res/hallcocosstudio/mainpanel/mainpanel.csb"
-
+local UserProfile = import('.content.UserProfile')
 
 function MainScene:onCreate()
 	self:initLayout()
@@ -14,34 +14,39 @@ function MainScene:onCreate()
     self:onClicked('Panel_Down.Button_safebox', self.onSafeboxButton)
     self:onClicked('Panel_Down.Button_Shop', self.onShopButton)
     self:onClicked('Panel_Down.Button_Activity', self.onActivityButton)
-    self:indexResource(self:getResourceNode(),{
-    		areasContainer = 'Area_List',
-    		roomsContainer = 'Room_List',
+    self.panelist = self:indexResource(self:getResourceNode(),{
+    		'Area_List',
+    		'Room_List',
     	})
     self.btnBack = self:onClicked('Btn_To_Area', self.goBack)
     self.btnBack:removeSelf()
     	:addTo(btnHead:getParent())
     	:align(cc.p(0.5, 0.5), btnHead:getPositionX(), btnHead:getPositionX())
     	:hide()
+    self.userProfile = UserProfile:create(self:getApp(), 'UserProfile', self)
 
-    self.btnHead  = btnHead
-
-    self:getApp():model('RoomSpace'):build(self)
-    local model = self:getApp():model('BaseHall')
-    model:on(model.handler.HALL_READY, handler(self, self.onHallReady))
-    self.hall = model
+    self.hallScene = self:presenter('HallScene'):build(self)
     self:log(':onCreate().done')
 end
 
-function MainScene:onHallReady( ... )
-    -- show content, and start login
-    self:log(':onHallReady()')
-    self:getApp():model('PlayerModel'):prepare()
-    self:getApp():model('RoomSpace'):prepare()
+function MainScene:primaryPanel()
+	return self.panelist[1]
 end
 
-function MainScene:goBack( ... )
-    self:getApp():model('RoomSpace'):goBack(...)
+function MainScene:secondaryPanel()
+	return self.panelist[2]
+end
+
+function MainScene:updateProfile(info)
+	self.userProfile:updateProfile(info)
+end
+
+function MainScene:updateGameInfo(info)
+	self.userProfile:updateGameInfo(info)
+end
+
+function MainScene:goBack()
+	self.hallScene:goBack()
 end
 
 function MainScene:onQuickStart( ... )

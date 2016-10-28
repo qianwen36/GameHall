@@ -148,11 +148,8 @@ function target:initHall(config)
 			    end)
 				if result == false then break end
 			end
-
 			self.ready = true
-			self:dispatchEvent({
-				name = self.handler.HALL_READY,
-				})
+			self:done()
 		end
 		MCClient:rpcall(TAG, proc)
 	end
