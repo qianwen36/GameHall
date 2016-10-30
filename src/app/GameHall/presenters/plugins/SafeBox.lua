@@ -59,14 +59,29 @@ function target:clear()
 	tagEvent = self:tagEvent(EVENT_NAME) 
 	player:regardless(tagEvent)
 
+	player:pauseCashBox()
+
 	EVENT_NAME = player.handler.QUERY_USER_GAMEINFO
 	tagEvent = self:tagEvent(EVENT_NAME) 
 	player:regardless(tagEvent)
 end
 
+local function needPassword_possible( self, res )
+	if not res then
+		self.view:promptPassword()
+	end
+end
 function target:save( amount )
+	local res = self.player:reqTransferDeposti(amount
+		, function ( info, res )
+--			needPassword_possible(self, res)
+		end)
 end
 function target:take( amount )
+	local res = self.player:reqTakeDeposti(amount
+		, function ( info, res )
+			needPassword_possible(self, res)
+		end)
 end
 
 return target

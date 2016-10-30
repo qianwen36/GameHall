@@ -50,4 +50,7 @@ function target:refresh( target, amount )
 	return handler and handler()
 end
 
+function target:promptPassword()
+end
+
 return target

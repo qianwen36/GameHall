@@ -3,7 +3,8 @@ local target = cc.load('form').build('PlayerModel.interface', import('.HallSprea
 target.handler = {
 	LOGON_SUCCEED = 'LOGON_SUCCEED',
 	QUERY_USER_GAMEINFO = 'QUERY_USER_GAMEINFO',
-	QUERY_SAFE_DEPOSIT = 'QUERY_SAFE_DEPOSIT'
+	QUERY_SAFE_DEPOSIT = 'QUERY_SAFE_DEPOSIT',
+	GET_RNDKEY = 'GET_RNDKEY',
 }
 
 target.info ={
@@ -12,7 +13,8 @@ target.info ={
 }
 function target:reset()
 	self.info = {
-		cashbox = true
+		cashbox = true,
+		rndkey = true,
 	}
 	self:spec('user', {
 		type = true,
@@ -42,4 +44,11 @@ function target:pauseCashBox()
 	self:definition(':pauseCashBox()')
 end
 
+function target:reqTransferDeposti( amount, callback ) -- callback(info, res)
+	self:definition(':reqTransferDeposti( amount, callback )')
+end
+
+function target:reqTakeDeposti( amount, callback )
+	self:definition(':reqTakeDeposti( amount, callback )')
+end
 return target

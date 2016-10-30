@@ -1,6 +1,7 @@
 import('..comm.HallDataDef')
 local mc = import('..comm.HallDef')
-local target = cc.load('form').build('PlayerModel', import('.interface.PlayerModel'))
+local Base = import('.interface.PlayerModel')
+local target = cc.load('form').build('PlayerModel', Base)
 local Director = cc.Director:getInstance()
 local Scheduler = Director:getScheduler()
 
@@ -9,6 +10,7 @@ if not USING_MCRuntime then return target end
 
 local MCClient = require('src.app.TcyCommon.MCClient2')
 local DeviceUtils = DeviceUtils:getInstance()
+
 
 function target:update( cdata, ctype )
 	local handler = {
@@ -58,7 +60,7 @@ function target:prepare()
 		local _, resp, data, REQUEST, reqData, result
 		REQUEST = mc.LOGON_USER
 		reqData = self:genDataREQ('LOGON_USER', {
-				handler = {self.fillCommonData, self.fillDeviceData, self.fillLogonData},
+				handler = {Base.fillCommonData, Base.fillDeviceData, self.fillLogonData},
 				szUsername = self:string(user.name, 'raw'),
 				szPassword = self:string(user.password, 'raw')
 				})
@@ -92,6 +94,21 @@ function target:prepare()
 	end
 	MCClient:rpcall(TAG, proc)
 	self:log(':prepare().over')
+end
+
+function target:fillUserData(desc)
+	local user = self:user()
+	local fill = {
+		nUserID = user.id,
+		nUserType = user.type,
+		nNickSex = user.sex,
+		nPortrait = user.portrait,
+		nClothingID = user.clothing,
+		nMemberLevel = user.vip,
+		szUniqueID = self:string(user.uniqueid, 'raw')
+	}
+	table.merge(desc, fill)
+	return desc
 end
 
 function target:fillLogonData(desc)
@@ -185,6 +202,22 @@ function target:clear()
 		Scheduler:unscheduleScriptEntry(update.timer)
 	end
 	self.UPDATE_PARAMS = {}
+end
+
+function target:reqTransferDeposti( amount, callback ) -- callback(info, res)
+	local REQUEST, reqData
+	REQUEST = mc.TRANSFER_DEPOSIT
+	reqData = self:genDataREQ('TRANSFER_DEPOSIT', {
+		handler = {self.fillUserData, Base.fillCommonData},
+		nDeposit = amount
+		})
+	MCClient:client(TAG):send(REQUEST, reqData
+		, function ( _, resp, data )
+		callback(self.info, MCClient:accept(resp))
+	end)
+end
+
+function target:reqTakeDeposti( amount, callback )
 end
 
 return target
