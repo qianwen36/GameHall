@@ -22,10 +22,6 @@ function target:regardless( tag )
 	return self:removeEventListenersByTag(tag)
 end
 
-function target:tagEvent( eventName )
-	return self:tag()..eventName
-end
-
 function target:done()
 	self:dispatchEvent({
 		name = self.MODEL_READY,

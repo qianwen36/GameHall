@@ -1,19 +1,36 @@
 local Base = import('.BasePresenter')
 local target = cc.load('form').build('UserProfile', Base)
 
-function target:build( MainScene )
-	self.view = MainScene
+local DEFAULT_INTERVAL = 60
+
+function target:getConfig( name ) -- method override
+	local config = self.config
+	if (config == nil) then
+		config = Base.getConfig(self)
+		self.config = config
+	end
+	if name ~= nil then
+		local res = {
+		interval = config.refresh.gameinfo or DEFAULT_INTERVAL,
+		}
+		return res[name] or config[name]
+	end
+	return config
+end
+
+function target:build( view )
+	self.view = view
 	
 	if (self.player == nil) then
-		local player = self:model('PlayerModel')
+		self.player = self:model('PlayerModel')
+		local player = self.player
 		player:on(player.MODEL_READY, handler(self, self.onProfileReady))
 		player:on(player.EVENT_EXCEPTION_BREAK, handler(self, self.onCommunicationBreak))
 		player:on(player.handler.LOGON_SUCCEED, handler(self, self.onLogon))
 		player:on(player.handler.QUERY_USER_GAMEINFO, handler(self, self.onGameInfoUpdate))
-		self.player = player
 	end
 
-	return Base.build(self, MainScene)
+	return Base.build(self, view)
 end
 
 function target:onCommunicationBreak( event )
@@ -22,6 +39,7 @@ end
 
 function target:onProfileReady( event )
 	Base.ready(self, self.view)
+	self.player:updatePlayerInfo(self:getConfig('interval'))
 end
 
 local function updateUserProfile( view, info )

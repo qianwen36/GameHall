@@ -3,6 +3,7 @@ local target = cc.load('form').build('PlayerModel.interface', import('.HallSprea
 target.handler = {
 	LOGON_SUCCEED = 'LOGON_SUCCEED',
 	QUERY_USER_GAMEINFO = 'QUERY_USER_GAMEINFO',
+	QUERY_SAFE_DEPOSIT = 'QUERY_SAFE_DEPOSIT'
 }
 
 target.info ={
@@ -10,7 +11,9 @@ target.info ={
 	LOGON= nil 	-- cdata<USER_GAMEINFO_MB>
 }
 function target:reset()
-	self.info = {}
+	self.info = {
+		cashbox = true
+	}
 	self:spec('user', {
 		type = true,
 		id = true,		-- userid
@@ -27,8 +30,16 @@ function target:reset()
 		})
 end
 
-function target:update( cdata, ctype )
-	self:definition(':update( cdata, ctype )')
+function target:updateGameInfo( interval )
+	self:definition(':updateGameInfo( interval )')
+end
+
+function target:updateCashbox( interval )
+	self:definition(':updateCashbox( interval )')
+end
+
+function target:pauseCashBox()
+	self:definition(':pauseCashBox()')
 end
 
 return target

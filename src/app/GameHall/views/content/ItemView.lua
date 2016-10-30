@@ -24,7 +24,7 @@ function target:onCreate(info)
 		guandimiao = self:nodeFromPath('guandimiao_nameimage', button),
 		yuxianglou = self:nodeFromPath('yuxianglou_nameimage', button),
 	}
-	local backgrounds = {'two_pandas', 'leitai', 'gelou'}
+	local backgrounds = {'gelou', 'leitai', 'two_pandas'}
 	local background = backgrounds[info.icon]
 	self:setCondition(info.condition or '')
 	self.wOnline = self.txOnline:getString()

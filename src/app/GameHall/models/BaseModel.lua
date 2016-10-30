@@ -42,7 +42,7 @@ end
 function target:fillCommonData(desc)
 	local config = self:getConfig('hall').config
 
-	local utils = HslUtils:create(config.abbr) -- safe, once create
+	local utils = HslUtils:getInstance()
 
 	local fill = {
 		nGameID = config.gameid,

@@ -7,14 +7,14 @@ local DEFAULT_INTERVAL = 60
 
 function target:reset()
 	self.display = {
-		tagItem = 'ItemName',
+		tagItem = TAG_ITEMNAME,
 		level = 1,
 		refresh = false
 	}
 	Base.reset(self)
 end
-function target:build( MainScene )
-	self.view = MainScene
+function target:build( view )
+	self.view = view
 	
 	if (self.host == nil) then
 		local host = self:model('RoomModel')
@@ -24,13 +24,13 @@ function target:build( MainScene )
 		self.host = host
 	end
 
-	return Base.build(self, MainScene)
+	return Base.build(self, view)
 end
 
 function target:getConfig( name ) -- method override
 	local config = self.config
 	if (config == nil) then
-		config = Base.getConfig(self, 'hall').config
+		config = Base.getConfig(self)
 		self.config = config
 	end
 	if name ~= nil then
@@ -97,8 +97,10 @@ function target:prepare(view)
 			local view = event.target:getChildByName(target.display.tagItem)
 			local info = view:getData()
 			local level = info.param[1]
-			if level == 1 then
+			if info.rooms then
 				target:showContent(level+1, info)
+			else
+				target:enterRoom(info)
 			end
 			self:log(':onItemClicked( event ).done #', info.name)
 		end
@@ -116,6 +118,9 @@ function target:prepare(view)
 	else
 		self.host:prepare()
 	end
+end
+
+function target:enterRoom( info )
 end
 
 function target:updateOnlineusers()

@@ -1,7 +1,15 @@
-local target = cc.load('form').build('BasePresenter', require('src.app.ModuleBase'))
+local Base = require('src.app.ModuleBase')
+local target = cc.load('form').build('BasePresenter', Base)
 
 function target:model( name )
 	return self:getApp():model(name)
+end
+
+function target:getConfig( name )
+	if name == nil then
+		return Base.getConfig(self, 'hall').config
+	end
+	return Base.getConfig(self, name)
 end
 
 function target:reset()

@@ -19,7 +19,9 @@ function target:start( config )
 		local major, minor, buildno = unpack(string.split(self.version, '.'))
 		return tonumber(major), tonumber(minor), tonumber(buildno)
 	end
+	local utils = HslUtils:create(config.abbr) -- safe, once create
 	self.config_ = config
+	self.hslUtils = utils
 	self:restart(config)
 end
 
@@ -91,8 +93,8 @@ function target:initHall(config)
 				return self.handler.GET_SERVERS, self.resolve('SERVERS', {'nServerCount', 'SERVER', data})
 			end)
 			if result == false then return end
-
 			self.ready = true
+			self.hslUtils:saveHallSvr(data, data:len())
 			self:done()
 		end
 		MCClient:rpcall(TAG, proc)

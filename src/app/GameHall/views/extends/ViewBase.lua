@@ -180,7 +180,7 @@ end
 function ViewBase:closeButton(node, param)
     if param~=nil then node.param_ = param end
 
-    self:onClicked(node, function(node)
+    node = self:onClicked(node, function(node)
 	    local param = node.param_ or {}
     	local app = node:getApp()
 	    local display = app:wrapParam(param.display, 'normal')
@@ -196,6 +196,7 @@ function ViewBase:closeButton(node, param)
 		    node:removeSelf()
 		end
     end)
+    return node
 end
 
 return ViewBase

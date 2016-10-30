@@ -18,4 +18,8 @@ function target:reset()
 	self:definition(':reset()')
 end
 
+function target:tagEvent( eventName )
+	return self:tag()..eventName
+end
+
 return target
