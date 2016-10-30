@@ -41,4 +41,11 @@ function target:goBack()
 	self.mainPanel:goBack()
 end
 
+function target:onEnter()
+	self.mainPanel:onEnter()
+end
+function target:onExit()
+	self.mainPanel:onEnter()
+end
+
 return target

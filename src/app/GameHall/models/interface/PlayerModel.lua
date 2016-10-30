@@ -27,10 +27,6 @@ function target:reset()
 		})
 end
 
-function target:prepare()
-	self:definition(':prepare()')
-end
-
 function target:update( cdata, ctype )
 	self:definition(':update( cdata, ctype )')
 end

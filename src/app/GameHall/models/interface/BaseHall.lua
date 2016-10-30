@@ -5,9 +5,6 @@ target.handler = {
 	CONNECTION = 'CONNECTION',
 	CHECK_VERSION= 'VERSION_MB',
 	GET_SERVERS	= 'GET_SERVERS',
-	GET_AREAS	= 'GET_AREAS',
-	GET_ROOMS	= 'GET_ROOMS',
-	UPDATE_ROOMUSERSCOUNT = 'UPDATE_ROOMUSERSCOUNT'
 }
 
 target.TAG = 'Hall'
@@ -31,10 +28,6 @@ end
 
 function target:login()
 	self:definition(':login()')
-end
-
-function target:reqRoomsUserCount( param, start )-- param:[room, ...], register and init event dispatcher
-	self:definition(':reqRoomsUserCount( param )')
 end
 
 function target:reqServers( des, callack, notify )

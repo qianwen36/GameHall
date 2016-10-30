@@ -8,7 +8,6 @@ local TAG
 if not USING_MCRuntime then return target end
 
 local MCClient = require('src.app.TcyCommon.MCClient2')
-local ffi2 = MCClient.utils
 local DeviceUtils = DeviceUtils:getInstance()
 
 function target:update( cdata, ctype )

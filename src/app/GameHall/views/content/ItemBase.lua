@@ -1,30 +1,19 @@
 local target = class("ItemBase", cc.load("mvc").ViewBase)
 
-function target:tagEvent()
-	return self:getName()..'_'..(self:getData().id or '')
-end
-
-function target:onEnter()
-	local model = self:getApp():model('RoomSpace')
-	model:on(model.handler.ONLINE_USERS,
-		handler(self, self.updatelineUsers), self:tagEvent())
-end
-function target:onExit()
-	local model = self:getApp():model('RoomSpace')
-	model:off(self:tagEvent())
-end
-
-function target:updatelineUsers( event )
-	local result = event.body.result
-	local name, id, count = unpack(result)
-	local param = self:getData()
-	if name == param.name
-	and id == param.id then
-		self:onlineUsers(count)
-	end
+function target:onCreate(info)
+	local level = info.param[1]
+	local panel = info.param[2]
+	local name  = info.param[3] or 'test'
+	self:setName(name)
+	local button = self:getButton()
+		:removeSelf()
+		:addTo(panel)
+	self:addTo(button)
+	self.level = level
 end
 
 function target:onlineUsers( count ) -- override
+	self:definition(':onlineUsers( count )')
 end
 
 return target

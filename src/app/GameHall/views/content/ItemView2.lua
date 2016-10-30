@@ -1,16 +1,15 @@
-local target = class("ItemView2", import('.ItemBase'))
+local Base = import('.ItemBase')
+local target = class("ItemView2", Base)
 target.RESOURCE_FILENAME = "res/hallcocosstudio/Room/Room.csb"
 
 
-function target:onCreate(param)
-	local name = param.name or 'test'
-	self:setName(name)
-
+function target:onCreate(info)
 	local button = self:nodeFromPath('Room_Button')
-    self:indexResource(button, {
+    local nodeSet = self:indexResource(button, {
         txTitle = 'Text_Room_Name',
         txOnline = 'Text_Online'
     })
+    table.merge(self, nodeSet)
     local btnDeposit = self:nodeFromPath('Text_Condition_Liang', button)
     local btnScore = self:nodeFromPath('Text_Condition_Feng', button)
     self.btnConditions = {
@@ -26,11 +25,13 @@ function target:onCreate(param)
     	deposit	= btnDeposit:getString(),
     	score	= btnScore:getString(),
 	}
-	self:setTitle(param.title)
-	self:setCondition(param.type, param.condition)
-	self:onlineUsers(param.online or '')
-	self:setCorner(param.activity)
+	self:setTitle(info.name)
+	self:setCondition(info.type2, info.condition)
+	self:onlineUsers(info.online or '')
+	self:setCorner(info.gift)
 	self.button = button
+
+	Base.onCreate(self, info)
 end
 
 function target:getButton()

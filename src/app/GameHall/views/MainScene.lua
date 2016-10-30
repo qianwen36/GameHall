@@ -18,6 +18,7 @@ function MainScene:onCreate()
     		'Area_List',
     		'Room_List',
     	})
+    self.btnHead = btnHead
     self.btnBack = self:onClicked('Btn_To_Area', self.goBack)
     self.btnBack:removeSelf()
     	:addTo(btnHead:getParent())
@@ -28,6 +29,47 @@ function MainScene:onCreate()
     self.hallScene = self:presenter('HallScene'):build(self)
     self:log(':onCreate().done')
 end
+
+function MainScene:onEnter()
+    self.hallScene:onEnter()
+end
+function MainScene:onExit()
+    self.hallScene:onExit()
+end
+
+function MainScene:getContentView( name, param )
+    local path = self:getApp():getConfig('hall')[1] or 'src.app.GameHall.views.content'
+    local view = require(path..'.'..name):create(self:getApp(), name, param)
+    return view
+end
+
+function MainScene:switchPanel( level )
+    local panels = self.panelist
+    local handler = {
+    function ()
+        self.btnHead:show()
+        self.btnBack:hide()
+    end;
+    function ()
+        self.btnHead:hide()
+        self.btnBack:show()
+    end;
+    }
+    function handler.switch( level )
+        for i,panel in ipairs(panels) do
+            if i == level then
+                panel:show()
+            else
+                panel:hide()
+            end
+        end
+        panels[level]:show()
+    end
+    handler.switch(level)
+    handler = handler[level]
+    return handler and handler()
+end
+
 
 function MainScene:primaryPanel()
 	return self.panelist[1]

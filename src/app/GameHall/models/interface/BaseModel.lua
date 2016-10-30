@@ -14,8 +14,16 @@ function target:on(eventName, listener, tag)
 	return self:addEventListener(eventName, listener, tag)
 end
 
-function target:off( tag )
+function target:off( eventName )
+	return self:removeEventListenersByEvent(eventName)
+end
+
+function target:regardless( tag )
 	return self:removeEventListenersByTag(tag)
+end
+
+function target:tagEvent( eventName )
+	return self:tag()..eventName
 end
 
 function target:done()

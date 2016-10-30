@@ -1,4 +1,5 @@
-local target = cc.load('form').build('UserProfile', import('.BasePresenter'))
+local Base = import('.BasePresenter')
+local target = cc.load('form').build('UserProfile', Base)
 
 function target:build( MainScene )
 	self.view = MainScene
@@ -11,12 +12,8 @@ function target:build( MainScene )
 		player:on(player.handler.QUERY_USER_GAMEINFO, handler(self, self.onGameInfoUpdate))
 		self.player = player
 	end
-	if (self.ready) then
-		self:prepare(MainScene)
-	else
-		self:prepare()
-	end
-	return self
+
+	return Base.build(self, MainScene)
 end
 
 function target:onCommunicationBreak( event )
@@ -24,7 +21,7 @@ function target:onCommunicationBreak( event )
 end
 
 function target:onProfileReady( event )
-	self.ready = true
+	Base.ready(self, self.view)
 end
 
 local function updateUserProfile( view, info )

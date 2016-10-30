@@ -8,9 +8,9 @@ local config = {
 	version = '2.1.20130822',
 	gameid = 584,
 	agentGroup = 6,
-	
-	display_level = 2,
-	areas = {'ItemView',
+	refresh = {},
+	display = {level = 2,'ItemView', 'ItemView2'},
+	areas = {
 	{
 		name = '测试区',
 		condition = '100两以上',
@@ -34,7 +34,7 @@ local config = {
 		title = 'baiyinggu'
 	},
 	},
-	rooms = {'ItemView2',
+	rooms = {
 		type = 'deposit',
 		title = '测试',
 		condition = 100,

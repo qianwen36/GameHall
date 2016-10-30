@@ -76,37 +76,6 @@ function target:reqServers( desc, callack, notify )
 	client:send(mc.GET_SERVERS, data, callack)
 end
 
-function target:reqRoomsUserCount( param, start )-- param:room ids
-	local client = self.client
-	local REQUEST = mc.GET_ROOMUSERS
-	if start == 'start' then
-		local function onNotify( _, resp, data )
-			local result = self:routine(resp, {REQUEST, mc.GET_ROOMUSERS_OK}, function (event, msg, result)
-				return self.handler.UPDATE_ROOMUSERSCOUNT, self.resolve('ITEM_COUNT', {'nCount', 'ITEM_USERS', data})
-			end)
-
-		end
-
-		client:on(mc.GET_ROOMUSERS_OK, onNotify)
-	end
-	local data, ct = self:genDataREQ(
-		'GET_ROOMUSERS', {
-			handler = {self.fillCommonData, 'int'},
-			affect = false,
-			nRoomCount = #param,
-			param
-		} )
-	client:send(REQUEST, data)
---[[	local c = ct.head.nRoomCount
-	local array = ct.array
-	print('[GET_ROOMUSERS].'..c)
-	for i=0,c-1 do
-		local item = array[i]
-		print('nRoomID['..i..'].'..item)
-	end
-	print('-----------------------')]]
-end
-
 function target:initHall(config)
 	local REQUEST -- request id
 	function self.initHall2( _, resp, data )
@@ -123,31 +92,6 @@ function target:initHall(config)
 			end)
 			if result == false then return end
 
-			-- 获取大区列表
-			REQUEST = mc.GET_AREAS
-			_, resp, data = client:syncSend(REQUEST
-				, self:genDataREQ('GET_AREAS', {handler = self.fillCommonData}) )
-
-			result = self:routine(resp, REQUEST, function (event, msg, result)
-				return self.handler.GET_AREAS, self.resolve('AREAS', {'nCount', 'AREA', data})
-			end)
-			if result == false then return end
-
-			local ar = result or {}
-			local count = ar[1] or 0
-			for i=0, count-1 do
-				local info = ar[2][i]
-				REQUEST = mc.GET_ROOMS
-			    _, resp, data = client:syncSend(REQUEST
-			    	, self:genDataREQ('GET_ROOMS'
-			    		, {handler = self.fillCommonData
-			    		, nAreaID = info.nAreaID}) )
-
-			    result = self:routine(resp, REQUEST, function (event, msg, result)
-			    	return self.handler.GET_ROOMS, self.resolve('ROOMS', {'nRoomCount', 'ROOM', data})
-			    end)
-				if result == false then break end
-			end
 			self.ready = true
 			self:done()
 		end

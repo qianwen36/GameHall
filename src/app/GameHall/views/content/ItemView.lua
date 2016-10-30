@@ -1,19 +1,18 @@
-local target = class("ItemView", import('.ItemBase'))
+local Base = import('.ItemBase')
+local target = class("ItemView", Base)
 target.RESOURCE_FILENAME = "res/hallcocosstudio/Room/Area.csb"
 
 local DEFAULT_TITLE = 'baiyinggu'
 local DEFAULT_BACKGROUND = 'gelou'
 
-function target:onCreate(param)
-	local name = param.name or 'test'
-	self:setName(name)
-
+function target:onCreate(info)
 	local button = self:nodeFromPath('Area_Button')
-	self.button = button
-	self:indexResource(button, {
+	local nodeSet = self:indexResource(button, {
 		txCondition = 'Text_Condition',
 		txOnline = 'Text_Online'
 		})
+	table.merge(self, nodeSet)
+	self.button = button
 	self.backgrounds_ = {
 		two_pandas = self:nodeFromPath('two_pandas_backimage', button),
 		leitai = self:nodeFromPath('leitai_backimage', button),
@@ -25,12 +24,15 @@ function target:onCreate(param)
 		guandimiao = self:nodeFromPath('guandimiao_nameimage', button),
 		yuxianglou = self:nodeFromPath('yuxianglou_nameimage', button),
 	}
-
-	self:setCondition(param.condition or '')
+	local backgrounds = {'two_pandas', 'leitai', 'gelou'}
+	local background = backgrounds[info.icon]
+	self:setCondition(info.condition or '')
 	self.wOnline = self.txOnline:getString()
-	self:onlineUsers(param.online or '')
-	self:setBackground(param.background or DEFAULT_BACKGROUND)
-	self:setTitle(param.title or DEFAULT_TITLE)
+	self:onlineUsers(info.online or '')
+	self:setBackground(background or DEFAULT_BACKGROUND)
+	self:setTitle(info.name or DEFAULT_TITLE)
+
+	Base.onCreate(self, info)
 end
 
 function target:getButton()
