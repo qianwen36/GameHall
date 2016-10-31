@@ -10,15 +10,15 @@ function target:build( MainScene )
 		hall:on(hall.EVENT_EXCEPTION_BREAK, handler(self, self.onCommunicationBreak))
 		self.hall = hall
 	end
---	self.mainPanel = MainScene:presenter('MainPanel'):build(MainScene)
+	self.mainPanel = MainScene:presenter('MainPanel'):build(MainScene)
 	self.userProfile = MainScene:presenter('UserProfile'):build(MainScene)
 	return self
 end
 
 function target:onHallReady()
     -- show content, and start login
- --   self.mainPanel:prepare()
     self.userProfile:prepare()
+    self.mainPanel:prepare()
 end
 
 function target:onConnection( event )

@@ -46,7 +46,7 @@ Controller = {
 		setting = 'setting.SettingView',
 		help = {'help.HelpView', display='scene'},
 		daily = 'daily.DailyView',
-		safebox = {'safebox.SafeboxView', display='shade'},
+		safebox = {'safebox.SafeboxView', display='block'},
 		shop = {'shop.ShopView', display='scene'},
 		web_activity = {'activity.WebActivityView', display='scene'}
 	},

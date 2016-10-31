@@ -14,10 +14,11 @@ function target:reset()
 		KeyResult = nil,
 		cashbox = true,
 		rndkey = true,
+		protected = false,
 		deposit = true,
 	}
 	self:spec('user', {
-		name = true
+		name = true,
 		type = true,
 		id = true,		-- userid
 		sex = true,

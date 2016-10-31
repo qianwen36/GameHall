@@ -106,7 +106,7 @@ function target:prepare(view)
 		end
 		function view.clear(panel)
 			local c = panel:getChildrenCount()
-			if c > 1 then
+			if c > 0 then
 				for i = 1, c do
 					panel:getChildByTag(i):hide():removeSelf()
 				end
@@ -172,7 +172,6 @@ function target:showContent(level, info)
 			end
 			view_initPanel(array)
 		end
-		view:switchPanel(level)
 	end,
 	function ( ... )
 		if param.refresh or param.info ~= info then
@@ -180,12 +179,12 @@ function target:showContent(level, info)
 			local array = info.rooms
 			view_initPanel(array)
 		end
-		view:switchPanel(level)
 	end
 	}
 	handler = handler[level]
 	if (handler) then
 		handler()
+		view:switchPanel(level)
 	end
 	param.refresh = false
 	param.level = level

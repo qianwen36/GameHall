@@ -39,7 +39,7 @@ end
 
 function target:onProfileReady( event )
 	Base.ready(self, self.view)
-	self.player:updatePlayerInfo(self:getConfig('interval'))
+	self.player:updateGameInfo(self:getConfig('interval'))
 end
 
 local function updateUserProfile( view, info )

@@ -66,21 +66,32 @@ function target:clear()
 	player:regardless(tagEvent)
 end
 
-local function needPassword_possible( self, res )
-	if not res then
-		self.view:promptPassword()
-	end
-end
 function target:save( amount )
 	local res = self.player:reqTransferDeposti(amount
 		, function ( info, res )
---			needPassword_possible(self, res)
+			local handler = {succeed = true, failed = true}
+			function handler.succeed( ... )
+			end
+			function handler.failed( ... )
+			end
+			handler = handler[res]
+			return handler and handler()
 		end)
 end
 function target:take( amount )
 	local res = self.player:reqTakeDeposti(amount
 		, function ( info, res )
-			needPassword_possible(self, res)
+			if type(info[res])=='function' then
+				self.view:promptPassword(info, res)
+			else
+				local handler = {succeed = true, failed = true}
+				function handler.succeed( ... )
+				end
+				function handler.failed( ... )
+				end
+				handler = handler[res]
+				return handler and handler()
+			end
 		end)
 end
 

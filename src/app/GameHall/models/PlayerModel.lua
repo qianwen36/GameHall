@@ -14,6 +14,7 @@ function target:update( cdata, ctype )
 	local handler = {
 		LOGON_SUCCEED = true,
 		USER_GAMEINFO_MB = true,
+		SAFE_DEPOSIT = true
 	}
 	local info = self.info
 	local user = self:user() or {}
@@ -39,7 +40,7 @@ function target:update( cdata, ctype )
 	end
 	function handler.SAFE_DEPOSIT( ... )
 		info.cashbox = cdata.nDeposit
-		info.secure = cdata.bHaveSecurePwd
+		info.protected = cdata.bHaveSecurePwd
 	end
 
 	handler = handler[ctype]
@@ -75,14 +76,14 @@ function target:prepare()
 			return self.handler.LOGON_SUCCEED, result
 		end)
 		if result == false then return end
-		updateGameCash(self)
+		updateGameCash(self, client)
 		self:done()
 	end
 	MCClient:rpcall(TAG, proc)
 	self:log(':prepare().over')
 end
 
-function updateGameCash( self ) -- 更新游戏信息，保险箱信息
+function updateGameCash( self, client ) -- 更新游戏信息，保险箱信息
 	local REQUEST, reqData, info
 	local _, resp, data, result
 	REQUEST = mc.QUERY_USER_GAMEINFO
@@ -101,13 +102,16 @@ function updateGameCash( self ) -- 更新游戏信息，保险箱信息
 	end)
 	if result == false then return end
 	info = self.UPDATE_PARAMS.GameInfo
-	self.UPDATE_PARAMS.GameInfo = info or {REQUEST, reqData}
+	if type(info)~= 'table' then
+		self.UPDATE_PARAMS.GameInfo = {REQUEST, reqData}
+	end
 
 	REQUEST = mc.QUERY_SAFE_DEPOSIT
 	local reqData = self:genDataREQ('QUERY_SAFE_DEPOSIT', {
 			handler = {self.fillCommonData, self.fillDeviceData},
 			nUserID = self:user().id
 			})
+	_, resp, data = client:syncSend(REQUEST, reqData)
 
 	result = self:routine(resp, REQUEST, function (event, msg, result)
 		result = self.resolve('SAFE_DEPOSIT', data)
@@ -116,8 +120,10 @@ function updateGameCash( self ) -- 更新游戏信息，保险箱信息
 		self.info.Cashbox = result
 		return self.handler.QUERY_SAFE_DEPOSIT, result
 	end)
-	info = self.UPDATE_PARAMS.SafeBox
-	self.UPDATE_PARAMS.SafeBox = info or {REQUEST, reqData}
+	info = self.UPDATE_PARAMS.Cashbox
+	if type(info)~= 'table' then
+		self.UPDATE_PARAMS.Cashbox = {REQUEST, reqData}
+	end
 end
 
 function target:fillUserData(desc)
@@ -129,7 +135,7 @@ function target:fillUserData(desc)
 		nPortrait = user.portrait,
 		nClothingID = user.clothing,
 		nMemberLevel = user.vip,
-		szUsername = self:string(user.name, 'raw')
+		szUsername = self:string(user.name, 'raw'),
 		szUniqueID = self:string(user.uniqueid, 'raw')
 	}
 	table.merge(desc, fill)
@@ -184,7 +190,7 @@ function target:updateCashbox( interval )
 		MCClient:client(TAG):send(REQUEST, reqData, handler(self, self.onSafeboxQuery))
 	end
 	info.timer = self:timerScheduler(interval, reqQuery)
-	reqQuery()
+	reqQuery(self)
 end
 function target:onSafeboxQuery( client, resp, data )
 	local result
@@ -217,7 +223,7 @@ end
 
 function target:updateGameCash()
 	local function proc( client )
-		updateGameCash(self)
+		updateGameCash(self, client)
 	end
 	MCClient:rpcall(TAG, proc)
 end
@@ -231,50 +237,98 @@ function target:reqTransferDeposti( amount, callback ) -- callback(info, res)
 		})
 	MCClient:client(TAG):send(REQUEST, reqData
 		, function ( client, resp, data )
-			result = self:routine(resp, REQUEST, function (event, msg, result)
+			local event, result
+			result = self:routine(resp, REQUEST, function (event2, msg, result)
 				self:log('reqTransferDeposti( amount, callback )#', amount, '.', event )
 				self:nextSchedule(self.updateGameCash)
+				event = event2
 			end)
+			callback(self.info, event)
 	end)
 end
 
 local KeyResult_calc  = function(nRndKey, password)end
 function target:reqTakeDeposti( amount, callback )
 	local info = self.info
-	local REQUEST, reqData, result
-	if type(info.KeyResult)=='number' then
+	local client = MCClient:client(TAG)
+	local REQUEST, reqData, result, event
+	local function reqTakeDeposti( ... )
 		REQUEST = mc.TAKE_BACKDEPOSIT
 		reqData = self:genDataREQ('TAKE_BACKDEPOSIT', {
 			handler = {self.fillUserData, Base.fillCommonData},
 			nDeposit = amount,
 			nKeyResult = info.KeyResult,
 			})
-		MCClient:client(TAG):send(REQUEST, reqData
+		client:send(REQUEST, reqData
 			, function ( client, resp, data )
-			result = self:routine(resp, REQUEST, function (event, msg, result)
+			result = self:routine(resp, REQUEST, function (event2, msg, result)
 				self:log('reqTakeDeposti( amount, callback )#', amount, '.', event )
 				self:nextSchedule(self.updateGameCash)
+				event = event2
 			end)
+			callback(info, event)
 		end)
-	else
+	end
+	if not info.protected then
+		return reqTakeDeposti()
+	end
+
+	local co -- coroutine for secured password input, calculate
+	local function reqRandKey( ... )
 		if type(info.rndkey)~= 'number' then
 			REQUEST = mc.GET_RNDKEY
 			reqData = self:genDataREQ('GET_RNDKEY', {
 				handler = {self.fillUserData, Base.fillCommonData},
 				nRegisterGroup = 0,
 				})
-			MCClient:client(TAG):send(REQUEST, reqData
+			client:send(REQUEST, reqData
 				, function ( _, resp, data )
 				result = self:routine(resp, REQUEST, function (event, msg, result)
 					cdata = self.resolve('GET_RNDKEY_OK', data)
-					info.rndkey = cdata.nRndKey
-					callback(info, 'KeyResult')
+					info:_randkey(cdata.nRndKey)
 				end)
 			end)
-		else
-			callback(info, 'KeyResult')
 		end
+		self.nextSchedule(function ( ... )
+			info:_randkey(info.rndkey)
+		end)
 	end
+	co = coroutine.create(function( ... )
+		if info.KeyResult==nil then
+			function info._return(password)
+				info._password = password
+				coroutine.resume(co, password)
+			end
+			function info:_randkey(rkey)
+				self.rndkey = rkey
+				coroutine.resume(co, password)
+			end
+			function info:calculate()
+				if (self.ready) then
+					self.KeyResult = KeyResult_calc(self.rndkey, self._password)
+					self.calculate = nil
+					self._return = nil
+					self._password = nil
+					self.ready = nil
+					return
+				end
+				self.ready = true
+				coroutine.yield(info)
+			end
+			reqRandKey()
+			local password = coroutine.yield(info)
+			info:calculate()
+			info:calculate()
+		end
+		if type(info.KeyResult) == 'number' then
+			reqTakeDeposti()
+		end
+	end)
+	local code, param = coroutine.resume(co)
+	if param._return then
+		callback(param, '_return')
+	end
+
 end
 
 local MIN_SECUREPWD_LEN = 8

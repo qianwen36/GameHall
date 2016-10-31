@@ -1,6 +1,6 @@
 local target = class("SafeBoxView", cc.load("mvc").ViewBase)
 target.RESOURCE_FILENAME = "res/hallcocosstudio/safebox/safebox.csb"
-
+target.vPassword = import('.SafeBoxPassword')
 
 function target:onCreate(param)
 	self:initLayout()
@@ -50,7 +50,9 @@ function target:refresh( target, amount )
 	return handler and handler()
 end
 
-function target:promptPassword()
+function target:promptPassword(info, key)
+	local view = self.vPassword:create(self:getApp(), 'password', {info, key, parent = self})
+	view:show()
 end
 
 return target
