@@ -305,7 +305,10 @@ function target:reqTakeDeposti( amount, callback )
 			end
 			function info:calculate()
 				if (self.ready) then
-					self.KeyResult = KeyResult_calc(self.rndkey, self._password)
+					local password = self._password
+					if password~=nil and password ~= '' then
+						self.KeyResult = KeyResult_calc(self.rndkey, password)
+					end
 					self.calculate = nil
 					self._return = nil
 					self._password = nil
