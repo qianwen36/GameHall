@@ -2,8 +2,6 @@ import('..comm.HallDataDef')
 local mc = import('..comm.HallDef')
 local Base = import('.interface.PlayerModel')
 local target = cc.load('form').build('PlayerModel', Base)
-local Director = cc.Director:getInstance()
-local Scheduler = Director:getScheduler()
 
 local TAG
 if not USING_MCRuntime then return target end
@@ -48,6 +46,7 @@ function target:update( cdata, ctype )
 	return handler and handler()
 end
 
+local updateGameCash = function( self ) end -- 更新游戏信息，保险箱信息
 function target:prepare()
 	local hall = self.hall
 	TAG = hall.TAG
@@ -55,9 +54,11 @@ function target:prepare()
 	local config = self:getConfig('hall').config
 	local user = config.user
 
+	self.UPDATE_PARAMS = {GameInfo = true, SafeBox = true}
 	table.merge(self:user(), user)
 	local function proc( client )
-		local _, resp, data, REQUEST, reqData, result
+		local REQUEST, reqData
+		local _, resp, data, result
 		REQUEST = mc.LOGON_USER
 		reqData = self:genDataREQ('LOGON_USER', {
 				handler = {Base.fillCommonData, Base.fillDeviceData, self.fillLogonData},
@@ -74,26 +75,49 @@ function target:prepare()
 			return self.handler.LOGON_SUCCEED, result
 		end)
 		if result == false then return end
-		REQUEST = mc.QUERY_USER_GAMEINFO
-		reqData = self:genDataREQ('QUERY_USER_GAMEINFO', {
-				handler = {self.fillCommonData, self.fillDeviceData},
-				nUserID = self:user().id
-				})
-		_, resp, data = client:syncSend(REQUEST, reqData)
-
-		result = self:routine(resp, REQUEST, function (event, msg, result)
-			result = self.resolve('USER_GAMEINFO_MB', data)
-			self:update(result, 'USER_GAMEINFO_MB') -- 更新用户信息
-
-			self.info.GAME = result
-			return self.handler.QUERY_USER_GAMEINFO, result
-		end)
-		if result == false then return end
-		self.UPDATE_PARAMS = {GameInfo = {REQUEST, reqData},}
+		updateGameCash(self)
 		self:done()
 	end
 	MCClient:rpcall(TAG, proc)
 	self:log(':prepare().over')
+end
+
+function updateGameCash( self ) -- 更新游戏信息，保险箱信息
+	local REQUEST, reqData, info
+	local _, resp, data, result
+	REQUEST = mc.QUERY_USER_GAMEINFO
+	reqData = self:genDataREQ('QUERY_USER_GAMEINFO', {
+			handler = {self.fillCommonData, self.fillDeviceData},
+			nUserID = self:user().id
+			})
+	_, resp, data = client:syncSend(REQUEST, reqData)
+
+	result = self:routine(resp, REQUEST, function (event, msg, result)
+		result = self.resolve('USER_GAMEINFO_MB', data)
+		self:update(result, 'USER_GAMEINFO_MB') -- 更新用户信息
+
+		self.info.GAME = result
+		return self.handler.QUERY_USER_GAMEINFO, result
+	end)
+	if result == false then return end
+	info = self.UPDATE_PARAMS.GameInfo
+	self.UPDATE_PARAMS.GameInfo = info or {REQUEST, reqData}
+
+	REQUEST = mc.QUERY_SAFE_DEPOSIT
+	local reqData = self:genDataREQ('QUERY_SAFE_DEPOSIT', {
+			handler = {self.fillCommonData, self.fillDeviceData},
+			nUserID = self:user().id
+			})
+
+	result = self:routine(resp, REQUEST, function (event, msg, result)
+		result = self.resolve('SAFE_DEPOSIT', data)
+		self:update(result, 'SAFE_DEPOSIT') -- 更新保险箱信息
+
+		self.info.Cashbox = result
+		return self.handler.QUERY_SAFE_DEPOSIT, result
+	end)
+	info = self.UPDATE_PARAMS.SafeBox
+	self.UPDATE_PARAMS.SafeBox = info or {REQUEST, reqData}
 end
 
 function target:fillUserData(desc)
@@ -105,6 +129,7 @@ function target:fillUserData(desc)
 		nPortrait = user.portrait,
 		nClothingID = user.clothing,
 		nMemberLevel = user.vip,
+		szUsername = self:string(user.name, 'raw')
 		szUniqueID = self:string(user.uniqueid, 'raw')
 	}
 	table.merge(desc, fill)
@@ -132,10 +157,10 @@ end
 function target:updateGameInfo( interval )
 	local info = self.UPDATE_PARAMS.GameInfo
 	local REQUEST, reqData = unpack(info)
-	local timer = Scheduler:scheduleScriptFunc(function ( ... )
+	local function reqQuery(self)
 		MCClient:client(TAG):send(REQUEST, reqData, handler(self, self.onGameInfoUpdate))
-	end, interval, false)
-	info.timer = timer
+	end
+	info.timer = self:timerScheduler(interval, reqQuery)
 end
 
 function target:onGameInfoUpdate( client, resp, data )
@@ -151,29 +176,14 @@ function target:onGameInfoUpdate( client, resp, data )
 end
 
 
-function target:Params4Cashbox()
-	local info = self.UPDATE_PARAMS.Cashbox
-	if (info == nil) then
-		local reqData = self:genDataREQ('QUERY_SAFE_DEPOSIT', {
-				handler = {self.fillCommonData, self.fillDeviceData},
-				nUserID = self:user().id
-				})
-		info = {mc.QUERY_SAFE_DEPOSIT, reqData}
-		self.UPDATE_PARAMS.Cashbox = info
-	end
-	return info
-end
 function target:updateCashbox( interval )
 	local result
-	local info = self:Params4Cashbox()
+	local info = self.UPDATE_PARAMS.Cashbox
 	local REQUEST, reqData = unpack(info)
-	local function reqQuery()
+	local function reqQuery(self)
 		MCClient:client(TAG):send(REQUEST, reqData, handler(self, self.onSafeboxQuery))
 	end
-	local timer = Scheduler:scheduleScriptFunc(function ( ... )
-		reqQuery()
-	end, interval, false)
-	info.timer = timer
+	info.timer = self:timerScheduler(interval, reqQuery)
 	reqQuery()
 end
 function target:onSafeboxQuery( client, resp, data )
@@ -191,7 +201,7 @@ end
 function target:pauseCashBox()
 	local info = self.UPDATE_PARAMS.Cashbox
 	local timer = info and info.timer
-	timer = timer and Scheduler:unscheduleScriptEntry(info.timer)
+	timer = timer and self:timerStop(info.timer)
 	if info then info.timer = nil end
 	self:off(self.handler.QUERY_SAFE_DEPOSIT)
 end
@@ -199,9 +209,17 @@ end
 function target:clear()
 	Base.clear(self)
 	for k,update in pairs(self.UPDATE_PARAMS) do
-		Scheduler:unscheduleScriptEntry(update.timer)
+		local timer = update.timer
+		timer = timer or self:timerStop(timer)
 	end
 	self.UPDATE_PARAMS = {}
+end
+
+function target:updateGameCash()
+	local function proc( client )
+		updateGameCash(self)
+	end
+	MCClient:rpcall(TAG, proc)
 end
 
 function target:reqTransferDeposti( amount, callback ) -- callback(info, res)
@@ -212,12 +230,79 @@ function target:reqTransferDeposti( amount, callback ) -- callback(info, res)
 		nDeposit = amount
 		})
 	MCClient:client(TAG):send(REQUEST, reqData
-		, function ( _, resp, data )
-		callback(self.info, MCClient:accept(resp))
+		, function ( client, resp, data )
+			result = self:routine(resp, REQUEST, function (event, msg, result)
+				self:log('reqTransferDeposti( amount, callback )#', amount, '.', event )
+				self:nextSchedule(self.updateGameCash)
+			end)
 	end)
 end
 
+local KeyResult_calc  = function(nRndKey, password)end
 function target:reqTakeDeposti( amount, callback )
+	local info = self.info
+	local REQUEST, reqData, result
+	if type(info.KeyResult)=='number' then
+		REQUEST = mc.TAKE_BACKDEPOSIT
+		reqData = self:genDataREQ('TAKE_BACKDEPOSIT', {
+			handler = {self.fillUserData, Base.fillCommonData},
+			nDeposit = amount,
+			nKeyResult = info.KeyResult,
+			})
+		MCClient:client(TAG):send(REQUEST, reqData
+			, function ( client, resp, data )
+			result = self:routine(resp, REQUEST, function (event, msg, result)
+				self:log('reqTakeDeposti( amount, callback )#', amount, '.', event )
+				self:nextSchedule(self.updateGameCash)
+			end)
+		end)
+	else
+		if type(info.rndkey)~= 'number' then
+			REQUEST = mc.GET_RNDKEY
+			reqData = self:genDataREQ('GET_RNDKEY', {
+				handler = {self.fillUserData, Base.fillCommonData},
+				nRegisterGroup = 0,
+				})
+			MCClient:client(TAG):send(REQUEST, reqData
+				, function ( _, resp, data )
+				result = self:routine(resp, REQUEST, function (event, msg, result)
+					cdata = self.resolve('GET_RNDKEY_OK', data)
+					info.rndkey = cdata.nRndKey
+					callback(info, 'KeyResult')
+				end)
+			end)
+		else
+			callback(info, 'KeyResult')
+		end
+	end
+end
+
+local MIN_SECUREPWD_LEN = 8
+local DEF_SECUREPWD_LEN = 16
+function KeyResult_calc(nRndKey, password)
+	local len = string.len(password)
+    if (MIN_SECUREPWD_LEN > len or len  > DEF_SECUREPWD_LEN) then
+        return -1
+    end
+
+    local nResult = 0
+
+    local a = math.modf(nRndKey / 10000, 1)
+    local b = math.modf(nRndKey % 10000, 1)
+
+    nResult = a + b
+    local str = password
+    while (str:len() >= MIN_SECUREPWD_LEN / 2) do
+        local add = str:sub(0, MIN_SECUREPWD_LEN / 2)
+        local key = math.modf(checknumber(add), 1)
+        nResult = nResult + key
+        str = str:sub(MIN_SECUREPWD_LEN / 2 + 1)
+    end
+    if (str:len() > 0) then
+        local key = math.modf(checknumber(str), 1)
+        nResult = nResult + key
+    end
+    return nResult
 end
 
 return target

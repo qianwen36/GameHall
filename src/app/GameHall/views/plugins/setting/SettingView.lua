@@ -8,7 +8,6 @@ function target:onCreate(param)
     self:onClicked('Image_1.musicEnableBt', self.onBtnMusicEnable)
     self:onClicked('Image_1.soundsDisableBt', self.onBtnSoundMute)
     self:onClicked('Image_1.soundsEnableBt', self.onBtnSoundEnable)
-
 end
 
 function target:onBtnMusicMute( ... )

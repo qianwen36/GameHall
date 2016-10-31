@@ -2,8 +2,6 @@ import('..comm.HallDataDef')
 local Base = import('.interface.RoomModel')
 local target = cc.load('form').build('RoomModel', Base)
 local mc = import('..comm.HallDef')
-local Director = cc.Director:getInstance()
-local Scheduler = Director:getScheduler()
 
 local handler_ = {
 	GET_AREAS	= 'GET_AREAS',
@@ -176,9 +174,9 @@ function target:updateOnlineusers( param, interval )-- param:[room, ...], regist
 			} )
 		client:send(REQUEST, data)
 	end
-	local timer = Scheduler:scheduleScriptFunc(function ( ... )
+	local timer = self:timerScheduler(interval, function ( ... )
 		reqRoomsUserCount(self.UPDATE_PARAMS[1])
-	end, interval, false)
+	end)
 
 	self.UPDATE_PARAMS = {param, timer, waiting}
 	reqRoomsUserCount(param)
@@ -190,7 +188,7 @@ function target:clear()
 	if array then
 		local param, timer, waiting = unpack(array)
 		local client = MCClient:client(TAG.hall)
-		Scheduler:unscheduleScriptEntry(timer)
+		self:timerStop(timer)
 		client:off(waiting)
 		self.UPDATE_PARAMS = nil
 	end

@@ -7,16 +7,17 @@ target.handler = {
 	GET_RNDKEY = 'GET_RNDKEY',
 }
 
-target.info ={
-	GAME = nil,	-- cdata<LOGON_SUCCEED>
-	LOGON= nil 	-- cdata<USER_GAMEINFO_MB>
-}
 function target:reset()
 	self.info = {
+		GAME = nil,	-- cdata<LOGON_SUCCEED>
+		LOGON= nil,	-- cdata<USER_GAMEINFO_MB>
+		KeyResult = nil,
 		cashbox = true,
 		rndkey = true,
+		deposit = true,
 	}
 	self:spec('user', {
+		name = true
 		type = true,
 		id = true,		-- userid
 		sex = true,
