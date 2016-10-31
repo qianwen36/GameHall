@@ -1,0 +1,6 @@
+[submodule "src/packages/form"]
+	path = src/packages/form
+	url = https://github.com/qianwen36/lua.form.git
+[submodule "src/app/Game"]
+	path = src/app/Game
+	url = https://github.com/qianwen36/myGame.git
