@@ -82,7 +82,7 @@ function target:take( amount )
 	local res = self.player:reqTakeDeposti(amount
 		, function ( info, res )
 			if type(info[res])=='function' then
-				self.view:promptPassword(info, res)
+				self.view:promptPassword(handler(info, info[res]))
 			else
 				local handler = {succeed = true, failed = true}
 				function handler.succeed( ... )

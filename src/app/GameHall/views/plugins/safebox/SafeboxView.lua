@@ -50,8 +50,8 @@ function target:refresh( target, amount )
 	return handler and handler()
 end
 
-function target:promptPassword(info, key)
-	local view = self.vPassword:create(self:getApp(), 'password', {info, key, parent = self})
+function target:promptPassword(handler)
+	local view = self.vPassword:create(self:getApp(), 'password', {handler = handler, parent = self})
 	view:show()
 end
 

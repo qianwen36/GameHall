@@ -295,33 +295,41 @@ function target:reqTakeDeposti( amount, callback )
 	end
 	co = coroutine.create(function( ... )
 		if info.KeyResult==nil then
-			function info._return(password)
-				info._password = password
+			function info:_return(password)
+				self._password = password
 				coroutine.resume(co, password)
 			end
 			function info:_randkey(rkey)
 				self.rndkey = rkey
-				coroutine.resume(co, password)
+				coroutine.resume(co, rkey)
 			end
 			function info:calculate()
 				if (self.ready) then
 					local password = self._password
-					if password~=nil and password ~= '' then
+					if type(self.rndkey)=='number' 
+					and password~=nil 
+					and password ~= '' then
 						self.KeyResult = KeyResult_calc(self.rndkey, password)
 					end
 					self.calculate = nil
 					self._return = nil
 					self._password = nil
 					self.ready = nil
-					return
+					return true
 				end
 				self.ready = true
-				coroutine.yield(info)
+				return false
 			end
 			reqRandKey()
-			local password = coroutine.yield(info)
-			info:calculate()
-			info:calculate()
+			local pass = coroutine.yield(info)
+			self:log('coroutine.yield(info) >>>#', tostring(pass))
+			repeat
+				pass = info:calculate()
+				if not pass then 
+					local pass_= coroutine.yield(info)
+					self:log('coroutine.yield(info) >>>#', tostring(pass_))
+				end
+			until pass
 		end
 		if type(info.KeyResult) == 'number' then
 			reqTakeDeposti()

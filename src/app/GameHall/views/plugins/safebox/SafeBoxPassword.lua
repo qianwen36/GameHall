@@ -8,9 +8,7 @@ function target:onCreate(param)
 	self:onClicked('Image_1.Button_5_0_9', self.onButtonOK)
 	self.txPassword = self:nodeFromPath('Image_1.Image_5.TextField_1')
 	self:addTo(param.parent)
-	local info = param[1]
-	local key = param[2]
-	self.func = info[key]
+	self.func = param.handler
 end
 
 function target:onButtonOK()
