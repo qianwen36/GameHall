@@ -1,6 +1,5 @@
 local MainScene = class("MainScene", import('.extends.ViewBase'))
---local MainScene = class("MainScene", require('src.app.GameHall.views.extends.ViewBase'))
-MainScene.RESOURCE_FILENAME = "res/hallcocosstudio/mainpanel/mainpanel.csb"
+MainScene.RESOURCE_FILENAME = "res/HallCocosStudio/MainPanel/MainPanel.csb"
 local UserProfile = import('.content.UserProfile')
 
 function MainScene:onCreate()

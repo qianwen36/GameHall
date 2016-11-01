@@ -1,6 +1,6 @@
 local Base = import('.ItemBase')
 local target = class("ItemView2", Base)
-target.RESOURCE_FILENAME = "res/hallcocosstudio/Room/Room.csb"
+target.RESOURCE_FILENAME = "res/HallCocosStudio/Room/Room.csb"
 
 
 function target:onCreate(info)

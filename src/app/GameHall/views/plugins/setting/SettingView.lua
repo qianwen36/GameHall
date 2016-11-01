@@ -1,5 +1,5 @@
 local target = class("SettingView", cc.load("mvc").ViewBase)
-target.RESOURCE_FILENAME = "res/hallcocosstudio/settings/settings.csb"
+target.RESOURCE_FILENAME = "res/HallCocosStudio/Settings/Settings.csb"
 
 function target:onCreate(param)
 	self:initLayout()

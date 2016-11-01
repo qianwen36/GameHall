@@ -1,5 +1,5 @@
 local target = class("SafeBoxPassword", cc.load("mvc").ViewBase)
-target.RESOURCE_FILENAME = "res/hallcocosstudio/safebox/safeboxpassword.csb"
+target.RESOURCE_FILENAME = "res/HallCocosStudio/SafeBoxPassword/SafeBoxPassword.csb"
 
 
 function target:onCreate(param)

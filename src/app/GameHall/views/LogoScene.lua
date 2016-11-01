@@ -1,5 +1,5 @@
 local target = class("LogoScene", cc.load("mvc").ViewBase)
-target.RESOURCE_FILENAME = "res/hallcocosstudio/startup/logo.csb"
+target.RESOURCE_FILENAME = "res/HallCocosStudio/StartUp/logo.csb"
 
 
 function target:onCreate()

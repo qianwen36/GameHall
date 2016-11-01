@@ -1,5 +1,5 @@
 local target = class("WebActivityView", cc.load("mvc").ViewBase)
-target.RESOURCE_FILENAME = "res/hallcocosstudio/webactivity/webactivity.csb"
+target.RESOURCE_FILENAME = "res/HallCocosStudio/WebActivity/WebActivity.csb"
 
 
 function target:onCreate(param)

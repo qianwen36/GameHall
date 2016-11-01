@@ -266,6 +266,8 @@ function target:reqTakeDeposti( amount, callback )
 				self:nextSchedule(self.updateGameCash)
 				event = event2
 			end)
+			if not result then info.KeyResult = nil end
+			
 			callback(info, event)
 		end)
 	end
@@ -287,21 +289,25 @@ function target:reqTakeDeposti( amount, callback )
 				result = self:routine(resp, REQUEST, function (event, msg, result)
 					local cdata = self.resolve('GET_RNDKEY_OK', data)
 					res = cdata.nRndKey
+					self:log('[GET_RNDKEY_OK].nRndKey= ', res)
 				end)
 				info:_randkey(res)
 			end)
+		else
+			self:nextSchedule(function ( ... )
+				info:_randkey(info.rndkey)
+			end)
 		end
-		self:nextSchedule(function ( ... )
-			info:_randkey(info.rndkey)
-		end)
 	end
 	co = coroutine.create(function( ... )
 		if info.KeyResult==nil then
 			function info:_return(password)
+				target:log('info:_return(password)#', tostring(password))
 				self._password = password
 				coroutine.resume(co, password)
 			end
 			function info:_randkey(rkey)
+				target:log('info:_randkey(rkey)#', tostring(rkey))
 				self.rndkey = rkey
 				coroutine.resume(co, rkey)
 			end
@@ -313,6 +319,7 @@ function target:reqTakeDeposti( amount, callback )
 					and password ~= '' then
 						self.KeyResult = KeyResult_calc(self.rndkey, password)
 					end
+					target:log('info:calculate()>>>', tostring(self.KeyResult))
 					self.calculate = nil
 					self._return = nil
 					self._password = nil
@@ -336,9 +343,10 @@ function target:reqTakeDeposti( amount, callback )
 		if type(info.KeyResult) == 'number' then
 			reqTakeDeposti()
 		end
+		self:log('coroutine {', tostring(co), '}.done')
 	end)
 	local code, param = coroutine.resume(co)
-	if param._return then
+	if type(param)=='table' and param._return then
 		callback(param, '_return')
 	end
 

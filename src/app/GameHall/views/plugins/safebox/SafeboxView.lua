@@ -1,5 +1,5 @@
 local target = class("SafeBoxView", cc.load("mvc").ViewBase)
-target.RESOURCE_FILENAME = "res/hallcocosstudio/safebox/safebox.csb"
+target.RESOURCE_FILENAME = "res/HallCocosStudio/SafeBox/SafeBox.csb"
 target.vPassword = import('.SafeBoxPassword')
 
 local txConfig = {

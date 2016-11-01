@@ -33,7 +33,8 @@ end
 function target:nextSchedule( func )
 	local timer
 	timer = Scheduler:scheduleScriptFunc(function ( ... )
-		timer = timer or Scheduler:unscheduleScriptEntry(timer)
+		self:log(':nextSchedule( func )#timer=', tostring(timer), ', #func=', tostring(func))
+		timer = timer and Scheduler:unscheduleScriptEntry(timer)
 		func(self)
 	end, 0, false)
 end

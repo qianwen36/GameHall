@@ -1,5 +1,5 @@
 local target = class("HelpView", cc.load("mvc").ViewBase)
-target.RESOURCE_FILENAME = "res/hallcocosstudio/help/help.csb"
+target.RESOURCE_FILENAME = "res/HallCocosStudio/Help/Help.csb"
 
 
 function target:onCreate(param)

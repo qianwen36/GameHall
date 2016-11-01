@@ -1,6 +1,6 @@
 local Base = import('.ItemBase')
 local target = class("ItemView", Base)
-target.RESOURCE_FILENAME = "res/hallcocosstudio/Room/Area.csb"
+target.RESOURCE_FILENAME = "res/HallCocosStudio/Room/Area.csb"
 
 local DEFAULT_TITLE = 'baiyinggu'
 local DEFAULT_BACKGROUND = 'gelou'

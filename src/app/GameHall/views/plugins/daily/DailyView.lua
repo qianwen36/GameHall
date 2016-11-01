@@ -1,5 +1,5 @@
 local target = class("DailyView", cc.load("mvc").ViewBase)
-target.RESOURCE_FILENAME = "res/hallcocosstudio/dailyactivity/daliyactivity.csb"
+target.RESOURCE_FILENAME = "res/HallCocosStudio/DailyActivity/DaliyActivity.csb"
 
 
 function target:onCreate(param)
