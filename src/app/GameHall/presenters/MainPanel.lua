@@ -45,9 +45,11 @@ end
 
 function target:onCommunicationBreak( event )
 --	self.ready = false
+	self:terminate()
 end
 
 function target:onHostRoomReady()
+	self:terminate()
 	Base.ready(self, self.view)
 	local interval = self:getConfig('interval')
 	local array = {}
@@ -116,6 +118,7 @@ function target:prepare(view)
 		self.display.refresh = true
 		self:showContent()
 	else
+		self:waiting()
 		self.host:prepare()
 	end
 end

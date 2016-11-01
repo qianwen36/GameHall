@@ -4,7 +4,7 @@ target.RESOURCE_FILENAME = "res/HallCocosStudio/SafeBoxPassword/SafeBoxPassword.
 
 function target:onCreate(param)
 	self:initLayout()
-	self:dumpChildren()
+--	self:dumpChildren()
 	self:onClicked('Image_1.Button_5_7', self.onButtonCancel)
 	self:onClicked('Image_1.Button_5_0_9', self.onButtonOK)
 	self.txPassword = self:nodeFromPath('Image_1.Image_5.TextField_1')
