@@ -10,7 +10,7 @@ local handler_ = {
 }
 --table.merge(target.handler, handler)
 
-local TAG = {}
+local TAG = {hall = nil, room = target.TAG}
 if not USING_MCRuntime then return target end
 
 local MCClient = require('src.app.TcyCommon.MCClient2')
@@ -149,6 +149,24 @@ function target:prepare()
 	end
 	MCClient:rpcall(TAG.hall, proc)
 	self:log(':prepare().over')
+end
+
+local socket_resolve = function ( cdata )end -- ctype<ROOM>
+function target:enterRoom( info ) -- roominfo
+	local host, port = socket_resolve(info.data)
+	MCClient:connect(host, port, TAG.room, function(client, resp)
+		local connected = MCClient:isConnected(resp)
+	end)
+end
+
+function socket_resolve( info )
+	local host, port = target:string(info.szGameIP), info.nPort
+	if (port == 0) then
+		port = 31629
+	else
+		port = port + 1000
+	end
+	return host, tostring(port)
 end
 
 function target:updateOnlineusers( param, interval )-- param:[room, ...], register and init event dispatcher

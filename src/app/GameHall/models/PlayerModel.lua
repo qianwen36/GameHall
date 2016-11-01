@@ -40,7 +40,7 @@ function target:update( cdata, ctype )
 	end
 	function handler.SAFE_DEPOSIT( ... )
 		info.cashbox = cdata.nDeposit
-		info.protected = cdata.bHaveSecurePwd
+		info.protected = (cdata.bHaveSecurePwd~=mc.BOOL_FALSE)
 	end
 
 	handler = handler[ctype]

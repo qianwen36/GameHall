@@ -232,4 +232,7 @@ function target.key( id )
   return table.keyof(target, id) or id..'.id not find'
 end
 
+target.BOOL_FALSE = 0
+target.BOOL_TRUE = 1
+
 return target

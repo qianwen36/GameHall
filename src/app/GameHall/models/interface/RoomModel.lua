@@ -1,5 +1,6 @@
 local target = cc.load('form').build('RoomModel.interface', import('.HallSpread'))
 
+target.TAG = 'Room'
 -- event{name, body {event, msg, result}}
 target.handler = {
 	ONLINE_USERS_UPDATE = 'ONLINE_USERS_UPDATE'
@@ -38,6 +39,10 @@ function target:areainfo( id )
 		fontcolor = 0,
 		gift = 0,
 		}]]
+end
+
+function target:enterRoom( info ) -- roominfo
+	self:definition(':enterRoom( info )')
 end
 
 function target:updateOnlineusers( param, interval )-- param:[room, ...], register and init event dispatcher

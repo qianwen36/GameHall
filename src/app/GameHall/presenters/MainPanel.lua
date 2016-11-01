@@ -123,7 +123,8 @@ function target:prepare(view)
 	end
 end
 
-function target:enterRoom( info )
+function target:enterRoom( info ) -- roominfo
+	self.host:enterRoom(info)
 end
 
 function target:updateOnlineusers()
