@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="Node_firstcharge" ID="011a7de2-959a-43f9-8a1d-539f686ca7c2" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="Node_firstcharge" ID="011a7de2-959a-43f9-8a1d-539f686ca7c2" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="60" Speed="0.3333">
@@ -134,7 +134,7 @@
                 <PreSize X="0.3778" Y="0.1516" />
                 <FileData Type="PlistSubImage" Path="title_firstcharge.png" Plist="HallCocosStudio/images/plist/first_charge_img.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="btn_charge" ActionTag="1709185269" Tag="62" IconVisible="False" LeftMargin="150.0000" RightMargin="150.0000" TopMargin="336.6443" BottomMargin="14.3557" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="270" Scale9Height="54" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="ButtonObjectData">
+              <AbstractNodeData Name="btn_charge" ActionTag="1709185269" Tag="62" IconVisible="False" LeftMargin="150.0000" RightMargin="150.0000" TopMargin="336.6443" BottomMargin="14.3557" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="270" Scale9Height="54" ctype="ButtonObjectData">
                 <Size X="359.0000" Y="91.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="329.5000" Y="59.8557" />
@@ -289,7 +289,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="btn_cancel" ActionTag="-1385170036" Tag="21" IconVisible="False" LeftMargin="586.6074" RightMargin="-6.6074" TopMargin="-40.9630" BottomMargin="406.9630" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="49" Scale9Height="54" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="ButtonObjectData">
+              <AbstractNodeData Name="btn_cancel" ActionTag="-1385170036" Tag="21" IconVisible="False" LeftMargin="586.6074" RightMargin="-6.6074" TopMargin="-40.9630" BottomMargin="406.9630" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="49" Scale9Height="54" ctype="ButtonObjectData">
                 <Size X="79.0000" Y="76.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="626.1074" Y="444.9630" />

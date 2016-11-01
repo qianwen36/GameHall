@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="ToastTip" ID="cf19fd18-5a3b-4efc-bdd0-5c7c61e1658d" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="ToastTip" ID="cf19fd18-5a3b-4efc-bdd0-5c7c61e1658d" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -19,7 +19,7 @@
                 <PreSize />
                 <FileData Type="PlistSubImage" Path="tishi_bg_pic.png" Plist="HallCocosStudio/images/plist/popup_img.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_1" ActionTag="172938248" Tag="751" IconVisible="False" LeftMargin="380.0000" RightMargin="-1254.0000" TopMargin="-574.0000" BottomMargin="500.0000" IsCustomSize="True" FontSize="36" LabelText="成功领取低保1000两，继续努力哦！" HorizontalAlignmentType="HT_Center" VerticalAlignmentType="VT_Center" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_1" ActionTag="172938248" Tag="751" IconVisible="False" LeftMargin="380.0000" RightMargin="-1254.0000" TopMargin="-574.0000" BottomMargin="500.0000" IsCustomSize="True" FontSize="36" LabelText="成功领取低保1000两，继续努力哦！" HorizontalAlignmentType="HT_Center" VerticalAlignmentType="VT_Center" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="920.0000" Y="120.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="840.0000" Y="560.0000" />

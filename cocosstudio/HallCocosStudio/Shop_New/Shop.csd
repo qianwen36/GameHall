@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Scene" Name="Shop" ID="d0e8bc6a-af76-4658-9272-4bb77760abf4" Version="2.2.6.0" />
+  <PropertyGroup Type="Scene" Name="Shop" ID="d0e8bc6a-af76-4658-9272-4bb77760abf4" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -52,10 +52,10 @@
               <AbstractNodeData Name="Panel_privilege_container" ActionTag="-1317387879" Tag="410" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BottomEdge" TopMargin="463.0000" BottomMargin="7.0000" TouchEnable="True" StretchWidthEnable="True" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
                 <Size X="1280.0000" Y="140.0000" />
                 <Children>
-                  <AbstractNodeData Name="btn_bluemen" ActionTag="153461466" Tag="140" IconVisible="False" LeftMargin="15.1611" RightMargin="1112.8389" TopMargin="6.2941" BottomMargin="12.7059" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="122" Scale9Height="99" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="btn_bluemen" ActionTag="153461466" Tag="140" IconVisible="False" LeftMargin="15.1611" RightMargin="1112.8389" TopMargin="6.2941" BottomMargin="12.7059" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="122" Scale9Height="99" ctype="ButtonObjectData">
                     <Size X="152.0000" Y="121.0000" />
                     <Children>
-                      <AbstractNodeData Name="Text_1" ActionTag="-477645714" Tag="141" IconVisible="False" LeftMargin="23.6665" RightMargin="38.3335" TopMargin="104.2355" BottomMargin="-3.2355" FontSize="20" LabelText=" 蓝钻会员" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="TextObjectData">
+                      <AbstractNodeData Name="Text_1" ActionTag="-477645714" Tag="141" IconVisible="False" LeftMargin="23.6665" RightMargin="38.3335" TopMargin="104.2355" BottomMargin="-3.2355" FontSize="20" LabelText=" 蓝钻会员" ctype="TextObjectData">
                         <Size X="90.0000" Y="20.0000" />
                         <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                         <Position X="68.6665" Y="6.7645" />
@@ -104,7 +104,7 @@
                     <PreSize X="0.9992" Y="1.1600" />
                     <FileData Type="Normal" Path="HallCocosStudio/images/png/announcement_bg.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_2" ActionTag="1869806573" Tag="59" IconVisible="False" LeftMargin="51.5000" RightMargin="51.5000" TopMargin="14.5311" BottomMargin="13.4689" FontSize="22" LabelText="您现在还不是会员，成为会员立即享受5种尊贵特权/尊贵的蓝钻会员，您的会员到期时间是2015年8月31日，点击可续费。" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_2" ActionTag="1869806573" Tag="59" IconVisible="False" LeftMargin="51.5000" RightMargin="51.5000" TopMargin="14.5311" BottomMargin="13.4689" FontSize="22" LabelText="您现在还不是会员，成为会员立即享受5种尊贵特权/尊贵的蓝钻会员，您的会员到期时间是2015年8月31日，点击可续费。" ctype="TextObjectData">
                     <Size X="1177.0000" Y="22.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="640.0000" Y="24.4689" />
@@ -159,7 +159,7 @@
               <AbstractNodeData Name="Panel_Player" ActionTag="397114980" Tag="376" IconVisible="False" HorizontalEdge="LeftEdge" VerticalEdge="TopEdge" LeftMargin="6.1317" RightMargin="893.8683" TopMargin="6.2093" BottomMargin="13.7907" TouchEnable="True" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="380.0000" Y="100.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_Name" ActionTag="916381620" Tag="381" IconVisible="False" LeftMargin="120.2425" RightMargin="187.7575" TopMargin="20.8807" BottomMargin="55.1193" FontSize="24" LabelText="未登录" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_Name" ActionTag="916381620" Tag="381" IconVisible="False" LeftMargin="120.2425" RightMargin="187.7575" TopMargin="20.8807" BottomMargin="55.1193" FontSize="24" LabelText="未登录" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                     <Size X="72.0000" Y="24.0000" />
                     <AnchorPoint ScaleY="0.5000" />
                     <Position X="120.2425" Y="67.1193" />
@@ -170,7 +170,7 @@
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="255" G="127" B="80" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Button_Charge" ActionTag="451417974" Tag="382" VisibleForFrame="False" IconVisible="False" LeftMargin="309.6606" RightMargin="24.3394" TopMargin="46.3596" BottomMargin="7.6404" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="46" Scale9Height="46" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="Button_Charge" ActionTag="451417974" Tag="382" VisibleForFrame="False" IconVisible="False" LeftMargin="309.6606" RightMargin="24.3394" TopMargin="46.3596" BottomMargin="7.6404" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="46" Scale9Height="46" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                     <Size X="46.0000" Y="46.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="332.6606" Y="30.6404" />
@@ -228,7 +228,7 @@
                         <PreSize X="0.4000" Y="2.1143" />
                         <FileData Type="Normal" Path="HallCocosStudio/images/icon_score_silver/icon_silver.png" Plist="" />
                       </AbstractNodeData>
-                      <AbstractNodeData Name="Text_Deposit" CanEdit="False" ActionTag="672196611" Tag="388" IconVisible="False" LeftMargin="45.0000" RightMargin="20.0000" TopMargin="5.0001" BottomMargin="5.9999" FontSize="24" LabelText="9999999999" ctype="TextObjectData">
+                      <AbstractNodeData Name="Text_Deposit" CanEdit="False" ActionTag="672196611" Tag="388" IconVisible="False" LeftMargin="45.0000" RightMargin="20.0000" TopMargin="5.0001" BottomMargin="5.9999" FontSize="24" LabelText="9999999999" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                         <Size X="120.0000" Y="24.0000" />
                         <AnchorPoint ScaleY="0.5000" />
                         <Position X="45.0000" Y="17.9999" />
@@ -274,7 +274,7 @@
                         <PreSize X="0.4000" Y="2.1143" />
                         <FileData Type="Normal" Path="HallCocosStudio/images/icon_score_silver/icon_score.png" Plist="" />
                       </AbstractNodeData>
-                      <AbstractNodeData Name="Text_playerscore" CanEdit="False" ActionTag="1830428983" Tag="392" IconVisible="False" LeftMargin="45.0000" RightMargin="20.0000" TopMargin="5.0000" BottomMargin="6.0000" FontSize="24" LabelText="9999999999" ctype="TextObjectData">
+                      <AbstractNodeData Name="Text_playerscore" CanEdit="False" ActionTag="1830428983" Tag="392" IconVisible="False" LeftMargin="45.0000" RightMargin="20.0000" TopMargin="5.0000" BottomMargin="6.0000" FontSize="24" LabelText="9999999999" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                         <Size X="120.0000" Y="24.0000" />
                         <AnchorPoint ScaleY="0.5000" />
                         <Position X="45.0000" Y="18.0000" />
@@ -309,7 +309,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="btn_back" ActionTag="-1968965539" Tag="263" IconVisible="False" HorizontalEdge="LeftEdge" VerticalEdge="TopEdge" LeftMargin="2.5001" RightMargin="1182.4999" TopMargin="9.0007" BottomMargin="16.9993" TouchEnable="True" FontSize="14" Scale9Width="95" Scale9Height="94" ctype="ButtonObjectData">
+              <AbstractNodeData Name="btn_back" ActionTag="-1968965539" Tag="263" IconVisible="False" HorizontalEdge="LeftEdge" VerticalEdge="TopEdge" LeftMargin="2.5001" RightMargin="1182.4999" TopMargin="9.0007" BottomMargin="16.9993" TouchEnable="True" FontSize="14" Scale9Width="95" Scale9Height="94" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="95.0000" Y="94.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="50.0001" Y="63.9993" />
@@ -386,10 +386,10 @@
                 <NodeNormalFileData Type="Normal" Path="HallCocosStudio/images/png/tab/hall_tab_Vip_L.png" Plist="" />
                 <NodeDisableFileData Type="Normal" Path="HallCocosStudio/images/png/tab/hall_tab_Vip_L.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Panel_btn_exchange" ActionTag="-141356923" Tag="401" IconVisible="False" HorizontalEdge="RightEdge" VerticalEdge="TopEdge" LeftMargin="581.9951" RightMargin="648.0049" TopMargin="0.0000" BottomMargin="20.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+              <AbstractNodeData Name="Panel_btn_exchange" ActionTag="-141356923" Tag="401" IconVisible="False" HorizontalEdge="RightEdge" VerticalEdge="TopEdge" LeftMargin="581.9951" RightMargin="648.0049" BottomMargin="20.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
                 <Size X="50.0000" Y="100.0000" />
                 <Children>
-                  <AbstractNodeData Name="btn_exchange" ActionTag="1737909016" Tag="400" IconVisible="False" LeftMargin="-50.4236" RightMargin="-50.5764" TopMargin="34.7148" BottomMargin="8.2852" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="44" Scale9Height="52" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="btn_exchange" ActionTag="1737909016" Tag="400" IconVisible="False" LeftMargin="-50.4236" RightMargin="-50.5764" TopMargin="34.7148" BottomMargin="8.2852" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="44" Scale9Height="52" ctype="ButtonObjectData">
                     <Size X="151.0000" Y="57.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="25.0764" Y="36.7852" />
@@ -414,10 +414,10 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Panel_btn_onecard" ActionTag="-789122052" Tag="403" IconVisible="False" HorizontalEdge="RightEdge" VerticalEdge="TopEdge" LeftMargin="750.9988" RightMargin="479.0012" TopMargin="0.0000" BottomMargin="20.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Panel_btn_onecard" ActionTag="-789122052" Tag="403" IconVisible="False" HorizontalEdge="RightEdge" VerticalEdge="TopEdge" LeftMargin="750.9988" RightMargin="479.0012" BottomMargin="20.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="50.0000" Y="100.0000" />
                 <Children>
-                  <AbstractNodeData Name="btn_onecard" ActionTag="2062933711" Tag="405" IconVisible="False" LeftMargin="-50.4236" RightMargin="-50.5764" TopMargin="34.7148" BottomMargin="8.2852" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="44" Scale9Height="52" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="btn_onecard" ActionTag="2062933711" Tag="405" IconVisible="False" LeftMargin="-50.4236" RightMargin="-50.5764" TopMargin="34.7148" BottomMargin="8.2852" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="44" Scale9Height="52" ctype="ButtonObjectData">
                     <Size X="151.0000" Y="57.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="25.0764" Y="36.7852" />

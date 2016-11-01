@@ -49,8 +49,7 @@ function target:waiting()
 		self:log(':waiting()#', LAYER_WATING, ' layer exist')
 		return
 	end
-	local node = LoadingLayer:create(self:getApp(), LAYER_WATING):loading()
-	scene:addChild(node, 1000)
+	LoadingLayer:create(self:getApp(), LAYER_WATING, scene):loading()
 
 	self.wait_ = self:nextSchedule(self.finish, 5)
 end

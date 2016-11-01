@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="Node_bluemen_detail" ID="326b95b3-ae9b-4ad9-8c20-74193f3eed6d" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="Node_bluemen_detail" ID="326b95b3-ae9b-4ad9-8c20-74193f3eed6d" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -19,7 +19,7 @@
                 <PreSize X="1.0000" Y="1.0000" />
                 <FileData Type="PlistSubImage" Path="text_shop_boxVIP_detail.png" Plist="HallCocosStudio/images/plist/shop_img_new.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_VIP_detail" ActionTag="-953178544" Tag="39" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="10.0000" RightMargin="10.0000" TopMargin="10.0000" BottomMargin="10.0000" StretchWidthEnable="True" StretchHeightEnable="True" IsCustomSize="True" FontSize="20" LabelText="" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_VIP_detail" ActionTag="-953178544" Tag="39" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="10.0000" RightMargin="10.0000" TopMargin="10.0000" BottomMargin="10.0000" StretchWidthEnable="True" StretchHeightEnable="True" IsCustomSize="True" FontSize="20" LabelText="" ctype="TextObjectData">
                 <Size X="230.0000" Y="105.0000" />
                 <AnchorPoint ScaleY="1.0000" />
                 <Position X="10.0000" Y="115.0000" />

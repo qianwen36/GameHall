@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Scene" Name="UpdateScene" ID="f6bacd73-79f6-4ade-ae35-fee9d7b40e31" Version="2.2.6.0" />
+  <PropertyGroup Type="Scene" Name="UpdateScene" ID="f6bacd73-79f6-4ade-ae35-fee9d7b40e31" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="64" Speed="1.0000" ActivedAnimationName="loading">
@@ -138,7 +138,7 @@
             <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="Normal" Path="HallCocosStudio/images/jpg/BG.jpg" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Text_Version" ActionTag="1116556893" Tag="5" IconVisible="False" LeftMargin="43.8335" RightMargin="1128.1665" TopMargin="34.8331" BottomMargin="661.1669" FontSize="24" LabelText="当前版本:" HorizontalAlignmentType="HT_Right" ctype="TextObjectData">
+          <AbstractNodeData Name="Text_Version" ActionTag="1116556893" Tag="5" IconVisible="False" LeftMargin="43.8335" RightMargin="1128.1665" TopMargin="34.8331" BottomMargin="661.1669" FontSize="24" LabelText="当前版本:" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="108.0000" Y="24.0000" />
             <AnchorPoint />
             <Position X="43.8335" Y="661.1669" />
@@ -149,7 +149,7 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="255" G="127" B="80" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Text_New" ActionTag="1691724676" Tag="6" IconVisible="False" LeftMargin="43.8336" RightMargin="1128.1664" TopMargin="76.8325" BottomMargin="619.1675" FontSize="24" LabelText="最新版本:" ctype="TextObjectData">
+          <AbstractNodeData Name="Text_New" ActionTag="1691724676" Tag="6" IconVisible="False" LeftMargin="43.8336" RightMargin="1128.1664" TopMargin="76.8325" BottomMargin="619.1675" FontSize="24" LabelText="最新版本:" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="108.0000" Y="24.0000" />
             <AnchorPoint />
             <Position X="43.8336" Y="619.1675" />
@@ -182,7 +182,7 @@
             <PreSize X="0.5672" Y="0.0681" />
             <FileData Type="PlistSubImage" Path="xz_bg2_pic.png" Plist="HallCocosStudio/images/plist/share_img.plist" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Text_Process" ActionTag="-415561028" Tag="51" IconVisible="False" LeftMargin="629.8144" RightMargin="608.1856" TopMargin="595.7513" BottomMargin="96.2487" FontSize="28" LabelText="30%" ctype="TextObjectData">
+          <AbstractNodeData Name="Text_Process" ActionTag="-415561028" Tag="51" IconVisible="False" LeftMargin="629.8144" RightMargin="608.1856" TopMargin="595.7513" BottomMargin="96.2487" FontSize="28" LabelText="30%" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="42.0000" Y="28.0000" />
             <AnchorPoint />
             <Position X="629.8144" Y="96.2487" />
@@ -193,7 +193,7 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="255" G="127" B="80" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Text_Show" ActionTag="1921319709" Tag="174" IconVisible="False" LeftMargin="573.6663" RightMargin="594.3337" TopMargin="547.3342" BottomMargin="144.6658" FontSize="28" LabelText="正在更新" HorizontalAlignmentType="HT_Right" ctype="TextObjectData">
+          <AbstractNodeData Name="Text_Show" ActionTag="1921319709" Tag="174" IconVisible="False" LeftMargin="573.6663" RightMargin="594.3337" TopMargin="547.3342" BottomMargin="144.6658" FontSize="28" LabelText="正在更新" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="112.0000" Y="28.0000" />
             <AnchorPoint />
             <Position X="573.6663" Y="144.6658" />
@@ -204,7 +204,7 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="255" G="127" B="80" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Text_Show_0" ActionTag="313920941" Tag="2564" IconVisible="False" LeftMargin="580.6667" RightMargin="587.3333" TopMargin="547.3342" BottomMargin="144.6658" FontSize="28" LabelText="正在更新" HorizontalAlignmentType="HT_Right" ctype="TextObjectData">
+          <AbstractNodeData Name="Text_Show_0" ActionTag="313920941" Tag="2564" IconVisible="False" LeftMargin="580.6667" RightMargin="587.3333" TopMargin="547.3342" BottomMargin="144.6658" FontSize="28" LabelText="正在更新" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="112.0000" Y="28.0000" />
             <AnchorPoint />
             <Position X="580.6667" Y="144.6658" />
@@ -215,7 +215,7 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="255" G="127" B="80" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Text_Show_Quit" ActionTag="-40480451" Tag="52" IconVisible="False" LeftMargin="312.2162" RightMargin="323.7838" TopMargin="545.8571" BottomMargin="146.1429" FontSize="28" LabelText="游戏版本过低，请退出同城游后再重启进行版本升级" HorizontalAlignmentType="HT_Right" ctype="TextObjectData">
+          <AbstractNodeData Name="Text_Show_Quit" ActionTag="-40480451" Tag="52" IconVisible="False" LeftMargin="312.2162" RightMargin="323.7838" TopMargin="545.8571" BottomMargin="146.1429" FontSize="28" LabelText="游戏版本过低，请退出同城游后再重启进行版本升级" HorizontalAlignmentType="HT_Right" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="644.0000" Y="28.0000" />
             <AnchorPoint />
             <Position X="312.2162" Y="146.1429" />
@@ -240,7 +240,7 @@
           <AbstractNodeData Name="ScrollView_Des" ActionTag="-1717054201" Tag="35" IconVisible="False" LeftMargin="90.7279" RightMargin="89.2721" TopMargin="122.9552" BottomMargin="197.0448" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ColorAngle="90.0000" ScrollDirectionType="Vertical" ctype="ScrollViewObjectData">
             <Size X="1100.0000" Y="400.0000" />
             <Children>
-              <AbstractNodeData Name="Text_Des" ActionTag="-262154764" Tag="52" IconVisible="False" RightMargin="1100.0000" TopMargin="2.9973" BottomMargin="397.0027" FontSize="36" LabelText="" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_Des" ActionTag="-262154764" Tag="52" IconVisible="False" RightMargin="1100.0000" TopMargin="2.9973" BottomMargin="397.0027" FontSize="36" LabelText="" ctype="TextObjectData">
                 <Size />
                 <AnchorPoint ScaleY="1.0000" />
                 <Position Y="397.0027" />

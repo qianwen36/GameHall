@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="Node_Items_VIP" ID="f523b0c8-7c73-4fd7-88f4-2eaf28306e89" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="Node_Items_VIP" ID="f523b0c8-7c73-4fd7-88f4-2eaf28306e89" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -9,10 +9,10 @@
           <AbstractNodeData Name="Panel_btn_item_VIP" ActionTag="-474911312" Tag="412" IconVisible="False" LeftMargin="-179.5000" RightMargin="-179.5000" TopMargin="-99.0000" BottomMargin="-99.0000" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
             <Size X="359.0000" Y="198.0000" />
             <Children>
-              <AbstractNodeData Name="btn_item_VIP" ActionTag="-1946572849" Tag="413" IconVisible="False" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="329" Scale9Height="176" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="ButtonObjectData">
+              <AbstractNodeData Name="btn_item_VIP" ActionTag="-1946572849" Tag="413" IconVisible="False" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="329" Scale9Height="176" ctype="ButtonObjectData">
                 <Size X="359.0000" Y="198.0000" />
                 <Children>
-                  <AbstractNodeData Name="Text_item_name" ActionTag="705650415" Tag="415" IconVisible="False" LeftMargin="131.5000" RightMargin="131.5000" TopMargin="19.7067" BottomMargin="154.2933" FontSize="24" LabelText="蓝钻会员" HorizontalAlignmentType="HT_Center" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_item_name" ActionTag="705650415" Tag="415" IconVisible="False" LeftMargin="131.5000" RightMargin="131.5000" TopMargin="19.7067" BottomMargin="154.2933" FontSize="24" LabelText="蓝钻会员" HorizontalAlignmentType="HT_Center" ctype="TextObjectData">
                     <Size X="96.0000" Y="24.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="179.5000" Y="166.2933" />

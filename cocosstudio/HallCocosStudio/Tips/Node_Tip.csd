@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="Node_Tip" ID="2db4cc5b-ec14-4ba4-a944-44b4770b2c2a" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="Node_Tip" ID="2db4cc5b-ec14-4ba4-a944-44b4770b2c2a" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="7" Speed="0.3333">
@@ -256,7 +256,7 @@
                     <PreSize X="1.0234" Y="0.5652" />
                     <FileData Type="Normal" Path="HallCocosStudio/images/png/Tip_img/tips_bg_shadow.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="img_tipbg_main" CanEdit="False" ActionTag="1727270127" Tag="169" IconVisible="False" TopMargin="0.0000" BottomMargin="10.0000" Scale9Width="599" Scale9Height="82" ctype="ImageViewObjectData">
+                  <AbstractNodeData Name="img_tipbg_main" CanEdit="False" ActionTag="1727270127" Tag="169" IconVisible="False" BottomMargin="10.0000" Scale9Width="599" Scale9Height="82" ctype="ImageViewObjectData">
                     <Size X="599.0000" Y="82.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.9000" />
                     <Position X="299.5000" Y="83.8000" />
@@ -266,7 +266,7 @@
                     <PreSize X="2.9950" Y="0.4100" />
                     <FileData Type="Normal" Path="HallCocosStudio/images/png/Tip_img/tips_bg.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Text_tip_detail" CanEdit="False" ActionTag="-629223986" Tag="174" IconVisible="False" LeftMargin="244.4384" RightMargin="244.5616" TopMargin="41.5000" BottomMargin="29.5000" FontSize="21" LabelText="Text Label" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="TextObjectData">
+                  <AbstractNodeData Name="Text_tip_detail" CanEdit="False" ActionTag="-629223986" Tag="174" IconVisible="False" LeftMargin="244.4384" RightMargin="244.5616" TopMargin="41.5000" BottomMargin="29.5000" FontSize="21" LabelText="Text Label" ctype="TextObjectData">
                     <Size X="110.0000" Y="21.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="299.4384" Y="40.0000" />

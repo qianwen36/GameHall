@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="QuestMsg" ID="c6b6cf8c-5fec-47d5-b0e3-ee2e03f07afe" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="QuestMsg" ID="c6b6cf8c-5fec-47d5-b0e3-ee2e03f07afe" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -19,7 +19,7 @@
           <AbstractNodeData Name="Image_6" ActionTag="1640321137" Tag="105" IconVisible="False" LeftMargin="-165.3040" RightMargin="15.3040" TopMargin="-100.9007" BottomMargin="42.9007" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="15" BottomEage="15" Scale9OriginX="15" Scale9OriginY="15" Scale9Width="28" Scale9Height="28" ctype="ImageViewObjectData">
             <Size X="150.0000" Y="58.0000" />
             <Children>
-              <AbstractNodeData Name="Text_1" ActionTag="-1498184455" Tag="107" IconVisible="False" LeftMargin="15.3420" RightMargin="14.6580" TopMargin="14.6616" BottomMargin="19.3384" FontSize="24" LabelText="Text Label" VerticalAlignmentType="VT_Center" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_1" ActionTag="-1498184455" Tag="107" IconVisible="False" LeftMargin="15.3420" RightMargin="14.6580" TopMargin="14.6616" BottomMargin="19.3384" FontSize="24" LabelText="Text Label" VerticalAlignmentType="VT_Center" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="120.0000" Y="24.0000" />
                 <AnchorPoint />
                 <Position X="15.3420" Y="19.3384" />
@@ -39,7 +39,7 @@
             <PreSize />
             <FileData Type="PlistSubImage" Path="box6_liaotian_pic.png" Plist="HallCocosStudio/images/plist/help_img.plist" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Text_2" ActionTag="1990634244" Tag="626" IconVisible="False" LeftMargin="-212.3157" RightMargin="59.3157" TopMargin="-41.4189" BottomMargin="23.4189" FontSize="18" LabelText="%Y年%m月%d  %H:%M" ctype="TextObjectData">
+          <AbstractNodeData Name="Text_2" ActionTag="1990634244" Tag="626" IconVisible="False" LeftMargin="-212.3157" RightMargin="59.3157" TopMargin="-41.4189" BottomMargin="23.4189" FontSize="18" LabelText="%Y年%m月%d  %H:%M" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="153.0000" Y="18.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="-135.8157" Y="32.4189" />

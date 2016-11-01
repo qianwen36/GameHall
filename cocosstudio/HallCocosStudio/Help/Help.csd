@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Scene" Name="Help" ID="b6549889-8ff8-4b88-b87d-30f2e46b63a3" Version="2.2.6.0" />
+  <PropertyGroup Type="Scene" Name="Help" ID="b6549889-8ff8-4b88-b87d-30f2e46b63a3" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -109,7 +109,7 @@
                 <PreSize X="0.1766" Y="0.9500" />
                 <FileData Type="PlistSubImage" Path="bq_BG_btn.png" Plist="HallCocosStudio/images/plist/common.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_1" ActionTag="-733526797" Tag="68" IconVisible="False" HorizontalEdge="LeftEdge" VerticalEdge="TopEdge" LeftMargin="2.5000" RightMargin="1182.5000" TopMargin="9.0000" BottomMargin="17.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="95" Scale9Height="94" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_1" ActionTag="-733526797" Tag="68" IconVisible="False" HorizontalEdge="LeftEdge" VerticalEdge="TopEdge" LeftMargin="2.5000" RightMargin="1182.5000" TopMargin="9.0000" BottomMargin="17.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="95" Scale9Height="94" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="95.0000" Y="94.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="50.0000" Y="64.0000" />
@@ -224,7 +224,7 @@
                 <PreSize X="0.6719" Y="0.0903" />
                 <FileData Type="PlistSubImage" Path="box5_shuru_pic.png" Plist="HallCocosStudio/images/plist/common.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_3" ActionTag="-1049768982" Tag="90" IconVisible="False" LeftMargin="952.3567" RightMargin="275.6433" TopMargin="522.7264" BottomMargin="45.2736" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="52" Scale9Height="52" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_3" ActionTag="-1049768982" Tag="90" IconVisible="False" LeftMargin="952.3567" RightMargin="275.6433" TopMargin="522.7264" BottomMargin="45.2736" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="52" Scale9Height="52" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="52.0000" Y="52.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="978.3567" Y="71.2736" />
@@ -239,7 +239,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_4" ActionTag="1845709126" Tag="91" IconVisible="False" LeftMargin="1028.4967" RightMargin="108.5033" TopMargin="518.6667" BottomMargin="35.3333" TouchEnable="True" FontSize="24" ButtonText="发送" Scale9Width="143" Scale9Height="66" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_4" ActionTag="1845709126" Tag="91" IconVisible="False" LeftMargin="1028.4967" RightMargin="108.5033" TopMargin="518.6667" BottomMargin="35.3333" TouchEnable="True" FontSize="24" ButtonText="发送" Scale9Width="143" Scale9Height="66" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="143.0000" Y="66.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="1099.9967" Y="68.3333" />
@@ -262,7 +262,7 @@
                 <PrePosition X="0.4331" Y="0.1167" />
                 <PreSize X="0.9070" Y="0.6250" />
               </AbstractNodeData>
-              <AbstractNodeData Name="ListView_1" ActionTag="2061601722" Tag="93" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="108.1740" RightMargin="107.8260" TopMargin="58.7587" BottomMargin="111.2413" TouchEnable="True" StretchWidthEnable="True" StretchHeightEnable="True" ClipAble="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" Scale9Width="1" Scale9Height="1" IsBounceEnabled="True" ScrollDirectionType="0" DirectionType="Vertical" VerticalType="0" ctype="ListViewObjectData">
+              <AbstractNodeData Name="ListView_1" ActionTag="2061601722" Tag="93" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="108.1740" RightMargin="107.8260" TopMargin="58.7587" BottomMargin="111.2413" TouchEnable="True" StretchWidthEnable="True" StretchHeightEnable="True" ClipAble="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" Scale9Width="1" Scale9Height="1" IsBounceEnabled="True" ScrollDirectionType="0" DirectionType="Vertical" ctype="ListViewObjectData">
                 <Size X="1064.0000" Y="450.0000" />
                 <AnchorPoint />
                 <Position X="108.1740" Y="111.2413" />

@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="CheckinNode" ID="b088a134-f51b-4234-8233-55201840aa80" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="CheckinNode" ID="b088a134-f51b-4234-8233-55201840aa80" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />

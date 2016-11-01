@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Layer" Name="CheckinPanel" ID="1aa98c8e-6ff5-44c6-b297-15a9b9ba3e43" Version="2.2.6.0" />
+  <PropertyGroup Type="Layer" Name="CheckinPanel" ID="1aa98c8e-6ff5-44c6-b297-15a9b9ba3e43" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="0.3333" />
@@ -9,7 +9,7 @@
           <AbstractNodeData Name="Image_1" ActionTag="-883101979" Tag="158" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="163.9760" RightMargin="166.0239" TopMargin="124.6000" BottomMargin="135.4000" Scale9Enable="True" LeftEage="90" RightEage="90" TopEage="80" BottomEage="60" Scale9OriginX="90" Scale9OriginY="80" Scale9Width="68" Scale9Height="108" ctype="ImageViewObjectData">
             <Size X="950.0000" Y="460.0000" />
             <Children>
-              <AbstractNodeData Name="Text_1" ActionTag="-362472094" Tag="159" IconVisible="False" LeftMargin="35.1357" RightMargin="578.8643" TopMargin="97.1110" BottomMargin="334.8890" FontSize="28" LabelText="连续签到，奖励更丰厚！！" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_1" ActionTag="-362472094" Tag="159" IconVisible="False" LeftMargin="35.1357" RightMargin="578.8643" TopMargin="97.1110" BottomMargin="334.8890" FontSize="28" LabelText="连续签到，奖励更丰厚！！" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="336.0000" Y="28.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="203.1357" Y="348.8890" />
@@ -20,7 +20,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_2" ActionTag="1035564330" Tag="177" IconVisible="False" LeftMargin="878.5824" RightMargin="-7.5824" TopMargin="-5.6597" BottomMargin="389.6597" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="79" Scale9Height="76" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_2" ActionTag="1035564330" Tag="177" IconVisible="False" LeftMargin="878.5824" RightMargin="-7.5824" TopMargin="-5.6597" BottomMargin="389.6597" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="79" Scale9Height="76" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="79.0000" Y="76.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="918.0824" Y="427.6597" />
@@ -45,7 +45,7 @@
                 <PreSize X="0.0974" Y="0.1396" />
                 <FileData Type="PlistSubImage" Path="qiandao_logo_pic.png" Plist="HallCocosStudio/images/plist/checkin_img.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_10" ActionTag="-1526222442" Tag="182" IconVisible="False" LeftMargin="465.9966" RightMargin="428.0034" TopMargin="25.6765" BottomMargin="406.3235" FontSize="28" LabelText="签到" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_10" ActionTag="-1526222442" Tag="182" IconVisible="False" LeftMargin="465.9966" RightMargin="428.0034" TopMargin="25.6765" BottomMargin="406.3235" FontSize="28" LabelText="签到" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="56.0000" Y="28.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="493.9966" Y="420.3235" />

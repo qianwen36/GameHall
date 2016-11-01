@@ -1,15 +1,15 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="Node_Items_Pay" ID="8f8fdaf4-a447-43c9-a439-721815f0a4fa" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="Node_Items_Pay" ID="8f8fdaf4-a447-43c9-a439-721815f0a4fa" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
       <ObjectData Name="Node" Tag="411" ctype="GameNodeObjectData">
         <Size />
         <Children>
-          <AbstractNodeData Name="btn_item_pay" ActionTag="-1946572849" Tag="413" IconVisible="False" LeftMargin="-179.5000" RightMargin="-179.5000" TopMargin="-101.0000" BottomMargin="-97.0000" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="329" Scale9Height="176" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="ButtonObjectData">
+          <AbstractNodeData Name="btn_item_pay" ActionTag="-1946572849" Tag="413" IconVisible="False" LeftMargin="-179.5000" RightMargin="-179.5000" TopMargin="-101.0000" BottomMargin="-97.0000" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="329" Scale9Height="176" ctype="ButtonObjectData">
             <Size X="359.0000" Y="198.0000" />
             <Children>
-              <AbstractNodeData Name="Text_item_name" ActionTag="705650415" Tag="415" IconVisible="False" LeftMargin="175.5002" RightMargin="87.4998" TopMargin="19.7066" BottomMargin="154.2934" FontSize="24" LabelText="蓝钻会员" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_item_name" ActionTag="705650415" Tag="415" IconVisible="False" LeftMargin="175.5002" RightMargin="87.4998" TopMargin="19.7066" BottomMargin="154.2934" FontSize="24" LabelText="蓝钻会员" ctype="TextObjectData">
                 <Size X="96.0000" Y="24.0000" />
                 <AnchorPoint ScaleY="0.5000" />
                 <Position X="175.5002" Y="166.2934" />
@@ -40,7 +40,7 @@
                 <PreSize X="0.1811" Y="0.3283" />
                 <FileData Type="PlistSubImage" Path="shop_icon_gift.png" Plist="HallCocosStudio/images/plist/shop_img_new.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_item_detail" ActionTag="-1897635948" Tag="427" IconVisible="False" LeftMargin="202.4998" RightMargin="24.5002" TopMargin="70.7050" BottomMargin="47.2950" IsCustomSize="True" FontSize="22" LabelText="赠送1300银子" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_item_detail" ActionTag="-1897635948" Tag="427" IconVisible="False" LeftMargin="202.4998" RightMargin="24.5002" TopMargin="70.7050" BottomMargin="47.2950" IsCustomSize="True" FontSize="22" LabelText="赠送1300银子" ctype="TextObjectData">
                 <Size X="132.0000" Y="80.0000" />
                 <AnchorPoint ScaleY="0.5000" />
                 <Position X="202.4998" Y="87.2950" />

@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="TaskNode" ID="81f59ad1-4884-479a-ad3d-49726b80f8f3" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="TaskNode" ID="81f59ad1-4884-479a-ad3d-49726b80f8f3" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -29,7 +29,7 @@
                 <PreSize X="0.0966" Y="0.5882" />
                 <FileData Type="Normal" Path="HallCocosStudio/images/example/rw_pic.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_1" ActionTag="-392634304" Tag="622" IconVisible="False" LeftMargin="225.9462" RightMargin="814.0538" TopMargin="50.4472" BottomMargin="89.5528" FontSize="30" LabelText="任务名称" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_1" ActionTag="-392634304" Tag="622" IconVisible="False" LeftMargin="225.9462" RightMargin="814.0538" TopMargin="50.4472" BottomMargin="89.5528" FontSize="30" LabelText="任务名称" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="120.0000" Y="30.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="285.9462" Y="104.5528" />
@@ -40,7 +40,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_1" ActionTag="-1592212793" Tag="623" IconVisible="False" LeftMargin="900.8868" RightMargin="50.1133" TopMargin="47.2360" BottomMargin="45.7640" TouchEnable="True" FontSize="28" ButtonText="查看详情" Scale9Enable="True" Scale9Width="142" Scale9Height="54" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_1" ActionTag="-1592212793" Tag="623" IconVisible="False" LeftMargin="900.8868" RightMargin="50.1133" TopMargin="47.2360" BottomMargin="45.7640" TouchEnable="True" FontSize="28" ButtonText="查看详情" Scale9Enable="True" Scale9Width="142" Scale9Height="54" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="209.0000" Y="77.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="1005.3868" Y="84.2640" />
@@ -55,7 +55,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_2" ActionTag="615551316" Tag="625" IconVisible="False" LeftMargin="227.9462" RightMargin="872.0538" TopMargin="106.8912" BottomMargin="39.1088" FontSize="24" LabelText="进度:" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_2" ActionTag="615551316" Tag="625" IconVisible="False" LeftMargin="227.9462" RightMargin="872.0538" TopMargin="106.8912" BottomMargin="39.1088" FontSize="24" LabelText="进度:" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="60.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="257.9462" Y="51.1088" />
@@ -98,7 +98,7 @@
                 <PreSize X="0.2207" Y="0.2059" />
                 <FileData Type="PlistSubImage" Path="jindu_bg_pic.png" Plist="HallCocosStudio/images/plist/activity_mission_playerinfo_img.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_2_0" ActionTag="1889941033" Tag="628" IconVisible="False" LeftMargin="561.9461" RightMargin="562.0539" TopMargin="107.8912" BottomMargin="38.1088" FontSize="24" LabelText="1/3" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_2_0" ActionTag="1889941033" Tag="628" IconVisible="False" LeftMargin="561.9461" RightMargin="562.0539" TopMargin="107.8912" BottomMargin="38.1088" FontSize="24" LabelText="1/3" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="36.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="579.9461" Y="50.1088" />
@@ -109,7 +109,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_2_1" ActionTag="-12272133" Tag="651" IconVisible="False" LeftMargin="677.3721" RightMargin="274.6279" TopMargin="57.7805" BottomMargin="86.2195" FontSize="26" LabelText="奖励银子：1000两" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_2_1" ActionTag="-12272133" Tag="651" IconVisible="False" LeftMargin="677.3721" RightMargin="274.6279" TopMargin="57.7805" BottomMargin="86.2195" FontSize="26" LabelText="奖励银子：1000两" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="208.0000" Y="26.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="781.3721" Y="99.2195" />

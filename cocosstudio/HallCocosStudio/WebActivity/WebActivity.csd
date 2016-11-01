@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Scene" Name="WebActivity" ID="3ec0242a-10e4-45c1-8e92-a3ef2e31d1ab" Version="2.2.6.0" />
+  <PropertyGroup Type="Scene" Name="WebActivity" ID="3ec0242a-10e4-45c1-8e92-a3ef2e31d1ab" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -29,7 +29,7 @@
           <AbstractNodeData Name="Panel_2" ActionTag="-1557977542" Tag="2662" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="TopEdge" TopMargin="1.0001" BottomMargin="618.9999" TouchEnable="True" StretchWidthEnable="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="100.0000" />
             <Children>
-              <AbstractNodeData Name="Button_1" ActionTag="-585852237" Tag="2663" IconVisible="False" HorizontalEdge="LeftEdge" LeftMargin="3.5001" RightMargin="1181.4999" TopMargin="3.0010" BottomMargin="2.9990" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="95" Scale9Height="94" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_1" ActionTag="-585852237" Tag="2663" IconVisible="False" HorizontalEdge="LeftEdge" LeftMargin="3.5001" RightMargin="1181.4999" TopMargin="3.0010" BottomMargin="2.9990" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="95" Scale9Height="94" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="95.0000" Y="94.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="51.0001" Y="49.9990" />

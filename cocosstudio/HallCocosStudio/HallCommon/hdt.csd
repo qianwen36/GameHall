@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="hdt" ID="badba976-33e8-4e9e-ae64-9e75ff083a23" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="hdt" ID="badba976-33e8-4e9e-ae64-9e75ff083a23" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -19,7 +19,7 @@
                 <PreSize X="0.1310" Y="0.7118" />
                 <FileData Type="PlistSubImage" Path="wp_bg_pic.png" Plist="HallCocosStudio/images/plist/activity_mission_playerinfo_img.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_5" ActionTag="-293419108" Tag="1024" IconVisible="False" LeftMargin="225.9462" RightMargin="814.0538" TopMargin="50.4472" BottomMargin="89.5528" FontSize="30" LabelText="活动名称" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_5" ActionTag="-293419108" Tag="1024" IconVisible="False" LeftMargin="225.9462" RightMargin="814.0538" TopMargin="50.4472" BottomMargin="89.5528" FontSize="30" LabelText="活动名称" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="120.0000" Y="30.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="285.9462" Y="104.5528" />
@@ -28,7 +28,7 @@
                 <PrePosition X="0.2465" Y="0.6150" />
                 <PreSize />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_2" ActionTag="716134941" Tag="1025" IconVisible="False" LeftMargin="900.8868" RightMargin="-1109.8867" TopMargin="-123.7639" BottomMargin="46.7639" TouchEnable="True" FontSize="28" ButtonText="查看详情" Scale9Enable="True" Scale9Width="142" Scale9Height="54" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_2" ActionTag="716134941" Tag="1025" IconVisible="False" LeftMargin="900.8868" RightMargin="-1109.8867" TopMargin="-123.7639" BottomMargin="46.7639" TouchEnable="True" FontSize="28" ButtonText="查看详情" Scale9Enable="True" Scale9Width="142" Scale9Height="54" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="209.0000" Y="77.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="1005.3868" Y="85.2639" />
@@ -41,7 +41,7 @@
                 <PressedFileData Type="PlistSubImage" Path="lanse_btn.png" Plist="HallCocosStudio/images/plist/common.plist" />
                 <NormalFileData Type="PlistSubImage" Path="lanse_btn.png" Plist="HallCocosStudio/images/plist/common.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_6" ActionTag="-1912403261" Tag="1027" IconVisible="False" LeftMargin="228.3671" RightMargin="451.6329" TopMargin="100.7802" BottomMargin="45.2198" FontSize="24" LabelText="活动介绍活动介绍活动介绍活动介绍活动介绍" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_6" ActionTag="-1912403261" Tag="1027" IconVisible="False" LeftMargin="228.3671" RightMargin="451.6329" TopMargin="100.7802" BottomMargin="45.2198" FontSize="24" LabelText="活动介绍活动介绍活动介绍活动介绍活动介绍" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="480.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="468.3671" Y="57.2198" />

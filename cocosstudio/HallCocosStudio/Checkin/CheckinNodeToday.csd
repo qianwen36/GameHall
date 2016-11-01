@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="CheckinNodeToday" ID="c8eef422-32d1-472b-8b32-6d217fbc8bc9" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="CheckinNodeToday" ID="c8eef422-32d1-472b-8b32-6d217fbc8bc9" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="100" Speed="0.3333">
@@ -29,7 +29,7 @@
       <ObjectData Name="Node" Tag="319" ctype="GameNodeObjectData">
         <Size />
         <Children>
-          <AbstractNodeData Name="main" ActionTag="-1451918273" Tag="322" IconVisible="False" LeftMargin="-86.0000" RightMargin="-86.0000" TopMargin="-104.5000" BottomMargin="-104.5000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="172" Scale9Height="209" ctype="ButtonObjectData">
+          <AbstractNodeData Name="main" ActionTag="-1451918273" Tag="322" IconVisible="False" LeftMargin="-86.0000" RightMargin="-86.0000" TopMargin="-104.5000" BottomMargin="-104.5000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="172" Scale9Height="209" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
             <Size X="172.0000" Y="209.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />
@@ -154,7 +154,7 @@
             <PreSize X="0.1811" Y="0.4543" />
             <FileData Type="PlistSubImage" Path="ylq_zi_pic.png" Plist="HallCocosStudio/images/plist/checkin_img.plist" />
           </AbstractNodeData>
-          <AbstractNodeData Name="rewardlabel" ActionTag="-521372205" Tag="324" IconVisible="False" LeftMargin="-23.9995" RightMargin="-24.0005" TopMargin="57.9998" BottomMargin="-81.9998" FontSize="24" LabelText="%d两" ctype="TextObjectData">
+          <AbstractNodeData Name="rewardlabel" ActionTag="-521372205" Tag="324" IconVisible="False" LeftMargin="-23.9995" RightMargin="-24.0005" TopMargin="57.9998" BottomMargin="-81.9998" FontSize="24" LabelText="%d两" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="48.0000" Y="24.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="0.0005" Y="-69.9998" />
@@ -165,7 +165,7 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="255" G="127" B="80" />
           </AbstractNodeData>
-          <AbstractNodeData Name="rewardlabel_score" ActionTag="-551038933" Tag="49" IconVisible="False" LeftMargin="-24.0000" RightMargin="-24.0000" TopMargin="58.0000" BottomMargin="-82.0000" FontSize="24" LabelText="%d分" ctype="TextObjectData">
+          <AbstractNodeData Name="rewardlabel_score" ActionTag="-551038933" Tag="49" IconVisible="False" LeftMargin="-24.0000" RightMargin="-24.0000" TopMargin="58.0000" BottomMargin="-82.0000" FontSize="24" LabelText="%d分" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="48.0000" Y="24.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position Y="-70.0000" />
@@ -196,7 +196,7 @@
             <PreSize X="0.1168" Y="0.0957" />
             <FileData Type="PlistSubImage" Path="dangtian_ts_pic.png" Plist="HallCocosStudio/images/plist/checkin_img.plist" />
           </AbstractNodeData>
-          <AbstractNodeData Name="timeLb" ActionTag="2112412660" Tag="2364" IconVisible="False" LeftMargin="-30.0000" RightMargin="-30.0000" TopMargin="-150.0001" BottomMargin="130.0001" FontSize="20" LabelText="第%d天" ctype="TextObjectData">
+          <AbstractNodeData Name="timeLb" ActionTag="2112412660" Tag="2364" IconVisible="False" LeftMargin="-30.0000" RightMargin="-30.0000" TopMargin="-150.0001" BottomMargin="130.0001" FontSize="20" LabelText="第%d天" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
             <Size X="60.0000" Y="20.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position Y="140.0001" />

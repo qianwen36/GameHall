@@ -1,12 +1,12 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="Area" ID="f0d3db65-6a6e-4e25-9306-5130c94505c1" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="Area" ID="f0d3db65-6a6e-4e25-9306-5130c94505c1" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
       <ObjectData Name="Node" Tag="72" ctype="GameNodeObjectData">
         <Size />
         <Children>
-          <AbstractNodeData Name="Area_Button" ActionTag="1171482484" Tag="73" IconVisible="False" LeftMargin="-150.5000" RightMargin="-150.5000" TopMargin="-189.0000" BottomMargin="-189.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="301" Scale9Height="378" ctype="ButtonObjectData">
+          <AbstractNodeData Name="Area_Button" ActionTag="1171482484" Tag="73" IconVisible="False" LeftMargin="-150.5000" RightMargin="-150.5000" TopMargin="-189.0000" BottomMargin="-189.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="301" Scale9Height="378" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
             <Size X="301.0000" Y="378.0000" />
             <Children>
               <AbstractNodeData Name="two_pandas_backimage" ActionTag="2107847433" Tag="888" IconVisible="False" LeftMargin="0.2195" RightMargin="-0.2195" TopMargin="-0.1100" BottomMargin="0.1100" Scale9Width="301" Scale9Height="378" ctype="ImageViewObjectData">
@@ -39,7 +39,7 @@
                 <PreSize />
                 <FileData Type="Normal" Path="HallCocosStudio/images/example/fjtp3_pic.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_Condition" ActionTag="1463669168" Tag="76" IconVisible="False" LeftMargin="156.7204" RightMargin="144.2796" TopMargin="311.1978" BottomMargin="66.8022" FontSize="24" LabelText="" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_Condition" ActionTag="1463669168" Tag="76" IconVisible="False" LeftMargin="156.7204" RightMargin="144.2796" TopMargin="311.1978" BottomMargin="66.8022" FontSize="24" LabelText="" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="156.7204" Y="66.8022" />
@@ -50,7 +50,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_Online" ActionTag="-2138183169" Tag="77" IconVisible="False" LeftMargin="165.0058" RightMargin="115.9942" TopMargin="329.1984" BottomMargin="28.8016" FontSize="20" LabelText="人" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_Online" ActionTag="-2138183169" Tag="77" IconVisible="False" LeftMargin="165.0058" RightMargin="115.9942" TopMargin="329.1984" BottomMargin="28.8016" FontSize="20" LabelText="人" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="20.0000" Y="20.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="175.0058" Y="38.8016" />

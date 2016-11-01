@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Layer" Name="Settings" ID="f1157ab6-2ada-48f6-964a-0082c21ac482" Version="2.2.6.0" />
+  <PropertyGroup Type="Layer" Name="Settings" ID="f1157ab6-2ada-48f6-964a-0082c21ac482" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -9,7 +9,7 @@
           <AbstractNodeData Name="Image_1" ActionTag="-190553130" Tag="55" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="258.9984" RightMargin="261.0016" TopMargin="89.6187" BottomMargin="100.3813" TouchEnable="True" Scale9Enable="True" LeftEage="90" RightEage="90" TopEage="80" BottomEage="60" Scale9OriginX="90" Scale9OriginY="80" Scale9Width="68" Scale9Height="108" ctype="ImageViewObjectData">
             <Size X="760.0000" Y="530.0000" />
             <Children>
-              <AbstractNodeData Name="Text_2" ActionTag="-1304199741" Tag="56" IconVisible="False" LeftMargin="98.2774" RightMargin="565.7226" TopMargin="285.0508" BottomMargin="220.9492" FontSize="24" LabelText="游戏音效" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_2" ActionTag="-1304199741" Tag="56" IconVisible="False" LeftMargin="98.2774" RightMargin="565.7226" TopMargin="285.0508" BottomMargin="220.9492" FontSize="24" LabelText="游戏音效" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="96.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="146.2774" Y="232.9492" />
@@ -154,7 +154,7 @@
                 <PreSize X="0.5263" Y="0.0943" />
                 <FileData Type="PlistSubImage" Path="box2_bg_pic.png" Plist="HallCocosStudio/images/plist/setting_img.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_1" ActionTag="-1258174828" Tag="84" IconVisible="False" LeftMargin="349.8166" RightMargin="268.1834" TopMargin="101.8861" BottomMargin="374.1139" TouchEnable="True" FontSize="24" ButtonText="切换账号" Scale9Enable="True" Scale9Width="142" Scale9Height="54" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_1" ActionTag="-1258174828" Tag="84" IconVisible="False" LeftMargin="349.8166" RightMargin="268.1834" TopMargin="101.8861" BottomMargin="374.1139" TouchEnable="True" FontSize="24" ButtonText="切换账号" Scale9Enable="True" Scale9Width="142" Scale9Height="54" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="142.0000" Y="54.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="420.8166" Y="401.1139" />
@@ -169,7 +169,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_10" ActionTag="302814723" Tag="85" IconVisible="False" LeftMargin="120.5150" RightMargin="579.4850" TopMargin="117.5557" BottomMargin="388.4443" FontSize="24" LabelText="admin" VerticalAlignmentType="VT_Center" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_10" ActionTag="302814723" Tag="85" IconVisible="False" LeftMargin="120.5150" RightMargin="579.4850" TopMargin="117.5557" BottomMargin="388.4443" FontSize="24" LabelText="admin" VerticalAlignmentType="VT_Center" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="60.0000" Y="24.0000" />
                 <AnchorPoint ScaleY="0.5000" />
                 <Position X="120.5150" Y="400.4443" />
@@ -180,7 +180,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Button_2" ActionTag="-120462615" Tag="86" IconVisible="False" LeftMargin="689.8323" RightMargin="-8.8323" TopMargin="-5.6594" BottomMargin="459.6594" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="79" Scale9Height="76" ctype="ButtonObjectData">
+              <AbstractNodeData Name="Button_2" ActionTag="-120462615" Tag="86" IconVisible="False" LeftMargin="689.8323" RightMargin="-8.8323" TopMargin="-5.6594" BottomMargin="459.6594" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="79" Scale9Height="76" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
                 <Size X="79.0000" Y="76.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="729.3323" Y="497.6594" />
@@ -205,7 +205,7 @@
                 <PreSize X="0.0461" Y="0.0847" />
                 <FileData Type="PlistSubImage" Path="sz_btn.png" Plist="HallCocosStudio/images/plist/hallmain_img.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_2_0" ActionTag="-155014537" Tag="58" IconVisible="False" LeftMargin="95.4540" RightMargin="568.5460" TopMargin="195.7680" BottomMargin="310.2320" FontSize="24" LabelText="背景音乐" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_2_0" ActionTag="-155014537" Tag="58" IconVisible="False" LeftMargin="95.4540" RightMargin="568.5460" TopMargin="195.7680" BottomMargin="310.2320" FontSize="24" LabelText="背景音乐" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="96.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="143.4540" Y="322.2320" />
@@ -216,7 +216,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_3" ActionTag="607522060" Tag="57" IconVisible="False" LeftMargin="370.9963" RightMargin="293.0037" TopMargin="18.4265" BottomMargin="463.5735" FontSize="48" LabelText="设置" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_3" ActionTag="607522060" Tag="57" IconVisible="False" LeftMargin="370.9963" RightMargin="293.0037" TopMargin="18.4265" BottomMargin="463.5735" FontSize="48" LabelText="设置" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="96.0000" Y="48.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="418.9963" Y="487.5735" />
@@ -227,7 +227,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_Forbidden" ActionTag="1626152051" Tag="133" IconVisible="False" LeftMargin="105.2892" RightMargin="558.7108" TopMargin="371.1686" BottomMargin="134.8314" FontSize="24" LabelText="一键静音" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_Forbidden" ActionTag="1626152051" Tag="133" IconVisible="False" LeftMargin="105.2892" RightMargin="558.7108" TopMargin="371.1686" BottomMargin="134.8314" FontSize="24" LabelText="一键静音" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="96.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="153.2892" Y="146.8314" />
@@ -261,7 +261,7 @@
             <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="PlistSubImage" Path="box1_pic.png" Plist="HallCocosStudio/images/plist/common.plist" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Button_gengduoyouxi" ActionTag="1478324634" Tag="89" IconVisible="False" LeftMargin="758.3611" RightMargin="341.6389" TopMargin="513.5555" BottomMargin="146.4445" TouchEnable="True" FontSize="24" ButtonText="更多游戏" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="150" Scale9Height="38" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="ButtonObjectData">
+          <AbstractNodeData Name="Button_gengduoyouxi" ActionTag="1478324634" Tag="89" IconVisible="False" LeftMargin="758.3611" RightMargin="341.6389" TopMargin="513.5555" BottomMargin="146.4445" TouchEnable="True" FontSize="24" ButtonText="更多游戏" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="150" Scale9Height="38" ctype="ButtonObjectData">
             <Size X="180.0000" Y="60.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="848.3611" Y="176.4445" />
@@ -274,7 +274,7 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="255" G="127" B="80" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Button_fangchenmi" ActionTag="-128499297" Tag="90" IconVisible="False" LeftMargin="563.0614" RightMargin="536.9386" TopMargin="513.5558" BottomMargin="146.4442" TouchEnable="True" FontSize="24" ButtonText="防沉迷注册" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="150" Scale9Height="38" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="ButtonObjectData">
+          <AbstractNodeData Name="Button_fangchenmi" ActionTag="-128499297" Tag="90" IconVisible="False" LeftMargin="563.0614" RightMargin="536.9386" TopMargin="513.5558" BottomMargin="146.4442" TouchEnable="True" FontSize="24" ButtonText="防沉迷注册" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="150" Scale9Height="38" ctype="ButtonObjectData">
             <Size X="180.0000" Y="60.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="653.0614" Y="176.4442" />
@@ -287,7 +287,7 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="255" G="127" B="80" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Button_7" ActionTag="1449106847" Tag="92" IconVisible="False" LeftMargin="366.9401" RightMargin="733.0599" TopMargin="513.5558" BottomMargin="146.4442" TouchEnable="True" FontSize="24" ButtonText="实名注册" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="150" Scale9Height="38" OutlineSize="1" ShadowOffsetX="2" ShadowOffsetY="-2" ctype="ButtonObjectData">
+          <AbstractNodeData Name="Button_7" ActionTag="1449106847" Tag="92" IconVisible="False" LeftMargin="366.9401" RightMargin="733.0599" TopMargin="513.5558" BottomMargin="146.4442" TouchEnable="True" FontSize="24" ButtonText="实名注册" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="150" Scale9Height="38" ctype="ButtonObjectData">
             <Size X="180.0000" Y="60.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="456.9401" Y="176.4442" />

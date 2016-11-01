@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="Node_Animation_score" ID="b23cc89d-adb6-4016-94ef-716cc0059cc5" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="Node_Animation_score" ID="b23cc89d-adb6-4016-94ef-716cc0059cc5" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="45" Speed="0.3333">

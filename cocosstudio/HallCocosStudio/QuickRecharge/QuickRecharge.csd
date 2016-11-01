@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Layer" Name="QuickRecharge" ID="758c924a-ca1d-4347-a870-4cce43397155" Version="2.2.6.0" />
+  <PropertyGroup Type="Layer" Name="QuickRecharge" ID="758c924a-ca1d-4347-a870-4cce43397155" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />

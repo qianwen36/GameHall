@@ -1,15 +1,15 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="RoomModel1" ID="8faa026c-5714-436f-a799-002ca33e1f11" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="RoomModel1" ID="8faa026c-5714-436f-a799-002ca33e1f11" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
       <ObjectData Name="Node" Tag="2671" ctype="GameNodeObjectData">
         <Size />
         <Children>
-          <AbstractNodeData Name="Room_Button" ActionTag="1674479442" Tag="2672" IconVisible="False" LeftMargin="-248.5000" RightMargin="-248.5000" TopMargin="-72.0000" BottomMargin="-72.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="497" Scale9Height="144" ctype="ButtonObjectData">
+          <AbstractNodeData Name="Room_Button" ActionTag="1674479442" Tag="2672" IconVisible="False" LeftMargin="-248.5000" RightMargin="-248.5000" TopMargin="-72.0000" BottomMargin="-72.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" Scale9Width="497" Scale9Height="144" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="ButtonObjectData">
             <Size X="497.0000" Y="144.0000" />
             <Children>
-              <AbstractNodeData Name="Text_Room_Name" ActionTag="-1488194191" Tag="2673" IconVisible="False" LeftMargin="260.4300" RightMargin="236.5700" TopMargin="42.5714" BottomMargin="101.4286" FontSize="30" LabelText="" HorizontalAlignmentType="HT_Center" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_Room_Name" ActionTag="-1488194191" Tag="2673" IconVisible="False" LeftMargin="260.4300" RightMargin="236.5700" TopMargin="42.5714" BottomMargin="101.4286" FontSize="30" LabelText="" HorizontalAlignmentType="HT_Center" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="260.4300" Y="101.4286" />
@@ -20,7 +20,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_Condition_Liang" ActionTag="692039251" Tag="2674" IconVisible="False" LeftMargin="129.5698" RightMargin="295.4302" TopMargin="87.8571" BottomMargin="32.1429" FontSize="24" LabelText="两以上" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_Condition_Liang" ActionTag="692039251" Tag="2674" IconVisible="False" LeftMargin="129.5698" RightMargin="295.4302" TopMargin="87.8571" BottomMargin="32.1429" FontSize="24" LabelText="两以上" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="72.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="165.5698" Y="44.1429" />
@@ -31,7 +31,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="255" G="127" B="80" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_Condition_Feng" ActionTag="651647446" Tag="313" IconVisible="False" LeftMargin="129.5699" RightMargin="295.4301" TopMargin="88.3141" BottomMargin="31.6859" FontSize="24" LabelText="分以上" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_Condition_Feng" ActionTag="651647446" Tag="313" IconVisible="False" LeftMargin="129.5699" RightMargin="295.4301" TopMargin="88.3141" BottomMargin="31.6859" FontSize="24" LabelText="分以上" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="72.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="165.5699" Y="43.6859" />
@@ -64,7 +64,7 @@
                 <PreSize X="0.1670" Y="0.3819" />
                 <FileData Type="PlistSubImage" Path="qizi_h_pic.png" Plist="HallCocosStudio/images/plist/hallmain_img.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_Online" ActionTag="-917561128" Tag="2676" IconVisible="False" LeftMargin="346.5702" RightMargin="126.4298" TopMargin="87.8571" BottomMargin="32.1429" FontSize="24" LabelText="人" ctype="TextObjectData">
+              <AbstractNodeData Name="Text_Online" ActionTag="-917561128" Tag="2676" IconVisible="False" LeftMargin="346.5702" RightMargin="126.4298" TopMargin="87.8571" BottomMargin="32.1429" FontSize="24" LabelText="人" OutlineSize="0" ShadowOffsetX="0" ShadowOffsetY="0" ctype="TextObjectData">
                 <Size X="24.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="358.5702" Y="44.1429" />

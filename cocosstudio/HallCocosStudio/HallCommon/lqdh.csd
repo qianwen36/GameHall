@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="lqdh" ID="13ffec5f-6a74-40da-83c1-fac6e127b6b1" Version="2.2.6.0" />
+  <PropertyGroup Type="Node" Name="lqdh" ID="13ffec5f-6a74-40da-83c1-fac6e127b6b1" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="82" Speed="1.0000" ActivedAnimationName="yinzi">

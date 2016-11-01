@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Layer" Name="Forbidden" ID="1ba5f1b3-ef7c-4eb1-b1c5-761242a235ee" Version="2.2.6.0" />
+  <PropertyGroup Type="Layer" Name="Forbidden" ID="1ba5f1b3-ef7c-4eb1-b1c5-761242a235ee" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
