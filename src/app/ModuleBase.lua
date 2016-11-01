@@ -30,14 +30,15 @@ end
 function target:timerStop( timer )
 	timer = timer or Scheduler:unscheduleScriptEntry(timer)
 end
-
-function target:nextSchedule( func, interval )
+--[[
+function target:nextSchedule( func, interval ) -- overload]]
+function target:nextSchedule( func, arg, interval )
 	local timer
-	interval = interval or 0
+	interval = interval or tonumber(arg) or 0
 	timer = Scheduler:scheduleScriptFunc(function ( ... )
 		self:log(':nextSchedule( func )#timer=', tostring(timer), ', #func=', tostring(func))
 		timer = timer and Scheduler:unscheduleScriptEntry(timer)
-		func(self)
+		func(self, arg)
 	end, interval, false)
 	return timer
 end

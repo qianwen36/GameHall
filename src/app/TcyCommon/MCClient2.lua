@@ -159,6 +159,13 @@ function target:build(client, tag, onConnection)
 		response[respondId] = callback
 		return self
 	end
+	function client:once( respondId, callback )
+		self:on(respondId, function ( _, resp, data )
+			self:off(respondId)
+			callback(_, resp, data)
+		end)
+		return self
+	end
 	function client:off( respondId )
 		local response = self:response()
 		response[respondId] = nil
@@ -342,7 +349,8 @@ function target:rpcall( tag, proc )	--[[function proc( client )	end]]
 		client.syncSend = self.send -- mount a method
 	    return self
     end
-    return context:wrapper(client):switch()
+    context:wrapper(client):switch()
+    return coro
 end
 ------------------------------------------------------------------------------
 local ffi = require('ffi')
