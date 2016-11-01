@@ -285,13 +285,13 @@ function target:reqTakeDeposti( amount, callback )
 				, function ( _, resp, data )
 				local res
 				result = self:routine(resp, REQUEST, function (event, msg, result)
-					cdata = self.resolve('GET_RNDKEY_OK', data)
+					local cdata = self.resolve('GET_RNDKEY_OK', data)
 					res = cdata.nRndKey
 				end)
 				info:_randkey(res)
 			end)
 		end
-		self.nextSchedule(function ( ... )
+		self:nextSchedule(function ( ... )
 			info:_randkey(info.rndkey)
 		end)
 	end

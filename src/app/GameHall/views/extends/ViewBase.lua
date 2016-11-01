@@ -32,8 +32,28 @@ function ViewBase:getData()
 end
 
 function ViewBase:log( ... )
-	print(self:getName()..table.concat({...}))
+	print('{'..self:getName()..'}.'..table.concat({...}))
 end
+
+--[[
+function ViewBase:dumpChildren( node )
+function ViewBase:dumpChildren( path ) -- overload]]
+function ViewBase:dumpChildren( arg )
+	local parent = arg or self:getResourceNode()
+    if type(parent) == 'string' then
+    	parent =  self:nodeFromPath(parent)
+    end
+    local name = parent:getName()
+    if name == '' then name = tostring(parent) end
+    self:log('node[', name, '].children')
+
+    local array = parent:getChildren()
+    for i,node in ipairs(array) do
+    	self:log('child.', node:getName())
+    end
+    self:log('node[', name, '].end')
+end
+
 function ViewBase:nodeFromPath(path, root)
     root = root or self:getResourceNode()
     assert(root, 'need root node')
