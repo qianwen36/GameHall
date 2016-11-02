@@ -5,7 +5,7 @@ function target:build( MainScene )
 	
 	if self.hall == nil then
 		local hall = self:model('BaseHall')
-		hall:on(hall.handler.CONNECTION, handler(self, self.onConnection))
+		hall:on(hall.CONNECTION, handler(self, self.onConnected))
 		hall:on(hall.MODEL_READY, handler(self, self.onHallReady))
 		hall:on(hall.EVENT_EXCEPTION_BREAK, handler(self, self.onCommunicationBreak))
 		self.hall = hall
@@ -21,20 +21,18 @@ function target:onHallReady()
     self.mainPanel:prepare()
 end
 
-function target:onConnection( event )
-	local body = event.body
-	local handler = {connected = true, error = true}
-	function handler.connected( ... )
-	end
-	function handler.error( ... )
-	    self.mainPanel:clear()
-	    self.userProfile:clear()
-	end
-	handler = handler[body.event]
-	return handler and handler()
+function target:onConnected( event )
 end
 
 function target:onCommunicationBreak( event )
+	local value = event.value
+	local handler = {
+	[self.hall.EVENT_CONNECTION] = function ()
+		self.view:showToast('大厅连接失败')
+	end;
+	}
+	handler = handler(value.event)
+	return handler and handler()
 end
 
 function target:goBack()

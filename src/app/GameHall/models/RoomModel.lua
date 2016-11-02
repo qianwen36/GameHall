@@ -16,7 +16,7 @@ if not USING_MCRuntime then return target end
 local MCClient = require('src.app.TcyCommon.MCClient2')
 
 local function onGetAreas(self, event)
-	local array = self.resolve(event.body)
+	local array = self.resolve(event.value)
 	for i,info in ipairs(array) do
 		local cdata = info.data
 		info.id = cdata.nAreaID
@@ -33,7 +33,7 @@ local function onGetAreas(self, event)
 	self:areas(array)
 end
 local function onGetRooms(self, event)
-	local array = self.resolve(event.body)
+	local array = self.resolve(event.value)
 	if array and #array >0 then
 		local info = array[1].data
 		local id = info and info.nAreaID
@@ -87,7 +87,7 @@ function target:roominfo( id )
 end
 
 local function onRoomOnlineuserUpdate( self, event )
-	local array = self.resolve(event.body)
+	local array = self.resolve(event.value)
 	for i,info in ipairs(array) do
 		info = info.data
 		local room = self:roominfo(info.nItemID) or {}
@@ -145,13 +145,15 @@ function target:prepare()
 			if result == false then break end
 		end
 		if result == false then return end
-		self:done()
+		self:done({event = self.HALL_READY})
 	end
 	MCClient:rpcall(TAG.hall, proc)
 	self:log(':prepare().over')
 end
 
 local socket_resolve = function ( cdata )end -- ctype<ROOM>
+local enterRoomREQ = function(self, info)end -- return desc
+local getTableREQ = function (self, info)end -- return desc
 function target:enterRoom( info ) -- roominfo
 	if not self.connected then
 		local host, port = socket_resolve(info.data)
@@ -164,8 +166,67 @@ function target:enterRoom( info ) -- roominfo
 				end)
 		end)
 	else
+		local _, resp, data
 		-- enter room
 		-- get a table
+		local function needaTable(cdata)
+			return cdata.nTableNO == -1 or cdata.nChairNO == -1
+		end
+		local function enterRoomOK(event, msg, result)
+			return self.handler.ENTER_ROOM, self.resolve('EnterRoomCompletion', data)
+		end
+		local function reEnterRoom( event, msg, result )
+			local id = self.resolve('int', data)
+			local info = self:roominfo(id)
+			MCClient:detroy(TAG.room)
+			self:nextSchedule(self.enterRoom, info)
+		end
+		local function needUpdateZIP( event, msg, result )
+		end
+
+		local function needUpdateAPK( event, msg, result )
+		end
+		
+		local function tipUprage( event, msg, result )
+		end
+
+		local handler = {
+			ENTER_ROOM_OK = enterRoomOK, 
+			ENTER_CLOAKINGROOM_OK = enterRoomOK,
+			ROOM_NEED_DXXW = reEnterRoom,
+			OLD_EXEMINORVER = needUpdateZIP,
+			OLD_EXEMAJORVER = needUpdateZIP,
+			OLD_EXEBUILDNO = needUpdateZIP,
+			NEW_EXEMAJORVER = tipUprage,
+			NEW_EXEMINORVER = tipUprage,
+			NEW_EXEBUILDNO = tipUprage,
+			OLD_HALLBUILDNO = needUpdateAPK,
+			NEW_HALLBUILDNO = needUpdateAPK,
+		}
+		local REQUEST, reqData, result
+		MCClient:rpcall(TAG.room, function ( client )
+			local desc
+			REQUEST = mc.ENTER_ROOM
+			desc = enterRoomREQ(self, info)
+			reqData = self:genDataREQ('ENTER_ROOM', desc)
+	
+			_, resp, data = client:syncSend(REQUEST, reqData )
+			result = self:routine(resp, REQUEST, handler)
+			if result == false then return end
+
+			if needaTable(result.info) then
+				REQUEST = mc.GET_NEWTABLE
+				desc = getTableREQ(self, info)
+				reqData = self:genDataREQ('GET_NEWTABLE', desc)
+	
+				_, resp, data = client:syncSend(REQUEST, reqData )
+				result = self:routine(resp, REQUEST, function (event, msg, result)
+					return self.handler.GET_NEWTABLE, self.resolve('NTF_GET_NEWTABLE', data)
+				end)
+				if result == false then return end
+			end
+			self:done({event = self.ROOM_READY})
+		end)
 	end
 
 end

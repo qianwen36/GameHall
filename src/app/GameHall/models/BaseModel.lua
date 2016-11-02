@@ -96,25 +96,28 @@ function target:string( str, raw ) -- raw = 'raw'; make cdata become a lua strin
 	return handler and handler()
 end
 
-local function body_resolve( body )
-	local res = {}
-	local data = body.result
-	local c = data[1]
-	local array = data[2]
-	for i=1, c do
-		res[i] = {data = array[i-1]}
-	end
-	return res
-end
 --[[
 function target.resolve( resp, reference )	-- overload #1:number
-function target.resolve( body )			-- overload #1:table
-function target.resolve( ctype, {cfield, ctype, data} ) -- overload #1:string, #2:table]]
-function target.resolve( ctype, data )	-- overload #1:string, #2:cdata
+function target.resolve( value )			-- overload #1:table
+function target.resolve( ctype, {cfield, ctype, data} ) -- overload #1:string, #2:table
+function target.resolve( ctype, data )	-- overload #1:string, #2:cdata ]]
+function target.resolve( arg, arg2 )
+
+	local function event_resolve( value )
+		if value.event == 'succeed' then
+			local res = {}
+			local data = value.result
+			local c = data[1]
+			local array = data[2]
+			for i=1, c do
+				res[i] = {data = array[i-1]}
+			end
+			return res
+		end
+	end
 	local handler = {string = true, number = true, table = true}
-	local resp, reference = ctype, data
-	local body = ctype
 	function handler.number( ... )
+		local resp, reference = ctype, arg2
 		local events = {'succeed', 'failed'}
 		local result = MCClient:isConnected(resp) or MCClient:accept(resp) or (resp == reference)
 		local msg = MCClient:describe(resp) or 'response.'..mc.key(resp)
@@ -126,27 +129,26 @@ function target.resolve( ctype, data )	-- overload #1:string, #2:cdata
 		return event, msg, result
 	end
 	function handler.string( ... )
+		local ctype, data = arg, arg2
 		local cfield, itype
 		if type(data) == 'table' then
 			cfield, itype, data = unpack(data)
 		end
 		if type(itype) == 'string'
 		and type(cfield)== 'string' then
-			local ct, body = ffi2.vls_resolve(ctype, data)
+			local ct, value = ffi2.vls_resolve(ctype, data)
 			local c = ct[cfield]
-			local array = ffi2.vla_resolve(itype, c, body)
+			local array = ffi2.vla_resolve(itype, c, value)
 			return {c, array}
 		end
 		return ffi2.ct_resolve(ctype, data)
 	end
 	function handler.table( ... )
-		local event = body.event
-		if event == 'succeed' then
-			return body_resolve(body)
-		end
+		local value = arg
+		return event_resolve(value)
 	end
 
-	handler = handler[type(body)]
+	handler = handler[type(value)]
 	if handler then
 		return handler()
 	end
@@ -158,13 +160,16 @@ function target:routine( resp, {REQUEST, reference}, func ) -- overload
 function target:routine( resp, REQUEST, func ) -- overload func(event, msg, result)
 function target:routine( resp, REQUEST, funs ) -- overload funs{function(event, msg, result)}]]
 function target:routine( resp, arg0, args )
-	local REQUEST, reference, func
-	if type(args) == 'table' then -- overload #args
+	local REQUEST, reference, func, t
+	t = type(args) 
+	if t == 'table' then -- overload #args
 		func = args[mc.key(resp)]
-		if type(func) =='function' then
+		t = type(func)
+		if t =='function' 
+		or t =='string' then
 			reference = resp
 		end 
-	elseif type(args) =='function' then
+	elseif t =='function' then
 		func = args
 	end
 	if type(arg0) == 'table' then -- overload #arg0
@@ -174,7 +179,15 @@ function target:routine( resp, arg0, args )
 	end
 	local event, msg, result = self.resolve(resp, reference)
 	if (result) then
-		if type(func) ~= 'function' then
+		if t == 'string' then
+			local str = func
+			self:dispatchEvent({
+				name = self.EVENT_SHOWTIP,
+				value = {event = event, msg = msg, result = str}
+				})
+			return false
+		end
+		if t ~= 'function' then
 			self:log(':routine( resp, arg0, args )#args except a function or a table of function(event, msg, result)')
 			return false 
 		end
@@ -182,14 +195,14 @@ function target:routine( resp, arg0, args )
 		if type(name)=='string' then
 			self:dispatchEvent({
 				name = name,
-				body = {event = event, msg = msg, result = res}
+				value = {event = event, msg = msg, result = res}
 				})
 		end
 		return res
 	else
 		local req = mc.key(REQUEST) or REQUEST
 		self:log(req, ">>>FAILED.message:", msg)
-		self:exception({event = req, msg = msg, result = res})
+		self:exception({event = req, msg = msg})
 	end
 	return false
 end

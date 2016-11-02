@@ -4,9 +4,15 @@ local TAG = 'Room'
 target.TAG = TAG
 target.EVENT_CONNECTION = TAG..'.Connection'
 
--- event{name, body {event, msg, result}}
+target.HALL_READY = 'HALL_READY',
+target.ROOM_READY = 'ROOM_READY',
+-- event{name, value {event, msg, result}}
 target.handler = {
-	ONLINE_USERS_UPDATE = 'ONLINE_USERS_UPDATE'
+	ONLINE_USERS_UPDATE = 'ONLINE_USERS_UPDATE',
+	ENTER_ROOM = 'ENTER_ROOM',
+	LEAVE_ROOM = 'LEAVE_ROOM',
+	GET_NEWTABLE = 'GET_NEWTABLE',
+	NEED_UPRAGE = 'NEED_UPRAGE',
 }
 target.ready = false
 

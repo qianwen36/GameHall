@@ -26,7 +26,7 @@ function target:start( config )
 end
 
 function target:isConnected()
-	return self.connected or false
+	return self:state('connected') or false
 end
 
 function target:restart( config )
@@ -39,12 +39,10 @@ function target:restart( config )
 	function (client, resp)
 		local result = self:routine(resp, self.EVENT_CONNECTION
 			, function ( event, msg, result )
-				self.connected = true
 				self:nextSchedule(self.initHall, config)
 				return self.CONNECTION, TAG
 			end)
-		-- if result == false then
-		-- end
+		self:state('connected', result)
 	end)
 end
 
@@ -112,7 +110,8 @@ function target:initHall(config)
 			return self.handler.GET_SERVERS, self.resolve('SERVERS', {'nServerCount', 'SERVER', data})
 		end)
 		if result == false then return end
-		self.ready = true
+
+		self:state('ready', true)
 		self.hslUtils:saveHallSvr(data, data:len())
 		self:done()
 	end)

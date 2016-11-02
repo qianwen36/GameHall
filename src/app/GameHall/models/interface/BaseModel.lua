@@ -4,6 +4,18 @@ local target = cc.load('form').build('BaseModel', Base)
 target.CONNECTION = 'CONNECTION'
 target.MODEL_READY = 'READY'
 target.EVENT_EXCEPTION_BREAK = 'EXCEPTION_BREAK'
+target.EVENT_SHOWTIP = 'EVENT_SHOWTIP'
+target.status = {}
+
+function target:state(name, set)
+	local status = self.status
+	assert(type(name)=='string', 'target:state(name, set)#name except a string')
+	if type(set) == 'boolean' then
+		status[name] = set
+		return self
+	end
+	return status[name] or false
+end
 
 function target:init( app )
 	Base.init(self, app)
@@ -23,15 +35,16 @@ function target:regardless( tag )
 	return self:removeEventListenersByTag(tag)
 end
 
-function target:done()
+function target:done(value)
 	self:dispatchEvent({
 		name = self.MODEL_READY,
+		value = value
 		})
 end
-function target:exception( body )
+function target:exception( value )
 	self:dispatchEvent({
 		name = self.EVENT_EXCEPTION_BREAK,
-		body = body
+		value = value
 		})
 	return self
 end

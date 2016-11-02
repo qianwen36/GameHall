@@ -291,7 +291,7 @@ function target:coroutine( coro, index )
 	end
 	return #array
 end
-function target:rpcall( tag, proc )	--[[function proc( client )	end]]
+function target:rpcall( tag, proc )	--[[function proc( client )	end; return coroutine]]
 	local client = self:client(tag)
 	if client == nil then
 		print('target:rpcall('..tag..') <= client not exist')

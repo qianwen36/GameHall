@@ -9,14 +9,14 @@ target.handler = {
 local TAG = 'Hall'
 target.TAG = TAG
 target.EVENT_CONNECTION = TAG..'.Connection'
-target.ready = false
+target.status = {ready = false, connected = false}
 
 function target:isConnected()
 	self:definition(':isConnected()')
 	return false
 end
-function target:body_resolve( body )-- resolve variant length array
-	self:definition(':body_resolve( body )')
+function target:body_resolve( value )-- resolve variant length array
+	self:definition(':body_resolve( value )')
 end
 
 function target:start( config )

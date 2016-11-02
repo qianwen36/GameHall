@@ -794,6 +794,11 @@ typedef struct _tagENTER_ROOM_OK{
   	int nReserved[2]; 
 }ENTER_ROOM_OK, *LPENTER_ROOM_OK;
 
+typedef struct {
+	ENTER_ROOM_OK	base;
+	PLAYER			info;
+} EnterRoomCompletion;
+
 typedef struct _tagQUERY_WEALTH{
 	int nUserID;								//查询该玩家通宝
 	T_TCHAR szHardID[MAX_HARDID_LEN];	

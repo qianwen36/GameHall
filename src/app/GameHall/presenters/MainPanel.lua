@@ -19,12 +19,20 @@ function target:build( view )
 	if (self.host == nil) then
 		local host = self:model('RoomModel')
 		host:on(host.MODEL_READY, handler(self, self.onHostRoomReady))
+		host:on(host.EVENT_SHOWTIP, handler(self, self.onEventTipShow))
 		host:on(host.EVENT_EXCEPTION_BREAK, handler(self, self.onCommunicationBreak))
 		host:on(host.handler.ONLINE_USERS_UPDATE, handler(self, self.updateOnlineusers))
 		self.host = host
 	end
 
 	return Base.build(self, view)
+end
+
+function target:onEventTipShow( event )
+	local value = event.value
+	local str = value.result
+	self.view:showToast(str);
+	self:log(':onEventTipShow( event )## ', value.msg)
 end
 
 function target:getConfig( name ) -- method override
@@ -48,16 +56,22 @@ function target:onCommunicationBreak( event )
 	self:terminate()
 end
 
-function target:onHostRoomReady()
+function target:onHostRoomReady(event)
 	self:terminate()
-	Base.ready(self, self.view)
-	local interval = self:getConfig('interval')
-	local array = {}
-	local rooms = self.host:rooms()
-	for i,info in ipairs(rooms) do
-		array[i] = info.id
+	local handler = {HALL_READY = true, ROOM_READY = true}
+	function handler.HALL_READY( ... )
+		Base.ready(self, self.view)
+		local interval = self:getConfig('interval')
+		local array = {}
+		local rooms = self.host:rooms()
+		for i,info in ipairs(rooms) do
+			array[i] = info.id
+		end
+		self.host:updateOnlineusers(array, interval)
 	end
-	self.host:updateOnlineusers(array, interval)
+	function handler.ROOM_READY( ... )
+		-- enter game scene
+	end
 end
 
 function target:goBack()
