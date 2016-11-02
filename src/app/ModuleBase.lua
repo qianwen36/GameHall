@@ -52,7 +52,7 @@ function target:waiting()
 	end
 	LoadingLayer:create(self:getApp(), LAYER_WATING, scene):loading()
 
-	self.wait_ = self:nextSchedule(self.finish, 5)
+	self.wait_ = self:nextSchedule(self.terminate, 5)
 end
 
 function target:terminate()

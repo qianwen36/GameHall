@@ -7,7 +7,7 @@ end
 
 function target:getConfig( name )
 	if name == nil then
-		return Base.getConfig(self, 'hall').config
+		return Base.getConfig(self, 'hall').ui
 	end
 	return Base.getConfig(self, name)
 end

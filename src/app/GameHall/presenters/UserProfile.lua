@@ -34,7 +34,8 @@ function target:build( view )
 end
 
 function target:onCommunicationBreak( event )
---	self.ready = false
+	local value = event.value
+	self.view:showToast('['..value.event..']*'..value.msg, 3)
 end
 
 function target:onProfileReady( event )

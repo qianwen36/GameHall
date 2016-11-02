@@ -40,7 +40,7 @@ function target:genDataREQ( ctype, desc ) -- 生成序列化请求数据
 end
 
 function target:fillCommonData(desc)
-	local config = self:getConfig('hall').config
+	local config = self:getConfig()
 
 	local utils = HslUtils:getInstance()
 
@@ -59,7 +59,7 @@ function target:fillCommonData(desc)
 end
 
 function target:fillDeviceData(desc)
-	local config = self:getConfig('hall').config
+	local config = self:getConfig()
 	local fill = {
 		szHardID = config.MAC or DeviceUtils:getMacAddress(),
 		szVolumeID = config.SYS or DeviceUtils:getSystemId(),
@@ -117,7 +117,7 @@ function target.resolve( arg, arg2 )
 	end
 	local handler = {string = true, number = true, table = true}
 	function handler.number( ... )
-		local resp, reference = ctype, arg2
+		local resp, reference = arg, arg2
 		local events = {'succeed', 'failed'}
 		local result = MCClient:isConnected(resp) or MCClient:accept(resp) or (resp == reference)
 		local msg = MCClient:describe(resp) or 'response.'..mc.key(resp)
@@ -148,7 +148,7 @@ function target.resolve( arg, arg2 )
 		return event_resolve(value)
 	end
 
-	handler = handler[type(value)]
+	handler = handler[type(arg)]
 	if handler then
 		return handler()
 	end
@@ -195,7 +195,7 @@ function target:routine( resp, arg0, args )
 		if type(name)=='string' then
 			self:dispatchEvent({
 				name = name,
-				value = {event = event, msg = msg, result = res}
+				value = {event = event, msg = msg, result = res or nil}
 				})
 		end
 		return res

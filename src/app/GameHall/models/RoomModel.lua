@@ -6,6 +6,7 @@ local mc = import('..comm.HallDef')
 local handler_ = {
 	GET_AREAS	= 'GET_AREAS',
 	GET_ROOMS	= 'GET_ROOMS',
+	GET_NEWTABLE = 'GET_NEWTABLE',
 	UPDATE_ROOMUSERSCOUNT = 'UPDATE_ROOMUSERSCOUNT'
 }
 --table.merge(target.handler, handler)
@@ -62,10 +63,15 @@ local function onGetRooms(self, event)
 	else -- failed
 	end
 end
-local function onReady( self )
-	self:regardless(self:tagEvent(self.MODEL_READY))
-	self:off(handler_.GET_AREAS)
-	self:off(handler_.GET_ROOMS)
+local function onReady( self, event )
+	local value = event.value
+	local handler = {HALL_READY = true, ROOM_READY = true}
+	function handler.HALL_READY( ... )
+		self:off(handler_.GET_AREAS)
+		self:off(handler_.GET_ROOMS)
+	end
+	handler = handler[value.event]
+	return handler and handler()
 end
 
 function target:areainfo( id )
@@ -142,9 +148,9 @@ function target:prepare()
 		    result = self:routine(resp, REQUEST, function (event, msg, result)
 		    	return handler_.GET_ROOMS, self.resolve('ROOMS', {'nRoomCount', 'ROOM', data})
 		    end)
-			if result == false then break end
+			if result == false then return end
 		end
-		if result == false then return end
+		self:state('ready', true)
 		self:done({event = self.HALL_READY})
 	end
 	MCClient:rpcall(TAG.hall, proc)
@@ -155,15 +161,24 @@ local socket_resolve = function ( cdata )end -- ctype<ROOM>
 local enterRoomREQ = function(self, info)end -- return desc
 local getTableREQ = function (self, info)end -- return desc
 function target:enterRoom( info ) -- roominfo
-	if not self.connected then
+	local function cleanup()
+		MCClient:destroy(TAG.room)
+		self:state('connected', false)
+		self:state('entering', false)
+	end
+	if not self:state('connected') then
+		self:state('entering', true)
 		local host, port = socket_resolve(info.data)
 		MCClient:connect(host, port, TAG.room, function(client, resp)
 			local result = self:routine(resp, self.EVENT_CONNECTION
 				, function ( event, msg, result )
-					self.connected = true
 					self:nextSchedule(self.enterRoom, info)
 					return self.CONNECTION, TAG
 				end)
+				self:state('connected', result or false)
+				if not result then
+					cleanup()
+				end
 		end)
 	else
 		local _, resp, data
@@ -175,10 +190,10 @@ function target:enterRoom( info ) -- roominfo
 		local function enterRoomOK(event, msg, result)
 			return self.handler.ENTER_ROOM, self.resolve('EnterRoomCompletion', data)
 		end
-		local function reEnterRoom( event, msg, result )
+		local function yetEnterRoom( event, msg, result )
 			local id = self.resolve('int', data)
 			local info = self:roominfo(id)
-			MCClient:detroy(TAG.room)
+			cleanup()
 			self:nextSchedule(self.enterRoom, info)
 		end
 		local function needUpdateZIP( event, msg, result )
@@ -193,7 +208,7 @@ function target:enterRoom( info ) -- roominfo
 		local handler = {
 			ENTER_ROOM_OK = enterRoomOK, 
 			ENTER_CLOAKINGROOM_OK = enterRoomOK,
-			ROOM_NEED_DXXW = reEnterRoom,
+			ROOM_NEED_DXXW = yetEnterRoom,
 			OLD_EXEMINORVER = needUpdateZIP,
 			OLD_EXEMAJORVER = needUpdateZIP,
 			OLD_EXEBUILDNO = needUpdateZIP,
@@ -203,8 +218,8 @@ function target:enterRoom( info ) -- roominfo
 			OLD_HALLBUILDNO = needUpdateAPK,
 			NEW_HALLBUILDNO = needUpdateAPK,
 		}
-		local REQUEST, reqData, result
-		MCClient:rpcall(TAG.room, function ( client )
+		local co, REQUEST, reqData, result
+		co = MCClient:rpcall(TAG.room, function ( client )
 			local desc
 			REQUEST = mc.ENTER_ROOM
 			desc = enterRoomREQ(self, info)
@@ -212,7 +227,7 @@ function target:enterRoom( info ) -- roominfo
 	
 			_, resp, data = client:syncSend(REQUEST, reqData )
 			result = self:routine(resp, REQUEST, handler)
-			if result == false then return end
+			if not result then return cleanup() end
 
 			if needaTable(result.info) then
 				REQUEST = mc.GET_NEWTABLE
@@ -221,16 +236,22 @@ function target:enterRoom( info ) -- roominfo
 	
 				_, resp, data = client:syncSend(REQUEST, reqData )
 				result = self:routine(resp, REQUEST, function (event, msg, result)
-					return self.handler.GET_NEWTABLE, self.resolve('NTF_GET_NEWTABLE', data)
+					return handler_.GET_NEWTABLE, self.resolve('NTF_GET_NEWTABLE', data)
 				end)
-				if result == false then return end
+				if not result then return cleanup() end
 			end
+			self:state('entering', false)
 			self:done({event = self.ROOM_READY})
 		end)
+		self:log('MCClient:rpcall(TAG, proc) >>>#co=', tostring(co))
 	end
 
 end
 
+function enterRoomREQ(self, info)
+end
+function getTableREQ(self, info)
+end
 function socket_resolve( info )
 	local host, port = target:string(info.szGameIP), info.nPort
 	if (port == 0) then

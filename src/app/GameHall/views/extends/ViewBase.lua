@@ -136,7 +136,7 @@ function ViewBase:showToast( text, delay )
 		node:setName(name):addTo(scene)
 	end
 	local Scheduler, timer, txNode
-	txNode = self:nodeFromPath('Text_1', node):setString(text)
+	txNode = self:nodeFromPath('Sprite.Text_1', node):setString(text)
 	Scheduler = self:getScheduler()
 	timer = Scheduler:scheduleScriptFunc(function ( ... )
 		timer = timer and Scheduler:unscheduleScriptEntry(timer)

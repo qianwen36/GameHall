@@ -31,7 +31,7 @@ function target:onCommunicationBreak( event )
 		self.view:showToast('大厅连接失败')
 	end;
 	}
-	handler = handler(value.event)
+	handler = handler[value.event]
 	return handler and handler()
 end
 

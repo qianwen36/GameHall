@@ -46,11 +46,11 @@ function target:pauseCashBox()
 	self:definition(':pauseCashBox()')
 end
 
-function target:reqTransferDeposti( amount, callback ) -- callback(info, res)
+function target:reqTransferDeposit( amount, callback ) -- callback(info, res)
 	self:definition(':reqTransferDeposti( amount, callback )')
 end
 
-function target:reqTakeDeposti( amount, callback )
+function target:reqTakeDeposit( amount, callback )
 	self:definition(':reqTakeDeposti( amount, callback )')
 end
 return target

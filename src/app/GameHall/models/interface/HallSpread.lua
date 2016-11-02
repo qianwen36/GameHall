@@ -7,6 +7,10 @@ function target:init( app )
 	self.hall = app:model('BaseHall')
 end
 
+function target:getConfig( name )
+	return self.hall:getConfig(name)
+end
+
 function target:prepare()
 	self:definition(':prepare()')
 end

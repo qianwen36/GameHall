@@ -24,13 +24,16 @@ function target:onCreate(info)
 		guandimiao = self:nodeFromPath('guandimiao_nameimage', button),
 		yuxianglou = self:nodeFromPath('yuxianglou_nameimage', button),
 	}
-	local backgrounds = {'gelou', 'leitai', 'two_pandas'}
-	local background = backgrounds[info.icon]
+    local icon = info.icon +1
+	local background = self:presenter('MainPanel'):getConfig('display').background
 	self:setCondition(info.condition or '')
 	self.wOnline = self.txOnline:getString()
 	self:onlineUsers(info.online or '')
 	self:setBackground(background or DEFAULT_BACKGROUND)
-	self:setTitle(info.name or DEFAULT_TITLE)
+--	self:setTitle(info.name or DEFAULT_TITLE)
+	local title = {'baiyinggu', 'dadetong', 'guandimiao', 'yuxianglou'}
+	title = title[icon]
+	self:setTitle(title)
 
 	Base.onCreate(self, info)
 end

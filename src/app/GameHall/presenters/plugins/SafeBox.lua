@@ -67,7 +67,7 @@ function target:clear()
 end
 
 function target:save( amount )
-	local res = self.player:reqTransferDeposti(amount
+	local res = self.player:reqTransferDeposit(amount
 		, function ( info, res )
 			local handler = {succeed = true, failed = true}
 			function handler.succeed( ... )
@@ -79,7 +79,7 @@ function target:save( amount )
 		end)
 end
 function target:take( amount )
-	local res = self.player:reqTakeDeposti(amount
+	local res = self.player:reqTakeDeposit(amount
 		, function ( info, res )
 			if type(info[res])=='function' then
 				self.view:promptPassword(handler(info, info[res]))

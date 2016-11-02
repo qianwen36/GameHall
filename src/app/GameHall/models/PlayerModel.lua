@@ -52,7 +52,7 @@ function target:prepare()
 	local hall = self.hall
 	TAG = hall.TAG
 
-	local config = self:getConfig('hall').config
+	local config = self:getConfig()
 	local user = config.user
 
 	self.UPDATE_PARAMS = {GameInfo = true, SafeBox = true}
@@ -143,7 +143,7 @@ function target:fillUserData(desc)
 end
 
 function target:fillLogonData(desc)
-	local config = self:getConfig('hall').config
+	local config = self:getConfig()
 	local major, minor, buildno = config:getVersion()
 	local flags = mc.Flags.FLAG_LOGON_INTER
 	if (DeviceUtils:isSimulator()) then
@@ -228,12 +228,13 @@ function target:updateGameCash()
 	MCClient:rpcall(TAG, proc)
 end
 
-function target:reqTransferDeposti( amount, callback ) -- callback(info, res)
+function target:reqTransferDeposit( amount, callback ) -- callback(info, res)
 	local REQUEST, reqData
 	REQUEST = mc.TRANSFER_DEPOSIT
 	reqData = self:genDataREQ('TRANSFER_DEPOSIT', {
-		handler = {self.fillUserData, Base.fillCommonData},
-		nDeposit = amount
+		handler = {self.fillUserData, Base.fillCommonData, Base.fillDeviceData},
+		nDeposit = amount,
+		nFromGame = self:getConfig('gameid')
 		})
 	MCClient:client(TAG):send(REQUEST, reqData
 		, function ( client, resp, data )
@@ -248,21 +249,21 @@ function target:reqTransferDeposti( amount, callback ) -- callback(info, res)
 end
 
 local KeyResult_calc  = function(nRndKey, password)end
-function target:reqTakeDeposti( amount, callback )
+function target:reqTakeDeposit( amount, callback )
 	local info = self.info
 	local client = MCClient:client(TAG)
 	local REQUEST, reqData, result, event
-	local function reqTakeDeposti( ... )
-		REQUEST = mc.TAKE_BACKDEPOSIT
-		reqData = self:genDataREQ('TAKE_BACKDEPOSIT', {
-			handler = {self.fillUserData, Base.fillCommonData},
+	local function reqTakeDeposit( ... )
+		REQUEST = mc.MOVE_SAFE_DEPOSIT
+		reqData = self:genDataREQ('MOVE_SAFE_DEPOSIT', {
+			handler = {self.fillUserData, Base.fillCommonData, Base.fillDeviceData},
 			nDeposit = amount,
 			nKeyResult = info.KeyResult,
 			})
 		client:send(REQUEST, reqData
 			, function ( client, resp, data )
 			result = self:routine(resp, REQUEST, function (event2, msg, result)
-				self:log('reqTakeDeposti( amount, callback )#', amount, '.', event )
+				self:log('reqTakeDeposit( amount, callback )#', amount, '.', event )
 				self:nextSchedule(self.updateGameCash)
 				event = event2
 			end)
@@ -272,7 +273,7 @@ function target:reqTakeDeposti( amount, callback )
 		end)
 	end
 	if not info.protected then
-		return reqTakeDeposti()
+		return reqTakeDeposit()
 	end
 
 	local co -- coroutine for secured password input, calculate

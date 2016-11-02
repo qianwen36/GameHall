@@ -54,10 +54,14 @@ end
 function target:onCommunicationBreak( event )
 --	self.ready = false
 	self:terminate()
+
+	local value = event.value
+	self.view:showToast('['..value.event..']*'..value.msg, 3)
 end
 
 function target:onHostRoomReady(event)
 	self:terminate()
+	local value = event.value
 	local handler = {HALL_READY = true, ROOM_READY = true}
 	function handler.HALL_READY( ... )
 		Base.ready(self, self.view)
@@ -72,6 +76,8 @@ function target:onHostRoomReady(event)
 	function handler.ROOM_READY( ... )
 		-- enter game scene
 	end
+	handler = handler[value.event]
+	return handler and handler()
 end
 
 function target:goBack()
@@ -116,6 +122,7 @@ function target:prepare(view)
 			if info.rooms then
 				target:showContent(level+1, info)
 			else
+				self:waiting()
 				target:enterRoom(info)
 			end
 			self:log(':onItemClicked( event ).done #', info.name)
@@ -138,7 +145,10 @@ function target:prepare(view)
 end
 
 function target:enterRoom( info ) -- roominfo
-	self.host:enterRoom(info)
+	local host = self.host
+	if not host:state('entering') then
+		host:enterRoom(info)
+	end
 end
 
 function target:updateOnlineusers()

@@ -1,4 +1,5 @@
-local target = cc.load('form').build('BaseHall.interface', import('..BaseModel'))
+local Base = import('..BaseModel')
+local target = cc.load('form').build('BaseHall.interface', Base)
 
 -- event{name, body {event, msg, result}}
 target.handler = {
@@ -19,16 +20,16 @@ function target:body_resolve( value )-- resolve variant length array
 	self:definition(':body_resolve( value )')
 end
 
+-- function target:getConfig( name ) -- override
+-- 	Base.getConfig(self, name)
+-- end
+
 function target:start( config )
 	self:definition(':start( config )')
 end
 
 function target:restart()
 	self:definition(':restart()')
-end
-
-function target:login()
-	self:definition(':login()')
 end
 
 function target:reqServers( des, callack, notify )

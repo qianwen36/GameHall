@@ -25,6 +25,13 @@ function target:start( config )
 	self:restart(config)
 end
 
+function target:getConfig( name )
+	if name== nil then
+		return self.config_
+	end
+	return self.config_[name]
+end
+
 function target:isConnected()
 	return self:state('connected') or false
 end
@@ -96,7 +103,7 @@ function target:initHall(config)
 
 		reqData = self:genDataREQ('GET_SERVERS', {
 			handler = self.fillCommonData,
-			nServerType = desc.nServerType or mc.ext.SERVER_TYPE_HALL,
+			nServerType = mc.ext.SERVER_TYPE_HALL,
 			dwGetFlags = (notify and mc.Flags.FLAG_GETSERVERS_NOTIFY) or 0
 		})
 		if notify then

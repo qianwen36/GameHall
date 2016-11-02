@@ -9,7 +9,13 @@ target.status = {}
 
 function target:state(name, set)
 	local status = self.status
-	assert(type(name)=='string', 'target:state(name, set)#name except a string')
+--	assert(type(name)=='string', 'target:state(name, set)#name except a string')
+	if name == nil then
+		for key,v in pairs(status) do
+			status[key] = false
+		end
+		return
+	end
 	if type(set) == 'boolean' then
 		status[name] = set
 		return self
@@ -40,6 +46,7 @@ function target:done(value)
 		name = self.MODEL_READY,
 		value = value
 		})
+	self:log(':done(value)')
 end
 function target:exception( value )
 	self:dispatchEvent({

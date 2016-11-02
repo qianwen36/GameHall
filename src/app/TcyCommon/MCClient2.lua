@@ -267,7 +267,7 @@ function target:destroy(tag)
 		local client = self:client(tag)
 		print("client("..tag.."):destroy")
 		self._client[tag] = nil
-		client:destroy()
+		return client:destroy()
 	end
 	-- destroy all MCClient instance
 	for tag, client in pairs(self._client) do
