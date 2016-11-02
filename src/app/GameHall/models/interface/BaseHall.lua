@@ -2,12 +2,13 @@ local target = cc.load('form').build('BaseHall.interface', import('..BaseModel')
 
 -- event{name, body {event, msg, result}}
 target.handler = {
-	CONNECTION = 'CONNECTION',
 	CHECK_VERSION= 'VERSION_MB',
 	GET_SERVERS	= 'GET_SERVERS',
 }
 
-target.TAG = 'Hall'
+local TAG = 'Hall'
+target.TAG = TAG
+target.EVENT_CONNECTION = TAG..'.Connection'
 target.ready = false
 
 function target:isConnected()

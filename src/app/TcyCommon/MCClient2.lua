@@ -38,7 +38,7 @@ function target:describe(respondId) -- 请求超时
 end
 
 function target:accept(respondId) -- only should be UR_OPERATE_SUCCEED or XX_SUCCEED
-	return respondId == mc.UR_OPERATE_SUCCEED
+	return (respondId == mc.UR_OPERATE_SUCCEED)
 end
 function target:isConnected(respondId)
 	return respondId == mc.UR_SOCKET_CONNECT

@@ -1,6 +1,7 @@
 local Base = require('src.app.ModuleBase')
 local target = cc.load('form').build('BaseModel', Base)
 
+target.CONNECTION = 'CONNECTION'
 target.MODEL_READY = 'READY'
 target.EVENT_EXCEPTION_BREAK = 'EXCEPTION_BREAK'
 

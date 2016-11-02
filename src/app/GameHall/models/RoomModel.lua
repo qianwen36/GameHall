@@ -153,10 +153,21 @@ end
 
 local socket_resolve = function ( cdata )end -- ctype<ROOM>
 function target:enterRoom( info ) -- roominfo
-	local host, port = socket_resolve(info.data)
-	MCClient:connect(host, port, TAG.room, function(client, resp)
-		local connected = MCClient:isConnected(resp)
-	end)
+	if not self.connected then
+		local host, port = socket_resolve(info.data)
+		MCClient:connect(host, port, TAG.room, function(client, resp)
+			local result = self:routine(resp, self.EVENT_CONNECTION
+				, function ( event, msg, result )
+					self.connected = true
+					self:nextSchedule(self.enterRoom, info)
+					return self.CONNECTION, TAG
+				end)
+		end)
+	else
+		-- enter room
+		-- get a table
+	end
+
 end
 
 function socket_resolve( info )

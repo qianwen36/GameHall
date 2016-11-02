@@ -1,10 +1,14 @@
 local target = cc.load('form').build('RoomModel.interface', import('.HallSpread'))
 
-target.TAG = 'Room'
+local TAG = 'Room'
+target.TAG = TAG
+target.EVENT_CONNECTION = TAG..'.Connection'
+
 -- event{name, body {event, msg, result}}
 target.handler = {
 	ONLINE_USERS_UPDATE = 'ONLINE_USERS_UPDATE'
 }
+target.ready = false
 
 function target:reset()
 	self:spec('areas', {})
@@ -43,6 +47,9 @@ end
 
 function target:enterRoom( info ) -- roominfo
 	self:definition(':enterRoom( info )')
+	-- connect the room server
+	-- enter room
+	-- get a table
 end
 
 function target:updateOnlineusers( param, interval )-- param:[room, ...], register and init event dispatcher

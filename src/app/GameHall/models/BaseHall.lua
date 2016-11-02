@@ -37,21 +37,14 @@ function target:restart( config )
 
 	self.client = MCClient:connect(host, port, TAG,
 	function (client, resp)
-		local event = {'connected', 'error'}
-		local des = MCClient:describe(resp)
-		self.connected = MCClient:isConnected(resp)
-
-		if not self.connected then
-			self.ready = false
-		end
-		event = (self.connected and event[1]) or event[2]
-		self:dispatchEvent({
-			name = self.handler.CONNECTION,
-			body = {event = event, msg = des, result = TAG}
-			})
-		if self.connected then
-			self:nextSchedule(self.initHall, config)
-		end
+		local result = self:routine(resp, self.EVENT_CONNECTION
+			, function ( event, msg, result )
+				self.connected = true
+				self:nextSchedule(self.initHall, config)
+				return self.CONNECTION, TAG
+			end)
+		-- if result == false then
+		-- end
 	end)
 end
 
@@ -81,7 +74,7 @@ function target:initHall(config)
 	local function onGetServersOK( _, resp, data )
 		coroutine.resume(co, _, resp, data)
 	end
-	local function proc( client )
+	co = MCClient:rpcall(TAG, function( client )
 		local _, resp, data, result
 		-- 获取大厅版本
 		REQUEST = mc.CHECK_VERSION
@@ -122,9 +115,8 @@ function target:initHall(config)
 		self.ready = true
 		self.hslUtils:saveHallSvr(data, data:len())
 		self:done()
-	end
-	co = MCClient:rpcall(TAG, proc)
-	self:log(':initHall(config).done')
+	end)
+	self:log('MCClient:rpcall(TAG, proc) >>>#co=', tostring(co))
 end
 
 return target

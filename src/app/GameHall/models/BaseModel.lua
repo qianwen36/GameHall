@@ -116,7 +116,7 @@ function target.resolve( ctype, data )	-- overload #1:string, #2:cdata
 	local body = ctype
 	function handler.number( ... )
 		local events = {'succeed', 'failed'}
-		local result = MCClient:accept(resp) or (resp == reference)
+		local result = MCClient:isConnected(resp) or MCClient:accept(resp) or (resp == reference)
 		local msg = MCClient:describe(resp) or 'response.'..mc.key(resp)
 		if string.len(msg)==0 then
 			msg = 'notification from server'
@@ -154,14 +154,30 @@ function target.resolve( ctype, data )	-- overload #1:string, #2:cdata
 end
 
 --[[
-function target:routine( resp, {REQUEST, reference}, func ) -- overload]]
-function target:routine( resp, REQUEST, func )
-	local reference
-	if type(REQUEST) == 'table' then
-		REQUEST, reference = unpack(REQUEST)
+function target:routine( resp, {REQUEST, reference}, func ) -- overload
+function target:routine( resp, REQUEST, func ) -- overload func(event, msg, result)
+function target:routine( resp, REQUEST, funs ) -- overload funs{function(event, msg, result)}]]
+function target:routine( resp, arg0, args )
+	local REQUEST, reference, func
+	if type(args) == 'table' then -- overload #args
+		func = args[mc.key(resp)]
+		if type(func) =='function' then
+			reference = resp
+		end 
+	elseif type(args) =='function' then
+		func = args
+	end
+	if type(arg0) == 'table' then -- overload #arg0
+		REQUEST, reference = unpack(arg0)
+	else
+		REQUEST = arg0
 	end
 	local event, msg, result = self.resolve(resp, reference)
 	if (result) then
+		if type(func) ~= 'function' then
+			self:log(':routine( resp, arg0, args )#args except a function or a table of function(event, msg, result)')
+			return false 
+		end
 		local name, res = func(event, msg, result)
 		if type(name)=='string' then
 			self:dispatchEvent({
@@ -171,7 +187,7 @@ function target:routine( resp, REQUEST, func )
 		end
 		return res
 	else
-		local req = mc.key(REQUEST)
+		local req = mc.key(REQUEST) or REQUEST
 		self:log(req, ">>>FAILED.message:", msg)
 		self:exception({event = req, msg = msg, result = res})
 	end
