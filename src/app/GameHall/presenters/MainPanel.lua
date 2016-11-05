@@ -87,13 +87,8 @@ function target:goBack()
 	self:showContent(level)
 end
 
-function target:onEnter()
-	-- restore the scroll percent
-end
-function target:onExit()
-	local param = self.display
-	local view = self.view
-	local containers = {view:primaryPanel(), view:secondaryPanel()}
+function target:clean()
+	self.view = nil
 end
 
 function target:prepare(view)

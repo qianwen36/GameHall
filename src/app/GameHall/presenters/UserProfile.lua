@@ -81,4 +81,8 @@ function target:prepare( MainScene )
 	end
 end
 
+function target:clean()
+	self.view = nil
+end
+
 return target

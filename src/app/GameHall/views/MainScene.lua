@@ -29,11 +29,9 @@ function MainScene:onCreate()
     self:log(':onCreate().done')
 end
 
-function MainScene:onEnter()
-    self.hallScene:onEnter()
-end
-function MainScene:onExit()
-    self.hallScene:onExit()
+function MainScene:onCleanup()
+    self:log(':onCleanup()')
+    self.hallScene:clean()
 end
 
 function MainScene:getContentView( name, param )

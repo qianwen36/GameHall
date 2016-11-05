@@ -32,7 +32,7 @@ function ViewBase:getData()
 end
 
 function ViewBase:log( ... )
-	print('{'..self:getName()..'}.'..table.concat({...}))
+	print('['..self:getName()..']'..table.concat({...}))
 end
 
 --[[

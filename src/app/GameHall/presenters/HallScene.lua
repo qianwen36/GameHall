@@ -1,7 +1,7 @@
 local target = cc.load('form').build('HallScene', import('.BasePresenter'))
 
 function target:build( MainScene )
-	self.target = MainScene
+	self.view = MainScene
 	
 	if self.hall == nil then
 		local hall = self:model('BaseHall')
@@ -39,11 +39,10 @@ function target:goBack()
 	self.mainPanel:goBack()
 end
 
-function target:onEnter()
-	self.mainPanel:onEnter()
-end
-function target:onExit()
-	self.mainPanel:onEnter()
+function target:clean()
+	self.view = nil
+	self.mainPanel:clean()
+	self.userProfile:clean()
 end
 
 return target
