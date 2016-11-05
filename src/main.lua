@@ -14,8 +14,8 @@ local function test(path)
 end
 local function main()
 	-- test('app.TcyCommon.test.utils_test')
-    require("app.MyApp"):create(Controller):run('LogoScene')
-    -- require("app.MyApp"):create(Controller):run()
+    -- require("app.MyApp"):create(Controller):run('LogoScene')
+    require("app.MyApp"):create(Controller):run()
 end
 
 local status, msg = xpcall(main, __G__TRACKBACK__)

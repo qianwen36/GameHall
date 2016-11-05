@@ -13,8 +13,8 @@ function target:build( MainScene )
 		end
 		self.hall = hall
 	end
-	self.mainPanel = MainScene:presenter('MainPanel'):build(MainScene)
 	self.userProfile = MainScene:presenter('UserProfile'):build(MainScene)
+	self.mainPanel = MainScene:presenter('MainPanel'):build(MainScene)
 	return self
 end
 

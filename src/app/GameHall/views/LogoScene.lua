@@ -15,7 +15,8 @@ function target:onEnter()
     local timer
     timer = Scheduler:scheduleScriptFunc(function ()
     	timer = timer and Scheduler:unscheduleScriptEntry(timer)
-	    app:enterScene('MainScene', 'CROSSFADE', 1)
+        app:enterScene('MainScene')
+        -- app:enterScene('MainScene', 'CROSSFADE', 1)
     end, 1.0, false)
 end
 return target

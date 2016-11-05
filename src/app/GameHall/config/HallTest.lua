@@ -9,7 +9,7 @@ local config = {
 	gameid = 584,
 	agentGroup = 6,
 	-- ui.config
-	refresh = {},
+	refresh = {gameinfo = 60, onlineusers = 30},
 	display = {level = 2, 'ItemViewEx', 'ItemView2', background = 'two_pandas'}, --[['gelou', 'leitai', 'two_pandas']]
 --	display = {level = 1,'ItemViewEx'},
 }
