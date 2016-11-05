@@ -75,6 +75,7 @@ function target:onHostRoomReady(event)
 	end
 	function handler.ROOM_READY( ... )
 		-- enter game scene
+		self.view:showToast('ready to enter game scene')
 	end
 	handler = handler[value.event]
 	return handler and handler()
@@ -122,7 +123,7 @@ function target:prepare(view)
 			if info.rooms then
 				target:showContent(level+1, info)
 			else
-				self:waiting()
+				target:waiting()
 				target:enterRoom(info)
 			end
 			self:log(':onItemClicked( event ).done #', info.name)
@@ -158,7 +159,10 @@ function target:updateOnlineusers()
 		local INFO = {self.host:areas(), self.host:rooms()}
 		local array = INFO[param.level]
 		for i,info in ipairs(array) do
-			info.view:onlineUsers(info.online)
+			local view = info.view
+			if view then
+				view:onlineUsers(info.online)
+			end
 		end
 	end
 end

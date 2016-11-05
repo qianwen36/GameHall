@@ -3,7 +3,7 @@ target.RESOURCE_FILENAME = "res/HallCocosStudio/Settings/Settings.csb"
 
 function target:onCreate(param)
 	self:initLayout()
-    self:closeButton('Image_1.Button_2')
+    self:onClose('Image_1.Button_2')
     self:onClicked('Image_1.musicDisableBt', self.onBtnMusicMute)
     self:onClicked('Image_1.musicEnableBt', self.onBtnMusicEnable)
     self:onClicked('Image_1.soundsDisableBt', self.onBtnSoundMute)

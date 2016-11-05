@@ -127,17 +127,12 @@ function updateGameCash( self, client ) -- 更新游戏信息，保险箱信息
 end
 
 function target:fillUserData(desc)
-	local user = self:user()
-	local fill = {
-		nUserID = user.id,
-		nUserType = user.type,
-		nNickSex = user.sex,
-		nPortrait = user.portrait,
-		nClothingID = user.clothing,
-		nMemberLevel = user.vip,
-		szUsername = self:string(user.name, 'raw'),
-		szUniqueID = self:string(user.uniqueid, 'raw')
-	}
+	local fill = MCClient.table4s(self.info.LOGON, {
+		'nUserID',
+		'nNickSex',
+		'nUserType',
+		{'szUniqueID', 'string'}
+		})
 	table.merge(desc, fill)
 	return desc
 end

@@ -35,7 +35,7 @@ function target:onCreate(param)
 	txField:onEvent(txField_handler)
 	self:onClicked('Image_1.Button_5_0', self.onSave2Box)
 	self:onClicked('Image_1.Button_5_0_0', self.onTake2Game)
-    self:closeButton('Image_1.Button_7')
+    self:onClose('Image_1.Button_7')
     self.safebox = self:presenter('SafeBox'):build(self)
 end
 

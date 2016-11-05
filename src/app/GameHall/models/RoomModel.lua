@@ -65,7 +65,7 @@ local function onGetRooms(self, event)
 end
 local function onReady( self, event )
 	local value = event.value
-	local handler = {HALL_READY = true, ROOM_READY = true}
+	local handler = {HALL_READY = true, ROOM_READY = nil}
 	function handler.HALL_READY( ... )
 		self:off(handler_.GET_AREAS)
 		self:off(handler_.GET_ROOMS)
@@ -249,8 +249,29 @@ function target:enterRoom( info ) -- roominfo
 end
 
 function enterRoomREQ(self, info)
+	local desc = MCClient.table4s(info.data, {
+		'nAreaID',
+		'nGameID',
+		'nGameVID',
+		'nRoomSvrID',
+		'nExeMajorVer',
+		'nExeMinorVer',
+		-- 'nExeBuildno'
+		})
+	local player = self.getApp():model('PlayerModel')
+	desc.handler = {player.fillUserData, self.fillCommonData, self.fillDeviceData}
+
+	return desc
 end
 function getTableREQ(self, info)
+	local desc = MCClient.table4s(info.data, {
+		'nAreaID',
+		'nGameID',
+		})
+	local player = self.getApp():model('PlayerModel')
+	desc.handler = {player.fillUserData, self.fillCommonData}
+
+	return desc
 end
 function socket_resolve( info )
 	local host, port = target:string(info.szGameIP), info.nPort
@@ -274,23 +295,20 @@ function target:updateOnlineusers( param, interval )-- param:[room, ...], regist
 		client:off(waiting)
 	end
 	client:on(waiting, onNotify)
-	local function reqRoomsUserCount(array)
-		local REQUEST = mc.GET_ROOMUSERS
-		local data, ct = self:genDataREQ(
-			'GET_ROOMUSERS', {
-				handler = {self.fillCommonData, 'int'},
-				affect = false,
-				nRoomCount = #array,
-				array
-			} )
-		client:send(REQUEST, data)
-	end
 	local timer = self:timerScheduler(interval, function ( ... )
-		reqRoomsUserCount(self.UPDATE_PARAMS[1])
+		local data = self.UPDATE_PARAMS[1]
+		client:send(mc.GET_ROOMUSERS, data)
 	end)
 
-	self.UPDATE_PARAMS = {param, timer, waiting}
-	reqRoomsUserCount(param)
+	local data, ct = self:genDataREQ(
+		'GET_ROOMUSERS', {
+			handler = {self.fillCommonData, 'int'},
+			affect = false,
+			nRoomCount = #param,
+			param
+		} )
+	self.UPDATE_PARAMS = {data, timer, waiting}
+	client:send(mc.GET_ROOMUSERS, data)
 end
 
 function target:clear()

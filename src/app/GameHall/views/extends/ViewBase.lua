@@ -178,7 +178,7 @@ function ViewBase:showPlugin( name )
 	function handler.shade()
 		local layer = self:blockLayer(view)
 		layer:addChild(view)
-		view:closeButton(layer:getChildByName('Image_1'), param)
+		view:onClose(layer:getChildByName('Image_1'), param)
 		return self
 	end
 	function handler.block()
@@ -197,7 +197,7 @@ function ViewBase:showPlugin( name )
 	return handler and handler()
 end
 
-function ViewBase:closeButton(node, param)
+function ViewBase:onClose(node, param)
     if param~=nil then node.param_ = param end
 
     node = self:onClicked(node, function(node)

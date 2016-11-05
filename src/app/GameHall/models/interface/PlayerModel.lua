@@ -34,6 +34,10 @@ function target:reset()
 		})
 end
 
+function target:fillUserData(desc)
+	self:definition(':fillUserData(desc)')
+	return desc
+end
 function target:updateGameInfo( interval )
 	self:definition(':updateGameInfo( interval )')
 end

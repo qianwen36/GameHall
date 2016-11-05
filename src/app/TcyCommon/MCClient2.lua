@@ -380,40 +380,40 @@ function utils.ct_resolve(ctype, data)
 	return ct
 end
 
-local utils_assign -- function(ct, des)
-local utils_fill -- function(ct, des)
-function utils_assign(ct, des)
-	if type(des)== 'table' then
-		utils_fill(ct, des)
-	elseif type(des)== 'string' then
-		ffi.copy(ct, des)
-	elseif type(des)~= 'nil' then
-		ct = des
-	else
-		print('utils_assign()#des='..tostring(des))
-	end
-	return ct
-end
-function utils_fill( ct, des )
-	for k,v in pairs(des) do
-		local ofs = ffi.offsetof(ct, k)
-		if ofs ~= nil then
-			local t = type(v)
-			if t == 'string'
-			or t == 'table' then
-				utils_assign(ct[k], v)
-			else
-				ct[k] = v
-			end
-		else
-		print('utils_fill()#\n'..tostring(ct)..'.'..k..'*** no such key')
-		end
-	end
-	for i,v in ipairs(des) do
-		ct[i-1] = v
-	end
-	return ct
-end
+-- local utils_assign -- function(ct, des)
+-- local utils_fill -- function(ct, des)
+-- function utils_assign(ct, des)
+-- 	if type(des)== 'table' then
+-- 		utils_fill(ct, des)
+-- 	elseif type(des)== 'string' then
+-- 		ffi.copy(ct, des)
+-- 	elseif type(des)~= 'nil' then
+-- 		ct = des
+-- 	else
+-- 		print('utils_assign()#des='..tostring(des))
+-- 	end
+-- 	return ct
+-- end
+-- function utils_fill( ct, des )
+-- 	for k,v in pairs(des) do
+-- 		local ofs = ffi.offsetof(ct, k)
+-- 		if ofs ~= nil then
+-- 			local t = type(v)
+-- 			if t == 'string'
+-- 			or t == 'table' then
+-- 				utils_assign(ct[k], v)
+-- 			else
+-- 				ct[k] = v
+-- 			end
+-- 		else
+-- 		print('utils_fill()#\n'..tostring(ct)..'.'..k..'*** no such key')
+-- 		end
+-- 	end
+-- 	for i,v in ipairs(des) do
+-- 		ct[i-1] = v
+-- 	end
+-- 	return ct
+-- end
 
 local ctypes = {}
 function utils.vstruct_type( htype, itype )
@@ -437,8 +437,10 @@ end
 
 function utils.ct_generate( ctype, des )
 	ctype = utils.type(ctype)
-	local cdata = ctype()
-	local res = ffi.string( utils_assign(cdata, des), ffi.sizeof(ctype) )
+	local cdata = ctype(des)
+	local res = ffi.string(cdata, ffi.sizeof(ctype))
+	-- local cdata = ctype()
+	-- local res = ffi.string( utils_assign(cdata, des), ffi.sizeof(ctype) )
 	return res, cdata
 end
 
@@ -447,25 +449,64 @@ function utils.vls_generate( htype, ctype, des )
 	if type(list) ~= 'table' then return end
 	local c = #list
 	local vstruct = utils.vstruct_type(htype, ctype)
-	local cdata = vstruct(c)
-	local head = utils_assign(cdata.head, des)
-	local array = cdata.array
-	for i=1, c do
-		local item = list[i]
-		local t = type(item)
-		if t == 'string'
-		or t == 'table' then
-			utils_assign(array[i-1], item)
-		else
-			array[i-1] = item
-		end
-	end
+	local cdata = vstruct(c, {head = des, array = list})
+	-- local head = utils_assign(cdata.head, des)
+	-- local array = cdata.array
+	-- for i=1, c do
+	-- 	local item = list[i]
+	-- 	local t = type(item)
+	-- 	if t == 'string'
+	-- 	or t == 'table' then
+	-- 		utils_assign(array[i-1], item)
+	-- 	else
+	-- 		array[i-1] = item
+	-- 	end
+	-- end
 	local size = ffi.sizeof(htype)
     size = size + ffi.sizeof(ctype..'[?]', c)
 	return ffi.string(cdata, size), cdata
 end
 
+--[[
+function utils( cdata, fields )
+function utils( cdata, {field, param, alias } ) -- #param ={table, string, value}]]
+function utils.table( cdata, params )
+	local res = {}
+	if cdata == nil then return res end
+	for i,param in ipairs(params) do
+		local handler = {string = true, table = true}
+		function handler.string( ... )
+			res[param] = cdata[param]
+		end
+		function handler.table( ... )
+			local field, param_, alias = unpack(param)
+			local t = type(param_)
+			
+			if t =='string'and param_~='string'
+			then alias = param_ end;
+			
+			local key = alias or field
+			if t == 'table' then
+				res[key] = utils.table(cdata[field], param_)
+			elseif param_=='string' then
+				res[key] = ffi.string(cdata[field])
+			elseif param_~=nil then
+				res[key] = param_
+			else
+				res[key] = cdata[field]
+			end
+		end
+		handler = handler[type(param)]
+		if handler then handler() end
+	end
+	return res
+end
+
 target.utils = utils
+--[[
+target.table4s(cdata, {fields}) -- table for struct of cdata
+--]]
+target.table4s = utils.table
 ------------------------------------------------------------------------------
 --[[
 -- example of target

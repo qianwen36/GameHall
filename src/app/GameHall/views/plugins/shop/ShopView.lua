@@ -4,7 +4,7 @@ target.RESOURCE_FILENAME = "res/HallCocosStudio/Shop/Shop.csb"
 
 function target:onCreate(param)
 	self:initLayout()
-    self:closeButton('Panel_1.Button_1')
+    self:onClose('Panel_1.Button_1')
 end
 
 return target
