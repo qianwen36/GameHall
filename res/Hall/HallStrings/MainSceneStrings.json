@@ -1,0 +1,8 @@
+{
+	"player_username_not_logined":"未登录",
+	"player_username_not_logined":"未登录",
+	"HLS_CONTINUE_PWDWRONG":"由于您连续的密码错误,4小时之内您无法使用此名字登录。",
+	"BINDUSER_ALREADY":"您的帐号已与电脑绑定，如需在手机上游戏，还需绑定本台手机。",
+	"Update_Quit":"游戏版本过低，请退出同城游后再重启进行版本升级。",
+	"Update_Failed":"更新失败，请退出后再次进入程序。"
+}
