@@ -74,8 +74,10 @@ function target:onHostRoomReady(event)
 		self.host:updateOnlineusers(array, interval)
 	end
 	function handler.ROOM_READY( ... )
-		-- enter game scene
-		self.view:showToast('ready to enter game scene')
+		local params = value.result
+		local view = self:getApp():enterGame(params)
+		view.backScene_ = self.view:getName()
+		-- self.view:showToast(value.msg)
 	end
 	handler = handler[value.event]
 	return handler and handler()

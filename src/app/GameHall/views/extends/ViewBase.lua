@@ -164,12 +164,18 @@ function ViewBase:blockLayer( node )
 	self.block = name
 	return layer
 end
+
+local function wrapParam( param, default )
+	param = param or {default}
+	if type(param)~= 'table' then param={param} end
+	return param
+end
+
 function ViewBase:showPlugin( name )
 	local cls, param = self:getApp():plugin(name)
-	local app = self:getApp()
-	local view = cls:create(app, name, param)
+	local view = cls:create(self:getApp(), name, param)
 	param = param or {}
-	local display = app:wrapParam(param.display, 'normal')
+	local display = wrapParam(param.display, 'normal')
 	local handler = {}
 	function handler.normal()
 		self:addChild(view)
@@ -203,7 +209,7 @@ function ViewBase:onClose(node, param)
     node = self:onClicked(node, function(node)
 	    local param = node.param_ or {}
     	local app = node:getApp()
-	    local display = app:wrapParam(param.display, 'normal')
+	    local display = wrapParam(param.display, 'normal')
 	    display = display[1]
 	    if display == 'scene' then
 	    	local name = node.backScene_ or app:getConfig('defaultSceneName')
@@ -217,6 +223,16 @@ function ViewBase:onClose(node, param)
 		end
     end)
     return node
+end
+
+function ViewBase:goBack(param)
+	local sceneName = self.backScene_
+	param = param or {}
+	if sceneName then
+		local app = self:getApp()
+		param[1] = sceneName
+		app:quitGame(param)
+	end
 end
 
 return ViewBase

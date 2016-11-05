@@ -36,10 +36,20 @@ function MyApp:plugin( name )
     end
 end
 
-function MyApp:wrapParam( param, default )
-	param = param or {default}
-	if type(param)~= 'table' then param={param} end
-	return param
+function MyApp:enterGame(params)
+	local config = self:getConfig('game')
+	local cls = table.remove(config, 1)
+	local view = require(config[1]):create(self, config.name or 'GameScene', params)
+	view:showWithScene(unpack(config))
+	return view
+end
+
+function MyApp:quitGame(param)
+	local sceneName = table.remove(param, 1)
+	self:run(sceneName)
+	if next(param)~=nil then
+		self:model('RoomModel'):quit(param)
+	end
 end
 
 function MyApp:presenter( name )

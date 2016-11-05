@@ -3,7 +3,10 @@ target.RESOURCE_FILENAME = "res/HallCocosStudio/StartUp/logo.csb"
 
 
 function target:onCreate()
-	self:initLayout()
+	local node = self:getResourceNode()
+	node:align(cc.p(0,0), 0,0)
+		:setContentSize(display.size)
+    ccui.Helper:doLayout(node)
 end
 
 function target:onEnter()

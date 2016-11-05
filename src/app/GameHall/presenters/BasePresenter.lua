@@ -22,6 +22,10 @@ function target:build(view)
 	end
 	return self
 end
+
+function target:clean()
+	self:log(':clean()')
+end
 --[[
 function target:ready()
 function target:ready( set )

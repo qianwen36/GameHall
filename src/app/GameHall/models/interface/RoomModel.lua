@@ -20,6 +20,10 @@ function target:reset()
 	self:spec('rooms', {})
 end
 
+function target:quit(param)
+	self:definition(':quit(param)')
+end
+
 function target:roominfo( id )
 	self:definition(':roominfo( id )')
 --[[	return {

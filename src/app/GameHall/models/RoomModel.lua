@@ -218,7 +218,9 @@ function target:enterRoom( info ) -- roominfo
 			OLD_HALLBUILDNO = needUpdateAPK,
 			NEW_HALLBUILDNO = needUpdateAPK,
 		}
-		local co, REQUEST, reqData, result
+		local co, params -- params{enterRoomInfo, playerInfo, tableInfo}
+		local REQUEST, reqData, result
+		
 		co = MCClient:rpcall(TAG.room, function ( client )
 			local desc
 			REQUEST = mc.ENTER_ROOM
@@ -228,8 +230,9 @@ function target:enterRoom( info ) -- roominfo
 			_, resp, data = client:syncSend(REQUEST, reqData )
 			result = self:routine(resp, REQUEST, handler)
 			if not result then return cleanup() end
+			params = {enterRoomInfo = result.enterRoomInfo, playerInfo = result.playerInfo}
 
-			if needaTable(result.info) then
+			if needaTable(result.playerInfo) then
 				REQUEST = mc.GET_NEWTABLE
 				desc = getTableREQ(self, info)
 				reqData = self:genDataREQ('GET_NEWTABLE', desc)
@@ -239,9 +242,10 @@ function target:enterRoom( info ) -- roominfo
 					return handler_.GET_NEWTABLE, self.resolve('NTF_GET_NEWTABLE', data)
 				end)
 				if not result then return cleanup() end
+				params.tableInfo = result
 			end
 			self:state('entering', false)
-			self:done({event = self.ROOM_READY})
+			self:done({event = self.ROOM_READY, msg = 'ready for GameScene', result = params})
 		end)
 		self:log('MCClient:rpcall(TAG, proc) >>>#co=', tostring(co))
 	end

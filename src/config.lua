@@ -34,12 +34,13 @@ Controller = {
 	viewsRoot = {'src.app.GameHall.views.extends', 'src.app.GameHall.views'},
 	modelsRoot = {'src.app.GameHall.models'},
 	presentersRoot = {'src.app.GameHall.presenters', 'src.app.GameHall.presenters.plugins'},
---	defaultSceneName = "LogoScene",
+
 	hall = {'src.app.GameHall.views.content',
 		offline = require('src.app.GameHall.config.HallTest'),
 		config = require('src.app.GameHall.config.HallTest'),
 		ui = require('src.app.GameHall.config.HallTest'),
 	},
+	game = {'src.app.Game.mMyGame.MyGameScene', name = 'MyGameScene'},
 	plugins = {
 		root = 'src.app.GameHall.views.plugins',
 		-- pluginname = relative_path or {relative_path, display = ['block', 'shade', 'normal', 'scene']}

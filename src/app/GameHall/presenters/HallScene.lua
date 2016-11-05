@@ -8,6 +8,9 @@ function target:build( MainScene )
 		hall:on(hall.CONNECTION, handler(self, self.onConnected))
 		hall:on(hall.MODEL_READY, handler(self, self.onHallReady))
 		hall:on(hall.EVENT_EXCEPTION_BREAK, handler(self, self.onCommunicationBreak))
+		if hall:state('ready') then
+			self:nextSchedule(self.onHallReady)
+		end
 		self.hall = hall
 	end
 	self.mainPanel = MainScene:presenter('MainPanel'):build(MainScene)
