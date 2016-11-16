@@ -16,6 +16,11 @@ if not USING_MCRuntime then return target end
 
 local MCClient = require('src.app.TcyCommon.MCClient2')
 
+function target:offline(name)
+	local info = self:getApp():getConfig('hall').offline or {}
+	return info[name]
+end
+
 local function onGetAreas(self, event)
 	local array = self.resolve(event.value)
 	for i,info in ipairs(array) do
@@ -31,6 +36,12 @@ local function onGetAreas(self, event)
 		info.gift = cdata.nGifID
 		info.rooms = {}
 	end
+	local info = self:offline('area')
+	if (info~=nil) then
+		info.rooms = {self:offline('room')}
+		table.insert(array, 1, info)
+	end
+
 	self:areas(array)
 end
 local function onGetRooms(self, event)
@@ -69,6 +80,12 @@ local function onReady( self, event )
 	function handler.HALL_READY( ... )
 		self:off(handler_.GET_AREAS)
 		self:off(handler_.GET_ROOMS)
+
+		local info = self:offline('room')
+		if info~=nil then
+			local array = self:rooms()
+			table.insert(array, 1, info)
+		end
 	end
 	handler = handler[value.event]
 	return handler and handler()
@@ -230,7 +247,11 @@ function target:enterRoom( info ) -- roominfo
 			_, resp, data = client:syncSend(REQUEST, reqData )
 			result = self:routine(resp, REQUEST, handler)
 			if not result then return cleanup() end
-			params = {enterRoomInfo = result.enterRoomInfo, playerInfo = result.playerInfo}
+			params = {
+				roomData = info.data,
+				enterRoomInfo = result.enterRoomInfo,
+				playerInfo = result.playerInfo
+			}
 
 			if needaTable(result.playerInfo) then
 				REQUEST = mc.GET_NEWTABLE

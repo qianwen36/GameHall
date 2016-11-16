@@ -117,11 +117,22 @@ function target:prepare(view)
 			local view = event.target:getChildByName(target.display.tagItem)
 			local info = view:getData()
 			local level = info.param[1]
-			if info.rooms then
-				target:showContent(level+1, info)
-			else
+			local function enterRoom( info )
 				target:waiting()
 				target:enterRoom(info)
+			end
+			local array = info.rooms
+			if array then
+				local c = #array
+				if c > 1 then
+					target:showContent(level+1, info)
+				elseif c ==1 then
+					enterRoom(array[1])
+				else-- c ==0
+					view:showToast('没有房间')
+				end
+			else
+				enterRoom(info)
 			end
 			self:log(':onItemClicked( event ).done #', info.name)
 		end

@@ -795,7 +795,7 @@ typedef struct _tagENTER_ROOM_OK{
 }ENTER_ROOM_OK, *LPENTER_ROOM_OK;
 
 typedef struct {
-	ENTER_ROOM_OK	enterGameInfo;
+	ENTER_ROOM_OK	enterRoomInfo;
 	PLAYER			playerInfo;
 } EnterRoomCompletion;
 
