@@ -53,7 +53,7 @@ function mc.brokenSession( respondId )-- 连接异常
 	}
 	local res = false
 	for i=1, #c do
-		res = (c == respondId)
+		res = (c[i] == respondId)
 		if res then break end
 	end
 	return res
@@ -85,11 +85,11 @@ local function onDataNotify(client, clientId, msgType, sessionId, respondId, dat
 	-- 请求应答 client:session()
 	local function handlerResponse( client, session, respondId, data )
 		if session then
-			local callback = session.callback
-			local timer = session.timer
-			if timer ~= nil then Scheduler:unscheduleScriptEntry(timer) end
-			if callback ~= nil then callback(client, respondId, data) end
 			client:dropSession()
+			local callback = session.callback
+			if callback ~= nil then
+				callback(client, respondId, data)
+			end
 			print('handlerResponse(session)# request:'..session.request..', response:'..respondId)
 		end
 	end
@@ -179,7 +179,8 @@ function target:build(client, tag, onConnection)
 		local session = self._session
 		local timer = timeout and
 		Scheduler:scheduleScriptFunc(function ()
-			Scheduler:unscheduleScriptEntry(session[sessionid].timer)
+            local timer = session[sessionid].timer
+			session[sessionid].timer = Scheduler:unscheduleScriptEntry(timer)
 			onDataNotify(self, -1, mType.MSG_RESPONSE, sessionid, mc.UR_RESPONSE_TIMEOUT)
 		end, timeout, false)
 		session[sessionid] = 
@@ -193,6 +194,11 @@ function target:build(client, tag, onConnection)
 	end
 	function client:dropSession()
 		local session = self._session
+        local current = session[session._REQid]
+        local timer = current and current.timer
+		if timer ~= nil then
+			Scheduler:unscheduleScriptEntry(timer)
+		end
 		session[session._REQid] = nil
 		session._REQid = nil
 	end

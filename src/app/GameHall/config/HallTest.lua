@@ -19,13 +19,21 @@ local config = {
 	id = -1,
 	icon = 0,
 	online = 0,
-	name = '局域网',
+	name = 'localhost',
 	},--area
 	room = {
 	id = -1,
 	icon = 0,
 	online = 0,
 	name = '本地测试',
+	data = {
+	szGameIP = '127.0.0.1',
+	nGamePort = 21568,
+	nPort = 0,
+	nAreaID = 1434,
+	nRoomID = 5360,
+	nGameVID = 1005680000,
+	},-- data
 	},-- room
 }
 

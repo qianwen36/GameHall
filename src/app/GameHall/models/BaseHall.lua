@@ -49,7 +49,7 @@ function target:restart( config )
 				self:nextSchedule(self.initHall, config)
 				return self.CONNECTION, TAG
 			end)
-		self:state('connected', result)
+		self:state('connected', result==TAG)
 	end)
 end
 

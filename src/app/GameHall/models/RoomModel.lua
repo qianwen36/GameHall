@@ -85,6 +85,16 @@ local function onReady( self, event )
 		if info~=nil then
 			local array = self:rooms()
 			table.insert(array, 1, info)
+			if (info.data == nil) then
+				info.data = {
+				szGameIP = '127.0.0.1',
+				nGamePort = 21568,
+				nPort = 0,
+				nAreaID = 1434,
+				nRoomID = 5360,
+				nGameVID = 1005680000,
+				}
+			end
 		end
 	end
 	handler = handler[value.event]
@@ -175,15 +185,19 @@ function target:prepare()
 end
 
 local socket_resolve = function ( cdata )end -- ctype<ROOM>
+local socket_resolve2= function ( cdata )end -- ctype<ROOM>
 local enterRoomREQ = function(self, info)end -- return desc
 local getTableREQ = function (self, info)end -- return desc
-function target:enterRoom( info ) -- roominfo
-	local function cleanup()
-		MCClient:destroy(TAG.room)
-		self:state('connected', false)
-		self:state('entering', false)
-	end
-	if not self:state('connected') then
+
+function target:finish()
+	MCClient:destroy(TAG.room)
+	self:state('connected', false)
+	self:state('entering', false)
+end
+function target:establish( info )
+	local connected = self:state('connected')
+	if not connected and
+	not self:state('entering') then
 		self:state('entering', true)
 		local host, port = socket_resolve(info.data)
 		MCClient:connect(host, port, TAG.room, function(client, resp)
@@ -192,12 +206,22 @@ function target:enterRoom( info ) -- roominfo
 					self:nextSchedule(self.enterRoom, info)
 					return self.CONNECTION, TAG
 				end)
-				self:state('connected', result or false)
+				self:state('connected', result==TAG)
 				if not result then
-					cleanup()
+					self:nextSchedule(self.finish)
 				end
+				self:state('entering', false)
 		end)
-	else
+	end
+	return connected
+end
+function target:enterRoom( info ) -- roominfo
+	local function cleanup()
+		self:nextSchedule(self.finish)
+	end
+	if self:establish(info) and
+	not self:state('entering') then
+		self:state('entering', true)
 		local _, resp, data
 		-- enter room
 		-- get a table
@@ -247,10 +271,13 @@ function target:enterRoom( info ) -- roominfo
 			_, resp, data = client:syncSend(REQUEST, reqData )
 			result = self:routine(resp, REQUEST, handler)
 			if not result then return cleanup() end
+			local host, port = socket_resolve2(info.data)
 			params = {
 				roomData = info.data,
 				enterRoomInfo = result.enterRoomInfo,
-				playerInfo = result.playerInfo
+				playerInfo = result.playerInfo,
+				host = host,
+				port = port,
 			}
 
 			if needaTable(result.playerInfo) then
@@ -278,13 +305,14 @@ function enterRoomREQ(self, info)
 		'nAreaID',
 		'nGameID',
 		'nGameVID',
+		'nRoomID',
 		'nRoomSvrID',
 		'nExeMajorVer',
 		'nExeMinorVer',
 		-- 'nExeBuildno'
 		})
-	local player = self.getApp():model('PlayerModel')
-	desc.handler = {player.fillUserData, self.fillCommonData, self.fillDeviceData}
+	local player = self:getApp():model('PlayerModel')
+	desc.handler = {{player.fillUserData, player}, self.fillCommonData, self.fillDeviceData}
 
 	return desc
 end
@@ -305,6 +333,10 @@ function socket_resolve( info )
 	else
 		port = port + 1000
 	end
+	return host, tostring(port)
+end
+function socket_resolve2( info )
+	local host, port = target:string(info.szGameIP), info.nGamePort + 20000
 	return host, tostring(port)
 end
 
