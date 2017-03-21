@@ -271,6 +271,8 @@ end
 function target:destroy(tag)
 	if tag ~=nil then
 		local client = self:client(tag)
+        if client == nil then return end
+
 		print("client("..tag.."):destroy")
 		self._client[tag] = nil
 		return client:destroy()

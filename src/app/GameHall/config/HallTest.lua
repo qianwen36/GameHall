@@ -1,7 +1,7 @@
 local config = {
 	test = 'test',
 	user = {name = 'liaoqf02', password = '7890-='},
-	abbr = 'zzmk',
+	abbr = 'erqs',
 	--server = '192.168.1.222:31626',
 	server = '122.224.230.90:31626',
 	target = 'AND',
