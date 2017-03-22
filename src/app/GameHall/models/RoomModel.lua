@@ -238,12 +238,15 @@ function target:enterRoom( info ) -- roominfo
 			self:nextSchedule(self.enterRoom, info)
 		end
 		local function needUpdateZIP( event, msg, result )
+			self:log('needUpdateZIP()#msg=', msg)
 		end
 
 		local function needUpdateAPK( event, msg, result )
+			self:log('needUpdateAPK()#msg=', msg)
 		end
 		
-		local function tipUprage( event, msg, result )
+		local function tipUpgrade( event, msg, result )
+			self:log('tipUpgrade()#msg=', msg)
 		end
 
 		local handler = {
@@ -253,9 +256,9 @@ function target:enterRoom( info ) -- roominfo
 			OLD_EXEMINORVER = needUpdateZIP,
 			OLD_EXEMAJORVER = needUpdateZIP,
 			OLD_EXEBUILDNO = needUpdateZIP,
-			NEW_EXEMAJORVER = tipUprage,
-			NEW_EXEMINORVER = tipUprage,
-			NEW_EXEBUILDNO = tipUprage,
+			NEW_EXEMAJORVER = tipUpgrade,
+			NEW_EXEMINORVER = tipUpgrade,
+			NEW_EXEBUILDNO = tipUpgrade,
 			OLD_HALLBUILDNO = needUpdateAPK,
 			NEW_HALLBUILDNO = needUpdateAPK,
 		}

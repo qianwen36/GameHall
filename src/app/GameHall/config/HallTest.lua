@@ -6,7 +6,7 @@ local config = {
 	server = '122.224.230.90:31626',
 	target = 'AND',
 	version = '2.1.20130822',
-	gameid = 584,
+	gameid = 568,
 	agentGroup = 6,
 
 	-- ui.config

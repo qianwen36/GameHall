@@ -444,11 +444,11 @@ function utils.type( name )
 end
 
 function utils.ct_generate( ctype, des )
+    local str = '['..ctype..'].size:'
 	ctype = utils.type(ctype)
-	local cdata = ctype(des)
-	local res = ffi.string(cdata, ffi.sizeof(ctype))
-	-- local cdata = ctype()
-	-- local res = ffi.string( utils_assign(cdata, des), ffi.sizeof(ctype) )
+	local cdata, size = ctype(des), ffi.sizeof(ctype)
+	local res = ffi.string(cdata, size)
+    print(str..size)
 	return res, cdata
 end
 
@@ -458,20 +458,10 @@ function utils.vls_generate( htype, ctype, des )
 	local c = #list
 	local vstruct = utils.vstruct_type(htype, ctype)
 	local cdata = vstruct(c, {head = des, array = list})
-	-- local head = utils_assign(cdata.head, des)
-	-- local array = cdata.array
-	-- for i=1, c do
-	-- 	local item = list[i]
-	-- 	local t = type(item)
-	-- 	if t == 'string'
-	-- 	or t == 'table' then
-	-- 		utils_assign(array[i-1], item)
-	-- 	else
-	-- 		array[i-1] = item
-	-- 	end
-	-- end
 	local size = ffi.sizeof(htype)
     size = size + ffi.sizeof(ctype..'[?]', c)
+    local str = '{'..htype..'; '..ctype..'['..c..']}.size:'
+    print(str..size)
 	return ffi.string(cdata, size), cdata
 end
 
