@@ -39,7 +39,7 @@ end
 function MyApp:enterGame(params)
 	local config = self:getConfig('game')
 	local cls = table.remove(config, 1)
-	local view = require(config[1]):create(self, config.name or 'GameScene', params)
+	local view = require(cls):create(self, config.name or 'GameScene', params)
 	view:showWithScene(unpack(config))
 	return view
 end

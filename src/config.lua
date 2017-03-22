@@ -29,7 +29,7 @@ CC_DESIGN_RESOLUTION = {
     end
 }
 
-
+require 'src.cocos.cocos2d.json'
 Controller = {
 	viewsRoot = {'src.app.GameHall.views.extends', 'src.app.GameHall.views'},
 	modelsRoot = {'src.app.GameHall.models'},

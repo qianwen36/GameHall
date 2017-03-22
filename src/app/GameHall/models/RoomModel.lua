@@ -321,11 +321,12 @@ function enterRoomREQ(self, info)
 end
 function getTableREQ(self, info)
 	local desc = MCClient.table4s(info.data, {
+		'nRoomID',
 		'nAreaID',
 		'nGameID',
 		})
-	local player = self.getApp():model('PlayerModel')
-	desc.handler = {player.fillUserData, self.fillCommonData}
+	local player = self:getApp():model('PlayerModel')
+	desc.handler = {{player.fillUserData, player}, self.fillCommonData}
 
 	return desc
 end
