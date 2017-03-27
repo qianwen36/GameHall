@@ -279,6 +279,7 @@ function target:enterRoom( info ) -- roominfo
 				roomData = info.data,
 				enterRoomInfo = result.enterRoomInfo,
 				playerInfo = result.playerInfo,
+				deviceInfo = self:fillDeviceData({}),
 				host = host,
 				port = port,
 			}

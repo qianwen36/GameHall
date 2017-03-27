@@ -258,7 +258,7 @@ local function layoutMainLinear( container )
 --			end
 		return cc.size(width, size.height)
 	end
-	if c <= 4 then
+	if c < 4 then
 		size = layout(size.width/(c+1))
 	else
 		local c = 4
