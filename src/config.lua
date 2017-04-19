@@ -35,6 +35,7 @@ Controller = {
 	modelsRoot = {'src.app.GameHall.models'},
 	presentersRoot = {'src.app.GameHall.presenters', 'src.app.GameHall.presenters.plugins'},
 
+    app = json.decode(cc.FileUtils:getInstance():getStringFromFile('AppConfig.json')),
 	hall = {'src.app.GameHall.views.content',
 		offline = require('src.app.GameHall.config.HallTest'),
 		config = require('src.app.GameHall.config.HallTest'),

@@ -37,7 +37,7 @@ function MyApp:plugin( name )
 end
 
 function MyApp:enterGame(params)
-	local config = self:getConfig('game')
+	local config = clone(self:getConfig('game'))
 	local cls = table.remove(config, 1)
 	local view = require(cls):create(self, config.name or 'GameScene', params)
 	view:showWithScene(unpack(config))
@@ -47,9 +47,7 @@ end
 function MyApp:quitGame(param)
 	local sceneName = table.remove(param, 1)
 	self:run(sceneName)
-	if next(param)~=nil then
-		self:model('RoomModel'):quit(param)
-	end
+	self:model('RoomModel'):quit(param)
 end
 
 function MyApp:presenter( name )

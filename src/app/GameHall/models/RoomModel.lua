@@ -154,8 +154,12 @@ function target:prepare()
 		local _, resp, data, REQUEST, result
 		-- 获取大区列表
 		REQUEST = mc.GET_AREAS
+        local flags = mc.Flags.FLAG_GETAREAS_MOBILE
+--        if DEBUG~=0 then flags = flags + mc.Flags.FLAG_GETAREAS_INCLUDE_HIDE end
 		_, resp, data = client:syncSend(REQUEST
-			, self:genDataREQ('GET_AREAS', {handler = self.fillCommonData}) )
+			, self:genDataREQ('GET_AREAS', {handler = self.fillCommonData,
+                dwGetFlags = flags})
+                )
 
 		result = self:routine(resp, REQUEST, function (event, msg, result)
 			return handler_.GET_AREAS, self.resolve('AREAS', {'nCount', 'AREA', data})
@@ -188,6 +192,14 @@ local socket_resolve = function ( cdata )end -- ctype<ROOM>
 local socket_resolve2= function ( cdata )end -- ctype<ROOM>
 local enterRoomREQ = function(self, info)end -- return desc
 local getTableREQ = function (self, info)end -- return desc
+
+function target:quit(param)
+    local reqData = self:genDataREQ('LEAVE_ROOM', param)
+    MCClient:client(TAG.room)
+            :send(mc.LEAVE_ROOM , reqData, function (client, respondId, data)
+		self:nextSchedule(self.finish)
+    end)
+end
 
 function target:finish()
 	MCClient:destroy(TAG.room)
@@ -310,7 +322,6 @@ function enterRoomREQ(self, info)
 		'nGameID',
 		'nGameVID',
 		'nRoomID',
-		'nRoomSvrID',
 		'nExeMajorVer',
 		'nExeMinorVer',
 		-- 'nExeBuildno'

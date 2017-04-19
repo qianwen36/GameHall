@@ -20,25 +20,26 @@ function target:genDataREQ( ctype, desc ) -- 生成序列化请求数据
 		item = table.remove(param)
 	end
 	fill = param
-	
-	local t = type(fill)
-	assert(t=='table' or 'function', 'desc.handler[1] must be a target:function or a list function for target')
-	if t == 'table' then
-		for i,fill_ in ipairs(fill) do
-			local t = type(fill_)
-			if t=='function' then
-				fill_(self, desc)
-			elseif t == 'table' then
-				local params = fill_
-				fill_ = table.remove(fill_, 1)
-				assert(type(fill_)=='function', 'handler{function, ...}')
-				local self = table.remove(params, 1)
-				fill_(self, desc, unpack(params))
-			end
-		end
-	else
-		fill(self, desc)
-	end
+	if fill ~= nil then
+	    local t = type(fill)
+	    assert(t=='table' or 'function', 'desc.handler[1] must be a target:function or a list function for target')
+	    if t == 'table' then
+		    for i,fill_ in ipairs(fill) do
+			    local t = type(fill_)
+			    if t=='function' then
+				    fill_(self, desc)
+			    elseif t == 'table' then
+				    local params = fill_
+				    fill_ = table.remove(fill_, 1)
+				    assert(type(fill_)=='function', 'handler{function, ...}')
+				    local self = table.remove(params, 1)
+				    fill_(self, desc, unpack(params))
+			    end
+		    end
+	    else
+		    fill(self, desc)
+	    end
+    end
 	-- remove the key used temporary
 	desc.handler = nil
 	desc.affect = nil
