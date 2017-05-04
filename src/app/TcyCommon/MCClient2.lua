@@ -481,7 +481,7 @@ function utils.table( cdata, params )
 			local t = type(param_)
 			
 			if t =='string'and param_~='string'
-			then alias = param_ end;
+			then alias = param_ end
 			
 			local key = alias or field
 			if t == 'table' then

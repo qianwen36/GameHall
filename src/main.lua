@@ -9,11 +9,7 @@ end
 require "config"
 require "cocos.init"
 
-local function test(path)
-	require(path)
-end
 local function main()
-	-- test('app.TcyCommon.test.utils_test')
     -- require("app.MyApp"):create(Controller):run('LogoScene')
     require("app.MyApp"):create(Controller):run()
 end
