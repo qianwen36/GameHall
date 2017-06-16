@@ -1,6 +1,6 @@
 local function param_pack( params, callback )
-	local host = table.remove(params, 1)
-	local service = table.remove(params, 1)
+	local host = params[1]
+	local service = table.remove(params, 2)
 	table.insert(params, callback)
 	return host, service, params
 end
