@@ -1,8 +1,6 @@
 local function param_pack( params, callback )
-	local host = params[1]
-	local service = table.remove(params, 2)
 	table.insert(params, callback)
-	return host, service, params
+	return params
 end
 
 local function asyncall( ... )
@@ -16,12 +14,12 @@ local function asyncall( ... )
 		table.insert(params, 1, co)
 		return coroutine.resume(unpack(params))
 	end
-	local host, service
 	local params = {...}
+	local host, service = params[1], table.remove(params, 2)
 	if type(params[#params]) == 'function' then
-		host, service, params = table.remove(params)(params, callback)
+		params = table.remove(params)(params, callback)
 	else
-		host, service, params = param_pack(params, callback)
+		params = param_pack(params, callback)
 	end
 	if type(host[service]) == 'function' then
 		return coroutine.yield(host[service](unpack(params)))
