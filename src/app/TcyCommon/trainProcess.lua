@@ -10,8 +10,7 @@ local function asyncall( ... )
 		return
 	end
 	local function callback( ... )
-		local params = {...}
-		table.insert(params, 1, co)
+		local params = {co, ...}
 		return coroutine.resume(unpack(params))
 	end
 	local params = {...}
@@ -31,8 +30,7 @@ end
 local function runProcess( func, ... )
 	local co = coroutine.create(func)
 
-	local params = {...}
-	table.insert(params, 1, co)
+	local params = {co, ...}
 	return coroutine.resume(unpack(params))
 end
 
