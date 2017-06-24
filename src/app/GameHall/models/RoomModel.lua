@@ -156,7 +156,7 @@ function target:prepare()
 		REQUEST = mc.GET_AREAS
         local flags = mc.Flags.FLAG_GETAREAS_MOBILE
 --        if DEBUG~=0 then flags = flags + mc.Flags.FLAG_GETAREAS_INCLUDE_HIDE end
-		_, resp, data = client:syncSend(REQUEST
+		_, resp, data = client:send(REQUEST
 			, self:genDataREQ('GET_AREAS', {handler = self.fillCommonData,
                 dwGetFlags = flags})
                 )
@@ -171,7 +171,7 @@ function target:prepare()
 		for i=0, count-1 do
 			local info = ar[2][i]
 			REQUEST = mc.GET_ROOMS
-		    _, resp, data = client:syncSend(REQUEST
+		    _, resp, data = client:send(REQUEST
 		    	, self:genDataREQ('GET_ROOMS'
 		    		, {handler = self.fillCommonData
 		    		, nAreaID = info.nAreaID}) )
@@ -184,7 +184,7 @@ function target:prepare()
 		self:state('ready', true)
 		self:done({event = self.HALL_READY})
 	end
-	MCClient:rpcall(TAG.hall, proc)
+	trainProcess.run(MCClient:client(TAG.hall), proc)
 	self:log(':prepare().over')
 end
 
@@ -274,20 +274,19 @@ function target:enterRoom( info ) -- roominfo
 			OLD_HALLBUILDNO = needUpdateAPK,
 			NEW_HALLBUILDNO = needUpdateAPK,
 		}
-		local co, params -- params{enterRoomInfo, playerInfo, tableInfo}
 		local REQUEST, reqData, result
 		
-		co = MCClient:rpcall(TAG.room, function ( client )
+		trainProcess.run(MCClient:client(TAG.room), function ( client )
 			local desc
 			REQUEST = mc.ENTER_ROOM
 			desc = enterRoomREQ(self, info)
 			reqData = self:genDataREQ('ENTER_ROOM', desc)
 	
-			_, resp, data = client:syncSend(REQUEST, reqData )
+			_, resp, data = client:send(REQUEST, reqData )
 			result = self:routine(resp, REQUEST, handler)
 			if not result then return cleanup() end
 			local host, port = socket_resolve2(info.data)
-			params = {
+			local params = {
 				roomData = info.data,
 				enterRoomInfo = result.enterRoomInfo,
 				playerInfo = result.playerInfo,
@@ -301,7 +300,7 @@ function target:enterRoom( info ) -- roominfo
 				desc = getTableREQ(self, info)
 				reqData = self:genDataREQ('GET_NEWTABLE', desc)
 	
-				_, resp, data = client:syncSend(REQUEST, reqData )
+				_, resp, data = client:send(REQUEST, reqData )
 				result = self:routine(resp, REQUEST, function (event, msg, result)
 					return handler_.GET_NEWTABLE, self.resolve('NTF_GET_NEWTABLE', data)
 				end)
@@ -311,7 +310,6 @@ function target:enterRoom( info ) -- roominfo
 			self:state('entering', false)
 			self:done({event = self.ROOM_READY, msg = 'ready for GameScene', result = params})
 		end)
-		self:log('MCClient:rpcall(TAG, proc) >>>#co=', tostring(co))
 	end
 
 end

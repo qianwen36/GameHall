@@ -8,6 +8,7 @@ local TAG = target.TAG
 
 if not USING_MCRuntime then return target end
 
+local trainProcess = require('src.app.TcyCommon.trainProcess')
 local MCClient = require('src.app.TcyCommon.MCClient2')
 local ffi2 = MCClient.utils
 
@@ -74,12 +75,8 @@ end
 
 function target:initHall(config)
 	local REQUEST, reqData -- request id
-
-	local co
-	local function onGetServersOK( _, resp, data )
-		coroutine.resume(co, _, resp, data)
-	end
-	co = MCClient:rpcall(TAG, function( client )
+	local process
+	process = trainProcess.run(MCClient:client(TAG), function( client )
 		local _, resp, data, result
 		-- 获取大厅版本
 		REQUEST = mc.CHECK_VERSION
@@ -91,7 +88,7 @@ function target:initHall(config)
 				nBuildNO = buildno,
 				szExeName = config.target
 				})
-		_, resp, data = client:syncSend(REQUEST, reqData )
+		_, resp, data = client:send(REQUEST, reqData )
 		result = self:routine(resp, REQUEST, function (event, msg, result)
 			return self.handler.CHECK_VERSION, self.resolve('CHECK_VERSION_OK_MB', data)
 		end)
@@ -107,11 +104,11 @@ function target:initHall(config)
 			dwGetFlags = (notify and mc.Flags.FLAG_GETSERVERS_NOTIFY) or 0
 		})
 		if notify then
-			client:once(mc.GET_SERVERS_OK, onGetServersOK)
+			client:once(mc.GET_SERVERS_OK, process)
 			client:send(REQUEST, reqData)
 			_, resp, data = coroutine.yield()
 		else
-			_, resp, data = client:syncSend(REQUEST, reqData )
+			_, resp, data = client:send(REQUEST, reqData )
 		end
 		result = self:routine(resp, {REQUEST, mc.GET_SERVERS_OK}, function (event, msg, result)
 			return self.handler.GET_SERVERS, self.resolve('SERVERS', {'nServerCount', 'SERVER', data})
@@ -122,7 +119,6 @@ function target:initHall(config)
 		self.hslUtils:saveHallSvr(data, data:len())
 		self:done()
 	end)
-	self:log('MCClient:rpcall(TAG, proc) >>>#co=', tostring(co))
 end
 
 return target

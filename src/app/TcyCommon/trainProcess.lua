@@ -10,8 +10,7 @@ local function asyncall( ... )
 		return
 	end
 	local function callback( ... )
-		local params = {co, ...}
-		return coroutine.resume(unpack(params))
+		return coroutine.resume(co, ...)
 	end
 	local params = {...}
 	local host, service = params[1], table.remove(params, 2)
@@ -27,11 +26,16 @@ local function asyncall( ... )
 	end
 end
 
-local function runProcess( func, ... )
+local function runProcess( ... )
+	local func = select(-1, ...)
+	assert(type(func)=='function', 'the last argument must be a function for coroutine process')
 	local co = coroutine.create(func)
 
-	local params = {co, ...}
-	return coroutine.resume(unpack(params))
+	local function process( ... )
+		coroutine.resume(co, ...)
+	end
+	process(...)
+	return process
 end
 
 local target = {

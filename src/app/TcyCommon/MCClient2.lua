@@ -1,3 +1,4 @@
+local trainProcess = import('.trainProcess')
 local MCAgent = MCAgent:getInstance()
 local Scheduler = cc.Director:getInstance():getScheduler()
 local target = {
@@ -212,14 +213,44 @@ function target:build(client, tag, onConnection)
 		end
 		return self
 	end
-	function client:send(requestid, data, callback, timeout) --[[function(client, respondId, data) end]]
-		if self:session() ~= nil then
-			return self:queue(requestid, data, callback, timeout)
+	function client:send(requestid, data, ...)
+		--[[ @overload
+		client:send(requestid, data [, timeout]) -- for trainProcess.run
+		client:send(requestid, data, callback [, timeout])
+		--]]
+		local function async_send( self, requestid, data, callback, timeout)
+			-- function callback(client, respondId, data) end
+			if self:session() ~= nil then
+				return self:queue(requestid, data, callback, timeout)
+			end
+			local echo = (timeout and true ) or false
+	        local sessionid = self:sendRequest(requestid, data, data:len(), echo)
+	        if echo then
+				self:keepSession(sessionid, requestid, callback, timeout)
+			end
+			return self
 		end
-		local echo = (timeout and true ) or false
-        local sessionid = self:sendRequest(requestid, data, data:len(), echo)
-		self:keepSession(sessionid, requestid, callback, timeout or target.TIMEOUT)
-		return self
+		local function train_send( self, requestid, data, timeout )
+			timeout = timeout or target.TIMEOUT
+			local co, main = coroutine.running()
+			assert(not main, 'the method must be called in a coroutine')
+			local function callback( ... )
+				return coroutine.resume(co, ...)
+			end
+			return coroutine.yield(async_send(self, requestid, data, callback, timeout))
+			--[[
+			local function param_pack(params, callback)
+				table.insert(params, 3, callback)
+				return params
+			end
+			return trainProcess.call(self, 'send', requestid, data, timeout, param_pack)
+			--]]
+		end
+		local arg = ...
+		if arg and type(arg) == 'function' then
+			return async_send(self, requestid, data, ...)
+		end
+		return train_send(self, requestid, data, ...)
 	end
 	function client:next()
 		local params = self:queue()
@@ -285,81 +316,6 @@ function target:destroy(tag)
 	self._client = {}
 end
 
--- RPC on server, so that we can write synchronizing script for interaction
-function target:coroutine( coro, index )
-	local array = self.corots_ or {}
-	index = index or 1
-	if index == -1 then
-		array[index] = nil -- remove
-	else
-		table.insert(array, index, coro)
-	end
-	if (self.corots_ == nil) then
-		self.corots_ = array
-	end
-	return #array
-end
-function target:rpcall( tag, proc )	--[[function proc( client )	end; return coroutine]]
-	local client = self:client(tag)
-	if client == nil then
-		print('target:rpcall('..tag..') <= client not exist')
-		print('Please do target:connect(host, port, callback) before')
-		return self
-	end
-    local coro = coroutine.create( function()
-        local status, msg = xpcall(proc
-        , __G__TRACKBACK__, client)
-        if not status then print(msg) end
-		if self:coroutine(coro, -1)==0 then -- support nesting usage
-        	client.syncSend = nil --remove
-        end
-	    print('coroutine['..tostring(coro)..'].end')
-	    return msg
-    end )
-	local context = {fun = proc, coro = coro}
-	self:coroutine(coro)
-
-	function context:callback (...)
-		local params = self.params
-		if type(params) =='table' then
-		    params.response = {...}
-		    local status, msg = xpcall(self.switch
-		    , __G__TRACKBACK__, self)
-		    if not status then print(msg) end
-		else
-		    print('context:callback(client)##params = '..tostring(params))
-		end
-	end
-    
-    function context:switch()
-	    local code, params = coroutine.resume(self.coro)
-	    print('coroutine['..tostring(self.coro)..'].status: ' .. coroutine.status(self.coro))
-	    if type(params) =='table'
-	    and params.client~=nil then
-	        local requestId, data = unpack(params[1])
-            local function onResponse(...)
-                self:callback(...)
-            end
-	        params.client:send(
-	        	requestId, data,
-	        	onResponse, target.TIMEOUT)
-	    end
-	    self.params = params
-	    return params
-    end
-
-    function context.send(client, requestId, data )
-	    local params = {{requestId, data}, client = client, response = nil}
-	    coroutine.yield(params)
-	    return unpack(params.response)
-    end
-    function context:wrapper(client)
-		client.syncSend = self.send -- mount a method
-	    return self
-    end
-    context:wrapper(client):switch()
-    return coro
-end
 ------------------------------------------------------------------------------
 local ffi = require('ffi')
 local utils = {}
@@ -538,7 +494,7 @@ function(client, resp, data)
         print(TAG..".TEST:"..target:describe(resp))
     end
 end)
-target:rpcall(TAG, function (client)
+trainProcess.run(MCClient:client(TAG), function (client)
 	-- synchronizing script for interaction to server
 	local _, resp, data
 	local function routine( proc )
@@ -548,8 +504,14 @@ target:rpcall(TAG, function (client)
 		    print(TAG..".TEST:"..MCClient:describe(resp))
 		end
 	end
-	_, resp, data = client:syncSend(mc.GET_AREAS, utils.ct_generate('GET_AREAS'))
-	_, resp, data = client:syncSend(mc.GET_ROOMS, utils.ct_generate('GET_ROOMS'))
+	_, resp, data = client:send(mc.GET_AREAS, utils.ct_generate('GET_AREAS'))
+	routine(funcetion()
+		-- handle with data
+	end)
+	_, resp, data = client:send(mc.GET_ROOMS, utils.ct_generate('GET_ROOMS'))
+	routine(funcetion()
+		-- handle with data
+	end)
 	---
 end)
 --hClient:disconnect()

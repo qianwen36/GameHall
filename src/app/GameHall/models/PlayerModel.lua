@@ -66,7 +66,7 @@ function target:prepare()
 				szUsername = self:string(user.name, 'raw'),
 				szPassword = self:string(user.password, 'raw')
 				})
-		_, resp, data = client:syncSend(REQUEST, reqData)
+		_, resp, data = client:send(REQUEST, reqData)
 
 		result = self:routine(resp, {REQUEST, mc.LOGON_SUCCEEDED}, function (event, msg, result)
 			result = self.resolve('LOGON_SUCCEED', data)
@@ -79,7 +79,7 @@ function target:prepare()
 		updateGameCash(self, client)
 		self:done()
 	end
-	MCClient:rpcall(TAG, proc)
+	trainProcess.run(MCClient:client(TAG), proc)
 	self:log(':prepare().over')
 end
 
@@ -91,7 +91,7 @@ function updateGameCash( self, client ) -- 更新游戏信息，保险箱信息
 			handler = {self.fillCommonData, self.fillDeviceData},
 			nUserID = self:user().id
 			})
-	_, resp, data = client:syncSend(REQUEST, reqData)
+	_, resp, data = client:send(REQUEST, reqData)
 
 	result = self:routine(resp, REQUEST, function (event, msg, result)
 		result = self.resolve('USER_GAMEINFO_MB', data)
@@ -111,7 +111,7 @@ function updateGameCash( self, client ) -- 更新游戏信息，保险箱信息
 			handler = {self.fillCommonData, self.fillDeviceData},
 			nUserID = self:user().id
 			})
-	_, resp, data = client:syncSend(REQUEST, reqData)
+	_, resp, data = client:send(REQUEST, reqData)
 
 	result = self:routine(resp, REQUEST, function (event, msg, result)
 		result = self.resolve('SAFE_DEPOSIT', data)
@@ -220,7 +220,7 @@ function target:updateGameCash()
 	local function proc( client )
 		updateGameCash(self, client)
 	end
-	MCClient:rpcall(TAG, proc)
+	trainProcess.run(MCClient:client(TAG), proc)
 end
 
 function target:reqTransferDeposit( amount, callback ) -- callback(info, res)
