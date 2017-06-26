@@ -68,6 +68,10 @@ local function http(...)
 	else
 		method, url, params = ...
 	end
+	method = string.upper(method)
+	local support = {GET = true, POST = true}
+	if not support[method] then return end
+
 	local request = cc.XMLHttpRequest:new()
 	request:registerScriptHandler(function()
 		local callback = request.callback
