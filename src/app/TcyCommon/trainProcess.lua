@@ -14,7 +14,7 @@ local function future( ... )
 	function order:result()
 		if (self.res == nil) then
 			local co, main = coroutine.running()
-			if not main then self.co = co end
+			if not main then self.co = co else return end
 			coroutine.yield()
 		end
 		return unpack(self.res)
@@ -85,6 +85,7 @@ local function http(...)
 		local handler = {}
 		function handler.GET()
 			self:open(method, url..'?'..params, true)
+			self:send()
 		end
 		function handler.POST()
 			self:open(method, url, true)
@@ -95,8 +96,11 @@ local function http(...)
 			handler[method]()
 		end
 	end
-	if params and type(params) == 'table' then
+	if params~=nil then
 		local function url_encode(params)
+			if type(params) ~= 'table' then
+				return string.urlencode(tostring(params))
+			end
 			local pp = {}
 			for k, v in pairs(params) do
 				pp[#pp+1] = k..'='..string.urlencode(tostring(v))
