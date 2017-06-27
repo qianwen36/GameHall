@@ -147,7 +147,7 @@ target.run(function ( ... )
 		end
 	end
 	-- following using future model
-	local order = target.http('http://huodong.uc108.org:922/CheckIn/AddCheckIn', {ActId=‘123’， UserId=77681})---
+	local order = target.http('http://huodong.uc108.org:922/CheckIn/AddCheckIn', {ActId='123', UserId=77681})---
 	local checkin = order
 	order = target.http('http://huodong.uc108.org:922/floorreward/GetFloorRewardConfig', {actid='666'})
 	local code, resp = order:result()
