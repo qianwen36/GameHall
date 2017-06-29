@@ -1,14 +1,30 @@
-local function param_pack( params, callback )
+local continue_from
+local param_pack
+function param_pack( params, callback )
 	table.insert(params, callback)
 	return params
+end
+function continue_from(co, status, ...)
+	if not status then
+		print('continue_from('..tostring(co)..', false)', ...)
+		return
+	end
+	local params = {... }
+	local continue = table.remove(params)
+	if type(continue) ~= 'function' then
+		print('continue_from('..tostring(co)..', true)', ...)
+		return
+	end
+	continue_from(co, coroutine.resume(co, continue(unpack(params))))
 end
 
 local function future( ... )
 	local order = {result = true}
 	local function callback( ... )
 		order.res = { ... }
-		if order.co then
-			coroutine.resume(order.co)
+		local co = order.co
+		if co then
+			continue_from(co, coroutine.resume(co))
 		end
 	end
 	function order:result()
@@ -16,6 +32,7 @@ local function future( ... )
 			local co, main = coroutine.running()
 			if not main then self.co = co else return end
 			coroutine.yield()
+			self.co = nil
 		end
 		return unpack(self.res)
 	end
@@ -101,6 +118,7 @@ local function http(...)
 			if type(params) ~= 'table' then
 				return string.urlencode(tostring(params))
 			end
+
 			local pp = {}
 			for k, v in pairs(params) do
 				pp[#pp+1] = k..'='..string.urlencode(tostring(v))
@@ -118,9 +136,10 @@ local function runProcess( ... )
 	local co = coroutine.create(func)
 
 	local function process( ... )
-		coroutine.resume(co, ...)
+		return coroutine.resume(co, ...)
 	end
-	process(...)
+	continue_from(co, process(...))
+
 	return process
 end
 
