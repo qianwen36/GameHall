@@ -13,10 +13,10 @@ function target.resolve( arg, arg2 )
 	end
 	if type(itype) == 'string'
 	and type(cfield)== 'string' then
-		local ct, value = ffi2.vls_resolve(ctype, data)
-		local c = ct[cfield]
-		local array = ffi2.vla_resolve(itype, c, value)
-		return {c, array}
+		local head, size = ffi2.ct_resolve(ctype, data)
+		local value = data:sub(size+1)
+		local array = ffi2.vla_resolve(itype, head[cfield], value)
+		return {head, array}
 	end
 	return ffi2.ct_resolve(ctype, data)
 end

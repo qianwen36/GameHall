@@ -9,34 +9,23 @@ function target.type( name, ad )
 		ctype = ffi.typeof(name)
 		ctypes[name] = ctype
 	end
-	assert(ctype ~=nil, 'target.type('..name..') =nil')
+	assert(ctype ~=nil)
 	return ctype
 end
 -- VLA ¡ª A variable-length array
 function target.vla_resolve(ctype, c, data)
-    if c > 0 then
-    	ctype = target.type(ctype, '[?]')
-		local ct = ctype(c)
-		ffi.copy(ct, data, data:len())
-		return ct
-	end
-end
--- VLS ¡ª A variable-length struct is a struct C type where the last element is a VLA. 
-function target.vls_resolve(ctype, data)
-	ctype = target.type(ctype)
-	local offset  = ffi.sizeof(ctype)
-	local body = string.sub(data, offset+1)
-	local ct = ctype()
-	ffi.copy(ct, data, offset)
---	print('['..ctype..'].size = '.. offset..', data.len ='.. data:len())
-	return ct, body
+	assert(c>0)
+	ctype = target.type(ctype, '[?]')
+	local ct, size = ctype(c), ffi.sizeof(ctype, c)
+	ffi.copy(ct, data, size)
+	return ct, size
 end
 -- ct ¡ª A C type specification
 function target.ct_resolve(ctype, data)
 	ctype = target.type(ctype)
-	local ct = ctype()
-	ffi.copy(ct, data, data:len())
-	return ct
+	local ct, size = ctype(), ffi.sizeof(ctype)
+	ffi.copy(ct, data, size)
+	return ct, size
 end
 
 function target.ct_generate( ctype, des )
@@ -45,7 +34,7 @@ function target.ct_generate( ctype, des )
 	local cdata, size = ctype(des), ffi.sizeof(ctype)
 	local res = ffi.string(cdata, size)
 --	print(str..size)
-	return res
+	return res, cdata
 end
 
 function target.vls_generate( htype, ctype, des )
@@ -62,7 +51,7 @@ function target.vls_generate( htype, ctype, des )
 --	local size = hz + az
 --	local str = '{'..htype..'; '..ctype..'['..c..']}.size:'
 --	print(str..size)
-	return table.concat(t)
+	return table.concat(t), {head, array}
 end
 
 --[[

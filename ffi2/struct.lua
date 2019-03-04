@@ -76,10 +76,10 @@ function target:test()
                         {'szAreaName', 'string'},
                         {'nReserved', 8}
                     }
-    local c, array = unpack(utils.resolve('AREAS', {'nCount', 'AREA', data}))
+    local head, array = unpack(utils.resolve('AREAS', {'nCount', 'AREA', data}))
     local areasInfo2 = {
-        {nCount = c, nLinkCount = 0, nReserved = {0,0}}, 
-        utils.table4a(array, c, fields)
+        utils.table4s(head, {'nCount', 'nLinkCount'}),
+        utils.table4a(array,  head.nCount, fields)
     }
     for i=1,1000 do
         local t = clone(areasInfo2[1])
