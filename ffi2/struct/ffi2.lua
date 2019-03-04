@@ -56,7 +56,7 @@ function target.vls_generate( htype, ctype, des )
 	local vlat = target.type(ctype, '[?]')
 	local head = headt(des)
 	local array = vlat(c, list)
-	local hz, az = ffi.sizeof(htype), ffi.sizeof(vlat, c)
+	local hz, az = ffi.sizeof(head), ffi.sizeof(array)
 	local t = {ffi.string(head, hz), ffi.string(array, az)}
 
 --	local size = hz + az
