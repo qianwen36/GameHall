@@ -1,6 +1,6 @@
 import('.predefine')
 
-require('ffi').cdef[[
+return import('.ffi2').cdef[[
 
 typedef struct _tagHALLUSER_PULSE{
 	int nUserID;								// 呼叫者ID

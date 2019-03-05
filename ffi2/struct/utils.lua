@@ -1,7 +1,7 @@
-import('.HallDataDef')
 local ffi2 = import('.ffi2')
 
 local target = {}
+
 --[[
 function target.resolve( ctype, {cfield, ctype, data} ) -- overload #1:string, #2:table
 function target.resolve( ctype, data )	-- overload #1:string, #2:cdata ]]
@@ -36,5 +36,8 @@ target.table4a(cdata, count) -- table for array
 target.table4a(cdata, count, {fields})
 --]]
 target.table4a = ffi2.table4a
+
+target.cdef = ffi2.cdef
+target.cdes = ffi2.cdes
 
 return target
