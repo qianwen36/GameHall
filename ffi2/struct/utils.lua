@@ -416,7 +416,32 @@ local function format( desc, c, enc )
 	end
 	return ret
 end
-
+local array_unpack
+local array_pack
+function array_pack( t, fdes, dims, index )
+	local ret
+	local c = dims[index]
+	if c then
+		local fmt = format(fdes, index, true)
+		if index < #dims then
+			ret  = {}
+			for i=1,c do
+				ret[i] = array_pack(t[i], fdes, dims, index+1)
+			end
+			ret = string.pack(fmt, unpack(ret))
+		else
+			local ty = fdes[2]
+			t = t or {}
+			if type(ty) == 'table' then
+				ret = target.pack(t, ty, c)
+			else
+				t = target.fill(t, c, 0)
+				ret = string.pack(fmt, unpack(t))
+			end
+		end
+	end
+	return ret
+end
 function target.pack( t, desc, c )
 	local ret
 	if c then
@@ -431,16 +456,14 @@ function target.pack( t, desc, c )
 		local list = {}
 		for i=1,#desc do
 			local fdes = desc[i]
-			local field, ty, c = unpack(fdes)
+			local field, ty = unpack(fdes)
 			local value = t[field]
-			if type(ty) == 'table' then
-				value = target.pack(value or {}, fdes, c)
-			else
-				if c then
-					local fmt = format(fdes, true)
-					value = target.fill(value, c, 0)
-					value = string.pack(fmt, unpack(value))
-				end
+			local dims = sub(desc, 3)
+			local c = #dims
+			if c > 0 then
+				value = array_pack(value, fdes, dims, 1)
+			elseif type(ty) == 'table' then
+				value = target.pack(value or {}, ty)
 			end
 			table.insert(list, value or 0)
 		end
@@ -450,6 +473,30 @@ function target.pack( t, desc, c )
 	return ret
 end
 
+function array_unpack( data, fdes, dims, index )
+	local ret
+	local c = dims[index]
+	if c then
+		local fmt = format(fdes, index)
+		if index < #dims then
+			ret  = array(string.unpack(ret, fmt))
+			for i=1,c do
+				ret[i] = array_unpack(ret[i], fdes, dims, index+1)
+			end
+		else
+			local ty = fdes[2]
+			if type(ty) == 'table' then
+				ret = array(string.unpack(ret, fmt))
+				for i=1,c do
+					ret[i] = target.unpack(ret[i], ty)
+				end
+			else
+				ret = array(string.unpack(ret, fmt))
+			end
+		end
+	end
+	return ret
+end
 function target.unpack( data, desc, c )
 	local ret, rest = {}
 	if c then
@@ -465,22 +512,13 @@ function target.unpack( data, desc, c )
 		list, rest = array(string.unpack(data, fmt))
 		for i=1,#list do
 			local fdes, value = desc[i], list[i]
-			local field, ty, c = unpack(fdes)
-			if type(ty) == 'table' then
-				if c then
-					local fmt = format(fdes)
-					value = array(string.unpack(value, fmt))
-					for i=1,c do
-						value[i] = target.unpack(value[i], ty)
-					end
-				else
-					value = target.unpack(value, ty)
-				end
-			else
-				if c then
-					local fmt = format(fdes)
-					value = array(string.unpack(value, fmt))
-				end
+			local field, ty = unpack(fdes)
+			local dims = sub(desc, 3)
+			local c = #dims
+			if c > 0 then
+				value = array_unpack(value, fdes, dims, 1)
+			elseif type(ty) == 'table' then
+				value = target.unpack(value, ty)
 			end
 			ret[field] = value
 		end
