@@ -1,5 +1,9 @@
 ------------------------------------------------------------------------------
 local ffi = require('ffi')
+local TAG = '************[struct.ffi2] '
+local function log( ... )
+	print(table.concat({TAG, ...}))
+end
 local target = {}
 local ctypes = {}
 function target.type( name, ad )
@@ -12,7 +16,7 @@ function target.type( name, ad )
 	assert(ctype ~=nil)
 	return ctype
 end
--- VLA ¡ª A variable-length array
+-- VLA â€” A variable-length array
 function target.vla_resolve(ctype, c, data)
 	assert(c>0)
 	ctype = target.type(ctype, '[?]')
@@ -20,7 +24,7 @@ function target.vla_resolve(ctype, c, data)
 	ffi.copy(ct, data, size)
 	return ct, size
 end
--- ct ¡ª A C type specification
+-- ct â€” A C type specification
 function target.ct_resolve(ctype, data)
 	ctype = target.type(ctype)
 	local ct, size = ctype(), ffi.sizeof(ctype)
@@ -33,7 +37,7 @@ function target.ct_generate( ctype, des )
 	ctype = target.type(ctype)
 	local cdata, size = ctype(des), ffi.sizeof(ctype)
 	local res = ffi.string(cdata, size)
---	print(str..size)
+--	log(str..size)
 	return res, cdata
 end
 
@@ -50,7 +54,7 @@ function target.vls_generate( htype, ctype, des )
 
 --	local size = hz + az
 --	local str = '{'..htype..'; '..ctype..'['..c..']}.size:'
---	print(str..size)
+--	log(str..size)
 	return table.concat(t), {head, array}
 end
 
@@ -58,6 +62,9 @@ end
 function target.table( cdata, fields )
 function target.table( cdata, {field, param, alias } ) -- #param ={table, string, value}]]
 function target.table( cdata, params )
+	local ok = next(params) -- check enum
+	if type(ok) == 'string' then return tonumber(cdata) end
+
 	local res = {}
 	if cdata == nil then return res end
 	for i,param in ipairs(params) do
@@ -71,8 +78,9 @@ function target.table( cdata, params )
 			if t =='string'and param_~='string'
 			then alias = param_ end
 			
-			local key = alias or field
+			local key = field
 			local value = cdata[field]
+			if type(alias) == 'string' then key = alias end
 			if t == 'table' then
 				res[key] = target.table(value, param_)
 			elseif t == 'number' and value~=nil then
@@ -115,7 +123,7 @@ end
 local function struct_info( def, fields, target )
 	local t = {}
 	for line in fields:gmatch('\n%s*(%a+.-;).-') do
-		local type, field, dims = line:gmatch('([%w_]+)%s*([%w_]+)(.-);')()
+		local type, field, dims = line:match('([_%w]+)%s*([_%w]+)(.-);')
 		local reft = target[type] or (target.reference and target.reference(type))
 		if dims:len() >0 then
 			local td = {}
@@ -145,9 +153,8 @@ local function struct_info( def, fields, target )
 				local des = ((tchar and 'string') or reft) or td[2]
 
 				table.insert(t, {field, td[1], des})
-			else --c == 0 or to many
-				local tm = {line, ' from ', def, ' is not support'}
-				print(table.concat(tm))
+			else --c == 0 or too many
+				log(line, ' from ', def, ' is not support')
 			end
 		elseif reft~=nil then
 			table.insert(t, {field, reft})
@@ -159,11 +166,11 @@ local function struct_info( def, fields, target )
 	target[def] = t
 	return t
 end
-local struct_pattern = 'typedef struct _tag%g-%s*{%s*(\n.-)%s+}%s*([%w_]+)'
+local struct_pattern = 'typedef struct %g-%s*(%b{})%s*([_%w]+)'
 -- resolve c struct definition
-function target.cdes( ref, cdecl )
+function target.sdef( ref, cdecl )
 	local ok, msg = pcall(ffi.cdef, cdecl)
-	if not ok then print(msg) end
+	if not ok then log(msg) end
 
 	for fields, def in cdecl:gmatch(struct_pattern) do
 		struct_info(def, fields, ref)
@@ -173,7 +180,7 @@ end
 
 function target.cdef( cdecl, ... )
 	local ok, msg = pcall(ffi.cdef, cdecl)
-	if not ok then print(msg) end
+	if not ok then log(msg) end
 
 	local refs = {...}
 	local ret = {}

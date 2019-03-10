@@ -1,4 +1,4 @@
-require('struct.predefine')
+-- require('struct.predefine')
 local socket = require('socket')
 local ffi = require('ffi')
 local utils = import('struct.utils')
@@ -24,46 +24,43 @@ end
 
 local target = {}
 
-function target:test()
+function target.test()
 	local data = areasData
-	print('test-------------------------------------------')
-    local t, t2 = socket.gettime(), 0
-    local areasInfo = _DataMap(mc.UR_OPERATE_SUCCEED, mc.GET_AREAS, data)
-    local MCSocketDataStruct = RequestConfig.MCSocketDataStruct
-    -- for i=1,1000 do
-    --     local t = {}
-    --     for i,info in ipairs(areasInfo[2]) do
-    --         t[i] = TreePack.alignpack(info, MCSocketDataStruct.AREA)
-    --     end
-    --     table.insert(t, 1, TreePack.alignpack(areasInfo[1],  MCSocketDataStruct.AREAS))
-    --     local s = table.concat( t )
-    --     if s ~= data then print('TreePack.alignpack error') end
-    --     -- areasInfo = _DataMap(mc.UR_OPERATE_SUCCEED, mc.GET_AREAS, data)
-    --     -- local c, array = areasInfo[1].nCount, areasInfo[2]
-    --     -- for i=1,c do
-    --     --     local item = array[i]
-    --     --     local info = {
-    --     --         nAreaID = item.nAreaID,
-    --     --         nAreaType = item.nAreaType,
-    --     --         nSubType = item.nSubType,
-    --     --         nStatus = item.nStatus,
-    --     --         nLayOrder = item.nLayOrder,
-    --     --         dwOptions = item.dwOptions,
-    --     --         nFontColor = item.nFontColor,
-    --     --         nIconID = item.nIconID,
-    --     --         nGifID = item.nGifID,
-    --     --         nGameID= item.nGameID,
-    --     --         nServerID = item.nServerID,
-    --     --         szAreaName = item.szAreaName
-    --     --     }
-    --     -- end
-    -- end
-    t2 = socket.gettime()
-    print('use treepack ...'..(t2-t))
-	-- dump(areasInfo, "from treepack")
-    t = socket.gettime()
-    -- local StructDef = require('struct.HallDataDef')
-    local StructDef = utils.cdes({}, [[
+    local desc = '.struct_desc'
+    local cdecl = [[
+typedef unsigned int       DWORD;
+typedef int                 BOOL;
+typedef char                TCHAR, *PTCHAR;
+typedef unsigned char       BYTE;
+// #define      MAX_CHAIR_COUNT         8           // 每张桌子的最多椅子数,每个游戏最多16人
+// #define      MAX_CHAIRS_PER_TABLE    MAX_CHAIR_COUNT     // 每张桌子的最多椅子数
+// #define      MAX_CARDS_PER_CHAIR     64          // 每张椅子的最多牌张数    
+// #define     MJ_CHAIR_COUNT           4  // 麻将牌人数
+// #define     MJ_UNIT_LEN             4           // 牌型最多牌张数
+// #define	   MAX_SERIALNO_LEN		32			// 每局序列号最大长度
+// #define	   MAX_DICE_NUM			4			// 最多骰子个数
+// #define     MJ_MAX_PENG             6   // 最大碰牌数
+// #define     MJ_MAX_CHI              6   // 最大吃牌数
+// #define     MJ_MAX_PENG             6   // 最大碰牌数
+// #define     MJ_MAX_GANG             6   // 最大杠牌数
+// #define     MJ_MAX_OUT              36  // 最大打牌数
+// #define     MJ_MAX_HUA              36  // 最大补花数
+// #define     MJ_GF_14_HANDCARDS          14      // 14张麻将
+// #define     MJ_GF_17_HANDCARDS          17      // 17张麻将
+enum Const {
+    TOTAL_CHAIRS            =4,//多少玩家
+    CHAIR_CARDS             =32,//每人手上最多多少张牌
+    HU_MAX                  =16,  //胡牌种类数34
+    EXCHANGE3CARDS_COUNT    =3,
+    MAX_CHAIR_COUNT = 8,
+    MJ_UNIT_LEN =4,
+    MAX_CHAIRS_PER_TABLE = MAX_CHAIR_COUNT,
+    MAX_CARDS_PER_CHAIR     =64,            // 每张椅子的最多牌张数    
+    MAX_LEVELNAME_LEN = 16,
+    MAX_GAMENAME_LEN =  32,
+    MAX_AREANAME_LEN =  32,
+};
+
 typedef struct _tagAREAS{
     int nCount;
     int nLinkCount;
@@ -76,61 +73,144 @@ typedef struct _tagAREA{
     int nSubType;
     int nStatus;
     int nLayOrder;
-    T_DWORD dwOptions;
+    DWORD dwOptions;
     int nFontColor;
     int nIconID;
     int nGifID;//以上9个为对象固定字段
     int nGameID;
     int nServerID;
-    T_TCHAR szAreaName[MAX_AREANAME_LEN];
+    TCHAR szAreaName[MAX_AREANAME_LEN];
     int nReserved[8];
 }AREA, *LPAREA;
-        ]])
-    -- local fields = {
-    --                     'nAreaID',
-    --                     'nAreaType',
-    --                     'nSubType',
-    --                     'nStatus',
-    --                     'nLayOrder',
-    --                     'dwOptions',
-    --                     'nFontColor',
-    --                     'nIconID',
-    --                     'nGifID',
-    --                     'nGameID',
-    --                     'nServerID',
-    --                     {'szAreaName', 'string'},
-    --                     {'nReserved', 8}
-    --                 }
-    local head, array = unpack(utils.resolve('AREAS', {'nCount', 'AREA', data}))
-    local areasInfo2 = {
-        utils.table4s(head, StructDef.AREAS),
-        utils.table4a(array,  head.nCount, StructDef.AREA)
-        -- utils.table4s(head, {'nCount', 'nLinkCount'}),
-        -- utils.table4a(array,  head.nCount, fields)
+
+typedef struct _tagCARDS_THROW
+{
+    int nUserID;                                // 用户ID
+    int nChairNO;                               // 位置
+    int nNextChair;                             // 下一个
+    BOOL bNextFirst;                            // 下一个是否第一手出牌
+    BOOL bNextPass;                             // 下一个是否自动放弃
+    int nRemains;                               // 剩下几张
+    DWORD dwFlags[MAX_CHAIR_COUNT];             // 标志
+    DWORD dwCardsType;                          // 牌型
+    int nThrowCount;                            // 出牌第几手计数
+    int nReserved[4];
+    int nCardsCount;                            // 牌张数
+    int nCardIDs[MAX_CARDS_PER_CHAIR];          // 打出的牌(ID)
+} CARDS_THROW, *LPCARDS_THROW;
+        ]]
+    utils.genDesc(utils.path2(desc), cdecl)
+    local ok, msg = pcall(ffi.cdef, cdecl)
+    local StructDef = import('.struct_desc')
+    local MCSocketDataStruct = RequestConfig.MCSocketDataStruct
+    local info = _DataMap(mc.UR_OPERATE_SUCCEED, mc.GET_AREAS, data)
+    local StructDef2 = {
+        {'nUserID', 'i'},      -- [1] ( int )
+        {'nChairNO', 'i'},     -- [2] ( int )
+        {'nNextChair', 'i'},       -- [3] ( int )
+        {'bNextFirst', 'i'},       -- [4] ( int )
+        {'bNextPass', 'i'},        -- [5] ( int )
+        {'nRemains', 'i'},     -- [6] ( int )
+        {'dwFlags', 'L', 8},      -- [7] ( unsigned long )
+        {'dwCardsType', 'L'},      -- [8] ( unsigned long )
+        {'nThrowCount', 'i'},      -- [9] ( int )
+        {'nReserved', 'i', 4},        -- [10] ( int )
+        {'nCardsCount', 'i'},      -- [11] ( int )
+        {'nCardIDs', 'i', 64},     -- [12] ( int )
+        len = 340
     }
-    -- for i=1,1000 do
-    --     local t = clone(areasInfo2[1])
-    --     table.insert(t, areasInfo2[2])
+    MCSocketDataStruct.CARDS_THROW ={
+        lengthMap = {
+            -- [1] = nUserID( int ) : maxsize = 4,
+            -- [2] = nChairNO( int )    : maxsize = 4,
+            -- [3] = nNextChair( int )  : maxsize = 4,
+            -- [4] = bNextFirst( int )  : maxsize = 4,
+            -- [5] = bNextPass( int )   : maxsize = 4,
+            -- [6] = nRemains( int )    : maxsize = 4,
+                                                    -- dwFlags  : maxsize = 32  =   4 * 8 * 1,
+            [7] = { maxlen = 8 },
+            -- [8] = dwCardsType( unsigned long )   : maxsize = 4,
+            -- [9] = nThrowCount( int ) : maxsize = 4,
+                                                    -- nReserved    : maxsize = 16  =   4 * 4 * 1,
+            [10] = { maxlen = 4 },
+            -- [11] = nCardsCount( int )    : maxsize = 4,
+                                                    -- nCardIDs : maxsize = 256 =   4 * 64 * 1,
+            [12] = { maxlen = 64 },
+            maxlen = 12
+        },
+        nameMap = {
+            'nUserID',      -- [1] ( int )
+            'nChairNO',     -- [2] ( int )
+            'nNextChair',       -- [3] ( int )
+            'bNextFirst',       -- [4] ( int )
+            'bNextPass',        -- [5] ( int )
+            'nRemains',     -- [6] ( int )
+            'dwFlags',      -- [7] ( unsigned long )
+            'dwCardsType',      -- [8] ( unsigned long )
+            'nThrowCount',      -- [9] ( int )
+            'nReserved',        -- [10] ( int )
+            'nCardsCount',      -- [11] ( int )
+            'nCardIDs',     -- [12] ( int )
+        },
+        formatKey = '<i6L9i70',
+        deformatKey = '<i6L9i70',
+        maxsize = 340
+    }
+    info = ffi.new('CARDS_THROW', {
+        nUserID = 77681,
+        nChairNO = 2,
+        nNextChair = 3,
+        bNextFirst = 1,
+        bNextPass = 0,
+        nRemains = 45,
+        nThrowCount = 2,
+        nCardsCount = 144,        
+        })
+    data = ffi.string(info, ffi.sizeof('CARDS_THROW'))
+    info = utils.unpack(data, StructDef2)
+	print('test-------------------------------------------')
+    local t, t2 = socket.gettime(), 0
+    for i=1,1000 do
+        TreePack.unpack(data, MCSocketDataStruct.CARDS_THROW)
+        -- TreePack.alignpack(info, MCSocketDataStruct.CARDS_THROW)
+    end
+    -- local areasInfo = _DataMap(mc.UR_OPERATE_SUCCEED, mc.GET_AREAS, data)
+    -- for i=1,1000
+    -- do
+    --     local t = {}
+    --     for i,info in ipairs(info[2]) do
+    --         t[i] = TreePack.alignpack(info, MCSocketDataStruct.AREA)
+    --     end
+    --     table.insert(t, 1, TreePack.alignpack(info[1],  MCSocketDataStruct.AREAS))
+    --     local s = table.concat( t )
+    --     if s ~= data then print('TreePack.alignpack error') end
+    --     -- areasInfo = _DataMap(mc.UR_OPERATE_SUCCEED, mc.GET_AREAS, data)
+    -- end
+    t2 = socket.gettime()
+    print('use treepack ...'..(t2-t))
+	-- dump(areasInfo, "from treepack")
+    t = socket.gettime()
+    for i=1,1000 do
+        utils.unpack(data, StructDef2)
+        -- utils.pack(info, StructDef2)
+        -- StructDef.CARDS_THROW(utils.resolve('CARDS_THROW', data))
+    end
+    -- local a, size = utils.resolve('AREAS', {'nCount', 'AREA', data})
+    -- local head, array = unpack(a)
+    -- local areasInfo2 = { StructDef.AREAS(head), utils.table4a(array, head.nCount, StructDef.AREA) }
+
+    -- for i=1,1000
+    -- do
+    --     local t = clone(info[1])
+    --     table.insert(t, info[2])
     --     local s = utils.generate(t, 'AREA', 'AREAS')
     --     if s ~= data then print('utils.generate error') end
-    --     -- c, array = unpack(utils.resolve('AREAS', {'nCount', 'AREA', data}))
-    --     -- for i=1,c do
-    --     --     local item = array[i-1]
-    --     --     local info = {
-    --     --         nAreaID = item.nAreaID,
-    --     --         nAreaType = item.nAreaType,
-    --     --         nSubType = item.nSubType,
-    --     --         nStatus = item.nStatus,
-    --     --         nLayOrder = item.nLayOrder,
-    --     --         dwOptions = item.dwOptions,
-    --     --         nFontColor = item.nFontColor,
-    --     --         nIconID = item.nIconID,
-    --     --         nGifID = item.nGifID,
-    --     --         nGameID= item.nGameID,
-    --     --         nServerID = item.nServerID,
-    --     --         szAreaName = ffi.string(item.szAreaName)
-    --     --     }
-    --     -- end
+    --     -- info, size = utils.resolve('AREAS', {'nCount', 'AREA', data})
+    --     -- head, array = unpack(info)
+    --     -- areasInfo2 = {
+    --     --     utils.table4s(head, StructDef.AREAS),
+    --     --     utils.table4a(array,  head.nCount, StructDef.AREA)
+    --     -- }
     -- end
     t2 = socket.gettime()
     print('use ffi struct ...'..(t2-t))
