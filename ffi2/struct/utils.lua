@@ -338,11 +338,35 @@ local function product(array)
 	end
 	return ret
 end
-local function format( desc, c )
-	local ret = desc.fmt
+local function format_enc( defmt, index )
+	local ret, fmt
+	if type(defmt) == 'string' then
+		fmt = defmt:gsub('A%d*', 'A')
+		ret = fmt
+	else
+		fmt = {unpack(defmt)}
+		for i=1,#fmt do
+			fmt[i] = fmt[i]:gsub('A%d*', 'A')
+		end
+		index = index or 1
+		ret = fmt[index]
+	end
+	return ret, fmt
+end
+local function format( desc, c, enc )
+	local index = type(c) == 'number' and c or nil
+	enc = enc or (type(c) ~= 'number' and c)
+	local ret = (not enc and desc.defmt) or desc.fmt
+
 	if type(ret) == 'table' then
-		local index = c or 1
+		index = index or 1
 		ret = ret[index]
+	end
+	if enc and ret == nil then
+		local defmt, fmt = desc.defmt
+		if defmt then
+			ret, desc.fmt = format_enc(defmt, index)
+		end
 	end
 
 	if ret == nil then
@@ -361,27 +385,33 @@ local function format( desc, c )
 				end
 				table.insert(a, ty)
 			end
-			desc.fmt = table.concat(a)
-			ret = desc.fmt
+			desc.defmt = table.concat(a)
 		else
+			index = index or 1
 			local field, ty = unpack(desc)
-			local dims, index = sub(desc, 3), c or 1
+			local dims = sub(desc, 3)
 			local c = #dims
 			local rep = c > 1 and product(sub(dims, index+1)) or 1
 
 			c = dims[index]
 			if c then
-				ret = desc.fmt
-				desc.fmt = ret or {}
+				local fmt = desc.defmt
+				desc.defmt = fmt or {}
 				if type(ty) == 'table' then
-					ret = table.concat{'<', string.rep('A'..(ty.len*rep), c)}
+					fmt = table.concat{'<', string.rep('A'..(ty.len*rep), c)}
 				else
-					ret = table.concat{'<', ty, c*rep}
+					fmt = table.concat{'<', ty, c*rep}
 				end
-				desc.fmt[index] = ret
+				desc.defmt[index] = fmt
 			else
 				ret = '<'..ty
 			end
+		end
+		if enc then
+			ret, desc.fmt = format_enc(defmt, index)
+		else
+			local defmt = desc.defmt
+			ret = index and defmt[index] or defmt
 		end
 	end
 	return ret
@@ -407,14 +437,14 @@ function target.pack( t, desc, c )
 				value = target.pack(value or {}, fdes, c)
 			else
 				if c then
-					local fmt = format(fdes):gsub('A%d*', 'A')
+					local fmt = format(fdes, true)
 					value = target.fill(value, c, 0)
 					value = string.pack(fmt, unpack(value))
 				end
 			end
 			table.insert(list, value or 0)
 		end
-		local fmt = format(desc):gsub('A%d*', 'A')
+		local fmt = format(desc, true)
 		ret = string.pack(fmt, unpack(list))
 	end
 	return ret

@@ -168,6 +168,11 @@ typedef struct _tagCARDS_THROW
         })
     data = ffi.string(info, ffi.sizeof('CARDS_THROW'))
     info = utils.unpack(data, StructDef2)
+    -- if  data == utils.pack(info, StructDef2) then
+    --     print('Success**************')
+    -- else
+    --     print('Failed***************')
+    -- end
 	print('test-------------------------------------------')
     local t, t2 = socket.gettime(), 0
     for i=1,1000 do
