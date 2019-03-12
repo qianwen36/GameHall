@@ -38,7 +38,7 @@ end
 local arrayType = {
 	['char']		= '<c',
 	['signed char']	= '<c',
-	['unsigned char'] = '<B',
+	['unsigned char'] = '<l',
 	['short']		= '<h',
 	['signed short']= '<h',
 	['unsigned short'] = '<H',
@@ -228,7 +228,7 @@ local function struct_func( t, def, fields )
 		table.concat{def,'\t= function(ct)'},
 		'return {'
 	})
-	for line in fields:gmatch('\n%s*(%a+.-;).-') do
+	for line in fields:gmatch('\n%s*(%a+.-;)') do
 		local type, field, dims = line:match('([_%w]+)%s*([_%w]+)(.-);')
 		local tab, fdes = '\t' -- field description
 		if dims:len() >0 then
@@ -311,7 +311,9 @@ function target.path2(desc)
 end
 
 --------------------------------------------------------------------------
+local endian = '<'
 local packSize = {
+	c = 1, b = 1,
 	h = 2, H = 2,
 	i = 4, I = 4,
 	l = 4, L = 4,
@@ -328,6 +330,8 @@ local function sub( array, f, e )
 		for i=1,f-1 do
 			table.remove(array, 1)
 		end
+	else
+		array = {}
 	end
 	return array
 end
@@ -353,9 +357,10 @@ local function format_enc( defmt, index )
 	end
 	return ret, fmt
 end
-local function format( desc, c, enc )
-	local index = type(c) == 'number' and c or nil
-	enc = enc or (type(c) ~= 'number' and c)
+local function format( desc, index, enc )
+	local ty = type(index)
+	enc = enc or (ty ~= 'number' and index)
+	index = ty == 'number' and index or nil
 	local ret = (not enc and desc.defmt) or desc.fmt
 
 	if type(ret) == 'table' then
@@ -371,16 +376,18 @@ local function format( desc, c, enc )
 
 	if ret == nil then
 		if desc.len then
-			local a = {'<'}
+			local a = {endian}
 			for i=1, #desc do
 				local fdes = desc[i]
-				local ty, c = fdes[2], fdes[3]
+				local ty = fdes[2]
+				local dims = sub(fdes, 3)
+				local c = product(dims)
 				if type(ty) == 'table' then
-					c = c and c*ty.len or ty.len
-				elseif c then
+					c = c*ty.len
+				elseif c > 1 then
 					c = c * packSize[ty]
 				end
-				if c then
+				if c > 1 then
 					ty = 'A'..c
 				end
 				table.insert(a, ty)
@@ -398,17 +405,24 @@ local function format( desc, c, enc )
 				local fmt = desc.defmt
 				desc.defmt = fmt or {}
 				if type(ty) == 'table' then
-					fmt = table.concat{'<', string.rep('A'..(ty.len*rep), c)}
+					fmt = table.concat{endian, string.rep('A'..(ty.len*rep), c)}
+				elseif rep > 1 then
+					fmt = table.concat{endian, string.rep('A'..(packSize[ty]*rep), c)}
 				else
-					fmt = table.concat{'<', ty, c*rep}
+					if ty == 'c' then
+						fmt = table.concat{endian, 'A'..c}
+					else
+						fmt = table.concat{endian, ty, c}
+					end
 				end
+
 				desc.defmt[index] = fmt
 			else
-				ret = '<'..ty
+				desc.defmt = endian..ty
 			end
 		end
 		if enc then
-			ret, desc.fmt = format_enc(defmt, index)
+			ret, desc.fmt = format_enc(desc.defmt, index)
 		else
 			local defmt = desc.defmt
 			ret = index and defmt[index] or defmt
@@ -418,25 +432,31 @@ local function format( desc, c, enc )
 end
 local array_unpack
 local array_pack
-function array_pack( t, fdes, dims, index )
+function array_pack( t, fdes, index )
 	local ret
-	local c = dims[index]
+	local c = fdes[index+2]
 	if c then
 		local fmt = format(fdes, index, true)
-		if index < #dims then
-			ret  = {}
+		if index+2 < #fdes then
+			-- ret  = {unpack(t)}
+			ret = {}
 			for i=1,c do
-				ret[i] = array_pack(t[i], fdes, dims, index+1)
+				ret[i] = array_pack(t[i], fdes, index+1)
 			end
 			ret = string.pack(fmt, unpack(ret))
 		else
 			local ty = fdes[2]
-			t = t or {}
 			if type(ty) == 'table' then
-				ret = target.pack(t, ty, c)
+				ret = target.pack(t or {}, ty, c)
 			else
-				t = target.fill(t, c, 0)
-				ret = string.pack(fmt, unpack(t))
+				if ty == 'c' then
+					t = t or ''
+					ret = target.fill(t, c, 0)
+				else
+					t = t or {}
+					t = target.fill(t, c, 0)
+					ret = string.pack(fmt, unpack(t))
+				end
 			end
 		end
 	end
@@ -456,12 +476,24 @@ function target.pack( t, desc, c )
 		local list = {}
 		for i=1,#desc do
 			local fdes = desc[i]
-			local field, ty = unpack(fdes)
+			local field, ty, c, c2 = unpack(fdes)
 			local value = t[field]
-			local dims = sub(desc, 3)
-			local c = #dims
-			if c > 0 then
-				value = array_pack(value, fdes, dims, 1)
+			if c then
+				-- value = array_pack(value, fdes, 1) -- Recursive for multi-dimension array
+				if c2 then
+					value = array_pack(value, fdes, 1)
+				else
+					value = value or (ty == 'c' and '' or {})
+					if type(ty) == 'table' then
+						value = target.pack(t, ty, c)
+					elseif ty == 'c' then
+						value = target.fill(value or '', c)
+					else
+						local fmt = format(fdes, 1, true)
+						value = target.fill(value or {}, c, 0)
+						value = string.pack(fmt, unpack(value))
+					end
+				end
 			elseif type(ty) == 'table' then
 				value = target.pack(value or {}, ty)
 			end
@@ -473,25 +505,30 @@ function target.pack( t, desc, c )
 	return ret
 end
 
-function array_unpack( data, fdes, dims, index )
+function array_unpack( data, fdes, index )
 	local ret
-	local c = dims[index]
+	local c = fdes[index+2]
 	if c then
 		local fmt = format(fdes, index)
-		if index < #dims then
-			ret  = array(string.unpack(ret, fmt))
+		if index+2 < #fdes then
+			ret  = array(string.unpack(data, fmt))
 			for i=1,c do
-				ret[i] = array_unpack(ret[i], fdes, dims, index+1)
+				ret[i] = array_unpack(ret[i], fdes, index+1)
 			end
 		else
 			local ty = fdes[2]
 			if type(ty) == 'table' then
-				ret = array(string.unpack(ret, fmt))
+				ret = array(string.unpack(data, fmt))
 				for i=1,c do
 					ret[i] = target.unpack(ret[i], ty)
 				end
+			elseif ty == 'c' then
+				ret = string.unpack(data, fmt)
 			else
-				ret = array(string.unpack(ret, fmt))
+				ret = array(string.unpack(data, fmt))
+				if ty == 'c' then
+					value = value[1]
+				end
 			end
 		end
 	end
@@ -500,7 +537,7 @@ end
 function target.unpack( data, desc, c )
 	local ret, rest = {}
 	if c then
-		local fmt = table.concat{'<', string.rep('A'..desc.len, c)}
+		local fmt = endian..string.rep('A'..desc.len, c)
 		local value = array(string.unpack(data, fmt))
 		for i=1,c do
 			value[i] = target.unpack(value[i], ty)
@@ -509,14 +546,29 @@ function target.unpack( data, desc, c )
 		rest = desc.len +1
 	else
 		local fmt, list = format(desc)
+		data = target.fill(data, desc.len)
 		list, rest = array(string.unpack(data, fmt))
 		for i=1,#list do
 			local fdes, value = desc[i], list[i]
-			local field, ty = unpack(fdes)
-			local dims = sub(desc, 3)
-			local c = #dims
-			if c > 0 then
-				value = array_unpack(value, fdes, dims, 1)
+			local field, ty, c, c2 = unpack(fdes)
+			if c then
+				-- value = array_unpack(value, fdes, 1) -- Recursive for multi-dimension array
+				if c2 then
+					value = array_unpack(value, fdes, 1)
+				else
+					local fmt = format(fdes, 1)
+					if type(ty) == 'table' then
+						value = array(string.unpack(value, fmt))
+						for i=1,c do
+							value[i] = target.unpack(value[i], ty)
+						end
+					else
+						value = array(string.unpack(value, fmt))
+						if ty == 'c' then
+							value = value[1]
+						end
+					end
+				end
 			elseif type(ty) == 'table' then
 				value = target.unpack(value, ty)
 			end
@@ -541,6 +593,53 @@ function target.fill( t, c, ref )
 		end
 	end
 	return t
+end
+
+local function struct_len( tdes )
+	local len = tdes.len
+	if len == nil then
+		len = 0
+		for i,fdes in ipairs(tdes) do
+			local ty, size = fdes[2]
+			if type(ty) == 'table' then
+				size = struct_len(ty)
+			else
+				size = packSize[ty]
+			end
+			local dims = sub(fdes, 3)
+			local rep = product(dims)
+			len = len + size * rep
+		end
+		tdes.len = len
+	end
+	return len
+end
+
+local function reference_check( ty, refs )
+	for i,ref in ipairs(refs) do
+		ref = ref[ty]
+		if ref then return ref end
+	end
+end
+local function desc_dereference( tdes, refs )
+	for i,fdes in ipairs(tdes) do
+		local ty = fdes[2]
+		if ty:len() > 1 then
+			-- if no reference type, treat as int for enum
+			ty  = reference_check(ty, refs) or 'i'
+			fdes[2] = ty
+		end
+	end
+end
+function target.dereference( desc, ... )
+	local list = {desc, ...}
+	for ty, tdes in pairs(desc) do
+		desc_dereference(tdes, list)
+	end
+	for ty, tdes in pairs(desc) do
+		struct_len(tdes)
+	end
+	return desc
 end
 
 return target

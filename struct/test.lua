@@ -2,6 +2,9 @@
 local socket = require('socket')
 local ffi = require('ffi')
 local utils = import('struct.utils')
+local base = utils.dereference(import('struct.BaseGameStruct.struct'))
+local mj = utils.dereference(import('struct.MJGameStruct.struct'))
+local my = utils.dereference(import('struct.MyGameStruct.struct'), mj, base)
 local TreePack = cc.load('treepack')
 local RequestConfig = import('src.app.GameHall.models.mcsocket.MCSocketDataStruct')
 local RespondConfig = import('src.app.GameHall.models.mcsocket.MCSocketRespondConfig')
@@ -83,6 +86,32 @@ typedef struct _tagAREA{
     int nReserved[8];
 }AREA, *LPAREA;
 
+typedef int TCY_CURRENCY;
+typedef int TCY_CURRENCY_CONTAINER;
+typedef struct _tagCURRENCY_EXCHANGE{
+    int                     nUserID;
+    TCY_CURRENCY_CONTAINER  nContainer;                 
+    TCY_CURRENCY            nCurrency;              
+    int                     nExchangeGameID;
+    int                     llOperationIDLow;
+    int                     llOperationIDHigh;
+    int                     llBalanceLow;
+    int                     llBalanceHigh;
+    int                     nOperateAmount;         //操作数量
+    int                     nCreateTime;
+    DWORD                   dwFlags;
+    
+    int                     nReserved[8];
+}CURRENCY_EXCHANGE, *LPCURRENCY_EXCHANGE;
+typedef struct _tagCURRENCY_EXCHANGE_EX{
+    CURRENCY_EXCHANGE       currencyExchange;
+    
+    DWORD                   dwNotifyFlags;
+    int                     nEnterRoomID;           //通知时带上的玩家所在房间roomid，和本次变化无关
+    
+    int                     nReserved[16];
+}CURRENCY_EXCHANGE_EX, *LPCURRENCY_EXCHANGE_EX;
+
 typedef struct _tagCARDS_THROW
 {
     int nUserID;                                // 用户ID
@@ -98,10 +127,24 @@ typedef struct _tagCARDS_THROW
     int nCardsCount;                            // 牌张数
     int nCardIDs[MAX_CARDS_PER_CHAIR];          // 打出的牌(ID)
 } CARDS_THROW, *LPCARDS_THROW;
+typedef struct _tagEXCHANGE3CARDS
+{
+    int nUserID;                                    // 用户ID
+    int nRoomID;                                    // 房间ID
+    int nTableNO;                                   // 桌号
+    int nChairNO;                                   // 位置
+    int nSendTable;                                 //
+    int nSendChair;
+    int nSendUser;
+    int nExchange3CardsCount;
+    int nExchangeDirection;
+    int nExchange3Cards[TOTAL_CHAIRS][EXCHANGE3CARDS_COUNT];//jiaohuan的牌
+    int nReserved[4];
+} EXCHANGE3CARDS, *LPEXCHANGE3CARDS;
         ]]
     utils.genDesc(utils.path2(desc), cdecl)
     local ok, msg = pcall(ffi.cdef, cdecl)
-    local StructDef = import('.struct_desc')
+    -- local StructDef = import('.struct_desc')
     local MCSocketDataStruct = RequestConfig.MCSocketDataStruct
     local info = _DataMap(mc.UR_OPERATE_SUCCEED, mc.GET_AREAS, data)
     local StructDef2 = {
@@ -156,29 +199,84 @@ typedef struct _tagCARDS_THROW
         deformatKey = '<i6L9i70',
         maxsize = 340
     }
-    info = ffi.new('CARDS_THROW', {
+    MCSocketDataStruct.EXCHANGE3CARDS={
+        lengthMap = {
+            -- [1] = nUserID( int ) : maxsize = 4,
+            -- [2] = nRoomID( int ) : maxsize = 4,
+            -- [3] = nTableNO( int )    : maxsize = 4,
+            -- [4] = nChairNO( int )    : maxsize = 4,
+            -- [5] = nSendTable( int )  : maxsize = 4,
+            -- [6] = nSendChair( int )  : maxsize = 4,
+            -- [7] = nSendUser( int )   : maxsize = 4,
+            -- [8] = nExchange3CardsCount( int )    : maxsize = 4,
+            -- [9] = nExchangeDirection( int )  : maxsize = 4,
+                                                    -- nExchange3Cards  : maxsize = 48  =   4 * 3 * 4,
+            [10] = { maxlen = 3, maxwidth = 4, complexType = 'matrix2' },
+                                                    -- nReserved    : maxsize = 16  =   4 * 4 * 1,
+            [11] = { maxlen = 4 },
+            maxlen = 11
+        },
+        nameMap = {
+            'nUserID',      -- [1] ( int )
+            'nRoomID',      -- [2] ( int )
+            'nTableNO',     -- [3] ( int )
+            'nChairNO',     -- [4] ( int )
+            'nSendTable',       -- [5] ( int )
+            'nSendChair',       -- [6] ( int )
+            'nSendUser',        -- [7] ( int )
+            'nExchange3CardsCount',     -- [8] ( int )
+            'nExchangeDirection',       -- [9] ( int )
+            'nExchange3Cards',      -- [10] ( int )
+            'nReserved',        -- [11] ( int )
+        },
+        formatKey = '<i25',
+        deformatKey = '<i25',
+        maxsize = 100
+    }
+    -- StructDef2 = {
+    -- {'nAreaID', 'i'},
+    -- {'nAreaType', 'i'},
+    -- {'nSubType', 'i'},
+    -- {'nStatus', 'i'},
+    -- {'nLayOrder', 'i'},
+    -- {'dwOptions', 'L'},
+    -- {'nFontColor', 'i'},
+    -- {'nIconID', 'i'},
+    -- {'nGifID', 'i'},
+    -- {'nGameID', 'i'},
+    -- {'nServerID', 'i'},
+    -- {'szAreaName', 'c', 32},
+    -- {'nReserved', 'i', 8},
+    -- len = 108,
+    -- }
+    info = ffi.new('CURRENCY_EXCHANGE_EX', {
         nUserID = 77681,
-        nChairNO = 2,
-        nNextChair = 3,
-        bNextFirst = 1,
-        bNextPass = 0,
-        nRemains = 45,
-        nThrowCount = 2,
-        nCardsCount = 144,        
+        nChairNO = 1,
+        nNextChair = 2,
+        nCardIDs = {2,3,5,6,8,0},
+        nExchange3Cards = {
+            {1,2,3}, {2,5,6}, {1,2,3}, {7,8,9}
+        },
+        currencyExchange = {
+            nUserID = 77681,
+            nContainer = 1,
+            nCurrency = 2,
+            nExchangeGameID = 381,
+        }, dwNotifyFlags = 80, nEnterRoomID = 445,
         })
-    data = ffi.string(info, ffi.sizeof('CARDS_THROW'))
-    info = utils.unpack(data, StructDef2)
-    -- if  data == utils.pack(info, StructDef2) then
-    --     print('Success**************')
-    -- else
-    --     print('Failed***************')
-    -- end
+    data = ffi.string(info, ffi.sizeof('CURRENCY_EXCHANGE_EX'))
+    info = utils.unpack(data, base.CURRENCY_EXCHANGE_EX)
+    if  data == utils.pack(info, base.CURRENCY_EXCHANGE_EX) then
+        print('Success**************')
+    else
+        print('Failed***************')
+    end
 	print('test-------------------------------------------')
     local t, t2 = socket.gettime(), 0
-    for i=1,1000 do
-        TreePack.unpack(data, MCSocketDataStruct.CARDS_THROW)
-        -- TreePack.alignpack(info, MCSocketDataStruct.CARDS_THROW)
-    end
+    -- for i=1,1000 do
+    --     TreePack.unpack(data, MCSocketDataStruct.EXCHANGE3CARDS)
+    --     -- TreePack.alignpack(info, MCSocketDataStruct.CARDS_THROW)
+    -- end
     -- local areasInfo = _DataMap(mc.UR_OPERATE_SUCCEED, mc.GET_AREAS, data)
     -- for i=1,1000
     -- do
@@ -195,11 +293,11 @@ typedef struct _tagCARDS_THROW
     print('use treepack ...'..(t2-t))
 	-- dump(areasInfo, "from treepack")
     t = socket.gettime()
-    for i=1,1000 do
-        utils.unpack(data, StructDef2)
-        -- utils.pack(info, StructDef2)
-        -- StructDef.CARDS_THROW(utils.resolve('CARDS_THROW', data))
-    end
+    -- for i=1,1000 do
+    --     utils.unpack(data, my.EXCHANGE3CARDS)
+    --     -- utils.pack(info, my.EXCHANGE3CARDS)
+    --     -- StructDef.CARDS_THROW(utils.resolve('CARDS_THROW', data))
+    -- end
     -- local a, size = utils.resolve('AREAS', {'nCount', 'AREA', data})
     -- local head, array = unpack(a)
     -- local areasInfo2 = { StructDef.AREAS(head), utils.table4a(array, head.nCount, StructDef.AREA) }
