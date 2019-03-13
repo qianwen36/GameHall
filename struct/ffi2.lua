@@ -120,14 +120,48 @@ function target.table4a( cdata, count, fields )
 	return res
 end
 
+--[[
+function target.resolve( ctype, {cfield, ctype, data} ) -- overload #1:string, #2:table
+function target.resolve( ctype, data )	-- overload #1:string, #2:cdata ]]
+function target.resolve( arg, arg2 )
+	local ctype, data = arg, arg2
+	local cfield, itype
+	if type(data) == 'table' then
+		cfield, itype, data = unpack(data)
+	end
+	if type(itype) == 'string'
+	and type(cfield)== 'string' then
+		local head, size = target.ct_resolve(ctype, data)
+		local value = data:sub(size+1)
+		local array, size2 = target.vla_resolve(itype, head[cfield], value)
+		return {head, array}, size+size2
+	end
+	return target.ct_resolve(ctype, data)
+end
+
+function target.generate( Data, ctype, htype )
+	if htype == nil then
+		return target.ct_generate(ctype, Data)
+	end
+	return target.vls_generate(htype, ctype, Data)
+end
+
 local function struct_info( def, fields, target )
 	local t = {}
-	for line in fields:gmatch('\n%s*(%a+.-;).-') do
-		local type, field, dims = line:match('([_%w]+)%s*([_%w]+)(.-);')
-		local reft = target[type] or (target.reference and target.reference(type))
-		if dims:len() >0 then
+	for line in fields:gmatch('\n%s*(%a+.-);') do
+		local dims = {}
+		line = line:gsub('(%b[])', function(s)
+			table.insert(dims, s:match('%[(.-)%]'))
+			return ''
+		end)
+		local field = line:match('%s*([_%w]+)$')
+		local ty = line:sub(1, -field:len()-1):gsub('[ \t]+$', '')
+
+		local reft = target[ty] or (target.reference and target.reference(ty))
+		if #dims >0 then
 			local td = {}
-			for dim in dims:gmatch('%[(.-)%]') do
+			for i = 1, #dims do
+				local dim = dims[i]
 				local c = tonumber(dim)
 				if c == nil then
 					local m,n = dim:find('+')
@@ -199,4 +233,141 @@ function target.cdef( cdecl, ... )
 	return ret
 end
 
+--[[
+local function array( rest, ... )
+	return {...}, rest
+end
+
+local arrayType = {
+	['char']		= '<c',
+	['signed char']	= '<c',
+	['unsigned char'] = '<l',
+	['short']		= '<h',
+	['signed short']= '<h',
+	['unsigned short'] = '<H',
+	['long']		= '<l',
+	['signed long']	= '<l',
+	['unsigned long'] = '<L',
+	['int']			= '<i',
+	['signed int']	= '<i',
+	['unsigned int']= '<I',
+	['float']	= '<f',
+	['double']	= '<d',
+}
+function target.table4a( ct, count, construct )
+    local a
+    if construct then
+    	a = {}
+	    for i=1,count do
+	        local item = ct[i-1]
+	        a[i] = (construct and construct(item)) or item
+	    end
+    else -- construct == nil
+    	local desc = tostring(ct)
+    	local ty = desc:match('<(.-)%s%(&%)')
+    	ty = ty and arrayType[ty]
+    	if ty then
+    		local data = ffi.string(ct, ffi.sizeof(ct))
+    		a = array(
+    			string.unpack(data,
+    				table.concat{ty, count}))
+    	end
+		if a == nil then
+			log(desc, ' resolve failed!')
+			a = {}
+		end
+    end
+    return a
+end
+
+local function struct_func( t, def, fields )
+	table.insertto(t, {
+		table.concat{def,'\t= function(ct)'},
+		'return {'
+	})
+	for line in fields:gmatch('\n%s*(%a+.-;)') do
+		local dims = {}
+		line = line:gsub('(%b[])', function(s)
+			table.insert(dims, s:match('%[(.-)%]'))
+			return ''
+		end)
+		local field = line:match('%s*([_%w]+)$')
+		local type = line:sub(1, -field:len()-1):gsub('[ \t]+$', '')
+		local tab, fdes = '\t' -- field description
+		if #dims >0 then
+			local td = dims
+			local c = #td
+			local tchar = 'char' == type or type == 'TCHAR'
+			if c == 1 then
+				if tchar then
+					fdes = table.concat{tab, field, ' = ffi.string(ct.', field, '),'}
+				else
+					local params = {'ct.'..field, td[1]}
+					if type:len() > 5 then table.insert( params, type ) end
+					if type:len() > 5 then
+						fdes = table.concat{tab, field, ' = target.table4a(', table.concat(params, ', '), '),'}
+					else
+						fdes = table.concat{tab, field, ' = table4a(', table.concat(params, ', '), '),'}
+					end
+				end
+			elseif c == 2 then
+				if tchar then
+					fdes = table.concat{tab, field, ' = target.table4a(ct.', field, ', ', td[1], ', "string"),'}
+				else
+					local params = {'ct.'..field, td[1], td[2]}
+					if type:len() > 5 then table.insert( params, type ) end
+					fdes = table.concat{tab, field, ' = target.table4a(', table.concat(params, ', '), '),'}
+				end
+			else --c == 0 or too many
+				log(line, ' from ', def, ' is not support')
+			end
+		elseif type:len() > 5 then
+			fdes = table.concat{tab, field, ' = target.table4s(ct.', field, ', "', type, '"),'}
+		else -- TCHAR, DWORD, BOOL, BYTE, int
+			fdes = table.concat{tab, field, ' = ', 'ct.', field, ','}
+		end
+		table.insert(t, fdes)
+	end
+	table.insertto(t, {
+		'}',
+		'end,'
+	})
+end
+function target.genDesc( spath, cdecl ) -- spath: struct.lua from path2()
+	local t = {
+		'local ffi = require("ffi")',
+		'local utils = cc.load("struct").utils',
+		'local table4a = utils.table4a',
+		'-------------------------------------',
+		'-- MACRO ',
+	}
+	for name, value in cdecl:gmatch('#define%s*([_%w]+)%s*([_%w]+)') do
+		table.insert( t, table.concat{'local ', name, '\t= ', value} )
+	end
+	table.insertto(t, {
+		'-------------------------------------',
+		'-- struct constructor map',
+		'local target',
+		'target = {',
+	})
+	for block, def in cdecl:gmatch('typedef struct %g-%s*(%b{})%s*([_%w]+)') do
+		struct_func(t, def, block)
+	end
+	table.insertto(t, {
+		'}',
+		'return target'
+	})
+	local content = table.concat(t, '\n')
+	-- log(content)
+	io.writefile(spath, content)
+end
+
+function target.path2(desc)
+	local source = debug.getinfo(2).source
+	local path = cc.FileUtils:getInstance():fullPathForFilename(source)
+	local mod = desc:sub(desc:match('^.*%.'):len()+1)
+	path = path:match('^.*/')
+	return table.concat({path, mod, '.lua'})
+end
+]]
 return target

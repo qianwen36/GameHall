@@ -2,9 +2,9 @@
 local socket = require('socket')
 local ffi = require('ffi')
 local utils = import('struct.utils')
-local base = utils.dereference(import('struct.BaseGameStruct.struct'))
-local mj = utils.dereference(import('struct.MJGameStruct.struct'))
-local my = utils.dereference(import('struct.MyGameStruct.struct'), mj, base)
+local base = utils.resolve(import('struct.BaseGameStruct.struct'))
+local mj = utils.resolve(import('struct.MJGameStruct.struct'))
+local my = utils.resolve(import('struct.MyGameStruct.struct'), mj, base)
 local TreePack = cc.load('treepack')
 local RequestConfig = import('src.app.GameHall.models.mcsocket.MCSocketDataStruct')
 local RespondConfig = import('src.app.GameHall.models.mcsocket.MCSocketRespondConfig')
@@ -142,7 +142,7 @@ typedef struct _tagEXCHANGE3CARDS
     int nReserved[4];
 } EXCHANGE3CARDS, *LPEXCHANGE3CARDS;
         ]]
-    utils.genDesc(utils.path2(desc), cdecl)
+    -- utils.genDesc(utils.path2(desc), cdecl)
     local ok, msg = pcall(ffi.cdef, cdecl)
     -- local StructDef = import('.struct_desc')
     local MCSocketDataStruct = RequestConfig.MCSocketDataStruct
